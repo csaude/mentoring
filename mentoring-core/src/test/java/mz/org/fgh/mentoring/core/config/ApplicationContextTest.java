@@ -18,12 +18,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  */
 @Configuration
-@ComponentScan(basePackages = { "mz.co.mozview.frameworks.core", "mz.co.mozview.wezumicro.core" })
+@ComponentScan(basePackages = { "mz.co.mozview.frameworks.core", "mz.org.fgh.mentoring.core" })
 @Import({ DataSourceBean.class, EntityManagerBean.class, EmailBean.class })
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
 @PropertySource("classpath:db-test.properties")
-@EnableJpaRepositories(basePackages = "mz.co.mozview.wezumicro.core", repositoryImplementationPostfix = "Helper")
+@EnableJpaRepositories(basePackages = "mz.org.fgh.mentoring.core", repositoryImplementationPostfix = "Helper")
 @EnableScheduling
 @Profile("test")
 public class ApplicationContextTest {
