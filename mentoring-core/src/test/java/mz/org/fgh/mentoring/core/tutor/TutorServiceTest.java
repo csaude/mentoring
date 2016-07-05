@@ -21,7 +21,7 @@ import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 
 /**
  * @author Stélio Moiane
- * @author Eusebio Jose Maposse
+ * 
  *
  */
 public class TutorServiceTest extends AbstractSpringTest {
