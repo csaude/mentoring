@@ -16,8 +16,6 @@ public interface TutorService {
 	String NAME = "mz.org.fgh.mentoring.core.tutor.service.TutorService";
 
 	Tutor createTutor(final UserContext userContext, final Tutor tutor) throws BusinessException;
-	
+
 	Tutor updateTutor(final UserContext userContext, final Tutor tutor) throws BusinessException;
-
-
 }
