@@ -8,6 +8,8 @@ import static org.junit.Assert.assertNotNull;
 
 import javax.inject.Inject;
 
+import org.junit.Test;
+
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.co.mozview.frameworks.core.fixtureFactory.util.TestUtil;
@@ -16,8 +18,6 @@ import mz.org.fgh.mentoring.core.fixturefactory.TutorTemplate;
 import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
-
-import org.junit.Test;
 
 /**
  * @author Stélio Moiane
@@ -36,40 +36,33 @@ public class TutorServiceTest extends AbstractSpringTest {
 
 	@Override
 	public void setUp() throws BusinessException {
-		tutor = EntityFactory.gimme(Tutor.class, TutorTemplate.VALID);
-
+		this.tutor = EntityFactory.gimme(Tutor.class, TutorTemplate.VALID);
 	}
 
 	@Test
 	public void shouldCreateTutor() throws BusinessException {
 
-		this.tutorService.createTutor(this.getUserContext(), tutor);
+		this.tutorService.createTutor(this.getUserContext(), this.tutor);
 
-		TestUtil.assertCreation(tutor);
+		TestUtil.assertCreation(this.tutor);
 	}
 
 	@Test
 	public void shouldUpdateTutor() throws BusinessException {
 
-		this.tutorService.createTutor(this.getUserContext(), tutor);
+		this.tutorService.createTutor(this.getUserContext(), this.tutor);
 
-		Tutor tutorUpdate = tutorDAO.findById(tutor.getId());
+		final Tutor tutorUpdate = this.tutorDAO.findById(this.tutor.getId());
 
 		tutorUpdate.setName("Eurico Jose");
 		tutorUpdate.setSurname("Maposse");
-		
-		tutorService.updateTutor(getUserContext(), tutorUpdate);
+
+		this.tutorService.updateTutor(this.getUserContext(), tutorUpdate);
 
 		TestUtil.assertUpdate(tutorUpdate);
 		assertNotNull(tutorUpdate.getId());
 		assertEquals("Eurico Jose", tutorUpdate.getName());
 		assertEquals("Maposse", tutorUpdate.getSurname());
-
-	}
-
-	@Test
-	public void shouldNotCreateTutorBecauseNameIsNull()
-			throws BusinessException {
 
 	}
 }
