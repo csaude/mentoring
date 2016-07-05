@@ -24,12 +24,21 @@ public class TutorServiceImpl extends AbstractService implements TutorService {
 	private TutorDAO tutorDAO;
 
 	@Override
-	public Tutor createTutor(final UserContext userContext, final Tutor tutor) throws BusinessException {
+	public Tutor createTutor(final UserContext userContext, final Tutor tutor)
+			throws BusinessException {
 
 		// TODO generate code just a sample
 		final String code = this.tutorDAO.generateCode("MT", 8, "0");
 		tutor.setCode(code);
 
 		return this.tutorDAO.create(userContext.getId(), tutor);
+	}
+
+	@Override
+	public Tutor updateTutor(UserContext userContext, Tutor tutor)
+			throws BusinessException {
+	
+		return this.tutorDAO.update(userContext.getId(), tutor);
+
 	}
 }
