@@ -32,7 +32,7 @@ public class Tutor extends GenericEntity {
 	private String code;
 
 	@NotEmpty
-	@Column(name = "NAME", nullable = false, length = 80)
+	@Column(name = "NAME")
 	private String name;
 
 	@NotEmpty

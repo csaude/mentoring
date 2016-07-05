@@ -12,6 +12,7 @@ import mz.co.mozview.frameworks.core.service.AbstractService;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
+import mz.org.fgh.mentoring.core.tutor.validator.TutorValidator;
 
 /**
  * @author Stélio Moiane
@@ -23,6 +24,9 @@ public class TutorServiceImpl extends AbstractService implements TutorService {
 	@Inject
 	private TutorDAO tutorDAO;
 
+	@Inject
+	private TutorValidator tutorValidator;
+
 	@Override
 	public Tutor createTutor(final UserContext userContext, final Tutor tutor) throws BusinessException {
 
@@ -30,6 +34,7 @@ public class TutorServiceImpl extends AbstractService implements TutorService {
 		final String code = this.tutorDAO.generateCode("MT", 8, "0");
 		tutor.setCode(code);
 
+		tutorValidator.validateTutor(tutor);
 		return this.tutorDAO.create(userContext.getId(), tutor);
 	}
 
