@@ -6,6 +6,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import mz.org.fgh.mentoring.core.tutor.model.Tutor;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -67,6 +71,31 @@ public class Tutorando {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	
+	@Override
+	public int hashCode() {
+		HashCodeBuilder hcb = new HashCodeBuilder();
+		hcb.append(code);
+		hcb.append(name);
+		hcb.append(surname);
+		return hcb.toHashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Tutor)) {
+			return false;
+		}
+		Tutorando that = (Tutorando) obj;
+		EqualsBuilder eb = new EqualsBuilder();
+		eb.append(code, that.code);
+		eb.append(name, that.name);
+		eb.append(surname, that.surname);
+		return eb.isEquals();
 	}
 
 }
