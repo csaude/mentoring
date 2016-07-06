@@ -9,6 +9,6 @@ package mz.org.fgh.mentoring.core.tutorando.service;
  */
 public interface TutorandoQueryService {
 
-	String NAME = "mz.org.fgh.mentoring.core.tutor.service.TutorQueryService";
+	String NAME = "mz.org.fgh.mentoring.core.tutorando.service.TutorandoQueryService";
 
 }
