@@ -40,7 +40,7 @@ public class TutorandoServiceTest extends AbstractSpringTest {
 	}
 
 	@Test
-	public void shouldCreateTutor() throws BusinessException {
+	public void shouldCreateTutorando() throws BusinessException {
 
 		this.tutorandoService.createTutorando(this.getUserContext(), this.tutorando);
 
@@ -48,7 +48,7 @@ public class TutorandoServiceTest extends AbstractSpringTest {
 	}
 
 	@Test
-	public void shouldUpdateTutor() throws BusinessException {
+	public void shouldUpdateTutorando() throws BusinessException {
 
 		this.tutorandoService.createTutorando(this.getUserContext(), this.tutorando);
 
