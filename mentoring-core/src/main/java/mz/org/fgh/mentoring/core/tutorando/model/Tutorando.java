@@ -7,7 +7,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
-import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -90,7 +89,7 @@ public class Tutorando extends GenericEntity {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof Tutor)) {
+		if (!(obj instanceof Tutorando)) {
 			return false;
 		}
 		Tutorando that = (Tutorando) obj;

@@ -95,7 +95,7 @@ public class Mentorship extends GenericEntity {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof Tutor)) {
+		if (!(obj instanceof Mentorship)) {
 			return false;
 		}
 		Mentorship that = (Mentorship) obj;
