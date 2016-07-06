@@ -17,6 +17,7 @@ import mz.org.fgh.mentoring.core.tutorando.model.Tutorando;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author Eusebio Jose Maposse
@@ -36,12 +37,14 @@ public class Mentorship extends GenericEntity {
 	@Column(name = "END_DATE", nullable = false)
 	private Date endDate;
 
+	@NotEmpty
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TUTOR_ID", insertable = false)
+	@JoinColumn(name = "TUTOR_ID", nullable = false)
 	private Tutor tutor;
 
+	@NotEmpty
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TUTORANDO_ID", insertable = false)
+	@JoinColumn(name = "TUTORANDO_ID", nullable = false)
 	private Tutorando tutorando;
 
 	public Mentorship() {
