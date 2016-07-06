@@ -66,19 +66,5 @@ public class TutorServiceTest extends AbstractSpringTest {
 
 	}
 
-	@Test(expected = BusinessException.class)
-	public void shouldNotCreateTutorBecauseNameIsNull() {
-		
-		tutor.setName(null);
 
-		try {
-
-			this.tutorService.createTutor(this.getUserContext(), tutor);
-
-		} catch (BusinessException e) {
-			
-			e.getMessage();
-		}
-
-	}
 }
