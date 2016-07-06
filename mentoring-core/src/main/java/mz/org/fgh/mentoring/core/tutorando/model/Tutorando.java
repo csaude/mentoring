@@ -6,6 +6,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -19,7 +20,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "TUTORANDOS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 @SequenceGenerator(name = "TUTORANDOS_SEQUENCE", initialValue = 100, allocationSize = 100)
-public class Tutorando {
+public class Tutorando extends GenericEntity {
+
+	private static final long serialVersionUID = 1L;
 
 	@NotEmpty
 	@Column(name = "CODE", nullable = false, length = 50)
@@ -72,7 +75,7 @@ public class Tutorando {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		HashCodeBuilder hcb = new HashCodeBuilder();
