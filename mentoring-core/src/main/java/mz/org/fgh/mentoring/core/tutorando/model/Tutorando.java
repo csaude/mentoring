@@ -19,7 +19,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "TUTORANDOS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-@SequenceGenerator(name = "TUTORANDOS_SEQUENCE", initialValue = 100, allocationSize = 100)
+@SequenceGenerator(name = "TUTORANDOS_SEQUENCE", initialValue = 100)
 public class Tutorando extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;

@@ -26,7 +26,7 @@ import com.sun.istack.NotNull;
  */
 @Entity
 @Table(name = "TUTORS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-@SequenceGenerator(name = "TUTORS_SEQUENCE", initialValue = 100, allocationSize = 100)
+@SequenceGenerator(name = "TUTORS_SEQUENCE", initialValue = 100)
 public class Tutor extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
