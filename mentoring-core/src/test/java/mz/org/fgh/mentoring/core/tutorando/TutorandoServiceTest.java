@@ -61,8 +61,8 @@ public class TutorandoServiceTest extends AbstractSpringTest {
 
 		TestUtil.assertUpdate(tutorandoUpdate);
 		assertNotNull(tutorandoUpdate.getId());
-		assertEquals("Eurico Jose", tutorandoUpdate.getName());
-		assertEquals("Maposse", tutorandoUpdate.getSurname());
+		assertEquals("Bernado Jose", tutorandoUpdate.getName());
+		assertEquals("Cossa", tutorandoUpdate.getSurname());
 
 	}
 
