@@ -1,31 +1,23 @@
-/*
- * MozView Technologies, Lda. 2010 - 2016
- */
-package mz.org.fgh.mentoring.core.tutor.model;
+package mz.org.fgh.mentoring.core.tutored.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
-import mz.org.fgh.mentoring.core.util.Category;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.sun.istack.NotNull;
-
 /**
- * @author Stélio Moiane
+ * @author Eusebio Jose Maposse
  *
  */
 @Entity
-@Table(name = "TUTORS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-public class Tutor extends GenericEntity {
+@Table(name = "TUTORANDOS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
+public class Tutored extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,48 +30,47 @@ public class Tutor extends GenericEntity {
 	private String name;
 
 	@NotEmpty
-	@Column(name = "SURNAME", nullable = false, length = 50)
+	@Column(name = "SUR_NAME", nullable = false, length = 50)
 	private String surname;
 
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	@Column(name = "CATEGORY", nullable = false, length = 50)
-	private Category category;
+	@NotEmpty
+	@Column(name = "PHONE_NUMBER", nullable = false, length = 50)
+	private String phoneNumber;
 
-	public Tutor() {
+	public Tutored() {
 		super();
 	}
 
 	public String getCode() {
-		return this.code;
+		return code;
 	}
 
-	public void setCode(final String code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
-	public void setName(final String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
 	public String getSurname() {
-		return this.surname;
+		return surname;
 	}
 
-	public void setSurname(final String surname) {
+	public void setSurname(String surname) {
 		this.surname = surname;
 	}
 
-	public Category getCategory() {
-		return this.category;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setCategory(final Category category) {
-		this.category = category;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	@Override
@@ -88,7 +79,6 @@ public class Tutor extends GenericEntity {
 		hcb.append(code);
 		hcb.append(name);
 		hcb.append(surname);
-		hcb.append(category);
 		return hcb.toHashCode();
 	}
 
@@ -97,15 +87,14 @@ public class Tutor extends GenericEntity {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof Tutor)) {
+		if (!(obj instanceof Tutored)) {
 			return false;
 		}
-		Tutor that = (Tutor) obj;
+		Tutored that = (Tutored) obj;
 		EqualsBuilder eb = new EqualsBuilder();
 		eb.append(code, that.code);
 		eb.append(name, that.name);
 		eb.append(surname, that.surname);
-		eb.append(category, that.category);
 		return eb.isEquals();
 	}
 
