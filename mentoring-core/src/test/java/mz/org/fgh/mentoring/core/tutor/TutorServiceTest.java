@@ -4,7 +4,6 @@
 package mz.org.fgh.mentoring.core.tutor;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import javax.inject.Inject;
 
@@ -21,7 +20,7 @@ import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 
 /**
  * @author Stélio Moiane
- * 
+ *
  *
  */
 public class TutorServiceTest extends AbstractSpringTest {
@@ -54,17 +53,18 @@ public class TutorServiceTest extends AbstractSpringTest {
 
 		final Tutor tutorUpdate = this.tutorDAO.findById(this.tutor.getId());
 
-		tutorUpdate.setName("Eurico Jose");
-		tutorUpdate.setSurname("Maposse");
+		final String name = "Eurico Jose";
+		final String surname = "Maposse";
+
+		tutorUpdate.setName(name);
+		tutorUpdate.setSurname(surname);
 
 		this.tutorService.updateTutor(this.getUserContext(), tutorUpdate);
 
 		TestUtil.assertUpdate(tutorUpdate);
-		assertNotNull(tutorUpdate.getId());
-		assertEquals("Eurico Jose", tutorUpdate.getName());
-		assertEquals("Maposse", tutorUpdate.getSurname());
 
+		assertEquals(name, tutorUpdate.getName());
+		assertEquals(surname, tutorUpdate.getSurname());
 	}
-
 
 }

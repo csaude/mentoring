@@ -4,9 +4,10 @@
 package mz.org.fgh.mentoring.core.tutored;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import javax.inject.Inject;
+
+import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
@@ -17,11 +18,9 @@ import mz.org.fgh.mentoring.core.tutored.dao.TutoredDAO;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
 
-import org.junit.Test;
-
 /**
  * @author Stélio Moiane
- * 
+ *
  *
  */
 public class TutoredServiceTest extends AbstractSpringTest {
@@ -42,7 +41,7 @@ public class TutoredServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldCreateTutored() throws BusinessException {
 
-		this.tutoredService.createTutorando(this.getUserContext(), this.tutored);
+		this.tutoredService.createTutored(this.getUserContext(), this.tutored);
 
 		TestUtil.assertCreation(this.tutored);
 	}
@@ -50,21 +49,22 @@ public class TutoredServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldUpdateTutored() throws BusinessException {
 
-		this.tutoredService.createTutorando(this.getUserContext(), this.tutored);
+		this.tutoredService.createTutored(this.getUserContext(), this.tutored);
 
-		final Tutored tutorandoUpdate = this.tutoredDAO.findById(this.tutored.getId());
+		final Tutored updateTutored = this.tutoredDAO.findById(this.tutored.getId());
 
-		tutorandoUpdate.setName("Bernado Jose");
-		tutorandoUpdate.setSurname("Cossa");
+		final String name = "Bernado Jose";
+		final String surname = "Cossa";
 
-		this.tutoredService.updateTutorando(this.getUserContext(), tutorandoUpdate);
+		updateTutored.setName(name);
+		updateTutored.setSurname(surname);
 
-		TestUtil.assertUpdate(tutorandoUpdate);
-		assertNotNull(tutorandoUpdate.getId());
-		assertEquals("Bernado Jose", tutorandoUpdate.getName());
-		assertEquals("Cossa", tutorandoUpdate.getSurname());
+		this.tutoredService.updateTutored(this.getUserContext(), updateTutored);
 
+		TestUtil.assertUpdate(updateTutored);
+
+		assertEquals(name, updateTutored.getName());
+		assertEquals(surname, updateTutored.getSurname());
 	}
-
 
 }

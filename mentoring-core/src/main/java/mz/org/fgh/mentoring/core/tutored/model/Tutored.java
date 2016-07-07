@@ -5,18 +5,19 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import mz.co.mozview.frameworks.core.model.GenericEntity;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import mz.co.mozview.frameworks.core.model.GenericEntity;
 
 /**
  * @author Eusebio Jose Maposse
+ * @author Stélio Moiane
  *
  */
 @Entity
-@Table(name = "TUTORANDOS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
+@Table(name = "TUTOREDS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 public class Tutored extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -30,72 +31,52 @@ public class Tutored extends GenericEntity {
 	private String name;
 
 	@NotEmpty
-	@Column(name = "SUR_NAME", nullable = false, length = 50)
+	@Column(name = "SURNAME", nullable = false, length = 50)
 	private String surname;
 
 	@NotEmpty
-	@Column(name = "PHONE_NUMBER", nullable = false, length = 50)
+	@Column(name = "PHONE_NUMBER", nullable = false, length = 100)
 	private String phoneNumber;
 
-	public Tutored() {
-		super();
-	}
-
 	public String getCode() {
-		return code;
+		return this.code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(final String code) {
 		this.code = code;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
 	public String getSurname() {
-		return surname;
+		return this.surname;
 	}
 
-	public void setSurname(String surname) {
+	public void setSurname(final String surname) {
 		this.surname = surname;
 	}
 
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return this.phoneNumber;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
+	public void setPhoneNumber(final String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
 	@Override
-	public int hashCode() {
-		HashCodeBuilder hcb = new HashCodeBuilder();
-		hcb.append(code);
-		hcb.append(name);
-		hcb.append(surname);
-		return hcb.toHashCode();
+	public boolean equals(final Object that) {
+		return EqualsBuilder.reflectionEquals(this, that);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof Tutored)) {
-			return false;
-		}
-		Tutored that = (Tutored) obj;
-		EqualsBuilder eb = new EqualsBuilder();
-		eb.append(code, that.code);
-		eb.append(name, that.name);
-		eb.append(surname, that.surname);
-		return eb.isEquals();
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
-
 }

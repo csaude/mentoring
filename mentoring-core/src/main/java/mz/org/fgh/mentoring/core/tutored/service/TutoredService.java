@@ -13,9 +13,9 @@ import mz.org.fgh.mentoring.core.tutored.model.Tutored;
  */
 public interface TutoredService {
 
-	String NAME = "mz.org.fgh.mentoring.core.tutorando.service.TutorandoService";
+	String NAME = "mz.org.fgh.mentoring.core.tutored.service.TutoredService";
 
-	Tutored createTutorando(final UserContext userContext, final Tutored tutorando) throws BusinessException;
+	Tutored createTutored(final UserContext userContext, final Tutored tutored) throws BusinessException;
 
-	Tutored updateTutorando(final UserContext userContext, final Tutored tutorandor) throws BusinessException;
+	Tutored updateTutored(final UserContext userContext, final Tutored tutored) throws BusinessException;
 }

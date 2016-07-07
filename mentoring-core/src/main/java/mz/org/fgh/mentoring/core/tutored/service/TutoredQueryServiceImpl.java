@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service(TutoredQueryService.NAME)
-public class TutoredQueryServiceImpl	 implements
-		TutoredQueryService {
+public class TutoredQueryServiceImpl implements TutoredQueryService {
 
 }
