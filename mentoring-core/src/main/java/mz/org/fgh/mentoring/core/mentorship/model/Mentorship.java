@@ -29,10 +29,12 @@ public class Mentorship extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "INITIAL_DATE", nullable = false)
 	private LocalDate initialDate;
 
+	@NotEmpty
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "END_DATE", nullable = false)
 	private LocalDate endDate;
