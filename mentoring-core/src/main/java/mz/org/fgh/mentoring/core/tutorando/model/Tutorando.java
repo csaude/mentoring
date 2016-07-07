@@ -2,7 +2,6 @@ package mz.org.fgh.mentoring.core.tutorando.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -18,7 +17,6 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "TUTORANDOS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-@SequenceGenerator(name = "TUTORANDOS_SEQUENCE", initialValue = 100)
 public class Tutorando extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;

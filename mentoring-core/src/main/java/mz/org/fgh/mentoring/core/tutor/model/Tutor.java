@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -26,7 +25,6 @@ import com.sun.istack.NotNull;
  */
 @Entity
 @Table(name = "TUTORS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-@SequenceGenerator(name = "TUTORS_SEQUENCE", initialValue = 100)
 public class Tutor extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
