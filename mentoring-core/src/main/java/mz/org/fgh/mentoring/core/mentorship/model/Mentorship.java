@@ -13,7 +13,7 @@ import javax.persistence.TemporalType;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
-import mz.org.fgh.mentoring.core.tutorando.model.Tutorando;
+import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -45,7 +45,7 @@ public class Mentorship extends GenericEntity {
 	@NotEmpty
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TUTORANDO_ID", nullable = false)
-	private Tutorando tutorando;
+	private Tutored tutorando;
 
 	public Mentorship() {
 		super();
@@ -75,11 +75,11 @@ public class Mentorship extends GenericEntity {
 		this.tutor = tutor;
 	}
 
-	public Tutorando getTutorando() {
+	public Tutored getTutorando() {
 		return tutorando;
 	}
 
-	public void setTutorando(Tutorando tutorando) {
+	public void setTutorando(Tutored tutorando) {
 		this.tutorando = tutorando;
 	}
 

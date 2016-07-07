@@ -1,4 +1,4 @@
-package mz.org.fgh.mentoring.core.tutorando.model;
+package mz.org.fgh.mentoring.core.tutored.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "TUTORANDOS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-public class Tutorando extends GenericEntity {
+public class Tutored extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
 
@@ -37,7 +37,7 @@ public class Tutorando extends GenericEntity {
 	@Column(name = "PHONE_NUMBER", nullable = false, length = 50)
 	private String phoneNumber;
 
-	public Tutorando() {
+	public Tutored() {
 		super();
 	}
 
@@ -87,10 +87,10 @@ public class Tutorando extends GenericEntity {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof Tutorando)) {
+		if (!(obj instanceof Tutored)) {
 			return false;
 		}
-		Tutorando that = (Tutorando) obj;
+		Tutored that = (Tutored) obj;
 		EqualsBuilder eb = new EqualsBuilder();
 		eb.append(code, that.code);
 		eb.append(name, that.name);
