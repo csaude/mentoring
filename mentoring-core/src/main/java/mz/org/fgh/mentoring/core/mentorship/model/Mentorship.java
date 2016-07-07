@@ -1,6 +1,6 @@
 package mz.org.fgh.mentoring.core.mentorship.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,11 +31,11 @@ public class Mentorship extends GenericEntity {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "INITIAL_DATE", nullable = false)
-	private Date initialDate;
+	private LocalDate initialDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "END_DATE", nullable = false)
-	private Date endDate;
+	private LocalDate endDate;
 
 	@NotEmpty
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -49,22 +49,6 @@ public class Mentorship extends GenericEntity {
 
 	public Mentorship() {
 		super();
-	}
-
-	public Date getInitialDate() {
-		return initialDate;
-	}
-
-	public void setInitialDate(Date initialDate) {
-		this.initialDate = initialDate;
-	}
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
 	}
 
 	public Tutor getTutor() {
@@ -108,5 +92,21 @@ public class Mentorship extends GenericEntity {
 		eb.append(tutor, that.tutor);
 		eb.append(tutorando, that.tutorando);
 		return eb.isEquals();
+	}
+
+	public LocalDate getInitialDate() {
+		return initialDate;
+	}
+
+	public void setInitialDate(LocalDate initialDate) {
+		this.initialDate = initialDate;
+	}
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
 	}
 }
