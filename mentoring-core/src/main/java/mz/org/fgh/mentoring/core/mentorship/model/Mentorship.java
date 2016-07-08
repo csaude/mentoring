@@ -12,14 +12,14 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 import mz.org.fgh.mentoring.core.util.LocalDateAdapter;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author Eusebio Jose Maposse
@@ -46,13 +46,13 @@ public class Mentorship extends GenericEntity {
 	private LocalDate endDate;
 
 	@NotEmpty
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "TUTOR_ID", nullable = true)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TUTOR_ID", nullable = false)
 	private Tutor tutor;
 
 	@NotEmpty
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TUTORED_ID", nullable = true)
+	@JoinColumn(name = "TUTORED_ID", nullable = false)
 	private Tutored tutored;
 
 	public LocalDate getStartDate() {
