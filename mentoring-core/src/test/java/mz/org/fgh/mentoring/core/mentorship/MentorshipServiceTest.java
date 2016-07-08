@@ -36,12 +36,13 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 	}
 
 	@Test
-	public void shouldCreateTutor() throws BusinessException {
+	public void shouldCreateMentorship() throws BusinessException {
 
 		this.mentorshipService.createMentorship(this.getUserContext(),
 				mentorship);
 
 		TestUtil.assertCreation(this.mentorship);
 	}
+	
 
 }
