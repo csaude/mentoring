@@ -46,13 +46,13 @@ public class Mentorship extends GenericEntity {
 	private LocalDate endDate;
 
 	@NotEmpty
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TUTOR_ID", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "TUTOR_ID", nullable = true)
 	private Tutor tutor;
 
 	@NotEmpty
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TUTORED_ID", nullable = false)
+	@JoinColumn(name = "TUTORED_ID", nullable = true)
 	private Tutored tutored;
 
 	public LocalDate getStartDate() {

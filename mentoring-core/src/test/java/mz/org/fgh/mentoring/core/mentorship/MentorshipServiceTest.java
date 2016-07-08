@@ -12,6 +12,8 @@ import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTamplate;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
+import mz.org.fgh.mentoring.core.tutor.service.TutorService;
+import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
 
 import org.junit.Test;
 
@@ -27,6 +29,12 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 	@Inject
 	private MentorshipService mentorshipService;
 
+	@Inject
+	private TutorService tutorService;
+
+	@Inject
+	private TutoredService tutoredService;
+
 	@Override
 	public void setUp() throws BusinessException {
 
@@ -37,12 +45,13 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 
 	@Test
 	public void shouldCreateMentorship() throws BusinessException {
-
+		
+		tutorService.createTutor(getUserContext(), mentorship.getTutor());
+		tutoredService.createTutored(getUserContext(), mentorship.getTutored());
 		this.mentorshipService.createMentorship(this.getUserContext(),
 				mentorship);
 
 		TestUtil.assertCreation(this.mentorship);
 	}
-	
 
 }

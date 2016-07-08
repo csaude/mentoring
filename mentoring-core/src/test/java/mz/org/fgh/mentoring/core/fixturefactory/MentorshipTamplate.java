@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import mz.co.mozview.frameworks.core.fixtureFactory.TemplateLoader;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
+import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
 
@@ -24,7 +25,9 @@ public class MentorshipTamplate implements TemplateLoader {
 						this.random(LocalDate.now(), LocalDate.now()));
 				this.add("endDate",
 						this.random(LocalDate.now(), LocalDate.now()));
-				this.add("tutor", one(Tutor.class, "name"));
+				add("tutor", one(Tutor.class, "valid"));
+				add("tutored", one(Tutored.class, "valid"));
+
 			}
 		});
 	}
