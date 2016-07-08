@@ -47,12 +47,12 @@ public class Mentorship extends GenericEntity {
 
 	@NotEmpty
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TUTOR_ID", nullable = false)
+	@JoinColumn(name = "TUTOR_ID", nullable = true)
 	private Tutor tutor;
 
 	@NotEmpty
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TUTORED_ID", nullable = false)
+	@JoinColumn(name = "TUTORED_ID", nullable = true)
 	private Tutored tutored;
 
 	public LocalDate getStartDate() {
@@ -95,5 +95,13 @@ public class Mentorship extends GenericEntity {
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this, "tutor", "tutored");
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 }
