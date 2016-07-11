@@ -38,6 +38,7 @@ public class QuestionServiceTest extends AbstractSpringTest {
 
 	@Test
 	public void shouldCreateQuestion() throws BusinessException {
+		
 		questionService.createQuestion(getUserContext(), question);
 		TestUtil.assertCreation(this.question);
 
@@ -45,6 +46,7 @@ public class QuestionServiceTest extends AbstractSpringTest {
 
 	@Test
 	public void shouldUpdateQuestion() throws BusinessException {
+		
 		questionService.createQuestion(getUserContext(), question);
 		
 		Question questionUpdate = questionDao.findById(question.getId());
