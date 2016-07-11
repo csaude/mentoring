@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import mz.co.mozview.frameworks.core.model.GenericEntity;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -15,7 +17,9 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "SECTORS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-public class Sector {
+public class Sector extends GenericEntity {
+
+	private static final long serialVersionUID = 1L;
 
 	@NotEmpty
 	@Column(name = "CODE", nullable = false, length = 50)
@@ -51,7 +55,7 @@ public class Sector {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	@Override
 	public boolean equals(final Object that) {
 		return EqualsBuilder.reflectionEquals(this, that);
