@@ -11,6 +11,8 @@ import javax.persistence.UniqueConstraint;
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.sector.model.Sector;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -19,17 +21,16 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "FORMS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-public class Form  extends GenericEntity{
+public class Form extends GenericEntity {
 	private static final long serialVersionUID = 1L;
 
 	@NotEmpty
 	@Column(name = "CODE", nullable = false, length = 50)
 	private String code;
-	
+
 	@Column(name = "DESCRIPTION", nullable = false, length = 100)
 	private String name;
-	
-	
+
 	@NotEmpty
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "SECTOR_ID", nullable = false)
@@ -58,6 +59,14 @@ public class Form  extends GenericEntity{
 	public void setSector(Sector sector) {
 		this.sector = sector;
 	}
-	
-	
+
+	@Override
+	public boolean equals(final Object that) {
+		return EqualsBuilder.reflectionEquals(this, that, "sector");
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, "sector");
+	}
 }
