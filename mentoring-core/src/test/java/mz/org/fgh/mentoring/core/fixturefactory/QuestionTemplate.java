@@ -3,11 +3,11 @@
  */
 package mz.org.fgh.mentoring.core.fixturefactory;
 
-import mz.co.mozview.frameworks.core.fixtureFactory.TemplateLoader;
-import mz.org.fgh.mentoring.core.question.model.Question;
-import mz.org.fgh.mentoring.core.util.QuestionType;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
+import mz.co.mozview.frameworks.core.fixtureFactory.TemplateLoader;
+import mz.org.fgh.mentoring.core.question.model.Question;
+import mz.org.fgh.mentoring.core.question.model.QuestionType;
 
 /**
  * @author Eusebio Jose Maposse
@@ -22,7 +22,7 @@ public class QuestionTemplate implements TemplateLoader {
 		Fixture.of(Question.class).addTemplate(VALID, new Rule() {
 			{
 				this.add("question", this.random("VCT", "MCH", "MMI"));
-				this.add("questionType", this.random(QuestionType.TEXT, QuestionType.TEXT));
+				this.add("questionType", this.random(QuestionType.TEXT, QuestionType.BOOLEAN));
 			}
 		});
 	}
