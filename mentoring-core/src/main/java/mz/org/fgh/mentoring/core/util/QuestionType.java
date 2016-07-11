@@ -6,4 +6,5 @@ package mz.org.fgh.mentoring.core.util;
  */
 public enum QuestionType {
 
+	LONG, TEXT
 }
