@@ -1,4 +1,4 @@
-package mz.org.fgh.mentoring.core.form.model;
+package mz.org.fgh.mentoring.core.form.question.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.question.model.Question;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -16,7 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  */
 @Entity
-@Table(name = "FORMS")
+@Table(name = "FORM_QUESTIONS")
 public class FormQuestion extends GenericEntity {
 
 

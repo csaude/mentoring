@@ -27,7 +27,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 	public Form createForm(final UserContext userContext, final Form form) throws BusinessException {
 
 		// TODO generate code just a sample
-		final String code = this.formDAO.generateCode("MT", 8, "0");
+		final String code = this.formDAO.generateCode("MT", 9, "0");
 		form.setCode(code);
 
 		return this.formDAO.create(userContext.getId(), form);

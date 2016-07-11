@@ -22,13 +22,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "FORMS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 public class Form extends GenericEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	@NotEmpty
 	@Column(name = "CODE", nullable = false, length = 50)
 	private String code;
 
-	@Column(name = "DESCRIPTION", nullable = false, length = 100)
+	@NotEmpty
+	@Column(name = "NAME", nullable = false, length = 100)
 	private String name;
 
 	@NotEmpty
@@ -69,6 +71,5 @@ public class Form extends GenericEntity {
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this, "sector");
 	}
-
 
 }
