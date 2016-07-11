@@ -6,6 +6,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.question.model.Question;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -16,7 +17,10 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "FORMS")
-public class FormQuestion {
+public class FormQuestion extends GenericEntity {
+
+
+	private static final long serialVersionUID = 1L;
 
 	@NotEmpty
 	@ManyToOne(fetch = FetchType.LAZY)
