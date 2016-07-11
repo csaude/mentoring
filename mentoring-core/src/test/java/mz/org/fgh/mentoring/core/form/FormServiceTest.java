@@ -23,14 +23,14 @@ import org.junit.Test;
  */
 public class FormServiceTest extends AbstractSpringTest {
 
-	
 	@Inject
 	private FormService formService;
-	
+
 	private Form form;
-	
+
 	@Inject
 	private SectorService sectorService;
+
 
 	@Override
 	public void setUp() throws BusinessException {
@@ -43,17 +43,15 @@ public class FormServiceTest extends AbstractSpringTest {
 	public void shouldCreateForm() throws BusinessException {
 
 		sectorService.createSector(getUserContext(), form.getSector());
-		
+
 		formService.createForm(getUserContext(), form);
-		
+
 		TestUtil.assertCreation(this.form);
 
 	}
 
 	@Test
 	public void shouldUpdateForm() throws BusinessException {
-
-
 
 	}
 

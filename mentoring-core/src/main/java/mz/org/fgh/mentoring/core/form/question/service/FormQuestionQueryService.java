@@ -9,6 +9,6 @@ package mz.org.fgh.mentoring.core.form.question.service;
  */
 public interface FormQuestionQueryService {
 
-	String NAME = "mz.org.fgh.mentoring.core.form.service.FormQueryService";
+	String NAME = "mz.org.fgh.mentoring.core.form.question.service.FormQuestionQueryService";
 
 }
