@@ -1,3 +1,6 @@
+/*
+ * Friends in Global Health - FGH © 2016
+ */
 package mz.org.fgh.mentoring.core.question.model;
 
 import javax.persistence.Column;
@@ -6,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -31,8 +35,8 @@ public class Question extends GenericEntity {
 	@Column(name = "QUESTION", nullable = false, length = 50)
 	private String question;
 
-	@NotEmpty
-	@Column(name = "QUESTION_TYPE")
+	@NotNull
+	@Column(name = "QUESTION_TYPE", nullable = false, length = 50)
 	@Enumerated(EnumType.STRING)
 	private QuestionType questionType;
 
@@ -69,5 +73,4 @@ public class Question extends GenericEntity {
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
-
 }
