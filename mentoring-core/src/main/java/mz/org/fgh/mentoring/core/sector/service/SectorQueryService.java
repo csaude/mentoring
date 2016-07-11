@@ -9,6 +9,6 @@ package mz.org.fgh.mentoring.core.sector.service;
  */
 public interface SectorQueryService {
 
-	String NAME = "mz.org.fgh.mentoring.core.tutored.service.TutoredQueryServicex";
+	String NAME = "mz.org.fgh.mentoring.core.sector.service.SectorQueryService";
 
 }

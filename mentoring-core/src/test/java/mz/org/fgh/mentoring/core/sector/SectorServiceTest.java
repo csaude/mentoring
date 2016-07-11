@@ -45,7 +45,7 @@ public class SectorServiceTest extends AbstractSpringTest {
 	}
 
 	@Test
-	public void shouldUpdateTutor() throws BusinessException {
+	public void shouldUpdateSector() throws BusinessException {
 
 		this.sectorService.createSector(this.getUserContext(), this.sector);
 

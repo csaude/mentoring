@@ -13,7 +13,7 @@ import mz.org.fgh.mentoring.core.sector.model.Sector;
  */
 public interface SectorService {
 
-	String NAME = "mz.org.fgh.mentoring.core.tutored.service.TutoredService";
+	String NAME = "mz.org.fgh.mentoring.core.sector.service.SectorService";
 
 	Sector createSector(final UserContext userContext, final Sector sector) throws BusinessException;
 
