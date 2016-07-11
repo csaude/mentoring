@@ -54,6 +54,15 @@ public class Question extends GenericEntity{
 		this.question = question;
 	}
 	
+
+	public QuestionType getQuestionType() {
+		return questionType;
+	}
+
+	public void setQuestionType(QuestionType questionType) {
+		this.questionType = questionType;
+	}
+	
 	@Override
 	public boolean equals(final Object that) {
 		return EqualsBuilder.reflectionEquals(this, that);
@@ -64,12 +73,5 @@ public class Question extends GenericEntity{
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
-	public QuestionType getQuestionType() {
-		return questionType;
-	}
-
-	public void setQuestionType(QuestionType questionType) {
-		this.questionType = questionType;
-	}
 	
 }
