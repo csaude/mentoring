@@ -4,12 +4,10 @@
 package mz.org.fgh.mentoring.core.util;
 
 /**
- * @author Stélio Moiane
+ * @author Eusebio Jose Maposse
  *
  */
-public enum Category {
+public enum QuestionType {
 
-	DATA_MANAGER,
-
-	DATA_OFFICER
+	LONG, TEXT
 }

@@ -1,3 +1,6 @@
+/*
+ * Friends in Global Health - FGH © 2016
+ */	
 package mz.org.fgh.mentoring.core.form.question.model;
 
 import javax.persistence.Entity;
