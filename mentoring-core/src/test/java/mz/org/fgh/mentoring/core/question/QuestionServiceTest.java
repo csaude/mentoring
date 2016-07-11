@@ -9,7 +9,7 @@ import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import org.junit.Test;
 
 /**
- * @author Stélio Moiane
+ * @author Eusebio Jose Maposse
  *
  *
  */
