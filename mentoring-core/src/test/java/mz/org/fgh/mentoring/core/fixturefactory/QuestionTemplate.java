@@ -22,7 +22,7 @@ public class QuestionTemplate implements TemplateLoader {
 		Fixture.of(Question.class).addTemplate(VALID, new Rule() {
 			{
 				this.add("question", this.random("VCT", "MCH", "MMI"));
-				this.add("questionType", this.random(QuestionType.TEXT, "TEXT"));
+				this.add("questionType", this.random(QuestionType.TEXT, QuestionType.TEXT));
 			}
 		});
 	}
