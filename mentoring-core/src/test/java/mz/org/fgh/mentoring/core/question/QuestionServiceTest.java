@@ -49,7 +49,7 @@ public class QuestionServiceTest extends AbstractSpringTest {
 		
 		Question questionUpdate = questionDao.findById(question.getId());
 		
-		questionDao.update(getUserContext().getId(), questionUpdate);
+		questionService.updateQuestion(this.getUserContext(), questionUpdate);
 		
 		TestUtil.assertUpdate(questionUpdate);
 
