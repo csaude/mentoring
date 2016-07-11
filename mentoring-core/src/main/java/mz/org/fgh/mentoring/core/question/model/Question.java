@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.util.QuestionType;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -19,9 +20,10 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "QUESTIONS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-public class Question {
+public class Question extends GenericEntity{
 
-	
+	private static final long serialVersionUID = 1L;
+
 	@NotEmpty
 	@Column(name = "CODE", nullable = false, length = 50)
 	private String code;
