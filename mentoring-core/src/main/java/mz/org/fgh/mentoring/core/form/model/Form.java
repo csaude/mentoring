@@ -1,8 +1,17 @@
 package mz.org.fgh.mentoring.core.form.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.sector.model.Sector;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author Eusebio Jose Maposse
@@ -10,6 +19,45 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "FORMS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-public class Form {
+public class Form  extends GenericEntity{
+	private static final long serialVersionUID = 1L;
 
+	@NotEmpty
+	@Column(name = "CODE", nullable = false, length = 50)
+	private String code;
+	
+	@Column(name = "DESCRIPTION", nullable = false, length = 100)
+	private String name;
+	
+	
+	@NotEmpty
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "SECTOR_ID", nullable = false)
+	private Sector sector;
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Sector getSector() {
+		return sector;
+	}
+
+	public void setSector(Sector sector) {
+		this.sector = sector;
+	}
+	
+	
 }
