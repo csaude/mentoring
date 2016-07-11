@@ -3,10 +3,10 @@
  */
 package mz.org.fgh.mentoring.core.fixturefactory;
 
-import br.com.six2six.fixturefactory.Fixture;
-import br.com.six2six.fixturefactory.Rule;
 import mz.co.mozview.frameworks.core.fixtureFactory.TemplateLoader;
 import mz.org.fgh.mentoring.core.answer.model.BooleanAnswer;
+import br.com.six2six.fixturefactory.Fixture;
+import br.com.six2six.fixturefactory.Rule;
 
 /**
  * @author Stélio Moiane
@@ -18,6 +18,7 @@ public class BooleanAnswerTemplate implements TemplateLoader {
 
 	@Override
 	public void load() {
+		
 		Fixture.of(BooleanAnswer.class).addTemplate(VALID, new Rule() {
 			{
 				this.add("booleanValue", this.random(Boolean.FALSE, Boolean.TRUE));

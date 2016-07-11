@@ -17,7 +17,7 @@ import mz.co.mozview.frameworks.core.model.GenericEntity;
  *
  */
 @Entity
-@Table(name = "TUTORED", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
+@Table(name = "TUTOREDS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 public class Tutored extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
