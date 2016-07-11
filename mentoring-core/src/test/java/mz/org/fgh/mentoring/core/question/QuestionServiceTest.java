@@ -10,6 +10,7 @@ import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.co.mozview.frameworks.core.fixtureFactory.util.TestUtil;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
+import mz.org.fgh.mentoring.core.question.dao.QuestionDAO;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 
@@ -27,6 +28,9 @@ public class QuestionServiceTest extends AbstractSpringTest {
 	@Inject
 	private QuestionService questionService;
 
+	@Inject
+	private QuestionDAO questionDao;
+
 	@Override
 	public void setUp() throws BusinessException {
 		question = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
@@ -37,12 +41,19 @@ public class QuestionServiceTest extends AbstractSpringTest {
 		questionService.createQuestion(getUserContext(), question);
 		TestUtil.assertCreation(this.question);
 
-
 	}
 
 	@Test
 	public void shouldUpdateQuestion() throws BusinessException {
+		questionService.createQuestion(getUserContext(), question);
+		
+		Question questionUpdate = questionDao.findById(question.getId());
+		
+		questionDao.update(getUserContext().getId(), questionUpdate);
+		
+		TestUtil.assertUpdate(questionUpdate);
 
+		
 	}
 
 }
