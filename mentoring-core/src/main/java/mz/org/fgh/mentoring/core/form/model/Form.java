@@ -4,15 +4,20 @@
 
 package mz.org.fgh.mentoring.core.form.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.sector.model.Sector;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -41,6 +46,9 @@ public class Form extends GenericEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "SECTOR_ID", nullable = false)
 	private Sector sector;
+	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "question")
+	private List<Question> questions= new ArrayList<Question>();
 
 	public String getCode() {
 		return code;
@@ -74,6 +82,14 @@ public class Form extends GenericEntity {
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this, "sector");
+	}
+
+	public List<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
 	}
 
 }

@@ -55,17 +55,16 @@ public class FormQuestionServiceTest extends AbstractSpringTest {
 
 		formService.createForm(getUserContext(), formQuestion.getForm());
 
-		questionService.createQuestion(getUserContext(),
-				formQuestion.getQuestion());
+		formQuestion
+				.getForm()
+				.getQuestions()
+				.add(questionService.createQuestion(getUserContext(),
+						formQuestion.getQuestion()));
+
 
 		formQuestionService.createFormQuestion(getUserContext(), formQuestion);
 
 		TestUtil.assertCreation(this.formQuestion);
-
-	}
-
-	@Test
-	public void linkQuetionsToForm() throws BusinessException {
 
 	}
 
