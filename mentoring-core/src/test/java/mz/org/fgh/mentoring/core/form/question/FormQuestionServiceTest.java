@@ -61,7 +61,6 @@ public class FormQuestionServiceTest extends AbstractSpringTest {
 				.add(questionService.createQuestion(getUserContext(),
 						formQuestion.getQuestion()));
 
-
 		formQuestionService.createFormQuestion(getUserContext(), formQuestion);
 
 		TestUtil.assertCreation(this.formQuestion);
