@@ -42,24 +42,19 @@ public class FormQuestionServiceTest extends AbstractSpringTest {
 	@Override
 	public void setUp() throws BusinessException {
 
-		this.formQuestion = EntityFactory.gimme(FormQuestion.class,
-				FormQuestionTemplate.VALID);
+		this.formQuestion = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.VALID);
 
 	}
 
 	@Test
 	public void shouldCreateFormQuestion() throws BusinessException {
 
-		sectorService.createSector(getUserContext(), formQuestion.getForm()
-				.getSector());
+		sectorService.createSector(getUserContext(), formQuestion.getForm().getSector());
 
 		formService.createForm(getUserContext(), formQuestion.getForm());
 
-		formQuestion
-				.getForm()
-				.getQuestions()
-				.add(questionService.createQuestion(getUserContext(),
-						formQuestion.getQuestion()));
+		formQuestion.getForm().getQuestions()
+				.add(questionService.createQuestion(getUserContext(), formQuestion.getQuestion()));
 
 		formQuestionService.createFormQuestion(getUserContext(), formQuestion);
 

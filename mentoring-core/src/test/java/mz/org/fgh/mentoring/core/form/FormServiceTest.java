@@ -31,7 +31,6 @@ public class FormServiceTest extends AbstractSpringTest {
 	@Inject
 	private SectorService sectorService;
 
-
 	@Override
 	public void setUp() throws BusinessException {
 
@@ -53,6 +52,13 @@ public class FormServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldUpdateForm() throws BusinessException {
 
+		sectorService.createSector(getUserContext(), form.getSector());
+
+		formService.createForm(getUserContext(), form);
+
+		Form formUpdate = formService.updateForm(getUserContext(), form);
+
+		TestUtil.assertUpdate(formUpdate);
 	}
 
 }
