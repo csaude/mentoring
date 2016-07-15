@@ -1,3 +1,6 @@
+/*
+ * Friends in Global Health - FGH © 2016
+ */
 package mz.org.fgh.mentoring.core.fixturefactory;
 
 import mz.co.mozview.frameworks.core.fixtureFactory.TemplateLoader;
@@ -11,8 +14,7 @@ import br.com.six2six.fixturefactory.Rule;
  * @author Eusebio Jose Maposse
  *
  */
-public class FormQuestionTemplate implements TemplateLoader{
-
+public class FormQuestionTemplate implements TemplateLoader {
 
 	public static final String VALID = "valid";
 

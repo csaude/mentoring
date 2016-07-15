@@ -1,6 +1,6 @@
 /*
  * Friends in Global Health - FGH © 2016
- */	
+ */
 package mz.org.fgh.mentoring.core.form.question.model;
 
 import javax.persistence.Entity;
@@ -13,6 +13,8 @@ import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.question.model.Question;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -22,7 +24,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "FORM_QUESTIONS")
 public class FormQuestion extends GenericEntity {
-
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,6 +51,16 @@ public class FormQuestion extends GenericEntity {
 
 	public void setQuestion(Question question) {
 		this.question = question;
+	}
+
+	@Override
+	public boolean equals(final Object that) {
+		return EqualsBuilder.reflectionEquals(this, that);
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 }

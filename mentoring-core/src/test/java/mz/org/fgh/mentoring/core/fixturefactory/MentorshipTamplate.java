@@ -1,3 +1,6 @@
+/*
+ * Friends in Global Health - FGH © 2016
+ */
 package mz.org.fgh.mentoring.core.fixturefactory;
 
 import java.time.LocalDate;
@@ -21,10 +24,8 @@ public class MentorshipTamplate implements TemplateLoader {
 	public void load() {
 		Fixture.of(Mentorship.class).addTemplate(VALID, new Rule() {
 			{
-				this.add("startDate",
-						this.random(LocalDate.now(), LocalDate.now()));
-				this.add("endDate",
-						this.random(LocalDate.now(), LocalDate.now()));
+				this.add("startDate", this.random(LocalDate.now(), LocalDate.now()));
+				this.add("endDate", this.random(LocalDate.now(), LocalDate.now()));
 				add("tutor", one(Tutor.class, "valid"));
 				add("tutored", one(Tutored.class, "valid"));
 
