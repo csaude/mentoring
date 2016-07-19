@@ -9,20 +9,25 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import mz.co.mozview.frameworks.core.model.GenericEntity;
-import mz.org.fgh.mentoring.core.util.Category;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.sun.istack.NotNull;
+
+import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.util.Category;
 
 /**
  * @author Stélio Moiane
  *
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "TUTORS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 public class Tutor extends GenericEntity {
@@ -47,7 +52,6 @@ public class Tutor extends GenericEntity {
 	private Category category;
 
 	public Tutor() {
-		super();
 	}
 
 	public String getCode() {
@@ -84,29 +88,11 @@ public class Tutor extends GenericEntity {
 
 	@Override
 	public int hashCode() {
-		HashCodeBuilder hcb = new HashCodeBuilder();
-		hcb.append(code);
-		hcb.append(name);
-		hcb.append(surname);
-		hcb.append(category);
-		return hcb.toHashCode();
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof Tutor)) {
-			return false;
-		}
-		Tutor that = (Tutor) obj;
-		EqualsBuilder eb = new EqualsBuilder();
-		eb.append(code, that.code);
-		eb.append(name, that.name);
-		eb.append(surname, that.surname);
-		eb.append(category, that.category);
-		return eb.isEquals();
+	public boolean equals(final Object that) {
+		return EqualsBuilder.reflectionEquals(this, that);
 	}
-
 }
