@@ -24,5 +24,5 @@ public interface TutorResource {
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public JResponse<Tutor> createTutor(final Tutor tutor) throws BusinessException;
+	public JResponse<Tutor> createTutor(final TutorBeanResource tutorBeanResource) throws BusinessException;
 }

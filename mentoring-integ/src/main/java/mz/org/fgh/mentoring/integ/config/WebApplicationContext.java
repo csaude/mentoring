@@ -20,7 +20,7 @@ import mz.org.fgh.mentoring.core.config.ApplicationContext;
  */
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackages = { "mz.org.fgh.mentoring.core", "mz.org.fgh.mentoring.core.integ" })
+@ComponentScan(basePackages = { "mz.org.fgh.mentoring.core", "mz.org.fgh.mentoring.integ" })
 @ActiveProfiles("live")
 public class WebApplicationContext extends WebSecurityConfigurerAdapter {
 
