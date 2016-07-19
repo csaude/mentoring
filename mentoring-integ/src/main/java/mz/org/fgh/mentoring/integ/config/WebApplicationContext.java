@@ -1,7 +1,9 @@
 /*
- * MozView Technologies, Lda. 2010 - 2015
+ * Friends in Global Health - FGH © 2016
  */
 package mz.org.fgh.mentoring.integ.config;
+
+import mz.org.fgh.mentoring.core.config.ApplicationContext;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +13,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.test.context.ActiveProfiles;
-
-import mz.org.fgh.mentoring.core.config.ApplicationContext;
 
 /**
  * @author Stélio Moiane

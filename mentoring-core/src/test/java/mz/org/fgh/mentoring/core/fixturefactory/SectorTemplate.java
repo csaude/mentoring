@@ -1,5 +1,5 @@
 /*
- * MozView Technologies, Lda. 2010 - 2016
+ * Friends in Global Health - FGH © 2016
  */
 package mz.org.fgh.mentoring.core.fixturefactory;
 
@@ -21,7 +21,8 @@ public class SectorTemplate implements TemplateLoader {
 		Fixture.of(Sector.class).addTemplate(VALID, new Rule() {
 			{
 				this.add("name", this.random("SIS", "MA"));
-				this.add("description", this.random("Sector de Sistemas de Informacao", "Sector de Monitoria e Avaliacao"));
+				this.add("description",
+						this.random("Sector de Sistemas de Informacao", "Sector de Monitoria e Avaliacao"));
 			}
 		});
 	}
