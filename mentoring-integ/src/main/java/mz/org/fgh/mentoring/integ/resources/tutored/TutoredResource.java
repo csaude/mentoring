@@ -19,7 +19,7 @@ import com.sun.jersey.api.JResponse;
  */
 public interface TutoredResource {
 
-	String NAME = "mz.org.fgh.mentoring.integ.resources.tuto.TutorResource";
+	String NAME = "mz.org.fgh.mentoring.integ.resources.tutored.TutoredResource";
 
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
