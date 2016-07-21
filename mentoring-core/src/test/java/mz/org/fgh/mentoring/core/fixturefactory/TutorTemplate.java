@@ -1,6 +1,7 @@
 /*
- * MozView Technologies, Lda. 2010 - 2016
+ * Friends in Global Health - FGH © 2016
  */
+
 package mz.org.fgh.mentoring.core.fixturefactory;
 
 import br.com.six2six.fixturefactory.Fixture;

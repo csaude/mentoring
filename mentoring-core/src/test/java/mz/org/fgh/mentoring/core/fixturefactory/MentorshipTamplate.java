@@ -1,3 +1,7 @@
+/*
+ * Friends in Global Health - FGH © 2016
+ */
+
 package mz.org.fgh.mentoring.core.fixturefactory;
 
 import java.time.LocalDate;

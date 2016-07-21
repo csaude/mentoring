@@ -1,5 +1,5 @@
 /*
- * MozView Technologies, Lda. 2010 - 2016
+ * Friends in Global Health - FGH © 2016
  */
 package mz.org.fgh.mentoring.core.tutor.model;
 
@@ -13,14 +13,14 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.util.Category;
+
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.sun.istack.NotNull;
-
-import mz.co.mozview.frameworks.core.model.GenericEntity;
-import mz.org.fgh.mentoring.core.util.Category;
 
 /**
  * @author Stélio Moiane
