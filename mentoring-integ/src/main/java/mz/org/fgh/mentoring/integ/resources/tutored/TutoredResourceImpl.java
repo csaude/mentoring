@@ -6,13 +6,13 @@ package mz.org.fgh.mentoring.integ.resources.tutored;
 import javax.inject.Inject;
 import javax.ws.rs.Path;
 
-import mz.co.mozview.frameworks.core.exception.BusinessException;
-import mz.org.fgh.mentoring.core.tutored.model.Tutored;
-import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
-
 import org.springframework.stereotype.Service;
 
 import com.sun.jersey.api.JResponse;
+
+import mz.co.mozview.frameworks.core.exception.BusinessException;
+import mz.org.fgh.mentoring.core.tutored.model.Tutored;
+import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
 
 /**
  * @author Eusebio Jose Maposse

@@ -1,7 +1,7 @@
 /*
  * Friends in Global Health - FGH © 2016
  */
-package mz.org.fgh.mentoring.integ.resources.tutor;
+package mz.org.fgh.mentoring.integ.resources.quetion;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -11,24 +11,24 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
-import mz.org.fgh.mentoring.core.tutor.model.Tutor;
+import mz.org.fgh.mentoring.core.question.model.Question;
 
 import com.sun.jersey.api.JResponse;
 
 /**
- * @author Stélio Moiane
+ * @author Eusebio Jose Maposse
  *
  */
-public interface TutorResource {
+public interface QuetionResource {
 
-	String NAME = "mz.org.fgh.mentoring.integ.resources.tuto.TutorResource";
+	String NAME = "mz.org.fgh.mentoring.integ.resources.quetion.QuetionResource";
 
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public JResponse<Tutor> createTutor(final TutorBeanResource tutorBeanResource) throws BusinessException;
-	
+	public JResponse<Question> createQuetion(final QuetionBeanResource quetionBeanResource) throws BusinessException;
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response listTutors() throws BusinessException;
+	public Response listQuetion() throws BusinessException;
 }

@@ -4,7 +4,8 @@
 package mz.org.fgh.mentoring.integ.resources.tutor;
 
 import javax.inject.Inject;
-import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
+import mz.org.fgh.mentoring.core.tutor.service.TutorQueryService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 
 /**
@@ -19,11 +21,14 @@ import mz.org.fgh.mentoring.core.tutor.service.TutorService;
  *
  */
 @Service(TutorResource.NAME)
-@Path("tutors")
+//@Path("tutors")
 public class TutorResourceImpl implements TutorResource {
 
 	@Inject
 	private TutorService tutorService;
+
+	@Inject
+	private TutorQueryService tutorQueryServiceService;
 
 	@Override
 	public JResponse<Tutor> createTutor(final TutorBeanResource tutorBeanResource) throws BusinessException {
@@ -32,5 +37,13 @@ public class TutorResourceImpl implements TutorResource {
 				tutorBeanResource.getTutor());
 
 		return JResponse.ok(tutor).build();
+	}
+
+	@Override
+	public Response listTutors() throws BusinessException {
+
+		ResponseBuilder response = Response.ok((Object) tutorQueryServiceService.findAll());
+
+		return response.build();
 	}
 }
