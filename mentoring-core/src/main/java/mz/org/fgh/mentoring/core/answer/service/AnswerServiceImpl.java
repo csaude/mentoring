@@ -24,8 +24,8 @@ public class AnswerServiceImpl extends AbstractService implements AnswerService 
 	private AnswerDAO answerDAO;
 
 	@Override
-	public <T extends Answer>  Answer createAnswer(final UserContext userContext, final Answer answer) throws BusinessException {
+	public <T extends Answer> Answer createAnswer(final UserContext userContext, final Answer answer)
+			throws BusinessException {
 		return this.answerDAO.create(userContext.getId(), answer);
 	}
-
 }

@@ -3,9 +3,10 @@
  */
 package mz.org.fgh.mentoring.integ.resources.tutor;
 
+import java.util.List;
+
 import javax.inject.Inject;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.Path;
 
 import org.springframework.stereotype.Service;
 
@@ -21,14 +22,14 @@ import mz.org.fgh.mentoring.core.tutor.service.TutorService;
  *
  */
 @Service(TutorResource.NAME)
-//@Path("tutors")
+@Path("tutors")
 public class TutorResourceImpl implements TutorResource {
 
 	@Inject
 	private TutorService tutorService;
 
 	@Inject
-	private TutorQueryService tutorQueryServiceService;
+	private TutorQueryService tutorQueryService;
 
 	@Override
 	public JResponse<Tutor> createTutor(final TutorBeanResource tutorBeanResource) throws BusinessException {
@@ -40,10 +41,10 @@ public class TutorResourceImpl implements TutorResource {
 	}
 
 	@Override
-	public Response listTutors() throws BusinessException {
+	public JResponse<List<Tutor>> findTutors(final TutorBeanResource tutorBeanResource) throws BusinessException {
 
-		ResponseBuilder response = Response.ok((Object) tutorQueryServiceService.findAll());
+		final List<Tutor> tutors = this.tutorQueryService.findAllTutors(tutorBeanResource.getUserContext());
 
-		return response.build();
+		return JResponse.ok(tutors).build();
 	}
 }
