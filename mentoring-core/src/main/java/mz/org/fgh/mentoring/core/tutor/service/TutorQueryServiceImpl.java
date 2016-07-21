@@ -7,10 +7,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.stereotype.Service;
+
+import mz.co.mozview.frameworks.core.exception.BusinessException;
+import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
+import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
-
-import org.springframework.stereotype.Service;
 
 /**
  * @author Eusebio Jose Maposse
@@ -23,8 +26,7 @@ public class TutorQueryServiceImpl implements TutorQueryService {
 	private TutorDAO tutorDAO;
 
 	@Override
-	public List<Tutor> findAll() {
-		return tutorDAO.findAll();
+	public List<Tutor> findAllTutors(final UserContext userContext) throws BusinessException {
+		return this.tutorDAO.findAll(LifeCycleStatus.ACTIVE);
 	}
-
 }

@@ -5,12 +5,12 @@ package mz.org.fgh.mentoring.core.tutor.dao;
 
 import java.util.List;
 
-import javax.persistence.Query;
+import org.springframework.stereotype.Repository;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
+import mz.co.mozview.frameworks.core.dao.ParamBuilder;
+import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
-
-import org.springframework.stereotype.Repository;
 
 /**
  * @author Stélio Moiane
@@ -19,13 +19,12 @@ import org.springframework.stereotype.Repository;
 @Repository(TutorDAO.NAME)
 public class TutorDAOImpl extends GenericDAOImpl<Tutor, Long> implements TutorDAO {
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Tutor> findAll() {
-		Query query = getEntityManager()
-				.createQuery("select t from Tutor t");
+	public List<Tutor> findAll(final LifeCycleStatus lifeCycleStatus) {
 
-		return query.getResultList();
+		return this.findByNamedQuery(TutorDAO.QUERY_NAME.findAll,
+				new ParamBuilder().add("lifeCycleStatus", lifeCycleStatus).process());
+
 	}
 
 }

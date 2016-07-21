@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,6 +16,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 import mz.org.fgh.mentoring.core.util.Category;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -30,6 +33,7 @@ import com.sun.istack.NotNull;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "TUTORS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
+@NamedQueries({ @NamedQuery(name = TutorDAO.QUERY_NAME.findAll, query = TutorDAO.QUERY.findAll) })
 public class Tutor extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;

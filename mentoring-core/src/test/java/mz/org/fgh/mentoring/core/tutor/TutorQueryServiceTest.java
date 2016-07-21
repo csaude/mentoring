@@ -1,10 +1,13 @@
 package mz.org.fgh.mentoring.core.tutor;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
-import junit.framework.Assert;
+import org.junit.Test;
+
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
@@ -13,9 +16,6 @@ import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutor.service.TutorQueryService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 
-import org.junit.Test;
-
-@SuppressWarnings("deprecation")
 public class TutorQueryServiceTest extends AbstractSpringTest {
 
 	private Tutor tutor;
@@ -34,9 +34,11 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 
 	@Test
 	public void shouldCreateTutor() throws BusinessException {
-		tutorService.createTutor(getUserContext(), tutor);
-		List<Tutor> tutors = TutorQueryService.findAll();
-		Assert.assertNotNull(tutors.get(0));
+		
+		this.tutorService.createTutor(this.getUserContext(), this.tutor);
+		
+		final List<Tutor> tutors = this.TutorQueryService.findAllTutors(this.getUserContext());
+		
+		assertNotNull(tutors.get(0));
 	}
-
 }
