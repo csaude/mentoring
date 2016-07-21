@@ -15,6 +15,6 @@ public interface AnswerService {
 
 	String NAME = "mz.org.fgh.mentoring.core.answer.service.AnswerService";
 
-	Answer createAnswer(final UserContext userContext, final Answer answer) throws BusinessException;
+	public <T extends Answer>  Answer createAnswer(final UserContext userContext, final Answer answer) throws BusinessException;
 
 }

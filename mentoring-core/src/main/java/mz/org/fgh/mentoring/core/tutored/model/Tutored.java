@@ -1,3 +1,6 @@
+/*
+ * Friends in Global Health - FGH © 2016
+ */
 package mz.org.fgh.mentoring.core.tutored.model;
 
 import javax.persistence.Column;
@@ -13,7 +16,6 @@ import mz.co.mozview.frameworks.core.model.GenericEntity;
 
 /**
  * @author Eusebio Jose Maposse
- * @author Stélio Moiane
  *
  */
 @Entity
