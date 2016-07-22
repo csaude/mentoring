@@ -1,7 +1,7 @@
 /*
  * Friends in Global Health - FGH © 2016
  */
-package mz.org.fgh.mentoring.integ.resources.quetion;
+package mz.org.fgh.mentoring.integ.resources.question;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -16,12 +16,12 @@ import mz.org.fgh.mentoring.core.question.model.Question;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class QuetionBeanResource {
+public class QuestionBeanResource {
 
 	private UserContext userContext;
 	private Question question;
 
-	public QuetionBeanResource() {
+	public QuestionBeanResource() {
 	}
 
 	public UserContext getUserContext() {

@@ -22,7 +22,7 @@ import mz.org.fgh.mentoring.core.tutor.model.Tutor;
  */
 public interface TutorResource {
 
-	String NAME = "mz.org.fgh.mentoring.integ.resources.tuto.TutorResource";
+	String NAME = "mz.org.fgh.mentoring.integ.resources.tutor.TutorResource";
 
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
