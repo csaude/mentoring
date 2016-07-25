@@ -16,12 +16,12 @@ import mz.org.fgh.mentoring.core.question.model.Question;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class QuetionBeanResource {
+public class QuestionBeanResource {
 
 	private UserContext userContext;
 	private Question question;
 
-	public QuetionBeanResource() {
+	public QuestionBeanResource() {
 	}
 
 	public UserContext getUserContext() {
@@ -35,5 +35,4 @@ public class QuetionBeanResource {
 	public void setQuestion(Question question) {
 		this.question = question;
 	}
-
 }

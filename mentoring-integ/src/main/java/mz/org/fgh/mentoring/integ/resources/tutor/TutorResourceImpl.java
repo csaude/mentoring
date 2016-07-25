@@ -16,6 +16,8 @@ import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutor.service.TutorQueryService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
+import mz.org.fgh.mentoring.core.util.Category;
+import mz.org.fgh.mentoring.integ.resources.AbstractResource;
 
 /**
  * @author Stélio Moiane
@@ -23,7 +25,7 @@ import mz.org.fgh.mentoring.core.tutor.service.TutorService;
  */
 @Service(TutorResource.NAME)
 @Path("tutors")
-public class TutorResourceImpl implements TutorResource {
+public class TutorResourceImpl extends AbstractResource implements TutorResource {
 
 	@Inject
 	private TutorService tutorService;
@@ -41,10 +43,21 @@ public class TutorResourceImpl implements TutorResource {
 	}
 
 	@Override
-	public JResponse<List<Tutor>> findTutors(final TutorBeanResource tutorBeanResource) throws BusinessException {
+	public JResponse<List<Tutor>> findTutors(final String code, final String name, final String surname,
+			final Category category) throws BusinessException {
 
-		final List<Tutor> tutors = this.tutorQueryService.findAllTutors(tutorBeanResource.getUserContext());
+		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(this.getUserContetx(), code, name,
+				surname, category);
 
 		return JResponse.ok(tutors).build();
+	}
+
+	@Override
+	public JResponse<Tutor> updateTutor(final TutorBeanResource tutorBeanResource) throws BusinessException {
+
+		final Tutor tutor = this.tutorService.updateTutor(tutorBeanResource.getUserContext(),
+				tutorBeanResource.getTutor());
+
+		return JResponse.ok(tutor).build();
 	}
 }

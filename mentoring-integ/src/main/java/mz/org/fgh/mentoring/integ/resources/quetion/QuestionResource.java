@@ -19,14 +19,14 @@ import com.sun.jersey.api.JResponse;
  * @author Eusebio Jose Maposse
  *
  */
-public interface QuetionResource {
+public interface QuestionResource {
 
 	String NAME = "mz.org.fgh.mentoring.integ.resources.quetion.QuetionResource";
 
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public JResponse<Question> createQuetion(final QuetionBeanResource quetionBeanResource) throws BusinessException;
+	public JResponse<Question> createQuetion(final QuestionBeanResource quetionBeanResource) throws BusinessException;
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

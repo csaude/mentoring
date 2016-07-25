@@ -1,6 +1,7 @@
 package mz.org.fgh.mentoring.core.tutor;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import mz.org.fgh.mentoring.core.fixturefactory.TutorTemplate;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutor.service.TutorQueryService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
+import mz.org.fgh.mentoring.core.util.Category;
 
 public class TutorQueryServiceTest extends AbstractSpringTest {
 
@@ -33,12 +35,22 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 	}
 
 	@Test
-	public void shouldCreateTutor() throws BusinessException {
-		
+	public void shouldFindTutorBySelectedFilter() throws BusinessException {
+
 		this.tutorService.createTutor(this.getUserContext(), this.tutor);
-		
-		final List<Tutor> tutors = this.TutorQueryService.findAllTutors(this.getUserContext());
-		
-		assertNotNull(tutors.get(0));
+
+		final String code = null;
+		final String name = null;
+		final String surname = null;
+		final Category category = Category.DATA_MANAGER;
+
+		final List<Tutor> tutors = this.TutorQueryService.findTutorsBySelectedFilter(this.getUserContext(), code, name,
+				surname, category);
+
+		assertFalse(tutors.isEmpty());
+
+		for (final Tutor tutor : tutors) {
+			assertEquals(category, tutor.getCategory());
+		}
 	}
 }

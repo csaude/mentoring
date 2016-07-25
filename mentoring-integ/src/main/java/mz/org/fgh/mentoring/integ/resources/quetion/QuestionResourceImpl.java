@@ -19,15 +19,15 @@ import mz.org.fgh.mentoring.core.question.service.QuestionService;
  * @author Eusebio Jose Maposse
  *
  */
-@Service(QuetionResource.NAME)
+@Service(QuestionResource.NAME)
 @Path("questions")
-public class QuetionResourceImpl implements QuetionResource {
+public class QuestionResourceImpl implements QuestionResource {
 
 	@Inject
 	private QuestionService questionService;
 
 	@Override
-	public JResponse<Question> createQuetion(final QuetionBeanResource quetionBeanResource) throws BusinessException {
+	public JResponse<Question> createQuetion(final QuestionBeanResource quetionBeanResource) throws BusinessException {
 
 		final Question question = this.questionService.createQuestion(quetionBeanResource.getUserContext(),
 				quetionBeanResource.getQuestion());
