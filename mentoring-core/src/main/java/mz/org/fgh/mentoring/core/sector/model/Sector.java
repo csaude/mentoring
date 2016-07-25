@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 
@@ -18,6 +21,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Eusebio Jose Maposse
  *
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "SECTORS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 public class Sector extends GenericEntity {
