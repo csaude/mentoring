@@ -35,5 +35,4 @@ public class QuestionBeanResource {
 	public void setQuestion(Question question) {
 		this.question = question;
 	}
-
 }
