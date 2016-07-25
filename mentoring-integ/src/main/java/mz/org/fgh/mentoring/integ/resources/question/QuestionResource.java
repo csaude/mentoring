@@ -3,17 +3,20 @@
  */
 package mz.org.fgh.mentoring.integ.resources.question;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.question.model.Question;
+import mz.org.fgh.mentoring.core.question.model.QuestionType;
 
 /**
  * @author Eusebio Jose Maposse
@@ -26,9 +29,11 @@ public interface QuestionResource {
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public JResponse<Question> createQuetion(final QuestionBeanResource quetionBeanResource) throws BusinessException;
+	public JResponse<Question> createQuetion(final QuestionBeanResource questionBeanResource) throws BusinessException;
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response listQuetion() throws BusinessException;
+	public JResponse<List<Question>> findQuestions(@QueryParam("code") final String code,
+			@QueryParam("question") final String question, @QueryParam("questionType") final QuestionType questionType)
+			throws BusinessException;
 }
