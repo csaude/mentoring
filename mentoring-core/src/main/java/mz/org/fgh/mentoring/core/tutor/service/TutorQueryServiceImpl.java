@@ -14,6 +14,7 @@ import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
+import mz.org.fgh.mentoring.core.util.Category;
 
 /**
  * @author Eusebio Jose Maposse
@@ -26,7 +27,8 @@ public class TutorQueryServiceImpl implements TutorQueryService {
 	private TutorDAO tutorDAO;
 
 	@Override
-	public List<Tutor> findAllTutors(final UserContext userContext) throws BusinessException {
-		return this.tutorDAO.findAll(LifeCycleStatus.ACTIVE);
+	public List<Tutor> findTutorsBySelectedFilter(final UserContext userContext, final String code, final String name,
+			final String surname, final Category category) throws BusinessException {
+		return this.tutorDAO.findBySelectedFilter(code, name, surname, category, LifeCycleStatus.ACTIVE);
 	}
 }
