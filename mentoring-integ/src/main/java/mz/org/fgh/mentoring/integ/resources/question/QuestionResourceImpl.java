@@ -1,7 +1,7 @@
 /*
  * Friends in Global Health - FGH © 2016
  */
-package mz.org.fgh.mentoring.integ.resources.quetion;
+package mz.org.fgh.mentoring.integ.resources.question;
 
 import javax.inject.Inject;
 import javax.ws.rs.Path;
