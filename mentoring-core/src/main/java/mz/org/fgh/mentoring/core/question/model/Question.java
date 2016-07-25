@@ -10,6 +10,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -21,6 +24,8 @@ import mz.co.mozview.frameworks.core.model.GenericEntity;
  * @author Eusebio Jose Maposse
  *
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "QUESTIONS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 public class Question extends GenericEntity {
@@ -39,6 +44,9 @@ public class Question extends GenericEntity {
 	@Column(name = "QUESTION_TYPE", nullable = false, length = 50)
 	@Enumerated(EnumType.STRING)
 	private QuestionType questionType;
+
+	public Question() {
+	}
 
 	public String getCode() {
 		return this.code;
