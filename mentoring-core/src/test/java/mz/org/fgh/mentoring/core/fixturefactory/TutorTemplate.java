@@ -17,6 +17,7 @@ import mz.org.fgh.mentoring.core.util.Category;
 public class TutorTemplate implements TemplateLoader {
 
 	public static final String VALID = "valid";
+	public static final String DATA_MANAGER = "data_manager";
 
 	@Override
 	public void load() {
@@ -25,6 +26,12 @@ public class TutorTemplate implements TemplateLoader {
 				this.add("name", this.random("Stelio Klesio", "Eusebio Jose", "Helio Estevao"));
 				this.add("surname", this.random("Moiane", "Maposse", "Machabane"));
 				this.add("category", this.random(Category.DATA_MANAGER, Category.DATA_OFFICER));
+			}
+		});
+
+		Fixture.of(Tutor.class).addTemplate(DATA_MANAGER).inherits(VALID, new Rule() {
+			{
+				this.add("category", Category.DATA_MANAGER);
 			}
 		});
 	}
