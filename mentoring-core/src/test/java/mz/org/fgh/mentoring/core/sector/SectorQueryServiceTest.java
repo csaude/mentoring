@@ -3,58 +3,54 @@
  */
 package mz.org.fgh.mentoring.core.sector;
 
+import static org.junit.Assert.assertFalse;
+
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
-import mz.co.mozview.frameworks.core.fixtureFactory.util.TestUtil;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.SectorTemplate;
-import mz.org.fgh.mentoring.core.sector.dao.SectorDAO;
 import mz.org.fgh.mentoring.core.sector.model.Sector;
+import mz.org.fgh.mentoring.core.sector.service.SectorQueryService;
 import mz.org.fgh.mentoring.core.sector.service.SectorService;
 
 /**
  * @author Eusebio Jose Maposse
  *
- *
  */
-public class SectorServiceTest extends AbstractSpringTest {
+
+public class SectorQueryServiceTest extends AbstractSpringTest {
+
+	private Sector sector;
 
 	@Inject
 	private SectorService sectorService;
 
 	@Inject
-	private SectorDAO sectorDAO;
-
-	private Sector sector;
+	private SectorQueryService sectorQueryService;
 
 	@Override
 	public void setUp() throws BusinessException {
-		this.sector = EntityFactory.gimme(Sector.class, SectorTemplate.VALID);
+		this.sector = EntityFactory.gimme(Sector.class,  SectorTemplate.VALID);
+		this.sectorService.createSector(this.getUserContext(), this.sector);
 	}
 
 	@Test
-	public void shouldCreateSector() throws BusinessException {
+	public void shouldFindSectorBySelectedFilter() throws BusinessException {
 
-		this.sectorService.createSector(this.getUserContext(), this.sector);
+		final String code = null;
+		final String name = null;
+		final String description = null;
 
-		TestUtil.assertCreation(this.sector);
+		final List<Sector> Sectors = this.sectorQueryService.findSectorsBySelectedFilter(this.getUserContext(), code,
+				name, description);
+
+		assertFalse(Sectors.isEmpty());
+
 	}
-
-	@Test
-	public void shouldUpdateSector() throws BusinessException {
-
-		this.sectorService.createSector(this.getUserContext(), this.sector);
-
-		final Sector sectorUpdate = this.sectorDAO.findById(this.sector.getId());
-
-
-		this.sectorService.updateSector(this.getUserContext(), sectorUpdate);
-
-		TestUtil.assertUpdate(sectorUpdate);
-	}
-
 }
