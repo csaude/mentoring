@@ -51,4 +51,14 @@ public class QuestionResourceImpl extends AbstractResource implements QuestionRe
 
 		return JResponse.ok(questions).build();
 	}
+
+	@Override
+	public JResponse<Question> updateQuestion(final QuestionBeanResource questionBeanResource)
+			throws BusinessException {
+
+		final Question question = this.questionService.updateQuestion(questionBeanResource.getUserContext(),
+				questionBeanResource.getQuestion());
+
+		return JResponse.ok(question).build();
+	}
 }
