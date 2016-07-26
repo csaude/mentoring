@@ -37,7 +37,7 @@ public class Question extends GenericEntity {
 	private String code;
 
 	@NotEmpty
-	@Column(name = "QUESTION", nullable = false, length = 50)
+	@Column(name = "QUESTION", nullable = false)
 	private String question;
 
 	@NotNull
