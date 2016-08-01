@@ -3,27 +3,28 @@
  */
 package mz.org.fgh.mentoring.core.fixturefactory;
 
-import mz.co.mozview.frameworks.core.fixtureFactory.TemplateLoader;
-import mz.org.fgh.mentoring.core.form.model.Form;
-import mz.org.fgh.mentoring.core.form.quetion.model.FormQuetion;
-import mz.org.fgh.mentoring.core.question.model.Question;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
+import mz.co.mozview.frameworks.core.fixtureFactory.TemplateLoader;
+import mz.org.fgh.mentoring.core.form.model.Form;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
+import mz.org.fgh.mentoring.core.question.model.Question;
 
 /**
  * @author Eusebio Jose Maposse
  *
  */
-public class FormQuetionTemplate implements TemplateLoader {
+public class FormQuestionTemplate implements TemplateLoader {
 
 	public static final String VALID = "valid";
 
 	@Override
 	public void load() {
-		Fixture.of(FormQuetion.class).addTemplate(VALID, new Rule() {
+		Fixture.of(FormQuestion.class).addTemplate(VALID, new Rule() {
 			{
 				add("form", one(Form.class, "valid"));
 				add("question", one(Question.class, "valid"));
+				add("mandatory", true);
 			}
 		});
 	}

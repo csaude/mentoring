@@ -3,6 +3,7 @@
  */
 package mz.org.fgh.mentoring.core.form.model;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,18 +11,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
-import mz.co.mozview.frameworks.core.model.GenericEntity;
-import mz.org.fgh.mentoring.core.question.model.Question;
-import mz.org.fgh.mentoring.core.sector.model.Sector;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.form.dao.FormDAO;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
+import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 
 /**
  * @author Eusebio Jose Maposse
@@ -29,6 +33,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "FORMS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
+@NamedQueries({ @NamedQuery(name = FormDAO.QUERY_NAME.fetchByFormId, query = FormDAO.QUERY.fetchByFormId) })
 public class Form extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -36,17 +41,22 @@ public class Form extends GenericEntity {
 	@NotEmpty
 	@Column(name = "CODE", nullable = false, length = 50)
 	private String code;
+
 	@NotEmpty
-	@Column(name = "NAME", nullable = false, length = 50)
+	@Column(name = "NAME", nullable = false, length = 150)
 	private String name;
 
 	@NotEmpty
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "SECTOR_ID", nullable = false)
-	private Sector sector;
+	@Column(name = "DESCRIPTION")
+	private String description;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	private Set<Question> questions = new HashSet<Question>();
+	@NotEmpty
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PROGRAMMATIC_AREA_ID", nullable = false)
+	private ProgrammaticArea programmaticArea;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "form")
+	private Set<FormQuestion> formQuestions = new HashSet<>();
 
 	public String getCode() {
 		return code;
@@ -64,29 +74,33 @@ public class Form extends GenericEntity {
 		this.name = name;
 	}
 
-	public Sector getSector() {
-		return sector;
+	public ProgrammaticArea getProgrammaticArea() {
+		return programmaticArea;
 	}
 
-	public void setSector(Sector sector) {
-		this.sector = sector;
+	public void setProgrammaticArea(ProgrammaticArea programmaticArea) {
+		this.programmaticArea = programmaticArea;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Set<FormQuestion> getFromQuestions() {
+		return Collections.unmodifiableSet(formQuestions);
 	}
 
 	@Override
 	public boolean equals(final Object that) {
-		return EqualsBuilder.reflectionEquals(this, that, "sector");
+		return EqualsBuilder.reflectionEquals(this, that, "programmaticArea", "formQuestions");
 	}
 
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, "sector");
-	}
-
-	public Set<Question> getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(Set<Question> questions) {
-		this.questions = questions;
+		return HashCodeBuilder.reflectionHashCode(this, "programmaticArea", "formQuestions");
 	}
 }

@@ -1,7 +1,7 @@
 /*
  * Friends in Global Health - FGH © 2016
  */
-package mz.org.fgh.mentoring.core.sector.model;
+package mz.org.fgh.mentoring.core.programmaticarea.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +19,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  */
 @Entity
-@Table(name = "SECTORS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-public class Sector extends GenericEntity {
+@Table(name = "PROGRAMMATIC_AREAS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
+public class ProgrammaticArea extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
 
@@ -29,7 +29,7 @@ public class Sector extends GenericEntity {
 	private String code;
 
 	@NotEmpty
-	@Column(name = "NAME", nullable = false, length = 50)
+	@Column(name = "NAME", nullable = false, length = 100)
 	private String name;
 
 	@Column(name = "DESCRIPTION")
@@ -68,5 +68,4 @@ public class Sector extends GenericEntity {
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
-
 }

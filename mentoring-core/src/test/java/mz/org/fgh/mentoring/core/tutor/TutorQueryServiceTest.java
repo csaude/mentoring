@@ -30,8 +30,7 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 
 	@Override
 	public void setUp() throws BusinessException {
-		this.tutor = EntityFactory.gimme(Tutor.class, TutorTemplate.VALID);
-
+		this.tutor = EntityFactory.gimme(Tutor.class, TutorTemplate.DATA_MANAGER);
 	}
 
 	@Test

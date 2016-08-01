@@ -74,11 +74,11 @@ public class Question extends GenericEntity {
 
 	@Override
 	public boolean equals(final Object that) {
-		return EqualsBuilder.reflectionEquals(this, that);
+		return EqualsBuilder.reflectionEquals(this, that, "forms");
 	}
 
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
+		return HashCodeBuilder.reflectionHashCode(this, "forms");
 	}
 }

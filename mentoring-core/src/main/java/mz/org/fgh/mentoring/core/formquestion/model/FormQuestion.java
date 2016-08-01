@@ -2,41 +2,47 @@
  * Friends in Global Health - FGH © 2016
  */
 
-package mz.org.fgh.mentoring.core.form.quetion.model;
+package mz.org.fgh.mentoring.core.formquestion.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.question.model.Question;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author Eusebio Jose Maposse
  *
  */
 @Entity
-@Table(name = "FORM_QUETIONS")
-public class FormQuetion extends GenericEntity {
+@Table(name = "FORMS_QUESTIONS", uniqueConstraints = @UniqueConstraint(columnNames = { "FORM_ID", "QUESTION_ID" }))
+public class FormQuestion extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@NotEmpty
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FORM_ID", nullable = false)
 	private Form form;
 
-	@NotEmpty
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "QUETION_ID", nullable = false)
+	@JoinColumn(name = "QUESTION_ID", nullable = false)
 	private Question question;
+
+	@NotNull
+	@Column(name = "MANDATORY", nullable = false)
+	private boolean mandatory;
 
 	public Form getForm() {
 		return form;
@@ -54,6 +60,14 @@ public class FormQuetion extends GenericEntity {
 		this.question = question;
 	}
 
+	public boolean isMandatory() {
+		return mandatory;
+	}
+
+	public void setMandatory(boolean mandatory) {
+		this.mandatory = mandatory;
+	}
+
 	@Override
 	public boolean equals(final Object that) {
 		return EqualsBuilder.reflectionEquals(this, that);
@@ -63,5 +77,4 @@ public class FormQuetion extends GenericEntity {
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
-
 }
