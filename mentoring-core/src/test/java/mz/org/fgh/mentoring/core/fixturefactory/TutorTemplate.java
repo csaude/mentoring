@@ -17,7 +17,7 @@ import mz.org.fgh.mentoring.core.util.Category;
 public class TutorTemplate implements TemplateLoader {
 
 	public static final String VALID = "valid";
-	public static final String DATA_MANAGER = "valid";
+	public static final String DATA_MANAGER = "data_manager";
 
 	@Override
 	public void load() {
@@ -31,7 +31,7 @@ public class TutorTemplate implements TemplateLoader {
 
 		Fixture.of(Tutor.class).addTemplate(DATA_MANAGER).inherits(VALID, new Rule() {
 			{
-				this.add("category", this.random(Category.DATA_MANAGER));
+				this.add("category", Category.DATA_MANAGER);
 			}
 		});
 	}
