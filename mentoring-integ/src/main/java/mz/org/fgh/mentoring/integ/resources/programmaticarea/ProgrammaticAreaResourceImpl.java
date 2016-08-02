@@ -7,6 +7,7 @@ package mz.org.fgh.mentoring.integ.resources.programmaticarea;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.Path;
 
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ import mz.org.fgh.mentoring.integ.resources.AbstractResource;
  *
  */
 @Service(ProgrammaticAreaResource.NAME)
+@Path("programmaticareas")
 public class ProgrammaticAreaResourceImpl extends AbstractResource implements ProgrammaticAreaResource {
 
 	@Inject
@@ -42,11 +44,11 @@ public class ProgrammaticAreaResourceImpl extends AbstractResource implements Pr
 	}
 
 	@Override
-	public JResponse<List<ProgrammaticArea>> findProgrammaticAreas(final String code, final String name,
-			final String surname) throws BusinessException {
+	public JResponse<List<ProgrammaticArea>> findProgrammaticAreas(final String code, final String name)
+			throws BusinessException {
 
 		final List<ProgrammaticArea> programmaticAreas = this.programmaticAreaQueryService
-				.findSectorsBySelectedFilter(this.getUserContetx(), code, surname);
+				.findProgrammaticAreasBySelectedFilter(this.getUserContetx(), code, name);
 
 		return JResponse.ok(programmaticAreas).build();
 	}

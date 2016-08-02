@@ -17,6 +17,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -31,6 +35,8 @@ import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
  * @author Eusebio Jose Maposse
  *
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "FORMS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 @NamedQueries({ @NamedQuery(name = FormDAO.QUERY_NAME.fetchByFormId, query = FormDAO.QUERY.fetchByFormId) })
@@ -50,48 +56,48 @@ public class Form extends GenericEntity {
 	@Column(name = "DESCRIPTION")
 	private String description;
 
-	@NotEmpty
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PROGRAMMATIC_AREA_ID", nullable = false)
 	private ProgrammaticArea programmaticArea;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "form")
-	private Set<FormQuestion> formQuestions = new HashSet<>();
+	private final Set<FormQuestion> formQuestions = new HashSet<>();
 
 	public String getCode() {
-		return code;
+		return this.code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(final String code) {
 		this.code = code;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
 	public ProgrammaticArea getProgrammaticArea() {
-		return programmaticArea;
+		return this.programmaticArea;
 	}
 
-	public void setProgrammaticArea(ProgrammaticArea programmaticArea) {
+	public void setProgrammaticArea(final ProgrammaticArea programmaticArea) {
 		this.programmaticArea = programmaticArea;
 	}
 
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
 	public Set<FormQuestion> getFromQuestions() {
-		return Collections.unmodifiableSet(formQuestions);
+		return Collections.unmodifiableSet(this.formQuestions);
 	}
 
 	@Override

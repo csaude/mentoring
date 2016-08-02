@@ -46,7 +46,7 @@ public class ProgrammaticAreaQueryServiceTest extends AbstractSpringTest {
 		final String name = null;
 
 		final List<ProgrammaticArea> programmaticAreas = this.programmaticAreaQueryService
-				.findSectorsBySelectedFilter(this.getUserContext(), code, name);
+				.findProgrammaticAreasBySelectedFilter(this.getUserContext(), code, name);
 
 		assertFalse(programmaticAreas.isEmpty());
 	}

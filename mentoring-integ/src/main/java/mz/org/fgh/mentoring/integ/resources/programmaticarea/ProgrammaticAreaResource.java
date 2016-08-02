@@ -35,8 +35,7 @@ public interface ProgrammaticAreaResource {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<ProgrammaticArea>> findProgrammaticAreas(@QueryParam("code") final String code,
-			@QueryParam("name") final String name, @QueryParam("description") final String surname)
-			throws BusinessException;
+			@QueryParam("name") final String name) throws BusinessException;
 
 	@PUT
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

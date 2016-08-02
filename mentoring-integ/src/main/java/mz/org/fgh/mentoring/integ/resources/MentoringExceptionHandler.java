@@ -21,6 +21,6 @@ public class MentoringExceptionHandler implements ExceptionMapper<BusinessExcept
 
 	@Override
 	public Response toResponse(final BusinessException businessException) {
-		return Response.status(Status.BAD_REQUEST).entity(new ErrorMessage(businessException.getMessage())).build();
+		return Response.status(Status.OK).entity(new ErrorMessage(businessException.getMessage())).build();
 	}
 }
