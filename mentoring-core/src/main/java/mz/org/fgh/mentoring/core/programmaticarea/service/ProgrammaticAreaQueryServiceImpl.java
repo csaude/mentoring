@@ -26,7 +26,7 @@ public class ProgrammaticAreaQueryServiceImpl implements ProgrammaticAreaQuerySe
 	private ProgrammaticAreaDAO programmaticAreaDAO;
 
 	@Override
-	public List<ProgrammaticArea> findSectorsBySelectedFilter(final UserContext userContext, final String code,
+	public List<ProgrammaticArea> findProgrammaticAreasBySelectedFilter(final UserContext userContext, final String code,
 			final String name) throws BusinessException {
 
 		return this.programmaticAreaDAO.findBySelectedFilter(userContext, code, name, LifeCycleStatus.ACTIVE);

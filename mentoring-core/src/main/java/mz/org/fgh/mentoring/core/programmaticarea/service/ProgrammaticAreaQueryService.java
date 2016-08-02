@@ -17,7 +17,7 @@ public interface ProgrammaticAreaQueryService {
 
 	String NAME = "mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaQueryService";
 
-	List<ProgrammaticArea> findSectorsBySelectedFilter(final UserContext userContext, final String code,
+	List<ProgrammaticArea> findProgrammaticAreasBySelectedFilter(final UserContext userContext, final String code,
 			final String name) throws BusinessException;
 
 }
