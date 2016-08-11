@@ -6,8 +6,10 @@ package mz.org.fgh.mentoring.core.form;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -22,6 +24,8 @@ import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormQueryService;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.programmaticarea.dao.ProgrammaticAreaDAO;
+import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
@@ -43,6 +47,9 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 
 	@Inject
 	private FormQueryService formQueryService;
+
+	@Inject
+	private ProgrammaticAreaDAO programmaticAreaDAO;
 
 	private Form createdform;
 
@@ -72,5 +79,17 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 			assertEquals(formQuestion.getForm().getCode(), fetchedFrom.getCode());
 			assertNotNull(formQuestion.getQuestion());
 		});
+	}
+
+	@Test
+	public void shouldFindBySelectedFilter() throws BusinessException {
+		final String code = null;
+		final String name = null;
+		ProgrammaticArea p = programmaticAreaDAO.findById(createdform.getProgrammaticArea().getId());
+
+		final List<Form> forms = this.formQueryService.findBySelectedFilter(this.getUserContext(), code, name, p);
+
+		assertTrue(!forms.isEmpty());
+		assertNotNull(forms.get(0).getFromQuestions().iterator().next());
 	}
 }
