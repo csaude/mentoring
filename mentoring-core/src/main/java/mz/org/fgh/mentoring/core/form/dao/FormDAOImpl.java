@@ -40,6 +40,8 @@ public class FormDAOImpl extends GenericDAOImpl<Form, Long> implements FormDAO {
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Form> createQuery = criteriaBuilder.createQuery(Form.class);
 		final Root<Form> root = createQuery.from(Form.class);
+		root.fetch("programmaticArea");
+
 
 		createQuery.select(root);
 
@@ -52,11 +54,11 @@ public class FormDAOImpl extends GenericDAOImpl<Form, Long> implements FormDAO {
 		if (name != null) {
 			predicates.add(criteriaBuilder.like(root.get("name"), "%" + name + "%"));
 		}
-		
-		predicates.add(criteriaBuilder.equal(root.get("programmaticArea"), programaticArea));
+		if (programaticArea != null) {
+			predicates.add(criteriaBuilder.equal(root.get("programmaticArea"), programaticArea));
+		}
 		predicates.add(criteriaBuilder.equal(root.get("lifeCycleStatus"), lifeCycleStatus));
 
-		
 		createQuery.where(predicates.toArray(new Predicate[predicates.size()]));
 
 		final TypedQuery<Form> query = this.getEntityManager().createQuery(createQuery);

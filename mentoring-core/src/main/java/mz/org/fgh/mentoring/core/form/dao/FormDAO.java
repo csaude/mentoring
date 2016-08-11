@@ -23,6 +23,7 @@ public interface FormDAO extends GenericDAO<Form, Long> {
 		public static final String fetchByFormId = "SELECT f FROM Form f INNER JOIN FETCH f.formQuestions fq INNER JOIN FETCH fq.question WHERE f.id = :formId";
 		public static final String findAll = "SELECT f FROM Form f WHERE f.lifeCycleStatus = :lifeCycleStatus";
 
+
 	}
 
 	public static class QUERY_NAME {

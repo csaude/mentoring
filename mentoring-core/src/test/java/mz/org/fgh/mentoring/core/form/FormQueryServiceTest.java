@@ -90,6 +90,6 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		final List<Form> forms = this.formQueryService.findBySelectedFilter(this.getUserContext(), code, name, p);
 
 		assertTrue(!forms.isEmpty());
-		assertNotNull(forms.get(0).getFromQuestions().iterator().next());
+		
 	}
 }
