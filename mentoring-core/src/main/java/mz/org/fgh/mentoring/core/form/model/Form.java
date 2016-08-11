@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -60,7 +61,8 @@ public class Form extends GenericEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PROGRAMMATIC_AREA_ID", nullable = false)
 	private ProgrammaticArea programmaticArea;
-
+	
+	@XmlTransient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "form")
 	private final Set<FormQuestion> formQuestions = new HashSet<>();
 
