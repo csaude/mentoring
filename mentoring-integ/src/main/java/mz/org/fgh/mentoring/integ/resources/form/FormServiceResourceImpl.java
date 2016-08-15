@@ -16,7 +16,6 @@ import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormQueryService;
 import mz.org.fgh.mentoring.core.form.service.FormService;
-import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.integ.resources.AbstractResource;
 
 /**
@@ -43,10 +42,11 @@ public class FormServiceResourceImpl extends AbstractResource implements FormSer
 	}
 
 	@Override
-	public JResponse<List<Form>> findBySelectedFilter(String code, String name, ProgrammaticArea programmaticArea)
-			throws BusinessException {
+	public JResponse<List<Form>> findBySelectedFilter(final String code, final String name,
+			final String programmaticAreaCode) throws BusinessException {
+
 		final List<Form> forms = this.formQueryService.findBySelectedFilter(this.getUserContetx(), code, name,
-				programmaticArea);
+				programmaticAreaCode);
 
 		return JResponse.ok(forms).build();
 	}
