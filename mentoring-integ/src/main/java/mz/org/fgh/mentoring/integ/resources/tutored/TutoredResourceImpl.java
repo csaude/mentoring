@@ -3,6 +3,8 @@
  */
 package mz.org.fgh.mentoring.integ.resources.tutored;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.ws.rs.Path;
 
@@ -12,7 +14,9 @@ import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
+import mz.org.fgh.mentoring.core.tutored.service.TutoredQueryService;
 import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
+import mz.org.fgh.mentoring.integ.resources.AbstractResource;
 
 /**
  * @author Eusebio Jose Maposse
@@ -20,15 +24,35 @@ import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
  */
 @Service(TutoredResource.NAME)
 @Path("tutoreds")
-public class TutoredResourceImpl implements TutoredResource {
+public class TutoredResourceImpl  extends AbstractResource  implements TutoredResource {
 
 	@Inject
 	private TutoredService tutoredService;
+	
+	@Inject
+	private TutoredQueryService tutoredQueryService;
 
 	@Override
 	public JResponse<Tutored> createTutored(final TutoredBeanResource tutoredBeanResource) throws BusinessException {
 
 		final Tutored tutored = this.tutoredService.createTutored(tutoredBeanResource.getUserContext(),
+				tutoredBeanResource.getTutored());
+
+		return JResponse.ok(tutored).build();
+	}
+
+	@Override
+	public JResponse<List<Tutored>> findTutoreds(String code, String name, String surname,  final String phoneNumber)
+			throws BusinessException {
+		final List<Tutored> tutoreds = this.tutoredQueryService.findTutoredsBySelectedFilter(this.getUserContetx(), code, name,
+				surname, phoneNumber);
+
+		return JResponse.ok(tutoreds).build();
+	}
+
+	@Override
+	public JResponse<Tutored> updateTutored(TutoredBeanResource tutoredBeanResource) throws BusinessException {
+		final Tutored tutored = this.tutoredService.updateTutored(tutoredBeanResource.getUserContext(),
 				tutoredBeanResource.getTutored());
 
 		return JResponse.ok(tutored).build();
