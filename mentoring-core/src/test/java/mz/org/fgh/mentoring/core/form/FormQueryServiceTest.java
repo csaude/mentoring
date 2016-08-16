@@ -85,11 +85,15 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 	public void shouldFindBySelectedFilter() throws BusinessException {
 		final String code = null;
 		final String name = null;
-		ProgrammaticArea p = programmaticAreaDAO.findById(createdform.getProgrammaticArea().getId());
+		final ProgrammaticArea programmaticArea = this.programmaticAreaDAO
+				.findById(this.createdform.getProgrammaticArea().getId());
 
-		final List<Form> forms = this.formQueryService.findBySelectedFilter(this.getUserContext(), code, name, p);
+		final List<Form> forms = this.formQueryService.findBySelectedFilter(this.getUserContext(), code, name,
+				programmaticArea.getCode());
 
 		assertTrue(!forms.isEmpty());
-		assertNotNull(forms.get(0).getId());
+		for (final Form form : forms) {
+			assertEquals(form.getProgrammaticArea().getCode(), programmaticArea.getCode());
+		}
 	}
 }

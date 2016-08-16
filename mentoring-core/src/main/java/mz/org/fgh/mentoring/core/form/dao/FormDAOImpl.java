@@ -18,7 +18,6 @@ import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
 import mz.co.mozview.frameworks.core.dao.ParamBuilder;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.form.model.Form;
-import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 
 /**
  * @author Eusebio Jose Maposse
@@ -29,19 +28,18 @@ public class FormDAOImpl extends GenericDAOImpl<Form, Long> implements FormDAO {
 
 	@Override
 	public Form fetchByFormId(final Long formId) {
-		return findSingleByNamedQuery(FormDAO.QUERY_NAME.fetchByFormId,
+		return this.findSingleByNamedQuery(FormDAO.QUERY_NAME.fetchByFormId,
 				new ParamBuilder().add("formId", formId).process());
 	}
 
 	@Override
-	public List<Form> findBySelectedFilter(String code, String name, ProgrammaticArea programaticArea,
-			LifeCycleStatus lifeCycleStatus) {
+	public List<Form> findBySelectedFilter(final String code, final String name, final String programmaticAreaCode,
+			final LifeCycleStatus lifeCycleStatus) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Form> createQuery = criteriaBuilder.createQuery(Form.class);
 		final Root<Form> root = createQuery.from(Form.class);
 		root.fetch("programmaticArea");
-
 
 		createQuery.select(root);
 
@@ -54,9 +52,11 @@ public class FormDAOImpl extends GenericDAOImpl<Form, Long> implements FormDAO {
 		if (name != null) {
 			predicates.add(criteriaBuilder.like(root.get("name"), "%" + name + "%"));
 		}
-		if (programaticArea != null) {
-			predicates.add(criteriaBuilder.equal(root.get("programmaticArea"), programaticArea));
+
+		if (programmaticAreaCode != null) {
+			predicates.add(criteriaBuilder.equal(root.get("programmaticArea").get("code"), programmaticAreaCode));
 		}
+
 		predicates.add(criteriaBuilder.equal(root.get("lifeCycleStatus"), lifeCycleStatus));
 
 		createQuery.where(predicates.toArray(new Predicate[predicates.size()]));
@@ -65,5 +65,4 @@ public class FormDAOImpl extends GenericDAOImpl<Form, Long> implements FormDAO {
 
 		return query.getResultList();
 	}
-
 }

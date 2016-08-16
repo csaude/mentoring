@@ -14,7 +14,6 @@ import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.form.dao.FormDAO;
 import mz.org.fgh.mentoring.core.form.model.Form;
-import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 
 /**
  * @author Eusebio Jose Maposse
@@ -28,12 +27,12 @@ public class FormQueryServiceImpl implements FormQueryService {
 
 	@Override
 	public Form fetchByForm(final UserContext userContext, final Form form) throws BusinessException {
-		return formDAO.fetchByFormId(form.getId());
+		return this.formDAO.fetchByFormId(form.getId());
 	}
 
 	@Override
-	public List<Form> findBySelectedFilter(final UserContext userContext, String code, String name, ProgrammaticArea programaticArea) {
-		return formDAO.findBySelectedFilter(code, name, programaticArea, LifeCycleStatus.ACTIVE);
+	public List<Form> findBySelectedFilter(final UserContext userContext, final String code, final String name,
+			final String programmaticAreaCode) {
+		return this.formDAO.findBySelectedFilter(code, name, programmaticAreaCode, LifeCycleStatus.ACTIVE);
 	}
-
 }

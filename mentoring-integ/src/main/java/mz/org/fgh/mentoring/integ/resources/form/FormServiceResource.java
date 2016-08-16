@@ -16,7 +16,6 @@ import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.form.model.Form;
-import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 
 /**
  * @author Stélio Moiane
@@ -35,5 +34,5 @@ public interface FormServiceResource {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Form>> findBySelectedFilter(@QueryParam("code") final String code,
 			@QueryParam("name") final String name,
-			@QueryParam("programaticArea") final ProgrammaticArea programmaticArea) throws BusinessException;
+			@QueryParam("programmaticAreaCode") final String programmaticAreaCode) throws BusinessException;
 }
