@@ -44,29 +44,23 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 	@Override
 	public void setUp() throws BusinessException {
 
-		this.mentorship = EntityFactory.gimme(Mentorship.class,
-				MentorshipTamplate.VALID);
+		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTamplate.VALID);
 		tutorService.createTutor(getUserContext(), mentorship.getTutor());
 		tutoredService.createTutored(getUserContext(), mentorship.getTutored());
+		this.mentorshipService.createMentorship(this.getUserContext(), mentorship);
 
 	}
 
 	@Test
 	public void shouldCreateMentorship() throws BusinessException {
 
-		this.mentorshipService.createMentorship(this.getUserContext(),
-				mentorship);
-
 		TestUtil.assertCreation(this.mentorship);
 	}
 
 	@Test
 	public void shouldUpdateMentorship() throws BusinessException {
-		this.mentorshipService.createMentorship(this.getUserContext(),
-				mentorship);
 
-		final Mentorship mentorshipUpdate = this.mentorshipDAO
-				.findById(this.mentorship.getId());
+		final Mentorship mentorshipUpdate = this.mentorshipDAO.findById(this.mentorship.getId());
 
 		final LocalDate startDate = LocalDate.now();
 		final LocalDate endDate = LocalDate.now();
@@ -74,8 +68,7 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 		mentorshipUpdate.setStartDate(startDate);
 		mentorshipUpdate.setEndDate(endDate);
 
-		this.mentorshipService.updateMentorship(getUserContext(),
-				mentorshipUpdate);
+		this.mentorshipService.updateMentorship(getUserContext(), mentorshipUpdate);
 
 		TestUtil.assertUpdate(mentorshipUpdate);
 
