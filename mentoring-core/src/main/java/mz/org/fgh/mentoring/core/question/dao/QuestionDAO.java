@@ -32,7 +32,7 @@ public interface QuestionDAO extends GenericDAO<Question, Long> {
 
 	List<Question> findBySelectedFilter(final String code, final String question, final QuestionType questionType,
 			final LifeCycleStatus lifeCycleStatus);
-	
-	List<Question>  findByForm(final Form form);
+
+	List<Question> findByForm(final Form form);
 
 }
