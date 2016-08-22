@@ -90,7 +90,7 @@ public class QuestionQueryServiceTest extends AbstractSpringTest {
 
 	@Test
 	public void shouldFindByForm() {
-		final List<Question> questions = questionQueryService.findByForm(form);
+		final List<Question> questions = questionQueryService.findByForm(form.getCode());
 		assertFalse(questions.isEmpty());
 
 	}

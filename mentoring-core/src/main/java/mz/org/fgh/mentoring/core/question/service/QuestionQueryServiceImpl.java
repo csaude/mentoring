@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
-import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.question.dao.QuestionDAO;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
@@ -34,8 +33,8 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
 	}
 
 	@Override
-	public List<Question> findByForm(final Form form) {
-		return questionDAO.findByForm(form);
+	public List<Question> findByForm(final String code) {
+		return questionDAO.findByForm(code);
 	}
 
 }

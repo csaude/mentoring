@@ -7,7 +7,6 @@ import java.util.List;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAO;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
-import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
 
@@ -21,7 +20,7 @@ public interface QuestionDAO extends GenericDAO<Question, Long> {
 	String NAME = "mz.org.fgh.mentoring.core.question.dao.QuestionDAO";
 
 	public static class QUERY {
-		public static final String findByForm = "SELECT q FROM Question q INNER JOIN q.formQuestions fq WHERE fq.form = :form";
+		public static final String findByForm = "SELECT q FROM Question q INNER JOIN q.formQuestions fq WHERE fq.form.code = :code";
 
 	}
 
@@ -33,6 +32,6 @@ public interface QuestionDAO extends GenericDAO<Question, Long> {
 	List<Question> findBySelectedFilter(final String code, final String question, final QuestionType questionType,
 			final LifeCycleStatus lifeCycleStatus);
 
-	List<Question> findByForm(final Form form);
+	List<Question> findByForm(final String code);
 
 }

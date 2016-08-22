@@ -9,6 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -32,11 +33,16 @@ public interface QuestionResource {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<Question> createQuetion(final QuestionBeanResource questionBeanResource) throws BusinessException;
 
+	@Path("/formId")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Question>> findQuestions(@QueryParam("code") final String code,
 			@QueryParam("question") final String question, @QueryParam("questionType") final QuestionType questionType)
 			throws BusinessException;
+
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<Question>> findQuestionsByForm(@QueryParam("code") final String code) throws BusinessException;
 
 	@PUT
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

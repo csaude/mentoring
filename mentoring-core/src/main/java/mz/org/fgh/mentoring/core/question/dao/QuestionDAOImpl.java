@@ -17,7 +17,6 @@ import org.springframework.stereotype.Repository;
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
 import mz.co.mozview.frameworks.core.dao.ParamBuilder;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
-import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
 
@@ -62,9 +61,9 @@ public class QuestionDAOImpl extends GenericDAOImpl<Question, Long> implements Q
 	}
 
 	@Override
-	public List<Question> findByForm(Form form) {
+	public List<Question> findByForm(String code) {
 		return this.findByNamedQuery(QuestionDAO.QUERY_NAME.findByForm,
-				new ParamBuilder().add("form", form).process());
+				new ParamBuilder().add("code", code).process());
 	}
 
 }
