@@ -38,7 +38,7 @@ import mz.org.fgh.mentoring.core.question.dao.QuestionDAO;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "QUESTIONS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-@NamedQueries({ @NamedQuery(name = QuestionDAO.QUERY_NAME.findByForm, query = QuestionDAO.QUERY.findByForm) })
+@NamedQueries({ @NamedQuery(name = QuestionDAO.QUERY_NAME.findByFormCode, query = QuestionDAO.QUERY.findByFormCode) })
 public class Question extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;

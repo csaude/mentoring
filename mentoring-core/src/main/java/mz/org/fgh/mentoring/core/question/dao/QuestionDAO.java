@@ -20,12 +20,12 @@ public interface QuestionDAO extends GenericDAO<Question, Long> {
 	String NAME = "mz.org.fgh.mentoring.core.question.dao.QuestionDAO";
 
 	public static class QUERY {
-		public static final String findByForm = "SELECT q FROM Question q INNER JOIN q.formQuestions fq WHERE fq.form.code = :code";
+		public static final String findByFormCode = "SELECT q FROM Question q INNER JOIN q.formQuestions fq WHERE fq.form.code = :code";
 
 	}
 
 	public static class QUERY_NAME {
-		public static final String findByForm = "Question.fetchByForm";
+		public static final String findByFormCode = "Question.fetchByForm";
 
 	}
 
