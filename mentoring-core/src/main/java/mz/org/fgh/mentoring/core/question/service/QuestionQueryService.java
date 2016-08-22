@@ -20,7 +20,7 @@ public interface QuestionQueryService {
 	List<Question> findQuestionsBySelectedFilter(final UserContext userContext, final String code,
 			final String question, final QuestionType questionType);
 	
-	List<Question>  findByForm(final String code);
+	List<Question>  findByFormCode(final String code);
 
 
 }

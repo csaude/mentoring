@@ -33,8 +33,8 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
 	}
 
 	@Override
-	public List<Question> findByForm(final String code) {
-		return questionDAO.findByForm(code);
+	public List<Question> findByFormCode(final String code) {
+		return questionDAO.findByFormCode(code);
 	}
 
 }
