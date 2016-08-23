@@ -25,7 +25,7 @@ public interface QuestionDAO extends GenericDAO<Question, Long> {
 	}
 
 	public static class QUERY_NAME {
-		public static final String findByFormCode = "Question.fetchByForm";
+		public static final String findByFormCode = "Question.findByFormCode";
 
 	}
 
