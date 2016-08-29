@@ -61,4 +61,13 @@ public class QuestionResourceImpl extends AbstractResource implements QuestionRe
 
 		return JResponse.ok(question).build();
 	}
+
+	@Override
+	public JResponse<List<Question>> findQuestionsByForm(final String code) throws BusinessException {
+		
+		final List<Question> questions = questionQueryService.findByFormCode(code);
+		
+		return JResponse.ok(questions).build();
+
+	}
 }

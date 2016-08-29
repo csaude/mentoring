@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -18,6 +21,8 @@ import mz.co.mozview.frameworks.core.model.GenericEntity;
  * @author Eusebio Jose Maposse
  *
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "TUTOREDS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 public class Tutored extends GenericEntity {

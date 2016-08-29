@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
+import mz.co.mozview.frameworks.core.dao.ParamBuilder;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
@@ -58,4 +59,11 @@ public class QuestionDAOImpl extends GenericDAOImpl<Question, Long> implements Q
 
 		return query.getResultList();
 	}
+
+	@Override
+	public List<Question> findByFormCode(String code) {
+		return this.findByNamedQuery(QuestionDAO.QUERY_NAME.findByFormCode,
+				new ParamBuilder().add("code", code).process());
+	}
+
 }

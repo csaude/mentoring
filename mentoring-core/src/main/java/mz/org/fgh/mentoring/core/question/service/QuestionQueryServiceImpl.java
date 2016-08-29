@@ -32,4 +32,9 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
 		return this.questionDAO.findBySelectedFilter(code, question, questionType, LifeCycleStatus.ACTIVE);
 	}
 
+	@Override
+	public List<Question> findByFormCode(final String code) {
+		return questionDAO.findByFormCode(code);
+	}
+
 }
