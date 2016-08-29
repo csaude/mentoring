@@ -11,7 +11,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-<<<<<<<HEAD import org.junit.Ignore;=======>>>>>>>c955160d51f067f88bc6cde780cd316aa5dd0f90
+import org.junit.Ignore;
 import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
