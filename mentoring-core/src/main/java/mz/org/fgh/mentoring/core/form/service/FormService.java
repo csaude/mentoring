@@ -20,5 +20,5 @@ public interface FormService {
 
 	Form createForm(final UserContext userContext, final Form form, Set<Question> questions) throws BusinessException;
 
-	Form updateForm(final UserContext userContext, final Form form) throws BusinessException;
+	Form updateForm(final UserContext userContext, final Form form, Set<Question> questions) throws BusinessException;
 }

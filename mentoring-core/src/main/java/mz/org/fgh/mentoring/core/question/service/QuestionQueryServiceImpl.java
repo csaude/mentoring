@@ -34,7 +34,7 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
 
 	@Override
 	public List<Question> findByFormCode(final String code) {
-		return questionDAO.findByFormCode(code);
+		return questionDAO.findByFormCode(code, LifeCycleStatus.ACTIVE);
 	}
 
 }

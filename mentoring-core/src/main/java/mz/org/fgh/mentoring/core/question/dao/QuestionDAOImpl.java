@@ -61,8 +61,14 @@ public class QuestionDAOImpl extends GenericDAOImpl<Question, Long> implements Q
 	}
 
 	@Override
-	public List<Question> findByFormCode(String code) {
+	public List<Question> findByFormCode(String code, final LifeCycleStatus lifeCycleStatus) {
 		return this.findByNamedQuery(QuestionDAO.QUERY_NAME.findByFormCode,
+				new ParamBuilder().add("code", code).add("lifeCycleStatus", lifeCycleStatus).process());
+	}
+
+	@Override
+	public List<Question> findByFormCodeNotLifeCycle(String code) {
+		return this.findByNamedQuery(QuestionDAO.QUERY_NAME.findByFormCodeNotLifeCycle,
 				new ParamBuilder().add("code", code).process());
 	}
 
