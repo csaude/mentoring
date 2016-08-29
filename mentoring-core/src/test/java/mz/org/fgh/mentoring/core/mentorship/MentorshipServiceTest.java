@@ -11,7 +11,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import org.junit.Ignore;
+<<<<<<<HEAD import org.junit.Ignore;=======>>>>>>>c955160d51f067f88bc6cde780cd316aa5dd0f90
 import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
@@ -76,6 +76,8 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 
 		this.question = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
 		this.questionService.createQuestion(this.getUserContext(), this.question);
+		this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor());
+		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
 
 		final Set<Question> questions = new HashSet<>();
 		questions.add(this.question);
@@ -114,6 +116,7 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 		mentorshipUpdate.setStartDate(startDate);
 		mentorshipUpdate.setEndDate(endDate);
 
+		this.mentorshipService.updateMentorship(this.getUserContext(), mentorshipUpdate);
 		this.mentorshipService.updateMentorship(this.getUserContext(), mentorshipUpdate);
 
 		TestUtil.assertUpdate(mentorshipUpdate);

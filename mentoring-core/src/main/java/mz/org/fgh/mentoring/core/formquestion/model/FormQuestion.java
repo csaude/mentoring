@@ -24,6 +24,7 @@ import mz.org.fgh.mentoring.core.question.model.Question;
  * @author Eusebio Jose Maposse
  *
  */
+
 @Entity
 @Table(name = "FORMS_QUESTIONS", uniqueConstraints = @UniqueConstraint(columnNames = { "FORM_ID", "QUESTION_ID" }))
 public class FormQuestion extends GenericEntity {
@@ -36,7 +37,7 @@ public class FormQuestion extends GenericEntity {
 	private Form form;
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "QUESTION_ID", nullable = false)
 	private Question question;
 

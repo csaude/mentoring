@@ -21,7 +21,7 @@ public class TutoredTemplate implements TemplateLoader {
 		Fixture.of(Tutored.class).addTemplate(VALID, new Rule() {
 			{
 				this.add("name", this.random("Domingos Jose", "Eusebio Jose", "Helio Estevao"));
-				this.add("surname", this.random("Moiane", "Marta", "Muianga"));
+				this.add("surname", this.random("Maposse", "Maposse", "Maposse"));
 				this.add("phoneNumber", this.random("840665903", "824537865", "876543567"));
 			}
 		});

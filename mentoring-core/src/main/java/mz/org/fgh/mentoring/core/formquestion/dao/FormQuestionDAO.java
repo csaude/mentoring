@@ -12,6 +12,8 @@ import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
  */
 
 public interface FormQuestionDAO extends GenericDAO<FormQuestion, Long> {
-	
+
 	public String NAME = "mz.org.fgh.mentoring.core.formquestion.dao.FormQuestionDAO";
+
+
 }
