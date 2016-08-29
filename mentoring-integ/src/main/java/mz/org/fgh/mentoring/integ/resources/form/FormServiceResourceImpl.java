@@ -42,6 +42,16 @@ public class FormServiceResourceImpl extends AbstractResource implements FormSer
 	}
 
 	@Override
+	public JResponse<Form> updateForm(FormBeanResource formBeanResource) throws BusinessException {
+
+		final Form form = this.formService.updateForm(formBeanResource.getUserContext(), formBeanResource.getForm(),
+				formBeanResource.getQuestions());
+
+		return JResponse.ok(form).build();
+
+	}
+
+	@Override
 	public JResponse<List<Form>> findBySelectedFilter(final String code, final String name,
 			final String programmaticAreaCode) throws BusinessException {
 
@@ -50,4 +60,5 @@ public class FormServiceResourceImpl extends AbstractResource implements FormSer
 
 		return JResponse.ok(forms).build();
 	}
+
 }

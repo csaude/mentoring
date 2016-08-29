@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -18,6 +20,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.form.model.Form;
+import mz.org.fgh.mentoring.core.formquestion.dao.FormQuestionDAO;
 import mz.org.fgh.mentoring.core.question.model.Question;
 
 /**
@@ -27,6 +30,7 @@ import mz.org.fgh.mentoring.core.question.model.Question;
 
 @Entity
 @Table(name = "FORMS_QUESTIONS", uniqueConstraints = @UniqueConstraint(columnNames = { "FORM_ID", "QUESTION_ID" }))
+@NamedQueries({ @NamedQuery(name = FormQuestionDAO.QUERY_NAME.findByFormId, query = FormQuestionDAO.QUERY.findByFormId) })
 public class FormQuestion extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;

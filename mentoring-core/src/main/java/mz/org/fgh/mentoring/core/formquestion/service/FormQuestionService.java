@@ -16,4 +16,5 @@ public interface FormQuestionService {
 	String NAME = "mz.org.fgh.mentoring.core.formquestion.service.FormQuestionService";
 
 	FormQuestion createFormQuestion(final UserContext userContext, final FormQuestion formQuestion) throws BusinessException;
+	FormQuestion updateFormQuestion(final UserContext userContext, final FormQuestion formQuestion) throws BusinessException;
 }
