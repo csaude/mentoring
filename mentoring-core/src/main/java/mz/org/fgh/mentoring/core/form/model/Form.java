@@ -58,7 +58,7 @@ public class Form extends GenericEntity {
 	private String description;
 
 	@NotNull
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PROGRAMMATIC_AREA_ID", nullable = false)
 	private ProgrammaticArea programmaticArea;
 	
