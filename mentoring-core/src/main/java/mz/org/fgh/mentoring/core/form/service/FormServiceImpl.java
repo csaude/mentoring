@@ -3,7 +3,6 @@
  */
 package mz.org.fgh.mentoring.core.form.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -41,8 +40,6 @@ public class FormServiceImpl extends AbstractService implements FormService {
 
 	@Inject
 	private FormQuestionDAO formQuestionDao;
-
-	List<Question> importSetListQuestions = new ArrayList<>();
 
 	@Override
 	public Form createForm(final UserContext userContext, final Form form, final Set<Question> questions)
