@@ -100,7 +100,6 @@ public class FormServiceImpl extends AbstractService implements FormService {
 						}
 					}
 				} else {
-
 					FormQuestion created = new FormQuestion();
 					created.setForm(updatedForm);
 					created.setQuestion(question);
