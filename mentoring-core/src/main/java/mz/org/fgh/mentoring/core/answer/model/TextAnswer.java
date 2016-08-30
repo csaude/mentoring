@@ -26,7 +26,8 @@ public class TextAnswer extends Answer {
 		return this.textValue;
 	}
 
-	public void setTextValue(final String textValue) {
-		this.textValue = textValue;
+	@Override
+	public void setValue(final String value) {
+		this.textValue = value;
 	}
 }

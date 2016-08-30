@@ -26,7 +26,8 @@ public class BooleanAnswer extends Answer {
 		return this.booleanValue;
 	}
 
-	public void setBooleanValue(final Boolean booleanValue) {
-		this.booleanValue = booleanValue;
+	@Override
+	public void setValue(final String value) {
+		this.booleanValue = Boolean.valueOf(value);
 	}
 }

@@ -99,11 +99,10 @@ public class Question extends GenericEntity {
 	}
 
 	public Set<FormQuestion> getFormQuestions() {
-		return formQuestions;
+		return this.formQuestions;
 	}
 
-	public void setFormQuestions(Set<FormQuestion> formQuestions) {
+	public void setFormQuestions(final Set<FormQuestion> formQuestions) {
 		this.formQuestions = formQuestions;
 	}
-
 }
