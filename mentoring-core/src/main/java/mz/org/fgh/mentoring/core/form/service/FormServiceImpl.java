@@ -86,13 +86,11 @@ public class FormServiceImpl extends AbstractService implements FormService {
 						question.getId());
 
 				if (question.getCode().equals(formQuestion.getQuestion().getCode())) {
-
 					formQuestion.setLifeCycleStatus(LifeCycleStatus.ACTIVE);
 					formQuestionDao.update(userContext.getId(), formQuestion);
 				}
 
 				if (!createdFormQuestions.isEmpty()) {
-
 					for (FormQuestion fq : createdFormQuestions) {
 
 						if (fq.getForm().getId() == question.getId()
@@ -104,10 +102,8 @@ public class FormServiceImpl extends AbstractService implements FormService {
 				} else {
 
 					FormQuestion created = new FormQuestion();
-
 					created.setForm(updatedForm);
 					created.setQuestion(question);
-
 					formQuestionService.createFormQuestion(userContext, created);
 				}
 			}
