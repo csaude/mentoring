@@ -71,9 +71,9 @@ public class FormServiceImpl extends AbstractService implements FormService {
 	public Form updateForm(final UserContext userContext, final Form form, Set<Question> questions)
 			throws BusinessException {
 
-		Form formUpdate = this.formDAO.update(userContext.getId(), form);
+		Form updatedForm = this.formDAO.update(userContext.getId(), form);
 
-		List<FormQuestion> formQuestions = formQuestionDao.findByFormId(formUpdate.getId());
+		List<FormQuestion> formQuestions = formQuestionDao.findByFormId(updatedForm.getId());
 
 		for (FormQuestion formQuestion : formQuestions) {
 
@@ -82,7 +82,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 
 			for (Question question : questions) {
 
-				List<FormQuestion> createdFormQuestions = formQuestionDao.findByFormIdAndQuestionId(formUpdate.getId(),
+				List<FormQuestion> createdFormQuestions = formQuestionDao.findByFormIdAndQuestionId(updatedForm.getId(),
 						question.getId());
 
 				if (question.getCode().equals(formQuestion.getQuestion().getCode())) {
@@ -96,7 +96,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 					for (FormQuestion fq : createdFormQuestions) {
 
 						if (fq.getForm().getId() == question.getId()
-								&& fq.getQuestion().getId() == formUpdate.getId()) {
+								&& fq.getQuestion().getId() == updatedForm.getId()) {
 							fq.setLifeCycleStatus(LifeCycleStatus.ACTIVE);
 							formQuestionDao.update(userContext.getId(), fq);
 						}
@@ -105,7 +105,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 
 					FormQuestion created = new FormQuestion();
 
-					created.setForm(formUpdate);
+					created.setForm(updatedForm);
 					created.setQuestion(question);
 
 					formQuestionService.createFormQuestion(userContext, created);
@@ -113,6 +113,6 @@ public class FormServiceImpl extends AbstractService implements FormService {
 			}
 		}
 
-		return formUpdate;
+		return updatedForm;
 	}
 }
