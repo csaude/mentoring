@@ -62,7 +62,6 @@ public class MentorshipServiceImpl extends AbstractService implements Mentorship
 	@Override
 	public Mentorship updateMentorship(final UserContext userContext, final Mentorship mentorship)
 			throws BusinessException {
-
 		return this.mentorshipDAO.update(userContext.getId(), mentorship);
 	}
 }

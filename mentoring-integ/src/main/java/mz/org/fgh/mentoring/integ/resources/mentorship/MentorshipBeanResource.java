@@ -50,12 +50,12 @@ public class MentorshipBeanResource {
 
 		final List<Answer> answers = new ArrayList<>();
 
-		this.questions.stream().forEach(question -> {
+		for (final QuestionHelper question : this.questions) {
 			final Answer answer = question.getQuestionType().getAnswer();
 			answer.setValue(question.getValue());
 			answer.setQuestion(question.getQuestionObject());
 			answers.add(answer);
-		});
+		}
 
 		return answers;
 	}

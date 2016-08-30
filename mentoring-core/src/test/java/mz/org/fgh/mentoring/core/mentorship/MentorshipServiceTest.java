@@ -76,8 +76,6 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 
 		this.question = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
 		this.questionService.createQuestion(this.getUserContext(), this.question);
-		this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor());
-		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
 
 		final Set<Question> questions = new HashSet<>();
 		questions.add(this.question);

@@ -13,23 +13,40 @@ import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
  */
 public enum QuestionType {
 
-	TEXT(new TextAnswer()),
+	TEXT {
+		@Override
+		public Answer getAnswer() {
+			return new TextAnswer();
+		}
+	},
 
-	BOOLEAN(new BooleanAnswer()),
+	BOOLEAN {
+		@Override
+		public Answer getAnswer() {
+			return new BooleanAnswer();
+		}
+	},
 
-	NUMERIC(null),
+	NUMERIC {
+		@Override
+		public Answer getAnswer() {
+			return null;
+		}
+	},
 
-	DECIMAL(null),
+	DECIMAL {
+		@Override
+		public Answer getAnswer() {
+			return null;
+		}
+	},
 
-	CURRENCY(null);
+	CURRENCY {
+		@Override
+		public Answer getAnswer() {
+			return null;
+		}
+	};
 
-	private final Answer answer;
-
-	private QuestionType(final Answer answer) {
-		this.answer = answer;
-	}
-
-	public Answer getAnswer() {
-		return this.answer;
-	}
+	public abstract Answer getAnswer();
 }

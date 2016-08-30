@@ -17,7 +17,6 @@ import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
-import mz.org.fgh.mentoring.core.util.Category;
 
 /**
  * @author Eusebio Jose Maposse
