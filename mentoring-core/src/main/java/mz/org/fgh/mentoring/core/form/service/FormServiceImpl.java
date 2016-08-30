@@ -70,6 +70,10 @@ public class FormServiceImpl extends AbstractService implements FormService {
 	@Override
 	public Form updateForm(final UserContext userContext, final Form form, Set<Question> questions)
 			throws BusinessException {
+		
+		if (questions.isEmpty()) {
+			throw new BusinessException(propertyValues.getPropValues("cannot.update.form.without.questions"));
+		}
 
 		Form updatedForm = this.formDAO.update(userContext.getId(), form);
 
