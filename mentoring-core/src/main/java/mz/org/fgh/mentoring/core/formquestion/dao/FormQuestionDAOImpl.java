@@ -25,4 +25,10 @@ public class FormQuestionDAOImpl extends GenericDAOImpl<FormQuestion, Long> impl
 				new ParamBuilder().add("formId", formId).process());
 	}
 
+	@Override
+	public List<FormQuestion> findByFormIdAndQuestionId(Long formId, Long questionId) {
+		return this.findByNamedQuery(FormQuestionDAO.QUERY_NAME.findByFormIdAndQuestionId,
+				new ParamBuilder().add("formId", formId).add("questionId", questionId).process());
+	}
+
 }

@@ -18,11 +18,10 @@ import mz.co.mozview.frameworks.core.util.PropertyValues;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.form.dao.FormDAO;
 import mz.org.fgh.mentoring.core.form.model.Form;
+import mz.org.fgh.mentoring.core.formquestion.dao.FormQuestionDAO;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.formquestion.service.FormQuestionService;
-import mz.org.fgh.mentoring.core.question.dao.QuestionDAO;
 import mz.org.fgh.mentoring.core.question.model.Question;
-import mz.org.fgh.mentoring.core.question.service.QuestionService;
 
 /**
  * @author Eusebio Jose Maposse
@@ -41,10 +40,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 	private FormQuestionService formQuestionService;
 
 	@Inject
-	private QuestionService questionService;
-
-	@Inject
-	private QuestionDAO questionDAO;
+	private FormQuestionDAO formQuestionDao;
 
 	List<Question> importSetListQuestions = new ArrayList<>();
 
@@ -80,30 +76,42 @@ public class FormServiceImpl extends AbstractService implements FormService {
 
 		Form formUpdate = this.formDAO.update(userContext.getId(), form);
 
-		List<Question> questionForms = questionDAO.findByFormCodeNotLifeCycle(form.getCode());
+		List<FormQuestion> formQuestions = formQuestionDao.findByFormId(formUpdate.getId());
 
-		for (Question question : questionForms) {
-			question.setLifeCycleStatus(LifeCycleStatus.INACTIVE);
-			questionService.updateQuestion(userContext, question);
+		for (FormQuestion formQuestion : formQuestions) {
 
-			for (Question questionUpdate : questions) {
+			formQuestion.setLifeCycleStatus(LifeCycleStatus.INACTIVE);
+			formQuestionDao.update(userContext.getId(), formQuestion);
 
-				if (questionUpdate.getCode().equals(question.getCode())) {
+			for (Question question : questions) {
 
-					question.setLifeCycleStatus(LifeCycleStatus.ACTIVE);
-					questionService.updateQuestion(userContext, question);
+				List<FormQuestion> createdFormQuestions = formQuestionDao.findByFormIdAndQuestionId(formUpdate.getId(),
+						question.getId());
 
+				if (question.getCode().equals(formQuestion.getQuestion().getCode())) {
+
+					formQuestion.setLifeCycleStatus(LifeCycleStatus.ACTIVE);
+					formQuestionDao.update(userContext.getId(), formQuestion);
+				}
+
+				if (!createdFormQuestions.isEmpty()) {
+
+					for (FormQuestion fq : createdFormQuestions) {
+
+						if (fq.getForm().getId() == question.getId()
+								&& fq.getQuestion().getId() == formUpdate.getId()) {
+							fq.setLifeCycleStatus(LifeCycleStatus.ACTIVE);
+							formQuestionDao.update(userContext.getId(), fq);
+						}
+					}
 				} else {
 
-					if (question.getId() == null) {
+					FormQuestion created = new FormQuestion();
 
-						FormQuestion formQuestion = new FormQuestion();
-						formQuestion.setForm(formUpdate);
-						formQuestion.setQuestion(question);
+					created.setForm(formUpdate);
+					created.setQuestion(question);
 
-						formQuestionService.createFormQuestion(userContext, formQuestion);
-					}
-
+					formQuestionService.createFormQuestion(userContext, created);
 				}
 			}
 		}
