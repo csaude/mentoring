@@ -3,8 +3,9 @@
  */
 package mz.org.fgh.mentoring.core.form.service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -18,11 +19,10 @@ import mz.co.mozview.frameworks.core.util.PropertyValues;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.form.dao.FormDAO;
 import mz.org.fgh.mentoring.core.form.model.Form;
+import mz.org.fgh.mentoring.core.formquestion.dao.FormQuestionDAO;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.formquestion.service.FormQuestionService;
-import mz.org.fgh.mentoring.core.question.dao.QuestionDAO;
 import mz.org.fgh.mentoring.core.question.model.Question;
-import mz.org.fgh.mentoring.core.question.service.QuestionService;
 
 /**
  * @author Eusebio Jose Maposse
@@ -41,12 +41,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 	private FormQuestionService formQuestionService;
 
 	@Inject
-	private QuestionService questionService;
-
-	@Inject
-	private QuestionDAO questionDAO;
-
-	List<Question> importSetListQuestions = new ArrayList<>();
+	private FormQuestionDAO formQuestionDao;
 
 	@Override
 	public Form createForm(final UserContext userContext, final Form form, final Set<Question> questions)
@@ -57,7 +52,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 		form.setCode(code);
 
 		if (questions.isEmpty()) {
-			throw new BusinessException(propertyValues.getPropValues("cannot.create.form.without.questions"));
+			getBusinessException("cannot.create.form.without.questions");
 		}
 
 		this.formDAO.create(userContext.getId(), form);
@@ -74,40 +69,56 @@ public class FormServiceImpl extends AbstractService implements FormService {
 		return form;
 	}
 
+	private BusinessException getBusinessException(String message) throws BusinessException {
+		throw new BusinessException(propertyValues.getPropValues(message));
+	}
+
+	private List<FormQuestion> inactivetedAllFormQuestion(Long formId) {
+
+		List<FormQuestion> formQuestions = formQuestionDao.findByFormId(formId);
+
+		for (FormQuestion formQuestionInterator : formQuestions) {
+			formQuestionInterator.setLifeCycleStatus(LifeCycleStatus.INACTIVE);
+		}
+
+		return formQuestions;
+	}
+
+	public void getFormQuestionByList(final UserContext userContext, Set<Question> questions, Form form,
+			List<FormQuestion> formQuestions) throws BusinessException {
+
+		Map<Long, FormQuestion> mapQuestions = new HashMap<>();
+
+		for (FormQuestion formQuestion : formQuestions) {
+			mapQuestions.put(formQuestion.getQuestion().getId(), formQuestion);
+		}
+		for (Question question : questions) {
+			if (mapQuestions.containsKey(question.getId())) {
+				mapQuestions.get(question.getId()).setLifeCycleStatus(LifeCycleStatus.ACTIVE);
+			}
+			if (!mapQuestions.containsKey(question.getId())) {
+				FormQuestion created = new FormQuestion();
+				created.setForm(form);
+				created.setQuestion(question);
+
+				formQuestionService.createFormQuestion(userContext, created);
+			}
+		}
+	}
+
 	@Override
 	public Form updateForm(final UserContext userContext, final Form form, Set<Question> questions)
 			throws BusinessException {
 
-		Form formUpdate = this.formDAO.update(userContext.getId(), form);
+		Form updatedForm = this.formDAO.update(userContext.getId(), form);
 
-		List<Question> questionForms = questionDAO.findByFormCodeNotLifeCycle(form.getCode());
-
-		for (Question question : questionForms) {
-			question.setLifeCycleStatus(LifeCycleStatus.INACTIVE);
-			questionService.updateQuestion(userContext, question);
-
-			for (Question questionUpdate : questions) {
-
-				if (questionUpdate.getCode().equals(question.getCode())) {
-
-					question.setLifeCycleStatus(LifeCycleStatus.ACTIVE);
-					questionService.updateQuestion(userContext, question);
-
-				} else {
-
-					if (question.getId() == null) {
-
-						FormQuestion formQuestion = new FormQuestion();
-						formQuestion.setForm(formUpdate);
-						formQuestion.setQuestion(question);
-
-						formQuestionService.createFormQuestion(userContext, formQuestion);
-					}
-
-				}
-			}
+		if (questions.isEmpty()) {
+			getBusinessException("cannot.update.form.without.questions");
 		}
 
-		return formUpdate;
+		inactivetedAllFormQuestion(updatedForm.getId());
+		getFormQuestionByList(userContext, questions, updatedForm, inactivetedAllFormQuestion(updatedForm.getId()));
+
+		return updatedForm;
 	}
 }

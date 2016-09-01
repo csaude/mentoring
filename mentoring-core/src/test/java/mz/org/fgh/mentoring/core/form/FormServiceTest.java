@@ -72,14 +72,20 @@ public class FormServiceTest extends AbstractSpringTest {
 			questions.add(question);
 		}
 
-		this.formService.createForm(this.getUserContext(), this.form, questions);
-
 	}
 
 	@Test(expected = BusinessException.class)
 	public void shouldNotCreateFormWithoutQuestions() throws BusinessException {
 
 		this.formService.createForm(this.getUserContext(), this.form, new HashSet<>());
+
+		TestUtil.assertCreation(this.form);
+	}
+	
+	@Test(expected = BusinessException.class)
+	public void shouldNotUpdateFormWithoutQuestions() throws BusinessException {
+
+		this.formService.updateForm(this.getUserContext(), this.form, new HashSet<>());
 
 		TestUtil.assertCreation(this.form);
 	}
@@ -103,9 +109,12 @@ public class FormServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldUpdateForm() throws BusinessException {
 
-		final Form updateForm = this.formDAO.findById(this.form.getId());
+		form = formService.createForm(getUserContext(), form, questions);
 		
-		questions.add(questionService.createQuestion(getUserContext(), EntityFactory.gimme(Question.class, QuestionTemplate.VALID)));
+		final Form updateForm = this.formDAO.findById(this.form.getId());
+
+		questions.add(questionService.createQuestion(getUserContext(),
+				EntityFactory.gimme(Question.class, QuestionTemplate.VALID)));
 
 		this.formService.updateForm(this.getUserContext(), updateForm, questions);
 

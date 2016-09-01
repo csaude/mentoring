@@ -20,14 +20,12 @@ public interface QuestionDAO extends GenericDAO<Question, Long> {
 	String NAME = "mz.org.fgh.mentoring.core.question.dao.QuestionDAO";
 
 	public static class QUERY {
-		public static final String findByFormCode = "SELECT q FROM Question q INNER JOIN q.formQuestions fq WHERE fq.form.code = :code AND q.lifeCycleStatus =:lifeCycleStatus";
-		public static final String findByFormCodeNotLifeCycle = "SELECT q FROM Question q INNER JOIN q.formQuestions fq WHERE fq.form.code = :code";
+		public static final String findByFormCode = "SELECT q FROM Question q INNER JOIN q.formQuestions fq WHERE fq.form.code = :code AND fq.lifeCycleStatus =:lifeCycleStatus";
 
 	}
 
 	public static class QUERY_NAME {
 		public static final String findByFormCode = "Question.findByFormCode";
-		public static final String findByFormCodeNotLifeCycle = "Question.findByFormCodeNotLifeCycle";
 
 	}
 
@@ -36,7 +34,6 @@ public interface QuestionDAO extends GenericDAO<Question, Long> {
 
 	List<Question> findByFormCode(final String code, final LifeCycleStatus lifeCycleStatus);
 	
-	List<Question> findByFormCodeNotLifeCycle(final String code);
 
 
 }
