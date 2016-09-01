@@ -30,7 +30,7 @@ public interface FormQuestionDAO extends GenericDAO<FormQuestion, Long> {
 	}
 	
 	public List<FormQuestion> findByFormId(Long formId);
-	public List<FormQuestion> findByFormIdAndQuestionId(Long formId, Long questionId);
+	public FormQuestion findByFormIdAndQuestionId(Long formId, Long questionId);
 
 
 }
