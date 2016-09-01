@@ -87,6 +87,10 @@ public class FormServiceImpl extends AbstractService implements FormService {
 	public void getFormQuestionByList(final UserContext userContext, Set<Question> questions, Form form,
 			List<FormQuestion> formQuestions) throws BusinessException {
 
+		if (questions.isEmpty()) {
+			getBusinessException("cannot.update.form.without.questions");
+		}
+
 		Map<Long, FormQuestion> mapQuestions = new HashMap<>();
 
 		for (FormQuestion formQuestion : formQuestions) {
@@ -95,7 +99,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 		for (Question question : questions) {
 			if (mapQuestions.containsKey(question.getId())) {
 				mapQuestions.get(question.getId()).setLifeCycleStatus(LifeCycleStatus.ACTIVE);
-				formQuestionService.updateFormQuestion(userContext,mapQuestions.get(question.getId()));
+				formQuestionService.updateFormQuestion(userContext, mapQuestions.get(question.getId()));
 			}
 			if (!mapQuestions.containsKey(question.getId())) {
 				FormQuestion created = new FormQuestion();
@@ -111,10 +115,6 @@ public class FormServiceImpl extends AbstractService implements FormService {
 			throws BusinessException {
 
 		Form updatedForm = this.formDAO.update(userContext.getId(), form);
-
-		if (questions.isEmpty()) {
-			getBusinessException("cannot.update.form.without.questions");
-		}
 
 		inactivetedAllFormQuestion(updatedForm.getId());
 		getFormQuestionByList(userContext, questions, updatedForm, inactivetedAllFormQuestion(updatedForm.getId()));
