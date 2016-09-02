@@ -82,6 +82,18 @@ public class FormServiceTest extends AbstractSpringTest {
 		TestUtil.assertCreation(createdForm);
 	}
 
+	@Test(expected = BusinessException.class)
+	public void shouldNotUpdateFormWithoutQuestions() throws BusinessException {
+
+		Form createdForm = this.formService.createForm(this.getUserContext(), this.form, new HashSet<>());
+
+		final Form updateForm = this.formDAO.findById(createdForm.getId());
+
+		Form updatedForm = this.formService.updateForm(this.getUserContext(), updateForm, new HashSet<>());
+
+		TestUtil.assertUpdate(updatedForm);
+	}
+
 	@Test
 	public void shouldCreateForm() throws BusinessException {
 
