@@ -54,6 +54,8 @@ public class FormServiceTest extends AbstractSpringTest {
 
 	private Form form;
 
+	private Question newQuestion;
+
 	@Override
 	public void setUp() throws BusinessException {
 
@@ -62,8 +64,9 @@ public class FormServiceTest extends AbstractSpringTest {
 		this.form = EntityFactory.gimme(Form.class, FormTemplate.VALID);
 
 		form.setProgrammaticArea(programmaticAreaService.createProgrammaticArea(getUserContext(), programmaticArea));
+		newQuestion = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
 
-		List<Question> createdQuestions = (EntityFactory.gimme(Question.class, 2, QuestionTemplate.VALID));
+		List<Question> createdQuestions = (EntityFactory.gimme(Question.class, 10, QuestionTemplate.VALID));
 
 		for (Question question : createdQuestions) {
 
@@ -114,6 +117,8 @@ public class FormServiceTest extends AbstractSpringTest {
 	public void shouldUpdateForm() throws BusinessException {
 
 		Form createdForm = this.formService.createForm(this.getUserContext(), this.form, questions);
+		
+		questions.add(this.questionService.createQuestion(this.getUserContext(), newQuestion));
 
 		final Form updateForm = this.formDAO.findById(createdForm.getId());
 
