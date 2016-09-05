@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import com.sun.jersey.api.JResponse;
 
 import mz.org.fgh.mentoring.core.location.model.Province;
+import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 @Path("utils")
 public class ResourceUtilsImpl implements ResourceUtils {
@@ -20,4 +21,10 @@ public class ResourceUtilsImpl implements ResourceUtils {
 
 		return JResponse.ok(Arrays.asList(Province.values())).build();
 	}
+
+	@Override
+	public JResponse<List<QuestionCategory>> getQuestionCategory() {
+		return JResponse.ok(Arrays.asList(QuestionCategory.values())).build();
+	}
+
 }
