@@ -28,6 +28,7 @@ import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
 import mz.org.fgh.mentoring.core.question.service.QuestionQueryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
+import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 /**
  * @author Stélio Moiane
@@ -80,9 +81,10 @@ public class QuestionQueryServiceTest extends AbstractSpringTest {
 		final String code = null;
 		final String question = null;
 		final QuestionType questionType = null;
+		final QuestionCategory questionCategory = null;
 
 		final List<Question> questions = this.questionQueryService.findQuestionsBySelectedFilter(this.getUserContext(),
-				code, question, questionType);
+				code, question, questionType, questionCategory);
 
 		assertFalse(questions.isEmpty());
 		assertEquals(this.questions.size(), questions.size());

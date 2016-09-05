@@ -17,6 +17,7 @@ import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
 import mz.org.fgh.mentoring.core.question.service.QuestionQueryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
+import mz.org.fgh.mentoring.core.util.QuestionCategory;
 import mz.org.fgh.mentoring.integ.resources.AbstractResource;
 
 /**
@@ -44,10 +45,10 @@ public class QuestionResourceImpl extends AbstractResource implements QuestionRe
 
 	@Override
 	public JResponse<List<Question>> findQuestions(final String code, final String question,
-			final QuestionType questionType) throws BusinessException {
+			final QuestionType questionType, QuestionCategory questionCategory) throws BusinessException {
 
 		final List<Question> questions = this.questionQueryService.findQuestionsBySelectedFilter(this.getUserContetx(),
-				code, question, questionType);
+				code, question, questionType, questionCategory);
 
 		return JResponse.ok(questions).build();
 	}

@@ -15,15 +15,15 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import mz.co.mozview.frameworks.core.model.GenericEntity;
-import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
-import mz.org.fgh.mentoring.core.util.Category;
-
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.sun.istack.NotNull;
+
+import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
+import mz.org.fgh.mentoring.core.util.Category;
 
 /**
  * @author Stélio Moiane
@@ -54,6 +54,9 @@ public class Tutor extends GenericEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "CATEGORY", nullable = false, length = 50)
 	private Category category;
+
+	@Column(name = "PHONE_NUMBER", nullable = false, length = 50)
+	private String phoneNumber;
 
 	public Tutor() {
 	}
@@ -98,5 +101,13 @@ public class Tutor extends GenericEntity {
 	@Override
 	public boolean equals(final Object that) {
 		return EqualsBuilder.reflectionEquals(this, that);
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 }
