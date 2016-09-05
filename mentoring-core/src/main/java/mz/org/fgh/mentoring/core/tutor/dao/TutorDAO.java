@@ -30,6 +30,6 @@ public interface TutorDAO extends GenericDAO<Tutor, Long> {
 	}
 
 	public List<Tutor> findBySelectedFilter(final String code, final String name, final String surname,
-			final Category category, LifeCycleStatus lifeCycleStatus);
+			final Category category,  final String phoneNumber, LifeCycleStatus lifeCycleStatus);
 
 }

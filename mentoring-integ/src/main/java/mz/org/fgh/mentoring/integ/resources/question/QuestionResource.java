@@ -20,6 +20,7 @@ import com.sun.jersey.api.JResponse;
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
+import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 /**
  * @author Eusebio Jose Maposse
@@ -37,8 +38,8 @@ public interface QuestionResource {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Question>> findQuestions(@QueryParam("code") final String code,
-			@QueryParam("question") final String question, @QueryParam("questionType") final QuestionType questionType)
-			throws BusinessException;
+			@QueryParam("question") final String question, @QueryParam("questionType") final QuestionType questionType,
+			@QueryParam("questionCategory") final QuestionCategory questionCategory) throws BusinessException;
 
 	@GET
 	@Path("{formCode}")

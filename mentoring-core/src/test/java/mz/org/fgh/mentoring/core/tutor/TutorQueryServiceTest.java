@@ -40,10 +40,11 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 		final String code = null;
 		final String name = null;
 		final String surname = null;
+		final String phoneNumber = null;
 		final Category category = Category.DATA_MANAGER;
 
 		final List<Tutor> tutors = this.TutorQueryService.findTutorsBySelectedFilter(this.getUserContext(), code, name,
-				surname, category);
+				surname, category, phoneNumber);
 
 		assertFalse(tutors.isEmpty());
 

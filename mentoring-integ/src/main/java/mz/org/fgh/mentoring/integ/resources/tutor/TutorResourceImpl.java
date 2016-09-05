@@ -44,10 +44,10 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 
 	@Override
 	public JResponse<List<Tutor>> findTutors(final String code, final String name, final String surname,
-			final Category category) throws BusinessException {
+			final Category category, final String phoneNumber) throws BusinessException {
 
 		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(this.getUserContetx(), code, name,
-				surname, category);
+				surname, category, phoneNumber);
 
 		return JResponse.ok(tutors).build();
 	}
