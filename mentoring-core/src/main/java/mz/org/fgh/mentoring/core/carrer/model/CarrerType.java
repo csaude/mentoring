@@ -3,10 +3,13 @@
  */
 package mz.org.fgh.mentoring.core.carrer.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * @author Stélio Moiane
  *
  */
+@XmlRootElement
 public enum CarrerType {
 
 	HEALTH_TECHNICAL_ASSISTANT,

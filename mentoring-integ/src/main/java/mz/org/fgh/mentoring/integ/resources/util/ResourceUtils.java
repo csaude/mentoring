@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.sun.jersey.api.JResponse;
 
+import mz.org.fgh.mentoring.core.carrer.model.CarrerType;
 import mz.org.fgh.mentoring.core.location.model.Province;
 
 /**
@@ -24,7 +25,11 @@ public interface ResourceUtils {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Path("{provinces}")
+	@Path("/provinces")
 	public JResponse<List<Province>> getProvinces();
 
+	@GET
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Path("/carrertypes")
+	public JResponse<List<CarrerType>> getCarrerTypes();
 }
