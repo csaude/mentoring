@@ -14,6 +14,7 @@ import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.question.dao.QuestionDAO;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
+import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 /**
  * @author Eusebio Jose Maposse
@@ -27,9 +28,10 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
 
 	@Override
 	public List<Question> findQuestionsBySelectedFilter(final UserContext userContext, final String code,
-			final String question, final QuestionType questionType) {
+			final String question, final QuestionType questionType, final QuestionCategory questionCategory) {
 
-		return this.questionDAO.findBySelectedFilter(code, question, questionType, LifeCycleStatus.ACTIVE);
+		return this.questionDAO.findBySelectedFilter(code, question, questionType, questionCategory,
+				LifeCycleStatus.ACTIVE);
 	}
 
 	@Override

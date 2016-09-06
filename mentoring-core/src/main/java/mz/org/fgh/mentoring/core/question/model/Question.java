@@ -29,6 +29,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.question.dao.QuestionDAO;
+import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 /**
  * @author Eusebio Jose Maposse
@@ -38,8 +39,7 @@ import mz.org.fgh.mentoring.core.question.dao.QuestionDAO;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "QUESTIONS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-@NamedQueries({ @NamedQuery(name = QuestionDAO.QUERY_NAME.findByFormCode, query = QuestionDAO.QUERY.findByFormCode),  
-	@NamedQuery	(name = QuestionDAO.QUERY_NAME.findByFormCodeNotLifeCycle, query = QuestionDAO.QUERY.findByFormCodeNotLifeCycle)})
+@NamedQueries({ @NamedQuery(name = QuestionDAO.QUERY_NAME.findByFormCode, query = QuestionDAO.QUERY.findByFormCode)})
 public class Question extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -56,6 +56,10 @@ public class Question extends GenericEntity {
 	@Column(name = "QUESTION_TYPE", nullable = false, length = 50)
 	@Enumerated(EnumType.STRING)
 	private QuestionType questionType;
+	
+	@Column(name = "QUESTION_CATEGORY", nullable = false, length = 50)
+	@Enumerated(EnumType.STRING)
+	private QuestionCategory questionCategory;
 	
 	@XmlTransient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "question")
@@ -104,5 +108,13 @@ public class Question extends GenericEntity {
 
 	public void setFormQuestions(final Set<FormQuestion> formQuestions) {
 		this.formQuestions = formQuestions;
+	}
+
+	public QuestionCategory getQuestionCategory() {
+		return questionCategory;
+	}
+
+	public void setQuestionCategory(QuestionCategory questionCategory) {
+		this.questionCategory = questionCategory;
 	}
 }

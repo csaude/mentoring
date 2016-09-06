@@ -14,6 +14,7 @@ import com.sun.jersey.api.JResponse;
 
 import mz.org.fgh.mentoring.core.carrer.model.CarrerType;
 import mz.org.fgh.mentoring.core.location.model.Province;
+import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 /**
  * @author Stélio Moiane
@@ -27,6 +28,11 @@ public interface ResourceUtils {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/provinces")
 	public JResponse<List<Province>> getProvinces();
+	
+	@GET
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Path("/questionsCategory")
+	public JResponse<List<QuestionCategory>> getQuestionCategory();
 
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })

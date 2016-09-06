@@ -28,7 +28,7 @@ public class TutorQueryServiceImpl implements TutorQueryService {
 
 	@Override
 	public List<Tutor> findTutorsBySelectedFilter(final UserContext userContext, final String code, final String name,
-			final String surname, final Category category) throws BusinessException {
-		return this.tutorDAO.findBySelectedFilter(code, name, surname, category, LifeCycleStatus.ACTIVE);
+			final String surname, final Category category, final String phoneNumber) throws BusinessException {
+		return this.tutorDAO.findBySelectedFilter(code, name, surname, category, phoneNumber, LifeCycleStatus.ACTIVE);
 	}
 }

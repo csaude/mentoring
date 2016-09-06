@@ -54,6 +54,8 @@ public class FormServiceTest extends AbstractSpringTest {
 
 	private Form form;
 
+	private Question newQuestion;
+
 	@Override
 	public void setUp() throws BusinessException {
 
@@ -62,8 +64,9 @@ public class FormServiceTest extends AbstractSpringTest {
 		this.form = EntityFactory.gimme(Form.class, FormTemplate.VALID);
 
 		form.setProgrammaticArea(programmaticAreaService.createProgrammaticArea(getUserContext(), programmaticArea));
+		newQuestion = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
 
-		List<Question> createdQuestions = (EntityFactory.gimme(Question.class, 2, QuestionTemplate.VALID));
+		List<Question> createdQuestions = (EntityFactory.gimme(Question.class, 10, QuestionTemplate.VALID));
 
 		for (Question question : createdQuestions) {
 
@@ -72,16 +75,26 @@ public class FormServiceTest extends AbstractSpringTest {
 			questions.add(question);
 		}
 
-		this.formService.createForm(this.getUserContext(), this.form, questions);
-
 	}
 
 	@Test(expected = BusinessException.class)
 	public void shouldNotCreateFormWithoutQuestions() throws BusinessException {
 
-		this.formService.createForm(this.getUserContext(), this.form, new HashSet<>());
+		Form createdForm = this.formService.createForm(this.getUserContext(), this.form, new HashSet<>());
 
-		TestUtil.assertCreation(this.form);
+		TestUtil.assertCreation(createdForm);
+	}
+
+	@Test(expected = BusinessException.class)
+	public void shouldNotUpdateFormWithoutQuestions() throws BusinessException {
+
+		Form createdForm = this.formService.createForm(this.getUserContext(), this.form, new HashSet<>());
+
+		final Form updateForm = this.formDAO.findById(createdForm.getId());
+
+		Form updatedForm = this.formService.updateForm(this.getUserContext(), updateForm, new HashSet<>());
+
+		TestUtil.assertUpdate(updatedForm);
 	}
 
 	@Test
@@ -103,9 +116,11 @@ public class FormServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldUpdateForm() throws BusinessException {
 
-		final Form updateForm = this.formDAO.findById(this.form.getId());
+		Form createdForm = this.formService.createForm(this.getUserContext(), this.form, questions);
 		
-		questions.add(questionService.createQuestion(getUserContext(), EntityFactory.gimme(Question.class, QuestionTemplate.VALID)));
+		questions.add(this.questionService.createQuestion(this.getUserContext(), newQuestion));
+
+		final Form updateForm = this.formDAO.findById(createdForm.getId());
 
 		this.formService.updateForm(this.getUserContext(), updateForm, questions);
 

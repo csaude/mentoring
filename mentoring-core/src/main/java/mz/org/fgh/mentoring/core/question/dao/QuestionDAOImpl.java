@@ -19,6 +19,7 @@ import mz.co.mozview.frameworks.core.dao.ParamBuilder;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
+import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 /**
  * @author Stélio Moiane
@@ -28,9 +29,14 @@ import mz.org.fgh.mentoring.core.question.model.QuestionType;
 public class QuestionDAOImpl extends GenericDAOImpl<Question, Long> implements QuestionDAO {
 
 	@Override
-	public List<Question> findBySelectedFilter(final String code, final String question,
-			final QuestionType questionType, final LifeCycleStatus lifeCycleStatus) {
+	public List<Question> findByFormCode(String code, final LifeCycleStatus lifeCycleStatus) {
+		return this.findByNamedQuery(QuestionDAO.QUERY_NAME.findByFormCode,
+				new ParamBuilder().add("code", code).add("lifeCycleStatus", lifeCycleStatus).process());
+	}
 
+	@Override
+	public List<Question> findBySelectedFilter(String code, String question, QuestionType questionType,
+			QuestionCategory questionCategory, LifeCycleStatus lifeCycleStatus) {
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Question> createQuery = criteriaBuilder.createQuery(Question.class);
 		final Root<Question> root = createQuery.from(Question.class);
@@ -50,6 +56,9 @@ public class QuestionDAOImpl extends GenericDAOImpl<Question, Long> implements Q
 		if (questionType != null) {
 			predicates.add(criteriaBuilder.equal(root.get("questionType"), questionType));
 		}
+		if (questionCategory != null) {
+			predicates.add(criteriaBuilder.equal(root.get("questionCategory"), questionCategory));
+		}
 
 		predicates.add(criteriaBuilder.equal(root.get("lifeCycleStatus"), lifeCycleStatus));
 
@@ -58,18 +67,6 @@ public class QuestionDAOImpl extends GenericDAOImpl<Question, Long> implements Q
 		final TypedQuery<Question> query = this.getEntityManager().createQuery(createQuery);
 
 		return query.getResultList();
-	}
-
-	@Override
-	public List<Question> findByFormCode(String code, final LifeCycleStatus lifeCycleStatus) {
-		return this.findByNamedQuery(QuestionDAO.QUERY_NAME.findByFormCode,
-				new ParamBuilder().add("code", code).add("lifeCycleStatus", lifeCycleStatus).process());
-	}
-
-	@Override
-	public List<Question> findByFormCodeNotLifeCycle(String code) {
-		return this.findByNamedQuery(QuestionDAO.QUERY_NAME.findByFormCodeNotLifeCycle,
-				new ParamBuilder().add("code", code).process());
 	}
 
 }

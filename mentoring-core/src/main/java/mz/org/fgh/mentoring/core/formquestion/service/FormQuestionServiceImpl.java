@@ -3,9 +3,6 @@
  */
 package mz.org.fgh.mentoring.core.formquestion.service;
 
-/*
- * Friends in Global Health - FGH © 2016
- */
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
