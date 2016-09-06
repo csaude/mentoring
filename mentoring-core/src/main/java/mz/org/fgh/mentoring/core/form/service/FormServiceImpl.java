@@ -52,7 +52,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 		form.setCode(code);
 
 		if (questions.isEmpty()) {
-			getBusinessException("cannot.create.form.without.questions");
+			throw new BusinessException(propertyValues.getPropValues("cannot.create.form.without.questions"));
 		}
 
 		this.formDAO.create(userContext.getId(), form);
@@ -67,10 +67,6 @@ public class FormServiceImpl extends AbstractService implements FormService {
 		}
 
 		return form;
-	}
-
-	private BusinessException getBusinessException(String message) throws BusinessException {
-		throw new BusinessException(propertyValues.getPropValues(message));
 	}
 
 	private List<FormQuestion> inactivetedAllFormQuestion(Long formId) {
@@ -88,7 +84,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 			List<FormQuestion> formQuestions) throws BusinessException {
 
 		if (questions.isEmpty()) {
-			getBusinessException("cannot.update.form.without.questions");
+			throw new BusinessException(propertyValues.getPropValues("cannot.update.form.without.questions"));
 		}
 
 		Map<Long, FormQuestion> mapQuestions = new HashMap<>();
