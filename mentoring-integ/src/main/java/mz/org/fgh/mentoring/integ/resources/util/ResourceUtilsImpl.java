@@ -27,7 +27,6 @@ public class ResourceUtilsImpl implements ResourceUtils {
 		return JResponse.ok(Arrays.asList(QuestionCategory.values())).build();
 	}
 
-	@Override
 	public JResponse<List<CarrerType>> getCarrerTypes() {
 		return JResponse.ok(Arrays.asList(CarrerType.values())).build();
 	}

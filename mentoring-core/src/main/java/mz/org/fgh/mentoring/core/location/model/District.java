@@ -7,8 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -18,13 +16,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
-import mz.org.fgh.mentoring.core.location.dao.DistrictDAO;
 
 /**
  * @author Stélio Moiane
  *
  */
-@NamedQueries({ @NamedQuery(name = DistrictDAO.QUERY_NAME.findByProvince, query = DistrictDAO.QUERY.findByProvince) })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
