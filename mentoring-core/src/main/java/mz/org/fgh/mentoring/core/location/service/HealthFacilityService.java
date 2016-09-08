@@ -11,11 +11,10 @@ import mz.org.fgh.mentoring.core.location.model.HealthFacility;
  * @author Stélio Moiane
  *
  */
-public interface HeathFacilityService {
+public interface HealthFacilityService {
 
-	String NAME = "mz.org.fgh.mentoring.core.location.service.HeathFacilityService";
+	String NAME = "mz.org.fgh.mentoring.core.location.service.HealthFacilityService";
 
 	HealthFacility createHealthFacility(final UserContext userContext, final HealthFacility healthFacility)
 			throws BusinessException;
-
 }

@@ -23,7 +23,7 @@ import mz.org.fgh.mentoring.core.location.model.District;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.location.model.Province;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
-import mz.org.fgh.mentoring.core.location.service.HeathFacilityService;
+import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 
 /**
  * @author Stélio Moiane
@@ -32,7 +32,7 @@ import mz.org.fgh.mentoring.core.location.service.HeathFacilityService;
 public class HealthFacilityTest extends AbstractSpringTest {
 
 	@Inject
-	private HeathFacilityService healthFacilityService;
+	private HealthFacilityService healthFacilityService;
 
 	@Inject
 	private DistrictService districtService;

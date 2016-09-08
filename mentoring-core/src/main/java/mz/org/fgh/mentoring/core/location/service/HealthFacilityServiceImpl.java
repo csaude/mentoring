@@ -17,8 +17,8 @@ import mz.org.fgh.mentoring.core.location.model.HealthFacility;
  * @author Stélio Moiane
  *
  */
-@Service(HeathFacilityService.NAME)
-public class HeathFacilityServiceImpl extends AbstractService implements HeathFacilityService {
+@Service(HealthFacilityService.NAME)
+public class HealthFacilityServiceImpl extends AbstractService implements HealthFacilityService {
 
 	@Inject
 	private HealthFacilityDAO healthFacilityDAO;
