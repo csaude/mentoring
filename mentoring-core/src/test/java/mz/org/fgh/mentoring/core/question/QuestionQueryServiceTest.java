@@ -47,7 +47,7 @@ public class QuestionQueryServiceTest extends AbstractSpringTest {
 
 	private List<Question> questions;
 
-	private Set<Question> createdQuestions = new HashSet<>();
+	private final Set<Question> createdQuestions = new HashSet<>();
 
 	private ProgrammaticArea programmaticArea;
 
@@ -60,18 +60,18 @@ public class QuestionQueryServiceTest extends AbstractSpringTest {
 	public void setUp() throws BusinessException {
 
 		this.questions = (EntityFactory.gimme(Question.class, 5, QuestionTemplate.VALID));
-		programmaticArea = EntityFactory.gimme(ProgrammaticArea.class, ProgrammaticAreaTemplate.VALID);
+		this.programmaticArea = EntityFactory.gimme(ProgrammaticArea.class, ProgrammaticAreaTemplate.VALID);
 		this.form = EntityFactory.gimme(Form.class, FormTemplate.VALID);
 
 		for (final Question question : this.questions) {
 
 			this.questionService.createQuestion(this.getUserContext(), question);
-			createdQuestions.add(question);
+			this.createdQuestions.add(question);
 
 		}
-		form.setProgrammaticArea(programmaticArea);
-		programmaticAreaService.createProgrammaticArea(getUserContext(), programmaticArea);
-		formService.createForm(getUserContext(), form, createdQuestions);
+		this.form.setProgrammaticArea(this.programmaticArea);
+		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(), this.programmaticArea);
+		this.formService.createForm(this.getUserContext(), this.form, this.createdQuestions);
 
 	}
 
@@ -92,9 +92,7 @@ public class QuestionQueryServiceTest extends AbstractSpringTest {
 
 	@Test
 	public void shouldFindByForm() {
-		final List<Question> questions = questionQueryService.findByFormCode(form.getCode());
+		final List<Question> questions = this.questionQueryService.findByFormCode(this.form.getCode());
 		assertFalse(questions.isEmpty());
-
 	}
-
 }

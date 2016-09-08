@@ -57,13 +57,13 @@ public class FormServiceImpl extends AbstractService implements FormService {
 
 		this.formDAO.create(userContext.getId(), form);
 
-		for (Question question : questions) {
+		for (final Question question : questions) {
 
-			FormQuestion formQuestion = new FormQuestion();
+			final FormQuestion formQuestion = new FormQuestion();
 			formQuestion.setForm(form);
 			formQuestion.setQuestion(question);
 
-			formQuestionService.createFormQuestion(userContext, formQuestion);
+			this.formQuestionService.createFormQuestion(userContext, formQuestion);
 		}
 
 		return form;
@@ -71,49 +71,51 @@ public class FormServiceImpl extends AbstractService implements FormService {
 
 	private List<FormQuestion> inactivetedAllFormQuestion(Long formId) {
 
-		List<FormQuestion> formQuestions = formQuestionDao.findByFormId(formId);
+		final List<FormQuestion> formQuestions = this.formQuestionDao.findByFormId(formId);
 
-		for (FormQuestion formQuestionInterator : formQuestions) {
+		for (final FormQuestion formQuestionInterator : formQuestions) {
 			formQuestionInterator.setLifeCycleStatus(LifeCycleStatus.INACTIVE);
 		}
 
 		return formQuestions;
 	}
 
-	public void getFormQuestionByList(final UserContext userContext, Set<Question> questions, Form form,
-			List<FormQuestion> formQuestions) throws BusinessException {
+	public void getFormQuestionByList(final UserContext userContext, final Set<Question> questions, final Form form,
+			final List<FormQuestion> formQuestions) throws BusinessException {
 
 		if (questions.isEmpty()) {
 			throw new BusinessException(propertyValues.getPropValues("cannot.update.form.without.questions"));
 		}
 
-		Map<Long, FormQuestion> mapQuestions = new HashMap<>();
+		final Map<Long, FormQuestion> mapQuestions = new HashMap<>();
 
-		for (FormQuestion formQuestion : formQuestions) {
+		for (final FormQuestion formQuestion : formQuestions) {
 			mapQuestions.put(formQuestion.getQuestion().getId(), formQuestion);
 		}
-		for (Question question : questions) {
+
+		for (final Question question : questions) {
 			if (mapQuestions.containsKey(question.getId())) {
 				mapQuestions.get(question.getId()).setLifeCycleStatus(LifeCycleStatus.ACTIVE);
-				formQuestionService.updateFormQuestion(userContext, mapQuestions.get(question.getId()));
+				this.formQuestionService.updateFormQuestion(userContext, mapQuestions.get(question.getId()));
 			}
 			if (!mapQuestions.containsKey(question.getId())) {
-				FormQuestion created = new FormQuestion();
+				final FormQuestion created = new FormQuestion();
 				created.setForm(form);
 				created.setQuestion(question);
-				formQuestionService.createFormQuestion(userContext, created);
+				this.formQuestionService.createFormQuestion(userContext, created);
 			}
 		}
 	}
 
 	@Override
-	public Form updateForm(final UserContext userContext, final Form form, Set<Question> questions)
+	public Form updateForm(final UserContext userContext, final Form form, final Set<Question> questions)
 			throws BusinessException {
 
-		Form updatedForm = this.formDAO.update(userContext.getId(), form);
+		final Form updatedForm = this.formDAO.update(userContext.getId(), form);
 
-		inactivetedAllFormQuestion(updatedForm.getId());
-		getFormQuestionByList(userContext, questions, updatedForm, inactivetedAllFormQuestion(updatedForm.getId()));
+		this.inactivetedAllFormQuestion(updatedForm.getId());
+		this.getFormQuestionByList(userContext, questions, updatedForm,
+				this.inactivetedAllFormQuestion(updatedForm.getId()));
 
 		return updatedForm;
 	}
