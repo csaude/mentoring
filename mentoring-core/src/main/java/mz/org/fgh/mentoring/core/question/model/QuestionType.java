@@ -3,6 +3,8 @@
  */
 package mz.org.fgh.mentoring.core.question.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.answer.model.BooleanAnswer;
 import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
@@ -11,6 +13,7 @@ import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
  * @author Stélio Moiane
  *
  */
+@XmlRootElement
 public enum QuestionType {
 
 	TEXT {

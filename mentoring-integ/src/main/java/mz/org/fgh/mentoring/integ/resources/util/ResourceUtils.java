@@ -14,6 +14,7 @@ import com.sun.jersey.api.JResponse;
 
 import mz.org.fgh.mentoring.core.carrer.model.CarrerType;
 import mz.org.fgh.mentoring.core.location.model.Province;
+import mz.org.fgh.mentoring.core.question.model.QuestionType;
 import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 /**
@@ -38,4 +39,9 @@ public interface ResourceUtils {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/carrertypes")
 	public JResponse<List<CarrerType>> getCarrerTypes();
+	
+	@GET
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Path("/questionsType")
+	public JResponse<List<QuestionType>> getquestionsType();
 }
