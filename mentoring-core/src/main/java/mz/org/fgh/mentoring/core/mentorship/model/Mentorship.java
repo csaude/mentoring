@@ -25,7 +25,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.form.model.Form;
-import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
@@ -70,11 +69,6 @@ public class Mentorship extends GenericEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FORM_ID", nullable = false)
 	private Form form;
-
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "HEALTH_FACILITY", nullable = false)
-	private HealthFacility healthFacility;
 
 	public Mentorship() {
 	}
@@ -127,21 +121,13 @@ public class Mentorship extends GenericEntity {
 		this.form = form;
 	}
 
-	public HealthFacility getHealthFacility() {
-		return this.healthFacility;
-	}
-
-	public void setHealthFacility(final HealthFacility healthFacility) {
-		this.healthFacility = healthFacility;
-	}
-
 	@Override
 	public boolean equals(final Object that) {
-		return EqualsBuilder.reflectionEquals(this, that, "tutor", "tutored", "form", "healthFacility");
+		return EqualsBuilder.reflectionEquals(this, that, "tutor", "tutored");
 	}
 
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, "tutor", "tutored", "form", "healthFacility");
+		return HashCodeBuilder.reflectionHashCode(this, "tutor", "tutored");
 	}
 }
