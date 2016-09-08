@@ -30,5 +30,5 @@ public enum Province {
 
 	NIASSA,
 
-	CABO_DELEGADO
+	CABO_DELEGADO;
 }

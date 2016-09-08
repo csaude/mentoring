@@ -28,7 +28,7 @@ public interface ResourceUtils {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/provinces")
 	public JResponse<List<Province>> getProvinces();
-	
+
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/questionsCategory")

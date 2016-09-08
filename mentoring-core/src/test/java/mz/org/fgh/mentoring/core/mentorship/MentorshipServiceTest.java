@@ -24,6 +24,8 @@ import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTamplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.location.service.DistrictService;
+import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.mentorship.dao.MentorshipDAO;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
@@ -61,6 +63,12 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 	@Inject
 	private ProgrammaticAreaService programmaticAreaService;
 
+	@Inject
+	private HealthFacilityService heathFacilityService;
+
+	@Inject
+	private DistrictService districtService;
+
 	private Mentorship mentorship;
 
 	private Question question;
@@ -85,6 +93,9 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 
 		this.form = this.mentorship.getForm();
 		this.formService.createForm(this.getUserContext(), this.form, questions);
+
+		this.districtService.createDistrict(this.getUserContext(), this.mentorship.getHealthFacility().getDistrict());
+		this.heathFacilityService.createHealthFacility(this.getUserContext(), this.mentorship.getHealthFacility());
 	}
 
 	@Test

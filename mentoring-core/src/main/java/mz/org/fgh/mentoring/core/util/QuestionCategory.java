@@ -8,5 +8,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public enum QuestionCategory {
-	ACCURACY, PUNCTUALITY, ALL,PRECISION, RELIABILITY,INTEGRITY
+
+	ACCURACY,
+
+	PUNCTUALITY,
+
+	TOTALITY,
+
+	PRECISION,
+
+	RELIABILITY,
+
+	INTEGRITY;
 }
