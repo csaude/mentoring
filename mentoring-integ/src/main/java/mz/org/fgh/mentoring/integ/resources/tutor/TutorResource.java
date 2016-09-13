@@ -17,7 +17,6 @@ import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
-import mz.org.fgh.mentoring.core.util.Category;
 
 /**
  * @author Stélio Moiane
@@ -36,7 +35,7 @@ public interface TutorResource {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Tutor>> findTutors(@QueryParam("code") final String code,
 			@QueryParam("name") final String name, @QueryParam("surname") final String surname,
-			@QueryParam("category") final Category category, @QueryParam("phoneNumber") final String phoneNumber)
+			@QueryParam("carrer") final String carrer, @QueryParam("phoneNumber") final String phoneNumber)
 			throws BusinessException;
 
 	@PUT

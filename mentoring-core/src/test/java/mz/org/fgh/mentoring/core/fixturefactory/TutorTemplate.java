@@ -7,8 +7,8 @@ package mz.org.fgh.mentoring.core.fixturefactory;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
 import mz.co.mozview.frameworks.core.fixtureFactory.TemplateLoader;
+import mz.org.fgh.mentoring.core.carrer.model.Carrer;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
-import mz.org.fgh.mentoring.core.util.Category;
 
 /**
  * @author Stélio Moiane
@@ -17,7 +17,6 @@ import mz.org.fgh.mentoring.core.util.Category;
 public class TutorTemplate implements TemplateLoader {
 
 	public static final String VALID = "valid";
-	public static final String DATA_MANAGER = "data_manager";
 
 	@Override
 	public void load() {
@@ -25,15 +24,10 @@ public class TutorTemplate implements TemplateLoader {
 			{
 				this.add("name", this.random("Stelio Klesio", "Eusebio Jose", "Helio Estevao"));
 				this.add("surname", this.random("Moiane", "Maposse", "Machabane"));
-				this.add("category", this.random(Category.DATA_MANAGER, Category.DATA_OFFICER));
-				this.add("phoneNumber", this.random("840665903", "8256743391"));
+				this.add("carrer", one(Carrer.class, "valid"));
+				this.add("phoneNumber", this.random("840665903", "840665903"));
 			}
 		});
 
-		Fixture.of(Tutor.class).addTemplate(DATA_MANAGER).inherits(VALID, new Rule() {
-			{
-				this.add("category", Category.DATA_MANAGER);
-			}
-		});
 	}
 }

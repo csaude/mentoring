@@ -8,12 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.location.dao.HealthFacilityDAO;
 
 /**
  * @author Stélio Moiane
@@ -21,6 +24,7 @@ import mz.co.mozview.frameworks.core.model.GenericEntity;
  */
 @Entity
 @Table(name = "HEALTH_FACILITIES")
+@NamedQueries({ @NamedQuery(name = HealthFacilityDAO.QUERY_NAME.findByDistrict, query = HealthFacilityDAO.QUERY.findByDistrict) })
 public class HealthFacility extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;

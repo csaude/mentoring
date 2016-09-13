@@ -16,7 +16,6 @@ import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutor.service.TutorQueryService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
-import mz.org.fgh.mentoring.core.util.Category;
 import mz.org.fgh.mentoring.integ.resources.AbstractResource;
 
 /**
@@ -44,10 +43,9 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 
 	@Override
 	public JResponse<List<Tutor>> findTutors(final String code, final String name, final String surname,
-			final Category category, final String phoneNumber) throws BusinessException {
+			final String carrer, final String phoneNumber) throws BusinessException {
 
-		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(this.getUserContetx(), code, name,
-				surname, category, phoneNumber);
+		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(getUserContetx(), code, name, surname, carrer, phoneNumber);
 
 		return JResponse.ok(tutors).build();
 	}
