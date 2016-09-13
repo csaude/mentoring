@@ -16,7 +16,7 @@ import mz.org.fgh.mentoring.core.carrer.model.CarrerType;
  */
 public interface CarrerDAO extends GenericDAO<Carrer, Long> {
 
-	String NAME = "mz.org.fgh.mentoring.core.carrer.dao.CarrerDAO";
+	final String NAME = "mz.org.fgh.mentoring.core.carrer.dao.CarrerDAO";
 
 	public static class QUERY {
 		public static final String findByCarrerType = "SELECT c FROM Carrer c WHERE c.carrerType = :carrerType AND c.lifeCycleStatus = :lifeCycleStatus";

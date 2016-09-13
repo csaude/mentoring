@@ -19,6 +19,7 @@ import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.co.mozview.frameworks.core.fixtureFactory.util.TestUtil;
 import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
+import mz.org.fgh.mentoring.core.carrer.service.CarrerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTamplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
@@ -59,6 +60,9 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 
 	@Inject
 	private FormService formService;
+	
+	@Inject
+	private CarrerService carrerService;
 
 	@Inject
 	private ProgrammaticAreaService programmaticAreaService;
@@ -79,6 +83,7 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 	public void setUp() throws BusinessException {
 
 		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTamplate.VALID);
+		carrerService.createCarrer(getUserContext(), mentorship.getTutor().getCarrer());
 		this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor());
 		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
 
