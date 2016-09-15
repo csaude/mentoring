@@ -26,4 +26,11 @@ public class CarrerDAOImpl extends GenericDAOImpl<Carrer, Long> implements Carre
 				new ParamBuilder().add("carrerType", carrerType).add("lifeCycleStatus", lifeCycleStatus).process());
 	}
 
+	@Override
+	public Carrer findByCarrerId(Long carrerId, LifeCycleStatus lifeCycleStatus) {
+		
+		return this.findSingleByNamedQuery(CarrerDAO.QUERY_NAME.findByCarrerId,
+				new ParamBuilder().add("carrerId", carrerId).add("lifeCycleStatus", lifeCycleStatus).process());
+	}
+
 }

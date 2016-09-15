@@ -12,6 +12,7 @@ import org.junit.Test;
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.co.mozview.frameworks.core.fixtureFactory.util.TestUtil;
+import mz.org.fgh.mentoring.core.carrer.model.Carrer;
 import mz.org.fgh.mentoring.core.carrer.service.CarrerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.TutorTemplate;
@@ -39,7 +40,7 @@ public class TutorServiceTest extends AbstractSpringTest {
 
 	@Override
 	public void setUp() throws BusinessException {
-
+		
 		this.tutor = EntityFactory.gimme(Tutor.class, TutorTemplate.VALID);
 
 	}
@@ -47,18 +48,19 @@ public class TutorServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldCreateTutor() throws BusinessException {
 
-		carrerService.createCarrer(getUserContext(), tutor.getCarrer());
-
-		this.tutorService.createTutor(this.getUserContext(), this.tutor);
+		final Carrer createdCarrer =  carrerService.createCarrer(getUserContext(), tutor.getCarrer());
+		
+		this.tutorService.createTutor(this.getUserContext(), tutor, createdCarrer);
 
 		TestUtil.assertCreation(this.tutor);
 	}
 
 	@Test
 	public void shouldUpdateTutor() throws BusinessException {
-		carrerService.createCarrer(getUserContext(), tutor.getCarrer());
 
-		this.tutorService.createTutor(this.getUserContext(), this.tutor);
+		final Carrer createdCarrer =  carrerService.createCarrer(getUserContext(), tutor.getCarrer());
+
+		this.tutorService.createTutor(this.getUserContext(), this.tutor, createdCarrer);
 
 		final Tutor tutorUpdate = this.tutorDAO.findById(this.tutor.getId());
 

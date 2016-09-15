@@ -21,8 +21,6 @@ import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 public class TutorQueryServiceTest extends AbstractSpringTest {
 
 	private Tutor tutor;
-	
-	private String carrer;
 
 	@Inject
 	private TutorService tutorService;
@@ -38,9 +36,9 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 
 		this.tutor = EntityFactory.gimme(Tutor.class, TutorTemplate.VALID);
 
-		carrerService.createCarrer(getUserContext(), tutor.getCarrer());
+		carrerService.createCarrer(getUserContext(), this.tutor.getCarrer());
 
-		this.tutorService.createTutor(this.getUserContext(), this.tutor);
+		this.tutorService.createTutor(this.getUserContext(), this.tutor, this.tutor.getCarrer());
 	}
 
 	@Test
@@ -50,7 +48,7 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 		final String name = null;
 		final String surname = null;
 		final String phoneNumber = null;
-		;
+		String carrer = null;
 
 		final List<Tutor> tutors = this.TutorQueryService.findTutorsBySelectedFilter(getUserContext(), code, name,
 				surname, carrer, phoneNumber);
