@@ -60,7 +60,7 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 
 	@Inject
 	private FormService formService;
-	
+
 	@Inject
 	private CarrerService carrerService;
 
@@ -84,7 +84,8 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 
 		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTamplate.VALID);
 		carrerService.createCarrer(getUserContext(), mentorship.getTutor().getCarrer());
-		this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor());
+		this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor(),
+				mentorship.getTutor().getCarrer());
 		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
 
 		this.question = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);

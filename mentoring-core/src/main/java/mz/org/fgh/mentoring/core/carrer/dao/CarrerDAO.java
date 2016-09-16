@@ -20,11 +20,15 @@ public interface CarrerDAO extends GenericDAO<Carrer, Long> {
 
 	public static class QUERY {
 		public static final String findByCarrerType = "SELECT c FROM Carrer c WHERE c.carrerType = :carrerType AND c.lifeCycleStatus = :lifeCycleStatus";
+		public static final String findByCarrerId= "SELECT c FROM Carrer c WHERE c.id = :carrerId AND c.lifeCycleStatus = :lifeCycleStatus";
+
 	}
 
 	public static class QUERY_NAME {
 		public static final String findByCarrerType = "Carrer.findByCarrerType";
+		public static final String findByCarrerId = "Carrer.findByCarrerId";
 	}
 
 	List<Carrer> findByCarrerType(final CarrerType carrerType, final LifeCycleStatus lifeCycleStatus);
+	Carrer findByCarrerId(final Long carrerId, final LifeCycleStatus lifeCycleStatus);
 }

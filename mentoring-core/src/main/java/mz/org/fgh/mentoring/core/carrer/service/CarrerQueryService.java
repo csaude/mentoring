@@ -19,4 +19,5 @@ public interface CarrerQueryService {
 
 	List<Carrer> findCarrersByCarrerType(final UserContext userContext, final CarrerType carrerType)
 			throws BusinessException;
+	Carrer findByCarrerId(final UserContext userContext, final Long carrerId);
 }

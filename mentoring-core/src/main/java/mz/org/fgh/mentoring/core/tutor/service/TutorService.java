@@ -5,6 +5,7 @@ package mz.org.fgh.mentoring.core.tutor.service;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
+import mz.org.fgh.mentoring.core.carrer.model.Carrer;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
 /**
@@ -15,7 +16,7 @@ public interface TutorService {
 
 	String NAME = "mz.org.fgh.mentoring.core.tutor.service.TutorService";
 
-	Tutor createTutor(final UserContext userContext, final Tutor tutor) throws BusinessException;
+	Tutor createTutor(final UserContext userContext, final Tutor tutor, Carrer carrer) throws BusinessException;
 
 	Tutor updateTutor(final UserContext userContext, final Tutor tutor) throws BusinessException;
 }

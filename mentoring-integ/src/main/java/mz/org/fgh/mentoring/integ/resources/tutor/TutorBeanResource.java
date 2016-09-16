@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
+import mz.org.fgh.mentoring.core.carrer.model.Carrer;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
 /**
@@ -19,7 +20,10 @@ import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 public class TutorBeanResource {
 
 	private UserContext userContext;
+
 	private Tutor tutor;
+
+	private Carrer carrer;
 
 	public TutorBeanResource() {
 	}
@@ -30,5 +34,13 @@ public class TutorBeanResource {
 
 	public Tutor getTutor() {
 		return this.tutor;
+	}
+
+	public Carrer getCarrer() {
+		return carrer;
+	}
+
+	public void setCarrer(Carrer carrer) {
+		this.carrer = carrer;
 	}
 }

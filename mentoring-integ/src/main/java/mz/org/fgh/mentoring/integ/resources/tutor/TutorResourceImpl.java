@@ -36,7 +36,7 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 	public JResponse<Tutor> createTutor(final TutorBeanResource tutorBeanResource) throws BusinessException {
 
 		final Tutor tutor = this.tutorService.createTutor(tutorBeanResource.getUserContext(),
-				tutorBeanResource.getTutor());
+				tutorBeanResource.getTutor(), tutorBeanResource.getCarrer());
 
 		return JResponse.ok(tutor).build();
 	}

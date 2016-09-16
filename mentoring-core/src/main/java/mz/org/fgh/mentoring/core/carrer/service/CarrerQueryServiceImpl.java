@@ -31,4 +31,9 @@ public class CarrerQueryServiceImpl implements CarrerQueryService {
 			throws BusinessException {
 		return this.carrerDAO.findByCarrerType(carrerType, LifeCycleStatus.ACTIVE);
 	}
+
+	@Override
+	public Carrer findByCarrerId(UserContext userContext, Long carrerId) {
+		return carrerDAO.findByCarrerId(carrerId, LifeCycleStatus.ACTIVE);
+	}
 }
