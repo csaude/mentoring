@@ -8,6 +8,8 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
+import mz.co.mozview.frameworks.core.dao.ParamBuilder;
+import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 
 /**
@@ -18,8 +20,8 @@ import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 public class HealthFacilityDAOImpl extends GenericDAOImpl<HealthFacility, Long> implements HealthFacilityDAO {
 
 	@Override
-	public List<HealthFacility> findByDistrict(final Long userContextId, final Long districtId) {
-		return null;
+	public List<HealthFacility> findByDistrict(final Long districtId, final LifeCycleStatus lifeCycleStatus) {
+		return this.findByNamedQuery(HealthFacilityDAO.QUERY_NAME.findByDistrict,
+				new ParamBuilder().add("districtId", districtId).add("lifeCycleStatus", lifeCycleStatus).process());
 	}
-
 }

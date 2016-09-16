@@ -10,6 +10,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
+import mz.co.mozview.frameworks.core.service.AbstractService;
+import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.location.dao.HealthFacilityDAO;
 import mz.org.fgh.mentoring.core.location.model.District;
@@ -20,7 +22,7 @@ import mz.org.fgh.mentoring.core.location.model.HealthFacility;
  *
  */
 @Service(HealthFacilityQueryService.NAME)
-public class HealthFacilityQueryServiceImpl implements HealthFacilityQueryService {
+public class HealthFacilityQueryServiceImpl extends AbstractService implements HealthFacilityQueryService {
 
 	@Inject
 	private HealthFacilityDAO healthFacilityDAO;
@@ -28,6 +30,6 @@ public class HealthFacilityQueryServiceImpl implements HealthFacilityQueryServic
 	@Override
 	public List<HealthFacility> findHealthFacilityByDistrict(final UserContext userContext, final District district)
 			throws BusinessException {
-		return this.healthFacilityDAO.findByDistrict(userContext.getId(), district.getId());
+		return this.healthFacilityDAO.findByDistrict(district.getId(), LifeCycleStatus.ACTIVE);
 	}
 }
