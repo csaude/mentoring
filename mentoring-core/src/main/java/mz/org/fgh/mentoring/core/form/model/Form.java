@@ -61,7 +61,7 @@ public class Form extends GenericEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PROGRAMMATIC_AREA_ID", nullable = false)
 	private ProgrammaticArea programmaticArea;
-	
+
 	@XmlTransient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "form")
 	private final Set<FormQuestion> formQuestions = new HashSet<>();

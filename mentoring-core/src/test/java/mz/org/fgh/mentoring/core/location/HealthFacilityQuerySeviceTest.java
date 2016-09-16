@@ -51,6 +51,7 @@ public class HealthFacilityQuerySeviceTest extends AbstractSpringTest {
 	public void shoulFindHealthFacilitiesByDistrict() throws BusinessException {
 		final List<HealthFacility> healthFacilities = this.healthFacilityQueryService
 				.findHealthFacilityByDistrict(this.getUserContext(), this.district);
+		
 		assertFalse(healthFacilities.isEmpty());
 	}
 }
