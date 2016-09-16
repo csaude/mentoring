@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -24,7 +22,6 @@ import com.sun.istack.NotNull;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.carrer.model.Carrer;
-import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 
 /**
  * @author Stélio Moiane
@@ -34,7 +31,6 @@ import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "TUTORS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-@NamedQueries({ @NamedQuery(name = TutorDAO.QUERY_NAME.findAll, query = TutorDAO.QUERY.findAll) })
 public class Tutor extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -53,7 +49,7 @@ public class Tutor extends GenericEntity {
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CARRER_ID")
+	@JoinColumn(name = "CARRER_ID", nullable  = false)
 	private Carrer carrer;
 
 	@Column(name = "PHONE_NUMBER", nullable = false, length = 50)
