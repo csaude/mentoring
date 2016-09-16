@@ -3,8 +3,6 @@
  */
 package mz.org.fgh.mentoring.core.tutor;
 
-import static org.junit.Assert.assertEquals;
-
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -12,7 +10,6 @@ import org.junit.Test;
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.co.mozview.frameworks.core.fixtureFactory.util.TestUtil;
-import mz.org.fgh.mentoring.core.carrer.model.Carrer;
 import mz.org.fgh.mentoring.core.carrer.service.CarrerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.TutorTemplate;
@@ -40,17 +37,17 @@ public class TutorServiceTest extends AbstractSpringTest {
 
 	@Override
 	public void setUp() throws BusinessException {
-		
+
 		this.tutor = EntityFactory.gimme(Tutor.class, TutorTemplate.VALID);
+		
+		carrerService.createCarrer(getUserContext(), tutor.getCarrer());
 
 	}
 
 	@Test
 	public void shouldCreateTutor() throws BusinessException {
 
-		final Carrer createdCarrer =  carrerService.createCarrer(getUserContext(), tutor.getCarrer());
-		
-		this.tutorService.createTutor(this.getUserContext(), tutor, createdCarrer);
+		this.tutorService.createTutor(this.getUserContext(), tutor);
 
 		TestUtil.assertCreation(this.tutor);
 	}
@@ -58,24 +55,14 @@ public class TutorServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldUpdateTutor() throws BusinessException {
 
-		final Carrer createdCarrer =  carrerService.createCarrer(getUserContext(), tutor.getCarrer());
-
-		this.tutorService.createTutor(this.getUserContext(), this.tutor, createdCarrer);
+		this.tutorService.createTutor(this.getUserContext(), this.tutor);
 
 		final Tutor tutorUpdate = this.tutorDAO.findById(this.tutor.getId());
-
-		final String name = "Eurico Jose";
-		final String surname = "Maposse";
-
-		tutorUpdate.setName(name);
-		tutorUpdate.setSurname(surname);
 
 		this.tutorService.updateTutor(this.getUserContext(), tutorUpdate);
 
 		TestUtil.assertUpdate(tutorUpdate);
 
-		assertEquals(name, tutorUpdate.getName());
-		assertEquals(surname, tutorUpdate.getSurname());
 	}
 
 }

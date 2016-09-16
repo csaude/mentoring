@@ -38,7 +38,7 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 
 		carrerService.createCarrer(getUserContext(), this.tutor.getCarrer());
 
-		this.tutorService.createTutor(this.getUserContext(), this.tutor, this.tutor.getCarrer());
+		this.tutorService.createTutor(this.getUserContext(), this.tutor);
 	}
 
 	@Test
