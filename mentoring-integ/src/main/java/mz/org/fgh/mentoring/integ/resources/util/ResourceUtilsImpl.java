@@ -34,7 +34,7 @@ public class ResourceUtilsImpl implements ResourceUtils {
 	}
 
 	@Override
-	public JResponse<List<QuestionType>> getquestionsType() {
+	public JResponse<List<QuestionType>> getQuestionTypes() {
 		return JResponse.ok(Arrays.asList(QuestionType.values())).build();
 	}
 }

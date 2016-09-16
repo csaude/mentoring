@@ -20,10 +20,8 @@ import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 public class HealthFacilityDAOImpl extends GenericDAOImpl<HealthFacility, Long> implements HealthFacilityDAO {
 
 	@Override
-	public List<HealthFacility> findByDistrict(final Long userContextId, final Long districtId,
-			LifeCycleStatus lifeCycleStatus) {
+	public List<HealthFacility> findByDistrict(final Long districtId, final LifeCycleStatus lifeCycleStatus) {
 		return this.findByNamedQuery(HealthFacilityDAO.QUERY_NAME.findByDistrict,
 				new ParamBuilder().add("districtId", districtId).add("lifeCycleStatus", lifeCycleStatus).process());
 	}
-
 }

@@ -64,6 +64,8 @@ public class EntityManagerBean {
 		properties.setProperty("hibernate.hbm2ddl.auto", this.environment.getProperty("db.hibernate.hbm2ddl.auto"));
 		properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults",
 				this.environment.getProperty("db.hibernate.temp.use_jdbc_metadata_defaults"));
+		properties.setProperty("hibernate.enable_lazy_load_no_trans",
+				this.environment.getProperty("db.hibernate.enable_lazy_load_no_trans"));
 
 		return properties;
 	}

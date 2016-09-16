@@ -12,6 +12,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -22,9 +25,12 @@ import mz.org.fgh.mentoring.core.location.dao.HealthFacilityDAO;
  * @author Stélio Moiane
  *
  */
+@NamedQueries({
+		@NamedQuery(name = HealthFacilityDAO.QUERY_NAME.findByDistrict, query = HealthFacilityDAO.QUERY.findByDistrict) })
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "HEALTH_FACILITIES")
-@NamedQueries({ @NamedQuery(name = HealthFacilityDAO.QUERY_NAME.findByDistrict, query = HealthFacilityDAO.QUERY.findByDistrict) })
 public class HealthFacility extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;

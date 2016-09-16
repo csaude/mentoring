@@ -32,16 +32,16 @@ public interface ResourceUtils {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Path("/questionsCategory")
+	@Path("/questionscategories")
 	public JResponse<List<QuestionCategory>> getQuestionCategory();
 
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/carrertypes")
 	public JResponse<List<CarrerType>> getCarrerTypes();
-	
+
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Path("/questionsType")
-	public JResponse<List<QuestionType>> getquestionsType();
+	@Path("/questiontypes")
+	public JResponse<List<QuestionType>> getQuestionTypes();
 }
