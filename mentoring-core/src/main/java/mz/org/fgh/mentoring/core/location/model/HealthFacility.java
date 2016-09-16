@@ -31,7 +31,6 @@ import mz.org.fgh.mentoring.core.location.dao.HealthFacilityDAO;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "HEALTH_FACILITIES")
-@NamedQueries({ @NamedQuery(name = HealthFacilityDAO.QUERY_NAME.findByDistrict, query = HealthFacilityDAO.QUERY.findByDistrict) })
 public class HealthFacility extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
