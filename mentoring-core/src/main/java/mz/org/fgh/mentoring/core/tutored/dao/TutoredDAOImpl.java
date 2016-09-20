@@ -26,7 +26,7 @@ import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 public class TutoredDAOImpl extends GenericDAOImpl<Tutored, Long> implements TutoredDAO {
 
 	@Override
-	public List<Tutored> findBySelectedFilter(String code, String name, String surname, String phoneNumber, final String tutoredCode,
+	public List<Tutored> findBySelectedFilter(String code, String name, String surname, String phoneNumber, final String tutored,
 			LifeCycleStatus lifeCycleStatus) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
@@ -38,8 +38,8 @@ public class TutoredDAOImpl extends GenericDAOImpl<Tutored, Long> implements Tut
 
 		final List<Predicate> predicates = new ArrayList<>();
 
-		if (code != null) {
-			predicates.add(criteriaBuilder.like(root.get("code"), "%" + code + "%"));
+		if (tutored != null) {
+			predicates.add(criteriaBuilder.like(root.get("code"), "%" + tutored + "%"));
 		}
 
 		if (name != null) {
@@ -53,8 +53,8 @@ public class TutoredDAOImpl extends GenericDAOImpl<Tutored, Long> implements Tut
 		if (phoneNumber != null) {
 			predicates.add(criteriaBuilder.like(root.get("phoneNumber"), "%" + phoneNumber + "%"));
 		}
-		if (tutoredCode != null) {
-			predicates.add(criteriaBuilder.equal(root.get("carrer").get("code"), tutoredCode));
+		if (tutored != null) {
+			predicates.add(criteriaBuilder.equal(root.get("carrer"), tutored));
 		}
 
 		predicates.add(criteriaBuilder.equal(root.get("lifeCycleStatus"), lifeCycleStatus));

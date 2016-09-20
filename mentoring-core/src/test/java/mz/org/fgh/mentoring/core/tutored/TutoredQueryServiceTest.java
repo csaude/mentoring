@@ -47,9 +47,10 @@ public class TutoredQueryServiceTest extends AbstractSpringTest {
 		final String name = null;
 		final String phoneNumber = null;
 		final String surname = "Maposse";
+		final String carrer =  null;
 
 		final List<Tutored> tutoreds = this.TutoredQueryService.findTutoredsBySelectedFilter(this.getUserContext(),
-				code, name, surname, phoneNumber, tutored.getCarrer().getCode());
+				code, name, surname, phoneNumber, carrer);
 
 		assertFalse(tutoreds.isEmpty());
 

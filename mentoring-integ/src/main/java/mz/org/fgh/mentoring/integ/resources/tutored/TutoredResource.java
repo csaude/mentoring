@@ -35,7 +35,7 @@ public interface TutoredResource {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Tutored>> findTutoreds(@QueryParam("code") final String code,
 			@QueryParam("name") final String name, @QueryParam("surname") final String surname,
-			@QueryParam("phoneNumber") final String phoneNumber, @QueryParam("tutoredCode") final String tutoredcode)
+			@QueryParam("phoneNumber") final String phoneNumber, @QueryParam("tutored") final String tutored)
 			throws BusinessException;
 
 	@PUT
