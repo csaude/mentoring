@@ -35,7 +35,9 @@ public class TutoredServiceImpl extends AbstractService implements TutoredServic
 
 	@Override
 	public Tutored updateTutored(final UserContext userContext, final Tutored tutored) throws BusinessException {
-
-		return this.tutorandoDao.update(userContext.getId(), tutored);
+		
+		this.tutorandoDao.update(userContext.getId(), tutored);
+		
+		return tutored;
 	}
 }
