@@ -25,6 +25,8 @@ public class CarrerServiceImpl extends AbstractService implements CarrerService 
 
 	@Override
 	public Carrer createCarrer(final UserContext userContext, final Carrer carrer) throws BusinessException {
+		final String code = this.carrerDAO.generateCode("MT", 8, "0");
+		carrer.setCode(code);
 		return this.carrerDAO.create(userContext.getId(), carrer);
 	}
 }

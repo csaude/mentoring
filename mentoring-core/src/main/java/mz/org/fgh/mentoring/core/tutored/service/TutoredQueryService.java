@@ -17,6 +17,6 @@ public interface TutoredQueryService {
 
 	String NAME = "mz.org.fgh.mentoring.core.tutored.service.TutoredQueryService";
 	List<Tutored> findTutoredsBySelectedFilter(final UserContext userContext, final String code, final String name,
-			final String surname, String phoneNumber) throws BusinessException;
+			final String surname, String phoneNumber, final String tutoredCode) throws BusinessException;
 
 }
