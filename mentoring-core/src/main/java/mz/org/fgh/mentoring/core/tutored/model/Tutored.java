@@ -5,6 +5,9 @@ package mz.org.fgh.mentoring.core.tutored.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -15,7 +18,10 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.sun.istack.NotNull;
+
 import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.carrer.model.Carrer;
 
 /**
  * @author Eusebio Jose Maposse
@@ -44,6 +50,11 @@ public class Tutored extends GenericEntity {
 	@NotEmpty
 	@Column(name = "PHONE_NUMBER", nullable = false, length = 100)
 	private String phoneNumber;
+	
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CARRER_ID", nullable  = false)
+	private Carrer carrer;
 
 	public String getCode() {
 		return this.code;
@@ -85,5 +96,13 @@ public class Tutored extends GenericEntity {
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
+	}
+
+	public Carrer getCarrer() {
+		return carrer;
+	}
+
+	public void setCarrer(Carrer carrer) {
+		this.carrer = carrer;
 	}
 }
