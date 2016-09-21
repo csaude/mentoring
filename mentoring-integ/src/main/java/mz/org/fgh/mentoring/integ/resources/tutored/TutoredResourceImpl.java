@@ -24,11 +24,11 @@ import mz.org.fgh.mentoring.integ.resources.AbstractResource;
  */
 @Service(TutoredResource.NAME)
 @Path("tutoreds")
-public class TutoredResourceImpl  extends AbstractResource  implements TutoredResource {
+public class TutoredResourceImpl extends AbstractResource implements TutoredResource {
 
 	@Inject
 	private TutoredService tutoredService;
-	
+
 	@Inject
 	private TutoredQueryService tutoredQueryService;
 
@@ -42,10 +42,10 @@ public class TutoredResourceImpl  extends AbstractResource  implements TutoredRe
 	}
 
 	@Override
-	public JResponse<List<Tutored>> findTutoreds(String code, String name, String surname,  final String phoneNumber)
-			throws BusinessException {
-		final List<Tutored> tutoreds = this.tutoredQueryService.findTutoredsBySelectedFilter(this.getUserContetx(), code, name,
-				surname, phoneNumber);
+	public JResponse<List<Tutored>> findTutoreds(String code, String name, String surname, final String phoneNumber,
+			final String tutored) throws BusinessException {
+		final List<Tutored> tutoreds = this.tutoredQueryService.findTutoredsBySelectedFilter(this.getUserContetx(),
+				code, name, surname, phoneNumber, tutored);
 
 		return JResponse.ok(tutoreds).build();
 	}
