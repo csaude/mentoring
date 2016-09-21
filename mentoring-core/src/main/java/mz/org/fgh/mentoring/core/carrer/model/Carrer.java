@@ -57,4 +57,6 @@ public class Carrer extends GenericEntity {
 	public void setPosition(final String position) {
 		this.position = position;
 	}
+
+
 }

@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
+import mz.org.fgh.mentoring.core.carrer.service.CarrerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.TutoredTemplate;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
@@ -27,10 +28,15 @@ public class TutoredQueryServiceTest extends AbstractSpringTest {
 
 	@Inject
 	private TutoredQueryService TutoredQueryService;
+	
+	@Inject
+	private CarrerService carrerService;
+	
 
 	@Override
 	public void setUp() throws BusinessException {
 		this.tutored = EntityFactory.gimme(Tutored.class, TutoredTemplate.VALID);
+		carrerService.createCarrer(getUserContext(), tutored.getCarrer());
 		this.tutoredService.createTutored(this.getUserContext(), this.tutored);
 	}
 
@@ -41,9 +47,10 @@ public class TutoredQueryServiceTest extends AbstractSpringTest {
 		final String name = null;
 		final String phoneNumber = null;
 		final String surname = "Maposse";
+		final String carrer =  null;
 
 		final List<Tutored> tutoreds = this.TutoredQueryService.findTutoredsBySelectedFilter(this.getUserContext(),
-				code, name, surname, phoneNumber);
+				code, name, surname, phoneNumber, carrer);
 
 		assertFalse(tutoreds.isEmpty());
 

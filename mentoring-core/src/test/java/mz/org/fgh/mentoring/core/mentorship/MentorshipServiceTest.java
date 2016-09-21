@@ -84,6 +84,7 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 
 		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTamplate.VALID);
 		carrerService.createCarrer(getUserContext(), mentorship.getTutor().getCarrer());
+		carrerService.createCarrer(getUserContext(), mentorship.getTutored().getCarrer());
 		this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor());
 		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
 
