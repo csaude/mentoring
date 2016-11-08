@@ -1,0 +1,20 @@
+version: '2'
+services:
+    mysql-mentoring:
+       build: mysql
+       container_name: mysql-mentoring
+       volumes:
+         - /opt/data
+       hostname: mysql-mentoring
+       restart: unless-stopped
+    tomcat-mentoring:
+       build: tomcat
+       ports:
+         - "8081:8080"
+       container_name: tomcat-mentoring
+       depends_on:
+         - mysql-mentoring
+       links:
+         - mysql-mentoring
+       hostname: tomcat-mentoring
+       restart: unless-stopped

@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.jayway.restassured.RestAssured;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
-import mz.co.mozview.frameworks.core.fixtureFactory.LoaderFactory;
 import mz.co.mozview.frameworks.core.util.CleanDBUtil;
 import mz.co.mozview.frameworks.core.webservices.model.UnitWS;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
@@ -39,7 +38,7 @@ public abstract class IntegAbstractSpringTest {
 	@BeforeClass
 	public static void setUpBeforeClass() {
 		RestAssured.port = 8081;
-		LoaderFactory.loadTemplates("mz.org.fgh.mentoring.core.fixturefactory");
+		//LoaderFactory.loadTemplates("mz.org.fgh.mentoring.core.fixturefactory");
 	}
 
 	@Before

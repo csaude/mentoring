@@ -32,6 +32,7 @@ public class DataSourceBean {
 		dataSource.setMaximumPoolSize(Integer.valueOf(this.environment.getProperty("db.maximumPoolSize")));
 		dataSource.setCatalog(this.environment.getProperty("db.catalog"));
 
+		dataSource.addDataSourceProperty("url", this.environment.getProperty("db.url"));
 		dataSource.addDataSourceProperty("cachePrepStmts", "true");
 		dataSource.addDataSourceProperty("prepStmtCacheSize", "250");
 		dataSource.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
