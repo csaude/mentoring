@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
-import mz.org.fgh.mentoring.core.carrer.service.CarrerService;
+import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.TutorTemplate;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
@@ -26,7 +26,7 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 	private TutorService tutorService;
 
 	@Inject
-	private CarrerService carrerService;
+	private CareerService carrerService;
 
 	@Inject
 	private TutorQueryService TutorQueryService;
@@ -36,7 +36,7 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 
 		this.tutor = EntityFactory.gimme(Tutor.class, TutorTemplate.VALID);
 
-		carrerService.createCarrer(getUserContext(), this.tutor.getCarrer());
+		this.carrerService.createCareer(this.getUserContext(), this.tutor.getCarrer());
 
 		this.tutorService.createTutor(this.getUserContext(), this.tutor);
 	}
@@ -48,9 +48,9 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 		final String name = null;
 		final String surname = null;
 		final String phoneNumber = null;
-		String carrer = null;
+		final String carrer = null;
 
-		final List<Tutor> tutors = this.TutorQueryService.findTutorsBySelectedFilter(getUserContext(), code, name,
+		final List<Tutor> tutors = this.TutorQueryService.findTutorsBySelectedFilter(this.getUserContext(), code, name,
 				surname, carrer, phoneNumber);
 		assertFalse(tutors.isEmpty());
 

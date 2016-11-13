@@ -10,7 +10,7 @@ import org.junit.Test;
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.co.mozview.frameworks.core.fixtureFactory.util.TestUtil;
-import mz.org.fgh.mentoring.core.carrer.service.CarrerService;
+import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.TutorTemplate;
 import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
@@ -33,21 +33,21 @@ public class TutorServiceTest extends AbstractSpringTest {
 	private Tutor tutor;
 
 	@Inject
-	private CarrerService carrerService;
+	private CareerService carrerService;
 
 	@Override
 	public void setUp() throws BusinessException {
 
 		this.tutor = EntityFactory.gimme(Tutor.class, TutorTemplate.VALID);
 		
-		carrerService.createCarrer(getUserContext(), tutor.getCarrer());
+		this.carrerService.createCareer(this.getUserContext(), this.tutor.getCarrer());
 
 	}
 
 	@Test
 	public void shouldCreateTutor() throws BusinessException {
 
-		this.tutorService.createTutor(this.getUserContext(), tutor);
+		this.tutorService.createTutor(this.getUserContext(), this.tutor);
 
 		TestUtil.assertCreation(this.tutor);
 	}

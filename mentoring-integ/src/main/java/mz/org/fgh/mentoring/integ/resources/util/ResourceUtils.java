@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.sun.jersey.api.JResponse;
 
-import mz.org.fgh.mentoring.core.carrer.model.CarrerType;
+import mz.org.fgh.mentoring.core.career.model.CareerType;
 import mz.org.fgh.mentoring.core.location.model.Province;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
 import mz.org.fgh.mentoring.core.util.QuestionCategory;
@@ -37,8 +37,8 @@ public interface ResourceUtils {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Path("/carrertypes")
-	public JResponse<List<CarrerType>> getCarrerTypes();
+	@Path("/careertypes")
+	public JResponse<List<CareerType>> getCarrerTypes();
 
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })

@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.sun.istack.NotNull;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
-import mz.org.fgh.mentoring.core.carrer.model.Carrer;
+import mz.org.fgh.mentoring.core.career.model.Career;
 
 /**
  * @author Stélio Moiane
@@ -50,7 +50,7 @@ public class Tutor extends GenericEntity {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CARRER_ID", nullable  = false)
-	private Carrer carrer;
+	private Career carrer;
 
 	@Column(name = "PHONE_NUMBER", nullable = false, length = 50)
 	private String phoneNumber;
@@ -93,18 +93,18 @@ public class Tutor extends GenericEntity {
 	}
 
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return this.phoneNumber;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
+	public void setPhoneNumber(final String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Carrer getCarrer() {
-		return carrer;
+	public Career getCarrer() {
+		return this.carrer;
 	}
 
-	public void setCarrer(Carrer carrer) {
+	public void setCarrer(final Career carrer) {
 		this.carrer = carrer;
 	}
 }

@@ -19,7 +19,7 @@ import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.co.mozview.frameworks.core.fixtureFactory.util.TestUtil;
 import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
-import mz.org.fgh.mentoring.core.carrer.service.CarrerService;
+import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTamplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
@@ -62,7 +62,7 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 	private FormService formService;
 
 	@Inject
-	private CarrerService carrerService;
+	private CareerService careerService;
 
 	@Inject
 	private ProgrammaticAreaService programmaticAreaService;
@@ -83,8 +83,8 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 	public void setUp() throws BusinessException {
 
 		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTamplate.VALID);
-		carrerService.createCarrer(getUserContext(), mentorship.getTutor().getCarrer());
-		carrerService.createCarrer(getUserContext(), mentorship.getTutored().getCarrer());
+		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutor().getCarrer());
+		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutored().getCarrer());
 		this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor());
 		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
 
