@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 
 import com.sun.jersey.api.JResponse;
 
-import mz.org.fgh.mentoring.core.carrer.model.CarrerType;
+import mz.org.fgh.mentoring.core.career.model.CareerType;
 import mz.org.fgh.mentoring.core.location.model.Province;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
 import mz.org.fgh.mentoring.core.util.QuestionCategory;
@@ -29,8 +29,8 @@ public class ResourceUtilsImpl implements ResourceUtils {
 	}
 
 	@Override
-	public JResponse<List<CarrerType>> getCarrerTypes() {
-		return JResponse.ok(Arrays.asList(CarrerType.values())).build();
+	public JResponse<List<CareerType>> getCarrerTypes() {
+		return JResponse.ok(Arrays.asList(CareerType.values())).build();
 	}
 
 	@Override

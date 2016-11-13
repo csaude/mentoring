@@ -1,7 +1,7 @@
 /*
  * Friends in Global Health - FGH © 2016
  */
-package mz.org.fgh.mentoring.core.carrer.model;
+package mz.org.fgh.mentoring.core.career.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-public enum CarrerType {
+public enum CareerType {
 
 	HEALTH_TECHNICAL_ASSISTANT,
 

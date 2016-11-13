@@ -6,7 +6,7 @@ package mz.org.fgh.mentoring.core.fixturefactory;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
 import mz.co.mozview.frameworks.core.fixtureFactory.TemplateLoader;
-import mz.org.fgh.mentoring.core.carrer.model.Carrer;
+import mz.org.fgh.mentoring.core.career.model.Career;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 
 /**
@@ -24,7 +24,7 @@ public class TutoredTemplate implements TemplateLoader {
 				this.add("name", this.random("Domingos Jose", "Eusebio Jose", "Helio Estevao"));
 				this.add("surname", this.random("Maposse", "Maposse", "Maposse"));
 				this.add("phoneNumber", this.random("840665903", "824537865", "876543567"));
-				this.add("carrer", one(Carrer.class, CarrerTemplate.VALID));
+				this.add("carrer", this.one(Career.class, CareerTemplate.VALID));
 			}
 		});
 	}

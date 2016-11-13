@@ -1,7 +1,7 @@
 /*
  * Friends in Global Health - FGH © 2016
  */
-package mz.org.fgh.mentoring.core.carrer.model;
+package mz.org.fgh.mentoring.core.career.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
-import mz.org.fgh.mentoring.core.carrer.dao.CarrerDAO;
+import mz.org.fgh.mentoring.core.career.dao.CareerDAO;
 
 /**
  * @author Stélio Moiane
@@ -26,28 +26,29 @@ import mz.org.fgh.mentoring.core.carrer.dao.CarrerDAO;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@NamedQueries({ @NamedQuery(name = CarrerDAO.QUERY_NAME.findByCarrerType, query = CarrerDAO.QUERY.findByCarrerType) })
+@NamedQueries({ @NamedQuery(name = CareerDAO.QUERY_NAME.findByCarrerType, query = CareerDAO.QUERY.findByCarrerType),
+		@NamedQuery(name = CareerDAO.QUERY_NAME.findAll, query = CareerDAO.QUERY.findAll) })
 @Entity
 @Table(name = "CARRERS")
-public class Carrer extends GenericEntity {
+public class Career extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	@NotNull
 	@Column(name = "CARRER_TYPE", nullable = false, length = 50)
 	@Enumerated(EnumType.STRING)
-	private CarrerType carrerType;
+	private CareerType careerType;
 
 	@NotEmpty
 	@Column(name = "POSITION", nullable = false, length = 80)
 	private String position;
 
-	public CarrerType getCarrerType() {
-		return this.carrerType;
+	public CareerType getCareerType() {
+		return this.careerType;
 	}
 
-	public void setCarrerType(final CarrerType carrerType) {
-		this.carrerType = carrerType;
+	public void setCareerType(final CareerType careerType) {
+		this.careerType = careerType;
 	}
 
 	public String getPosition() {
@@ -57,6 +58,4 @@ public class Carrer extends GenericEntity {
 	public void setPosition(final String position) {
 		this.position = position;
 	}
-
-
 }

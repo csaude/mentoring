@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.sun.istack.NotNull;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
-import mz.org.fgh.mentoring.core.carrer.model.Carrer;
+import mz.org.fgh.mentoring.core.career.model.Career;
 
 /**
  * @author Eusebio Jose Maposse
@@ -54,7 +54,7 @@ public class Tutored extends GenericEntity {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CARRER_ID", nullable  = false)
-	private Carrer carrer;
+	private Career carrer;
 
 	public String getCode() {
 		return this.code;
@@ -98,11 +98,11 @@ public class Tutored extends GenericEntity {
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
-	public Carrer getCarrer() {
-		return carrer;
+	public Career getCarrer() {
+		return this.carrer;
 	}
 
-	public void setCarrer(Carrer carrer) {
+	public void setCarrer(final Career carrer) {
 		this.carrer = carrer;
 	}
 }
