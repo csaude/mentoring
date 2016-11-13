@@ -32,4 +32,9 @@ public class HealthFacilityQueryServiceImpl extends AbstractService implements H
 			throws BusinessException {
 		return this.healthFacilityDAO.findByDistrict(district.getId(), LifeCycleStatus.ACTIVE);
 	}
+
+	@Override
+	public List<HealthFacility> fetchAllHealthFacilities(final UserContext userContext) {
+		return this.healthFacilityDAO.fetchdAll(LifeCycleStatus.ACTIVE);
+	}
 }

@@ -42,4 +42,11 @@ public class HealthFacilityResourceImpl extends AbstractResource implements Heal
 		return JResponse.ok(healthFacilities).build();
 	}
 
+	@Override
+	public JResponse<List<HealthFacility>> fetchAllHealthFacilities() throws BusinessException {
+		
+		final List<HealthFacility> healthFacilities = this.healthFacilityQueryService.fetchAllHealthFacilities(this.getUserContetx());
+		
+		return JResponse.ok(healthFacilities).build(); 
+	}
 }

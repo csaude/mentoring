@@ -8,7 +8,7 @@ ADD localtime /etc/localtime
 RUN apk --update add curl unzip; \
     rm -rf /usr/local/tomcat/webapps/*;
 
-ADD mentoring-integ.war /usr/local/tomcat/webapps
+#ADD mentoring-integ.war /usr/local/tomcat/webapps
  
 RUN curl -k -L https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
          -o /tmp/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz; \
