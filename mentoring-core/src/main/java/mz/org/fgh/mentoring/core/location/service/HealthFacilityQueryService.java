@@ -20,4 +20,6 @@ public interface HealthFacilityQueryService {
 
 	List<HealthFacility> findHealthFacilityByDistrict(final UserContext userContext, final District district)
 			throws BusinessException;
+
+	List<HealthFacility> fetchAllHealthFacilities(final UserContext userContext);
 }
