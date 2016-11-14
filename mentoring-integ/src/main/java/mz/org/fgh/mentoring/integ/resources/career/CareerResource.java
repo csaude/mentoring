@@ -27,11 +27,11 @@ public interface CareerResource {
 
 	@GET
 	@Path("{careerType}")
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Career>> getCareersByCareerType(@PathParam("careerType") final CareerType careerType)
 			throws BusinessException;
 
 	@GET
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Career>> findAllCarrers() throws BusinessException;
 }
