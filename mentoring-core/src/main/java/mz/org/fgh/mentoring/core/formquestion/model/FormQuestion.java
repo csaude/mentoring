@@ -14,6 +14,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -25,13 +28,16 @@ import mz.org.fgh.mentoring.core.question.model.Question;
 
 /**
  * @author Eusebio Jose Maposse
+ * @author Stélio Moiane
  *
  */
-
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "FORMS_QUESTIONS", uniqueConstraints = @UniqueConstraint(columnNames = { "FORM_ID", "QUESTION_ID" }))
 @NamedQueries({ @NamedQuery(name = FormQuestionDAO.QUERY_NAME.findByFormId, query = FormQuestionDAO.QUERY.findByFormId),
-		@NamedQuery(name = FormQuestionDAO.QUERY_NAME.findByFormIdAndQuestionId, query = FormQuestionDAO.QUERY.findByFormIdAndQuestionId) })
+		@NamedQuery(name = FormQuestionDAO.QUERY_NAME.findByFormIdAndQuestionId, query = FormQuestionDAO.QUERY.findByFormIdAndQuestionId),
+		@NamedQuery(name = FormQuestionDAO.QUERY_NAME.fetchAll, query = FormQuestionDAO.QUERY.fetchAll) })
 public class FormQuestion extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -51,26 +57,26 @@ public class FormQuestion extends GenericEntity {
 	private boolean mandatory;
 
 	public Form getForm() {
-		return form;
+		return this.form;
 	}
 
-	public void setForm(Form form) {
+	public void setForm(final Form form) {
 		this.form = form;
 	}
 
 	public Question getQuestion() {
-		return question;
+		return this.question;
 	}
 
-	public void setQuestion(Question question) {
+	public void setQuestion(final Question question) {
 		this.question = question;
 	}
 
 	public boolean isMandatory() {
-		return mandatory;
+		return this.mandatory;
 	}
 
-	public void setMandatory(boolean mandatory) {
+	public void setMandatory(final boolean mandatory) {
 		this.mandatory = mandatory;
 	}
 

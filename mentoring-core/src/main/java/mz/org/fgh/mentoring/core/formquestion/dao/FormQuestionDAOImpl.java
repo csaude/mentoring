@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
 import mz.co.mozview.frameworks.core.dao.ParamBuilder;
+import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 
 /**
@@ -20,15 +21,20 @@ import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 public class FormQuestionDAOImpl extends GenericDAOImpl<FormQuestion, Long> implements FormQuestionDAO {
 
 	@Override
-	public List<FormQuestion> findByFormId(Long formId) {
+	public List<FormQuestion> findByFormId(final Long formId) {
 		return this.findByNamedQuery(FormQuestionDAO.QUERY_NAME.findByFormId,
 				new ParamBuilder().add("formId", formId).process());
 	}
 
 	@Override
-	public FormQuestion findByFormIdAndQuestionId(Long formId, Long questionId) {
+	public FormQuestion findByFormIdAndQuestionId(final Long formId, final Long questionId) {
 		return this.findSingleByNamedQuery(FormQuestionDAO.QUERY_NAME.findByFormIdAndQuestionId,
 				new ParamBuilder().add("formId", formId).add("questionId", questionId).process());
 	}
 
+	@Override
+	public List<FormQuestion> fetchAll(final LifeCycleStatus lifeCycleStatus) {
+		return this.findByNamedQuery(FormQuestionDAO.QUERY_NAME.fetchAll,
+				new ParamBuilder().add("lifeCycleStatus", lifeCycleStatus).process());
+	}
 }

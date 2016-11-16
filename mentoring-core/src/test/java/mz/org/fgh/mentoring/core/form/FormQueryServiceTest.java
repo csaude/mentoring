@@ -24,6 +24,8 @@ import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormQueryService;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
+import mz.org.fgh.mentoring.core.formquestion.service.FormQuestionQueryService;
 import mz.org.fgh.mentoring.core.programmaticarea.dao.ProgrammaticAreaDAO;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
@@ -50,6 +52,9 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 
 	@Inject
 	private ProgrammaticAreaDAO programmaticAreaDAO;
+
+	@Inject
+	private FormQuestionQueryService formQuestionQueryService;
 
 	private Form createdform;
 
@@ -94,6 +99,20 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		assertTrue(!forms.isEmpty());
 		for (final Form form : forms) {
 			assertEquals(form.getProgrammaticArea().getCode(), programmaticArea.getCode());
+		}
+	}
+
+	@Test
+	public void shouldFetchFormQuestions() {
+		final List<FormQuestion> formQuestions = this.formQuestionQueryService
+				.fetchAllFormQuestions(this.getUserContext());
+
+		assertFalse(formQuestions.isEmpty());
+
+		for (final FormQuestion formQuestion : formQuestions) {
+			assertNotNull(formQuestion.getForm());
+			assertNotNull(formQuestion.getForm().getProgrammaticArea());
+			assertNotNull(formQuestion.getQuestion());
 		}
 	}
 }
