@@ -52,7 +52,7 @@ public class TutorDAOImpl extends GenericDAOImpl<Tutor, Long> implements TutorDA
 		}
 
 		if (carrer != null) {
-			predicates.add(criteriaBuilder.equal(root.get("carrer"), carrer));
+			predicates.add(criteriaBuilder.equal(root.get("carrer").get("code"), carrer));
 		}
 		if (phoneNumber != null) {
 			predicates.add(criteriaBuilder.equal(root.get("phoneNumber"), phoneNumber));
