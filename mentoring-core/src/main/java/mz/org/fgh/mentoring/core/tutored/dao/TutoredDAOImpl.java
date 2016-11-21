@@ -54,7 +54,7 @@ public class TutoredDAOImpl extends GenericDAOImpl<Tutored, Long> implements Tut
 			predicates.add(criteriaBuilder.like(root.get("phoneNumber"), "%" + phoneNumber + "%"));
 		}
 		if (tutored != null) {
-			predicates.add(criteriaBuilder.equal(root.get("carrer"), tutored));
+			predicates.add(criteriaBuilder.equal(root.get("carrer").get("code"), tutored));
 		}
 
 		predicates.add(criteriaBuilder.equal(root.get("lifeCycleStatus"), lifeCycleStatus));
