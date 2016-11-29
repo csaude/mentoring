@@ -3,6 +3,8 @@
  */
 package mz.org.fgh.mentoring.integ.resources.tutored;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -21,6 +23,8 @@ public class TutoredBeanResource {
 	private UserContext userContext;
 	private Tutored tutored;
 
+	private List<Tutored> tutoreds;
+
 	public TutoredBeanResource() {
 	}
 
@@ -28,13 +32,23 @@ public class TutoredBeanResource {
 		return this.userContext;
 	}
 
-	public Tutored getTutored() {
-		return tutored;
+	public void setUserContext(final UserContext userContext) {
+		this.userContext = userContext;
 	}
 
-	public void setTutored(Tutored tutored) {
+	public Tutored getTutored() {
+		return this.tutored;
+	}
+
+	public void setTutored(final Tutored tutored) {
 		this.tutored = tutored;
 	}
 
+	public void setTutoreds(final List<Tutored> tutoreds) {
+		this.tutoreds = tutoreds;
+	}
 
+	public List<Tutored> getTutoreds() {
+		return this.tutoreds;
+	}
 }

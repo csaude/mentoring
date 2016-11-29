@@ -42,8 +42,8 @@ public class TutoredResourceImpl extends AbstractResource implements TutoredReso
 	}
 
 	@Override
-	public JResponse<List<Tutored>> findTutoreds(String code, String name, String surname, final String phoneNumber,
-			final String tutored) throws BusinessException {
+	public JResponse<List<Tutored>> findTutoreds(final String code, final String name, final String surname,
+			final String phoneNumber, final String tutored) throws BusinessException {
 		final List<Tutored> tutoreds = this.tutoredQueryService.findTutoredsBySelectedFilter(this.getUserContetx(),
 				code, name, surname, phoneNumber, tutored);
 
@@ -51,10 +51,19 @@ public class TutoredResourceImpl extends AbstractResource implements TutoredReso
 	}
 
 	@Override
-	public JResponse<Tutored> updateTutored(TutoredBeanResource tutoredBeanResource) throws BusinessException {
+	public JResponse<Tutored> updateTutored(final TutoredBeanResource tutoredBeanResource) throws BusinessException {
 		final Tutored tutored = this.tutoredService.updateTutored(tutoredBeanResource.getUserContext(),
 				tutoredBeanResource.getTutored());
 
 		return JResponse.ok(tutored).build();
+	}
+
+	@Override
+	public JResponse<TutoredBeanResource> syncronizeTutoreds(final TutoredBeanResource tutoredBeanResource)
+			throws BusinessException {
+
+		this.tutoredService.syncronizeTutoreds(tutoredBeanResource.getUserContext(), tutoredBeanResource.getTutoreds());
+
+		return JResponse.ok(tutoredBeanResource).build();
 	}
 }

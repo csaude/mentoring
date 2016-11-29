@@ -3,6 +3,13 @@
  */
 package mz.org.fgh.mentoring.core.tutored;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+import java.util.UUID;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -39,7 +46,6 @@ public class TutoredServiceTest extends AbstractSpringTest {
 	public void setUp() throws BusinessException {
 		this.tutored = EntityFactory.gimme(Tutored.class, TutorTemplate.VALID);
 		this.carrerService.createCareer(this.getUserContext(), this.tutored.getCarrer());
-
 	}
 
 	@Test
@@ -63,4 +69,26 @@ public class TutoredServiceTest extends AbstractSpringTest {
 
 	}
 
+	@Test
+	public void shouldSyncronizeTutoreds() throws BusinessException {
+
+		final int elements = 30;
+		final List<Tutored> tutoreds = EntityFactory.gimme(Tutored.class, elements, TutorTemplate.VALID);
+
+		for (final Tutored tutored : tutoreds) {
+			final String uuid = UUID.randomUUID().toString().replace("-", "");
+			tutored.setUuid(uuid);
+			this.carrerService.createCareer(this.getUserContext(), tutored.getCarrer());
+		}
+
+		final List<Tutored> synckedTutoreds = this.tutoredService.syncronizeTutoreds(this.getUserContext(), tutoreds);
+
+		assertFalse(synckedTutoreds.isEmpty());
+		assertEquals(elements, synckedTutoreds.size());
+
+		for (final Tutored tutored : synckedTutoreds) {
+			assertNotNull(tutored.getCode());
+			assertEquals(0, tutored.getVersion());
+		}
+	}
 }
