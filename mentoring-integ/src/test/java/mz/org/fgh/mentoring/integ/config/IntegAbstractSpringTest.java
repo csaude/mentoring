@@ -5,7 +5,6 @@ package mz.org.fgh.mentoring.integ.config;
 
 import javax.inject.Inject;
 
-import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -15,8 +14,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.parsing.Parser;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
+import mz.co.mozview.frameworks.core.fixtureFactory.LoaderFactory;
 import mz.co.mozview.frameworks.core.util.CleanDBUtil;
 import mz.co.mozview.frameworks.core.webservices.model.UnitWS;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
@@ -33,12 +34,12 @@ public abstract class IntegAbstractSpringTest {
 	@Inject
 	private CleanDBUtil cleanDBUtil;
 
-	private HttpServer server;
-
 	@BeforeClass
 	public static void setUpBeforeClass() {
 		RestAssured.port = 8081;
-		//LoaderFactory.loadTemplates("mz.org.fgh.mentoring.core.fixturefactory");
+		RestAssured.defaultParser = Parser.JSON;
+
+		LoaderFactory.loadTemplates("mz.org.fgh.mentoring.core.fixturefactory");
 	}
 
 	@Before
@@ -47,7 +48,6 @@ public abstract class IntegAbstractSpringTest {
 	@After
 	public void tearDown() {
 		this.cleanDBUtil.cleanDB();
-		this.server.stop();
 	}
 
 	public UserContext getUserContext() {

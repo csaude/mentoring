@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 
 @Configuration
-@ComponentScan(basePackages = { "mz.org.fgh.mentoring.integ" })
+@ComponentScan(basePackages = { "mz.org.fgh.mentoring.core", "mz.org.fgh.mentoring.integ" })
 @EnableTransactionManagement
 @Profile("test")
 public class IntegApplicationContextTest {

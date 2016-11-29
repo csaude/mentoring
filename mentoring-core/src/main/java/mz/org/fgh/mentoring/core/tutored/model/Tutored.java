@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -21,6 +22,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.sun.istack.NotNull;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.co.mozview.frameworks.core.model.Uniqueable;
+import mz.co.mozview.frameworks.core.model.Versionable;
 import mz.org.fgh.mentoring.core.career.model.Career;
 
 /**
@@ -31,7 +34,7 @@ import mz.org.fgh.mentoring.core.career.model.Career;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "TUTOREDS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-public class Tutored extends GenericEntity {
+public class Tutored extends GenericEntity implements Versionable, Uniqueable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,11 +53,18 @@ public class Tutored extends GenericEntity {
 	@NotEmpty
 	@Column(name = "PHONE_NUMBER", nullable = false, length = 100)
 	private String phoneNumber;
-	
+
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CARRER_ID", nullable  = false)
+	@JoinColumn(name = "CARRER_ID", nullable = false)
 	private Career carrer;
+
+	@Column(name = "UUID", length = 50)
+	private String uuid;
+
+	@Version
+	@Column(name = "VERSION")
+	private int version;
 
 	public String getCode() {
 		return this.code;
@@ -88,6 +98,29 @@ public class Tutored extends GenericEntity {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public Career getCarrer() {
+		return this.carrer;
+	}
+
+	public void setCarrer(final Career carrer) {
+		this.carrer = carrer;
+	}
+
+	@Override
+	public String getUuid() {
+		return this.uuid;
+	}
+
+	@Override
+	public void setUuid(final String uuid) {
+		this.uuid = uuid;
+	}
+
+	@Override
+	public int getVersion() {
+		return this.version;
+	}
+
 	@Override
 	public boolean equals(final Object that) {
 		return EqualsBuilder.reflectionEquals(this, that);
@@ -96,13 +129,5 @@ public class Tutored extends GenericEntity {
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
-	}
-
-	public Career getCarrer() {
-		return this.carrer;
-	}
-
-	public void setCarrer(final Career carrer) {
-		this.carrer = carrer;
 	}
 }
