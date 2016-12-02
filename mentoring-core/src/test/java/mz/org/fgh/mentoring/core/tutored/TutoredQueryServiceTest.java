@@ -36,7 +36,7 @@ public class TutoredQueryServiceTest extends AbstractSpringTest {
 	@Override
 	public void setUp() throws BusinessException {
 		this.tutored = EntityFactory.gimme(Tutored.class, TutoredTemplate.VALID);
-		this.carrerService.createCareer(this.getUserContext(), this.tutored.getCarrer());
+		this.carrerService.createCareer(this.getUserContext(), this.tutored.getCareer());
 		this.tutoredService.createTutored(this.getUserContext(), this.tutored);
 	}
 

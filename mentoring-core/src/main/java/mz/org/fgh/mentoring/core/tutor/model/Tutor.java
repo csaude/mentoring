@@ -49,8 +49,8 @@ public class Tutor extends GenericEntity {
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CARRER_ID", nullable  = false)
-	private Career carrer;
+	@JoinColumn(name = "CARRER_ID", nullable = false)
+	private Career career;
 
 	@Column(name = "PHONE_NUMBER", nullable = false, length = 50)
 	private String phoneNumber;
@@ -100,11 +100,11 @@ public class Tutor extends GenericEntity {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Career getCarrer() {
-		return this.carrer;
+	public Career getCareer() {
+		return this.career;
 	}
 
-	public void setCarrer(final Career carrer) {
-		this.carrer = carrer;
+	public void setCareer(final Career career) {
+		this.career = career;
 	}
 }

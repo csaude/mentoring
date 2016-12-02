@@ -57,7 +57,7 @@ public class Tutored extends GenericEntity implements Versionable, Uniqueable {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CARRER_ID", nullable = false)
-	private Career carrer;
+	private Career career;
 
 	@Column(name = "UUID", length = 50)
 	private String uuid;
@@ -98,12 +98,12 @@ public class Tutored extends GenericEntity implements Versionable, Uniqueable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Career getCarrer() {
-		return this.carrer;
+	public Career getCareer() {
+		return this.career;
 	}
 
-	public void setCarrer(final Career carrer) {
-		this.carrer = carrer;
+	public void setCareer(final Career career) {
+		this.career = career;
 	}
 
 	@Override

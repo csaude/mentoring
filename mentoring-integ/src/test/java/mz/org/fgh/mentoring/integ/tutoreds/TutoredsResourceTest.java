@@ -51,8 +51,8 @@ public class TutoredsResourceTest extends IntegAbstractSpringTest {
 
 		this.tutoreds = EntityFactory.gimme(Tutored.class, 20, TutoredTemplate.VALID);
 		for (final Tutored tutored : this.tutoreds) {
-			this.careerService.createCareer(this.getUserContext(), tutored.getCarrer());
-			tutored.getCarrer().setCreatedAt(null);
+			this.careerService.createCareer(this.getUserContext(), tutored.getCareer());
+			tutored.getCareer().setCreatedAt(null);
 		}
 	}
 

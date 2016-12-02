@@ -24,7 +24,7 @@ public class TutorTemplate implements TemplateLoader {
 			{
 				this.add("name", this.random("Stelio Klesio", "Eusebio Jose", "Helio Estevao"));
 				this.add("surname", this.random("Moiane", "Maposse", "Machabane"));
-				this.add("carrer", this.one(Career.class, "valid"));
+				this.add("career", this.one(Career.class, "valid"));
 				this.add("phoneNumber", this.random("840665903", "840665903"));
 			}
 		});

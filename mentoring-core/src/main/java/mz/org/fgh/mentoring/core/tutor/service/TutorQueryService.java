@@ -18,6 +18,6 @@ public interface TutorQueryService {
 	String NAME = "mz.org.fgh.mentoring.core.tutor.service.TutorQueryService";
 
 	List<Tutor> findTutorsBySelectedFilter(final UserContext userContext, final String code, final String name,
-			final String surname, String carrer, final String phoneNumber) throws BusinessException;
+			final String surname, String career, final String phoneNumber) throws BusinessException;
 
 }
