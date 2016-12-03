@@ -23,22 +23,22 @@ import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 public class TutoredServiceImpl extends AbstractService implements TutoredService {
 
 	@Inject
-	private TutoredDAO tutorandoDao;
+	private TutoredDAO tutoredDAO;
 
 	@Override
 	public Tutored createTutored(final UserContext userContext, final Tutored tutored) throws BusinessException {
 
 		// TODO generate code just a sample
-		final String code = this.tutorandoDao.generateCode("MT", 8, "0");
+		final String code = this.tutoredDAO.generateCode("MT", 8, "0");
 		tutored.setCode(code);
 
-		return this.tutorandoDao.create(userContext.getId(), tutored);
+		return this.tutoredDAO.create(userContext.getId(), tutored);
 	}
 
 	@Override
 	public Tutored updateTutored(final UserContext userContext, final Tutored tutored) throws BusinessException {
 
-		this.tutorandoDao.update(userContext.getId(), tutored);
+		this.tutoredDAO.update(userContext.getId(), tutored);
 
 		return tutored;
 	}
@@ -48,7 +48,13 @@ public class TutoredServiceImpl extends AbstractService implements TutoredServic
 			throws BusinessException {
 
 		for (final Tutored tutored : tutoreds) {
-			this.createTutored(userContext, tutored);
+			tutored.setId(null);
+
+			if (tutored.getCode() == null) {
+				this.createTutored(userContext, tutored);
+			} else {
+				this.updateTutored(userContext, tutored);
+			}
 		}
 
 		return tutoreds;

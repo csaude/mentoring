@@ -27,12 +27,12 @@ public class TutorDAOImpl extends GenericDAOImpl<Tutor, Long> implements TutorDA
 
 	@Override
 	public List<Tutor> findBySelectedFilter(final String code, final String name, final String surname,
-			 final String phoneNumber, String carrer, final LifeCycleStatus lifeCycleStatus) {
+			 final String phoneNumber, final String carrer, final LifeCycleStatus lifeCycleStatus) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Tutor> createQuery = criteriaBuilder.createQuery(Tutor.class);
 		final Root<Tutor> root = createQuery.from(Tutor.class);
-		root.fetch("carrer");
+		root.fetch("career");
 
 
 		createQuery.select(root);

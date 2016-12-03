@@ -20,6 +20,7 @@ import mz.co.mozview.frameworks.core.fixtureFactory.util.TestUtil;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.TutorTemplate;
+import mz.org.fgh.mentoring.core.fixturefactory.TutoredTemplate;
 import mz.org.fgh.mentoring.core.tutored.dao.TutoredDAO;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
@@ -44,8 +45,8 @@ public class TutoredServiceTest extends AbstractSpringTest {
 
 	@Override
 	public void setUp() throws BusinessException {
-		this.tutored = EntityFactory.gimme(Tutored.class, TutorTemplate.VALID);
-		this.carrerService.createCareer(this.getUserContext(), this.tutored.getCarrer());
+		this.tutored = EntityFactory.gimme(Tutored.class, TutoredTemplate.VALID);
+		this.carrerService.createCareer(this.getUserContext(), this.tutored.getCareer());
 	}
 
 	@Test
@@ -78,7 +79,7 @@ public class TutoredServiceTest extends AbstractSpringTest {
 		for (final Tutored tutored : tutoreds) {
 			final String uuid = UUID.randomUUID().toString().replace("-", "");
 			tutored.setUuid(uuid);
-			this.carrerService.createCareer(this.getUserContext(), tutored.getCarrer());
+			this.carrerService.createCareer(this.getUserContext(), tutored.getCareer());
 		}
 
 		final List<Tutored> synckedTutoreds = this.tutoredService.syncronizeTutoreds(this.getUserContext(), tutoreds);

@@ -26,13 +26,13 @@ import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 public class TutoredDAOImpl extends GenericDAOImpl<Tutored, Long> implements TutoredDAO {
 
 	@Override
-	public List<Tutored> findBySelectedFilter(String code, String name, String surname, String phoneNumber, final String tutored,
-			LifeCycleStatus lifeCycleStatus) {
+	public List<Tutored> findBySelectedFilter(final String code, final String name, final String surname, final String phoneNumber,
+			final String tutored, final LifeCycleStatus lifeCycleStatus) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Tutored> createQuery = criteriaBuilder.createQuery(Tutored.class);
 		final Root<Tutored> root = createQuery.from(Tutored.class);
-		root.fetch("carrer");
+		root.fetch("career");
 
 		createQuery.select(root);
 

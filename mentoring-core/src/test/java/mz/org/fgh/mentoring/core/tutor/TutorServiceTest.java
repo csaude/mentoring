@@ -40,7 +40,7 @@ public class TutorServiceTest extends AbstractSpringTest {
 
 		this.tutor = EntityFactory.gimme(Tutor.class, TutorTemplate.VALID);
 		
-		this.carrerService.createCareer(this.getUserContext(), this.tutor.getCarrer());
+		this.carrerService.createCareer(this.getUserContext(), this.tutor.getCareer());
 
 	}
 

@@ -83,8 +83,8 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 	public void setUp() throws BusinessException {
 
 		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTamplate.VALID);
-		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutor().getCarrer());
-		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutored().getCarrer());
+		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutor().getCareer());
+		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutored().getCareer());
 		this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor());
 		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
 
