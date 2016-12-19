@@ -3,6 +3,7 @@
  */
 package mz.org.fgh.mentoring.integ.resources.tutored;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -20,7 +21,10 @@ import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TutoredBeanResource {
 
+	private static final int SINGLE_RESPONSE = 1;
+
 	private UserContext userContext;
+
 	private Tutored tutored;
 
 	private List<Tutored> tutoreds;
@@ -50,5 +54,15 @@ public class TutoredBeanResource {
 
 	public List<Tutored> getTutoreds() {
 		return this.tutoreds;
+	}
+
+	public void prepareSingleResponse() {
+
+		if (!(SINGLE_RESPONSE == this.tutoreds.size())) {
+			return;
+		}
+
+		this.tutored = this.tutoreds.get(0);
+		this.tutoreds = new ArrayList<>();
 	}
 }

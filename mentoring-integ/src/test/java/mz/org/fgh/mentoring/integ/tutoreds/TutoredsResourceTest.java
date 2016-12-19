@@ -7,6 +7,7 @@ import static com.jayway.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -75,6 +76,26 @@ public class TutoredsResourceTest extends IntegAbstractSpringTest {
 			assertEquals(0, tutored.getVersion());
 
 		}
+	}
+
+	@Test
+	public void shouldSyncSingleTutored() {
+		final TutoredBeanResource resource = new TutoredBeanResource();
+		resource.setTutoreds(this.tutoreds.subList(0, 1));
+		resource.setUserContext(this.getUserContext());
+
+		final Response post = given().contentType("application/json").body(resource).when()
+				.post("/services/tutoreds/sync");
+
+		final TutoredBeanResource beanResource = post.body().as(TutoredBeanResource.class);
+
+		assertNotNull(beanResource);
+		assertNotNull(beanResource.getTutored());
+		assertNull(beanResource.getTutoreds());
+		assertNotNull(beanResource.getTutored().getId());
+		assertNotNull(beanResource.getTutored().getCode());
+		assertEquals(0, beanResource.getTutored().getVersion());
+
 	}
 
 	@Override
