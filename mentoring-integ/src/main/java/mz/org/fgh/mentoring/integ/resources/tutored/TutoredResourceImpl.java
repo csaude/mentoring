@@ -63,6 +63,7 @@ public class TutoredResourceImpl extends AbstractResource implements TutoredReso
 			throws BusinessException {
 
 		this.tutoredService.syncronizeTutoreds(tutoredBeanResource.getUserContext(), tutoredBeanResource.getTutoreds());
+		tutoredBeanResource.prepareSingleResponse();
 
 		return JResponse.ok(tutoredBeanResource).build();
 	}
