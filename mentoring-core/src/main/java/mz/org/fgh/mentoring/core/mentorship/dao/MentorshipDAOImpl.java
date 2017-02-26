@@ -26,14 +26,14 @@ import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implements MentorshipDAO {
 
 	@Override
-	public List<Mentorship> findBySelectedFilter(String code, String tutorCode, String tutoredCode,
-			LifeCycleStatus lifeCycleStatus) {
+	public List<Mentorship> findBySelectedFilter(final String code, final String tutorCode, final String tutoredCode,
+			final LifeCycleStatus lifeCycleStatus) {
 		
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Mentorship> createQuery = criteriaBuilder.createQuery(Mentorship.class);
 		final Root<Mentorship> root = createQuery.from(Mentorship.class);
-		root.fetch("tutor").fetch("carrer");
-		root.fetch("tutored").fetch("carrer");
+		root.fetch("tutor").fetch("career");
+		root.fetch("tutored").fetch("career");
 		root.fetch("form").fetch("programmaticArea");
 		root.fetch("healthFacility").fetch("district");
 
