@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.service.AbstractService;
+import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.tutored.dao.TutoredDAO;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
@@ -49,12 +50,12 @@ public class TutoredServiceImpl extends AbstractService implements TutoredServic
 
 		for (final Tutored tutored : tutoreds) {
 			tutored.setId(null);
-
-			if (tutored.getCode() == null) {
+			
+			final List<Tutored> foundTutoreds = this.tutoredDAO.findBySelectedFilter(tutored.getCode(), null, null, null, null, LifeCycleStatus.ACTIVE);
+			
+			if(foundTutoreds.isEmpty()) {
 				this.createTutored(userContext, tutored);
-			} else {
-				this.updateTutored(userContext, tutored);
-			}
+			}			
 		}
 
 		return tutoreds;

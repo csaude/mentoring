@@ -2,6 +2,8 @@ version: '2'
 services:
     mysql-mentoring:
        build: mysql
+       ports: 
+        - "3307:3306"
        container_name: mysql-mentoring
        volumes:
          - /opt/data
