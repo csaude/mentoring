@@ -18,7 +18,6 @@ import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 import mz.org.fgh.mentoring.core.tutored.service.TutoredQueryService;
 import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
 
-
 public class TutoredQueryServiceTest extends AbstractSpringTest {
 
 	private Tutored tutored;
@@ -28,10 +27,9 @@ public class TutoredQueryServiceTest extends AbstractSpringTest {
 
 	@Inject
 	private TutoredQueryService TutoredQueryService;
-	
+
 	@Inject
 	private CareerService carrerService;
-	
 
 	@Override
 	public void setUp() throws BusinessException {
@@ -43,14 +41,15 @@ public class TutoredQueryServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldFindTutorBySelectedFilter() throws BusinessException {
 
+		final String uuid = null;
 		final String code = null;
 		final String name = null;
 		final String phoneNumber = null;
 		final String surname = "Maposse";
-		final String carrer =  null;
+		final String carrer = null;
 
 		final List<Tutored> tutoreds = this.TutoredQueryService.findTutoredsBySelectedFilter(this.getUserContext(),
-				code, name, surname, phoneNumber, carrer);
+				uuid, code, name, surname, phoneNumber, carrer);
 
 		assertFalse(tutoreds.isEmpty());
 

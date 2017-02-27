@@ -50,12 +50,13 @@ public class TutoredServiceImpl extends AbstractService implements TutoredServic
 
 		for (final Tutored tutored : tutoreds) {
 			tutored.setId(null);
-			
-			final List<Tutored> foundTutoreds = this.tutoredDAO.findBySelectedFilter(tutored.getCode(), null, null, null, null, LifeCycleStatus.ACTIVE);
-			
-			if(foundTutoreds.isEmpty()) {
+
+			final List<Tutored> foundTutoreds = this.tutoredDAO.findBySelectedFilter(tutored.getUuid(), null, null,
+					null, null, null, LifeCycleStatus.ACTIVE);
+
+			if (foundTutoreds.isEmpty()) {
 				this.createTutored(userContext, tutored);
-			}			
+			}
 		}
 
 		return tutoreds;

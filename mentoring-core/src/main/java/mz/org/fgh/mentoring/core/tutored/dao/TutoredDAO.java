@@ -18,6 +18,7 @@ public interface TutoredDAO extends GenericDAO<Tutored, Long> {
 
 	public String NAME = "mz.org.fgh.mentoring.core.tutorando.dao.TutorandoDAO";
 
-	public List<Tutored> findBySelectedFilter(final String code, final String name, final String surname, String phoneNumber, final String tutored,
+	public List<Tutored> findBySelectedFilter(final String uuid, final String code, final String name,
+			final String surname, String phoneNumber, final String tutored,
 			LifeCycleStatus lifeCycleStatus);
 }

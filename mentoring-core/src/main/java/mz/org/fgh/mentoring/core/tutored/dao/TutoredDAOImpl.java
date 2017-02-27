@@ -26,8 +26,9 @@ import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 public class TutoredDAOImpl extends GenericDAOImpl<Tutored, Long> implements TutoredDAO {
 
 	@Override
-	public List<Tutored> findBySelectedFilter(final String code, final String name, final String surname, final String phoneNumber,
-			final String tutored, final LifeCycleStatus lifeCycleStatus) {
+	public List<Tutored> findBySelectedFilter(final String uuid, final String code, final String name,
+			final String surname, final String phoneNumber, final String tutored,
+			final LifeCycleStatus lifeCycleStatus) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Tutored> createQuery = criteriaBuilder.createQuery(Tutored.class);
@@ -38,8 +39,12 @@ public class TutoredDAOImpl extends GenericDAOImpl<Tutored, Long> implements Tut
 
 		final List<Predicate> predicates = new ArrayList<>();
 
-		if (tutored != null) {
-			predicates.add(criteriaBuilder.like(root.get("code"), "%" + tutored + "%"));
+		if (uuid != null) {
+			predicates.add(criteriaBuilder.like(root.get("uuid"), "%" + uuid + "%"));
+		}
+
+		if (code != null) {
+			predicates.add(criteriaBuilder.like(root.get("code"), "%" + code + "%"));
 		}
 
 		if (name != null) {
