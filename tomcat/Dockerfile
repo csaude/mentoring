@@ -2,6 +2,9 @@ FROM tomcat:8-jre8-alpine
 
 ENV DOCKERIZE_VERSION v0.2.0
 
+ENV JPDA_ADDRESS=8000
+ENV JPDA_TRANSPORT=dt_socket
+
 ADD setenv.sh /usr/local/tomcat/bin/setenv.sh
 ADD localtime /etc/localtime
 
