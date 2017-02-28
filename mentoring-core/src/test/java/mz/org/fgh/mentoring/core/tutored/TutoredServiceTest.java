@@ -5,7 +5,6 @@ package mz.org.fgh.mentoring.core.tutored;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -88,7 +87,6 @@ public class TutoredServiceTest extends AbstractSpringTest {
 		assertEquals(elements, synckedTutoreds.size());
 
 		for (final Tutored tutored : synckedTutoreds) {
-			assertNotNull(tutored.getCode());
 			assertEquals(0, tutored.getVersion());
 		}
 	}
