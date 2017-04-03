@@ -31,7 +31,7 @@ public class TutorProgrammaticAreaResourceImpl extends AbstractResource implemen
 			TutorProgrammaticAreaBeanResource tutorProgrammaticAreaBeanResource) throws BusinessException {
 	
 		TutorProgramaticArea tutorProgramaticArea = tutorProgramaticAreaService.createTutorProgramaticArea(
-				getUserContetx(), tutorProgrammaticAreaBeanResource.getTutorProgramaticArea());
+				tutorProgrammaticAreaBeanResource.getUserContext(), tutorProgrammaticAreaBeanResource.getTutorProgramaticArea());
 		
 		return JResponse.ok(tutorProgramaticArea).build();
 	}

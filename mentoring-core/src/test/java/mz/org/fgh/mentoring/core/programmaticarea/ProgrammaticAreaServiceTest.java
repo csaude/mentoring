@@ -24,7 +24,7 @@ import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaServic
 public class ProgrammaticAreaServiceTest extends AbstractSpringTest {
 
 	@Inject
-	private ProgrammaticAreaService sectorService;
+	private ProgrammaticAreaService programaticAreaService;
 
 	@Inject
 	private ProgrammaticAreaDAO programmaticAreaDAO;
@@ -37,23 +37,24 @@ public class ProgrammaticAreaServiceTest extends AbstractSpringTest {
 	}
 
 	@Test
-	public void shouldCreateSector() throws BusinessException {
+	public void shouldCreateProgrammaticArea() throws BusinessException {
 
-		this.sectorService.createProgrammaticArea(this.getUserContext(), this.programmaticArea);
+		this.programaticAreaService.createProgrammaticArea(this.getUserContext(), this.programmaticArea);
 
 		TestUtil.assertCreation(this.programmaticArea);
 	}
 
 	@Test
-	public void shouldUpdateSector() throws BusinessException {
+	public void shouldUpdateProgrammaticArea() throws BusinessException {
 
-		this.sectorService.createProgrammaticArea(this.getUserContext(), this.programmaticArea);
+		this.programaticAreaService.createProgrammaticArea(this.getUserContext(), this.programmaticArea);
 
 		final ProgrammaticArea sectorUpdate = this.programmaticAreaDAO.findById(this.programmaticArea.getId());
 
 
-		this.sectorService.updateProgrammaticArea(this.getUserContext(), sectorUpdate);
+		this.programaticAreaService.updateProgrammaticArea(this.getUserContext(), sectorUpdate);
 
 		TestUtil.assertUpdate(sectorUpdate);
+		
 	}
 }

@@ -23,7 +23,11 @@ public class TutorProgramaticAreaServiceImpl extends AbstractService implements 
 	@Override
 	public TutorProgramaticArea createTutorProgramaticArea(UserContext userContext,
 			TutorProgramaticArea tutorProgramaticArea) throws BusinessException {
-		return tutorProgramaticAreaDao.create(userContext.getId(), tutorProgramaticArea);
+
+		TutorProgramaticArea createdTutorProgramaticArea = tutorProgramaticAreaDao.create(userContext.getId(),
+				tutorProgramaticArea);
+
+		return createdTutorProgramaticArea;
 	}
 
 	@Override

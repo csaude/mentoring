@@ -21,7 +21,7 @@ public class TutorProgrammaticAreaBeanResource {
 	private UserContext userContext;
 
 	private TutorProgramaticArea tutorProgramaticArea;
-	
+
 	public TutorProgrammaticAreaBeanResource() {
 	}
 
@@ -37,5 +37,8 @@ public class TutorProgrammaticAreaBeanResource {
 		this.tutorProgramaticArea = tutorProgramaticArea;
 	}
 
+	public void setUserContext(UserContext userContext) {
+		this.userContext = userContext;
+	}
 
 }

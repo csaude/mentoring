@@ -25,7 +25,7 @@ public interface TutorProgrammaticAreaResource {
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public JResponse<TutorProgramaticArea> createTutorProgrammaticArea(final TutorProgrammaticAreaBeanResource tutorProgrammaticAreaBeanResource)
+	public JResponse<TutorProgramaticArea> createTutorProgrammaticArea(final TutorProgrammaticAreaBeanResource tutorProgramaticArea)
 			throws BusinessException;
 
 	@PUT

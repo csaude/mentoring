@@ -50,6 +50,8 @@ public class Tutored extends GenericEntity implements Versionable, Uniqueable {
 	@Column(name = "SURNAME", nullable = false, length = 50)
 	private String surname;
 
+	@Column(name = "OTHER_NAMES", nullable = false, length = 50)
+	private String otherNames;
 	@NotEmpty
 	@Column(name = "PHONE_NUMBER", nullable = false, length = 100)
 	private String phoneNumber;
@@ -129,5 +131,13 @@ public class Tutored extends GenericEntity implements Versionable, Uniqueable {
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
+	}
+
+	public String getOtherNames() {
+		return otherNames;
+	}
+
+	public void setOtherNames(String otherNames) {
+		this.otherNames = otherNames;
 	}
 }

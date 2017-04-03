@@ -33,7 +33,9 @@ public class TutoredServiceImpl extends AbstractService implements TutoredServic
 		final String code = this.tutoredDAO.generateCode("MT", 8, "0");
 		tutored.setCode(code);
 
-		return this.tutoredDAO.create(userContext.getId(), tutored);
+		Tutored createTutored = this.tutoredDAO.create(userContext.getId(), tutored);
+
+		return createTutored;
 	}
 
 	@Override
