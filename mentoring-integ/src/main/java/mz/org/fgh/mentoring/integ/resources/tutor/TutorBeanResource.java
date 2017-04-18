@@ -32,6 +32,4 @@ public class TutorBeanResource {
 	public Tutor getTutor() {
 		return this.tutor;
 	}
-
-
 }

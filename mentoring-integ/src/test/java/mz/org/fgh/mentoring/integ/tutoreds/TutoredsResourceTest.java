@@ -74,7 +74,6 @@ public class TutoredsResourceTest extends IntegAbstractSpringTest {
 			assertNotNull(tutored.getId());
 			assertNotNull(tutored.getCode());
 			assertEquals(0, tutored.getVersion());
-
 		}
 	}
 
@@ -95,7 +94,6 @@ public class TutoredsResourceTest extends IntegAbstractSpringTest {
 		assertNotNull(beanResource.getTutored().getId());
 		assertNotNull(beanResource.getTutored().getCode());
 		assertEquals(0, beanResource.getTutored().getVersion());
-
 	}
 
 	@Override

@@ -5,6 +5,7 @@ package mz.org.fgh.mentoring.core.question.service;
 
 import java.util.List;
 
+import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
@@ -20,8 +21,9 @@ public interface QuestionQueryService {
 
 	List<Question> findQuestionsBySelectedFilter(final UserContext userContext, final String code,
 			final String question, final QuestionType questionType, final QuestionCategory questionCategory);
-	
-	List<Question>  findByFormCode(final String code);
 
+	List<Question> findByFormCode(final String code);
+
+	Question findQuestionByUuid(final UserContext userContext, final String uuid) throws BusinessException;
 
 }

@@ -37,4 +37,10 @@ public class HealthFacilityQueryServiceImpl extends AbstractService implements H
 	public List<HealthFacility> fetchAllHealthFacilities(final UserContext userContext) {
 		return this.healthFacilityDAO.fetchdAll(LifeCycleStatus.ACTIVE);
 	}
+
+	@Override
+	public HealthFacility findHealthFacilityByUuid(final UserContext userContext, final String uuid)
+			throws BusinessException {
+		return this.healthFacilityDAO.findByUuid(uuid);
+	}
 }

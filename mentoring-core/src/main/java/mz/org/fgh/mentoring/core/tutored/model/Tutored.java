@@ -22,7 +22,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.sun.istack.NotNull;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
-import mz.co.mozview.frameworks.core.model.Uniqueable;
 import mz.co.mozview.frameworks.core.model.Versionable;
 import mz.org.fgh.mentoring.core.career.model.Career;
 
@@ -34,7 +33,7 @@ import mz.org.fgh.mentoring.core.career.model.Career;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "TUTOREDS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-public class Tutored extends GenericEntity implements Versionable, Uniqueable {
+public class Tutored extends GenericEntity implements Versionable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -58,9 +57,6 @@ public class Tutored extends GenericEntity implements Versionable, Uniqueable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CARRER_ID", nullable = false)
 	private Career career;
-
-	@Column(name = "UUID", length = 50)
-	private String uuid;
 
 	@Version
 	@Column(name = "VERSION")
@@ -104,16 +100,6 @@ public class Tutored extends GenericEntity implements Versionable, Uniqueable {
 
 	public void setCareer(final Career career) {
 		this.career = career;
-	}
-
-	@Override
-	public String getUuid() {
-		return this.uuid;
-	}
-
-	@Override
-	public void setUuid(final String uuid) {
-		this.uuid = uuid;
 	}
 
 	@Override
