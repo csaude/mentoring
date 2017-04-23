@@ -33,6 +33,8 @@ public class MentorshipBeanResource {
 
 	private List<MentorshipHelper> mentorships;
 
+	private List<String> mentorshipUuids;
+
 	public MentorshipBeanResource() {
 	}
 
@@ -76,5 +78,14 @@ public class MentorshipBeanResource {
 		}
 
 		return answers;
+	}
+
+	public void addMentorshipUuid(final String uuid) {
+
+		if (this.mentorshipUuids == null) {
+			this.mentorshipUuids = new ArrayList<>();
+		}
+
+		this.mentorshipUuids.add(uuid);
 	}
 }

@@ -7,7 +7,7 @@ services:
        network_mode: bridge
        container_name: mysql-mentoring
        volumes:
-         - /opt/data
+         - /opt/data:/usr/local/mysql
        hostname: mysql-mentoring
        restart: unless-stopped
     tomcat-mentoring:

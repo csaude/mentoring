@@ -22,6 +22,8 @@ import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
 public class MentorshipHelper {
 
 	private Mentorship mentorship;
+	
+	private String uuid;
 
 	private String startDate;
 
@@ -58,5 +60,9 @@ public class MentorshipHelper {
 
 	public String getStartDate() {
 		return this.startDate;
+	}
+	
+	public String getUuid() {
+		return this.uuid;
 	}
 }

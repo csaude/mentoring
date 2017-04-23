@@ -123,8 +123,10 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 			}
 
 			this.mentorshipService.createMentorship(resource.getUserContext(), mentorship, form, answers);
+			resource.addMentorshipUuid(mentorship.getUuid());
 		}
 
+		resource.setMentorships(null);
 		return JResponse.ok(resource).build();
 	}
 
