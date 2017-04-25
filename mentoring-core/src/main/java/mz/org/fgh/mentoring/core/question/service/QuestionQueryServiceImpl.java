@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.question.dao.QuestionDAO;
@@ -36,7 +37,11 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
 
 	@Override
 	public List<Question> findByFormCode(final String code) {
-		return questionDAO.findByFormCode(code, LifeCycleStatus.ACTIVE);
+		return this.questionDAO.findByFormCode(code, LifeCycleStatus.ACTIVE);
 	}
 
+	@Override
+	public Question findQuestionByUuid(final UserContext userContext, final String uuid) throws BusinessException {
+		return this.questionDAO.findByuuid(uuid, LifeCycleStatus.ACTIVE);
+	}
 }

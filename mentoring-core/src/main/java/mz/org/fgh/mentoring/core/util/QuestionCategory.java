@@ -19,5 +19,7 @@ public enum QuestionCategory {
 
 	RELIABILITY,
 
-	INTEGRITY;
+	INTEGRITY,
+	
+	CONFIDENTIALITY;
 }

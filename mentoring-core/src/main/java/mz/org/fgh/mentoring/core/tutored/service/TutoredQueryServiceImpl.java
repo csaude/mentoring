@@ -26,9 +26,15 @@ public class TutoredQueryServiceImpl implements TutoredQueryService {
 	private TutoredDAO tutoredDao;
 
 	@Override
-	public List<Tutored> findTutoredsBySelectedFilter(final UserContext userContext, final String uuid, final String code,
-			final String name, final String surname, final String phoneNumber, final String tutored) throws BusinessException {
-		return this.tutoredDao.findBySelectedFilter(uuid, code, name, surname, phoneNumber, tutored, LifeCycleStatus.ACTIVE);
+	public List<Tutored> findTutoredsBySelectedFilter(final UserContext userContext, final String uuid,
+			final String code, final String name, final String surname, final String phoneNumber, final String tutored)
+			throws BusinessException {
+		return this.tutoredDao.findBySelectedFilter(uuid, code, name, surname, phoneNumber, tutored,
+				LifeCycleStatus.ACTIVE);
 	}
 
+	@Override
+	public Tutored findTutoredByUuid(final UserContext userContext, final String uuid) throws BusinessException {
+		return this.tutoredDao.findByUuid(uuid);
+	}
 }

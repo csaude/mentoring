@@ -6,11 +6,16 @@ package mz.org.fgh.mentoring.core.answer.model;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author Stélio Moiane
  *
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @DiscriminatorValue(TextAnswer.NAME)
 public class TextAnswer extends Answer {

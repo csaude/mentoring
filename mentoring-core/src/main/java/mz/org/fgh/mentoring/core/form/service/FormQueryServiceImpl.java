@@ -35,4 +35,9 @@ public class FormQueryServiceImpl implements FormQueryService {
 			final String programmaticAreaCode) {
 		return this.formDAO.findBySelectedFilter(code, name, programmaticAreaCode, LifeCycleStatus.ACTIVE);
 	}
+
+	@Override
+	public Form findFormByUuid(final UserContext userContext, final String uuid) throws BusinessException {
+		return this.formDAO.findByUuid(uuid);
+	}
 }
