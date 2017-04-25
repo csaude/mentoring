@@ -29,14 +29,15 @@ import mz.org.fgh.mentoring.core.util.QuestionCategory;
 public class QuestionDAOImpl extends GenericDAOImpl<Question, Long> implements QuestionDAO {
 
 	@Override
-	public List<Question> findByFormCode(String code, final LifeCycleStatus lifeCycleStatus) {
+	public List<Question> findByFormCode(final String code, final LifeCycleStatus lifeCycleStatus) {
 		return this.findByNamedQuery(QuestionDAO.QUERY_NAME.findByFormCode,
 				new ParamBuilder().add("code", code).add("lifeCycleStatus", lifeCycleStatus).process());
 	}
 
 	@Override
-	public List<Question> findBySelectedFilter(String code, String question, QuestionType questionType,
-			QuestionCategory questionCategory, LifeCycleStatus lifeCycleStatus) {
+	public List<Question> findBySelectedFilter(final String code, final String question,
+			final QuestionType questionType, final QuestionCategory questionCategory,
+			final LifeCycleStatus lifeCycleStatus) {
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Question> createQuery = criteriaBuilder.createQuery(Question.class);
 		final Root<Question> root = createQuery.from(Question.class);
@@ -67,6 +68,12 @@ public class QuestionDAOImpl extends GenericDAOImpl<Question, Long> implements Q
 		final TypedQuery<Question> query = this.getEntityManager().createQuery(createQuery);
 
 		return query.getResultList();
+	}
+
+	@Override
+	public Question findByuuid(final String uuid, final LifeCycleStatus lifeCycleStatus) {
+		return this.findSingleByNamedQuery(QuestionDAO.QUERY_NAME.findByuuid,
+				new ParamBuilder().add("uuid", uuid).add("lifeCycleStatus", lifeCycleStatus).process());
 	}
 
 }

@@ -22,11 +22,13 @@ public interface QuestionDAO extends GenericDAO<Question, Long> {
 
 	public static class QUERY {
 		public static final String findByFormCode = "SELECT q FROM Question q INNER JOIN q.formQuestions fq WHERE fq.form.code = :code AND fq.lifeCycleStatus = :lifeCycleStatus";
+		public static final String findByuuid = "SELECT q FROM Question q WHERE q.uuid = :uuid AND q.lifeCycleStatus = :lifeCycleStatus";
 
 	}
 
 	public static class QUERY_NAME {
 		public static final String findByFormCode = "Question.findByFormCode";
+		public static final String findByuuid = "Question.findByuuid";
 
 	}
 
@@ -35,4 +37,5 @@ public interface QuestionDAO extends GenericDAO<Question, Long> {
 
 	List<Question> findByFormCode(final String code, final LifeCycleStatus lifeCycleStatus);
 
+	Question findByuuid(final String uuid, final LifeCycleStatus lifeCycleStatus);
 }

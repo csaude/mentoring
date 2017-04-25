@@ -20,5 +20,7 @@ public interface FormQueryService {
 	Form fetchByForm(final UserContext userContext, final Form form) throws BusinessException;
 
 	List<Form> findBySelectedFilter(final UserContext userContext, final String code, final String name,
-			final String programmaticAreaCode);
+			final String programmaticAreaCode) throws BusinessException;
+
+	Form findFormByUuid(final UserContext userContext, final String uuid) throws BusinessException;
 }

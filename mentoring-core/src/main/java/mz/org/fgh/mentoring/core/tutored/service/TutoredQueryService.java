@@ -20,4 +20,5 @@ public interface TutoredQueryService {
 	List<Tutored> findTutoredsBySelectedFilter(final UserContext userContext, final String uuid, final String code,
 			final String name, final String surname, String phoneNumber, final String tutored) throws BusinessException;
 
+	Tutored findTutoredByUuid(final UserContext userContext, final String uuid) throws BusinessException;
 }

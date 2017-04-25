@@ -23,15 +23,27 @@ import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MentorshipBeanResource {
 
+	private UserContext userContext;
+
 	private Mentorship mentorship;
 
 	private List<QuestionHelper> questions;
 
 	private Form form;
 
-	private UserContext userContext;
+	private List<MentorshipHelper> mentorships;
+
+	private List<String> mentorshipUuids;
 
 	public MentorshipBeanResource() {
+	}
+
+	public UserContext getUserContext() {
+		return this.userContext;
+	}
+
+	public void setUserContext(final UserContext userContext) {
+		this.userContext = userContext;
 	}
 
 	public Mentorship getMentorship() {
@@ -42,13 +54,21 @@ public class MentorshipBeanResource {
 		return this.form;
 	}
 
-	public UserContext getUserContext() {
-		return this.userContext;
+	public List<MentorshipHelper> getMentorships() {
+		return this.mentorships;
+	}
+
+	public void setMentorships(final List<MentorshipHelper> mentorships) {
+		this.mentorships = mentorships;
 	}
 
 	public List<Answer> getAnswers() {
 
 		final List<Answer> answers = new ArrayList<>();
+
+		if (this.questions == null) {
+			return answers;
+		}
 
 		for (final QuestionHelper question : this.questions) {
 			final Answer answer = question.getQuestionType().getAnswer();
@@ -58,5 +78,14 @@ public class MentorshipBeanResource {
 		}
 
 		return answers;
+	}
+
+	public void addMentorshipUuid(final String uuid) {
+
+		if (this.mentorshipUuids == null) {
+			this.mentorshipUuids = new ArrayList<>();
+		}
+
+		this.mentorshipUuids.add(uuid);
 	}
 }

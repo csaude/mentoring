@@ -42,4 +42,9 @@ public class CareerQueryServiceImpl implements CareerQueryService {
 	public List<Career> findAllCareers(final UserContext userContext) throws BshExecutionException {
 		return this.careerDAO.findAll(LifeCycleStatus.ACTIVE);
 	}
+
+	@Override
+	public Career findCarrerByuuid(final UserContext userContext, final String uuid) throws BusinessException {
+		return this.careerDAO.findByUuid(uuid);
+	}
 }

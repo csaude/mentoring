@@ -25,4 +25,6 @@ public interface CareerQueryService {
 	Career findByCareerId(final UserContext userContext, final Long careerId) throws BusinessException;
 
 	List<Career> findAllCareers(final UserContext userContext) throws BshExecutionException;
+
+	Career findCarrerByuuid(final UserContext userContext, final String uuid) throws BusinessException;
 }
