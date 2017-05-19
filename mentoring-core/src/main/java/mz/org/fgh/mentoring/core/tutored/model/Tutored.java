@@ -49,10 +49,10 @@ public class Tutored extends GenericEntity implements Versionable{
 	@Column(name = "SURNAME", nullable = false, length = 50)
 	private String surname;
 
-	@Column(name = "OTHER_NAMES", nullable = false, length = 50)
+	@Column(name = "OTHER_NAMES")
 	private String otherNames;
 	@NotEmpty
-	@Column(name = "PHONE_NUMBER", nullable = false, length = 100)
+	@Column(name = "PHONE_NUMBER")
 	private String phoneNumber;
 
 	@NotNull

@@ -15,7 +15,9 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
+import mz.co.mozview.frameworks.core.dao.ParamBuilder;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
+import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 
 /**
@@ -28,7 +30,7 @@ public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implemen
 	@Override
 	public List<Mentorship> findBySelectedFilter(final String code, final String tutorCode, final String tutoredCode,
 			final LifeCycleStatus lifeCycleStatus) {
-		
+
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Mentorship> createQuery = criteriaBuilder.createQuery(Mentorship.class);
 		final Root<Mentorship> root = createQuery.from(Mentorship.class);
@@ -60,6 +62,15 @@ public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implemen
 		final TypedQuery<Mentorship> query = this.getEntityManager().createQuery(createQuery);
 
 		return query.getResultList();
+	}
+
+	@Override
+	public List<Mentorship> countMentorshipByHealthFacility(HealthFacility healthFacility,
+			LifeCycleStatus lifeCycleStatus) {
+
+		return this.findByNamedQuery(MentorshipDAO.QUERY_NAME.countMentorshipByHealthFacility, new ParamBuilder()
+				.add("healthFacility", healthFacility).add("lifeCycleStatus", lifeCycleStatus).process());
+
 	}
 
 }
