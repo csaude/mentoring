@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -26,6 +28,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
+import mz.org.fgh.mentoring.core.mentorship.dao.MentorshipDAO;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
@@ -38,6 +41,8 @@ import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "MENTORSHIPS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
+@NamedQueries({
+		@NamedQuery(name = MentorshipDAO.QUERY_NAME.countMentorshipByHealthFacility, query = MentorshipDAO.QUERY.countMentorshipByHealthFacility) })
 public class Mentorship extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;

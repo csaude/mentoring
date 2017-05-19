@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
+import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 
 /**
@@ -37,6 +38,11 @@ public interface MentorshipResource {
 	public JResponse<List<Mentorship>> findBySelectedFilter(@QueryParam("code") final String code,
 			@QueryParam("tutor") final String tutor, @QueryParam("tutored") final String tutored)
 			throws BusinessException;
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<Mentorship>> countMentorshipByHealthFacility(@QueryParam("healthFacility") final HealthFacility healthFacility )
+			throws BusinessException;
+
 
 	@POST
 	@Path("sync")

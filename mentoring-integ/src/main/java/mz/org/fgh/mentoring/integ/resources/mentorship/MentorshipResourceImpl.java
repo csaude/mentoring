@@ -168,4 +168,12 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 
 		return tutors.get(0);
 	}
+
+	@Override
+	public JResponse<List<Mentorship>> countMentorshipByHealthFacility(HealthFacility healthFacility)
+			throws BusinessException {
+
+		final List<Mentorship> mentorships = this.mentorshipQueryService.countMentorshipByHealthFacility(healthFacility);
+		return JResponse.ok(mentorships).build();
+	}
 }
