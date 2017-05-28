@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.service.AbstractService;
+import mz.co.mozview.frameworks.core.util.StringNormalizer;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.question.dao.QuestionDAO;
 import mz.org.fgh.mentoring.core.question.model.Question;
@@ -26,15 +27,16 @@ public class QuestionServiceImpl extends AbstractService implements QuestionServ
 	@Override
 	public Question createQuestion(final UserContext userContext, final Question question) throws BusinessException {
 
-		// TODO generate code just a sample
-		final String code = this.questionDao.generateCode("MT", 8, "0");
+		final String code = this.questionDao.generateCode("MTQ", 8, "0");
 		question.setCode(code);
+		question.setQuestion(StringNormalizer.normalizeAndUppCase(question.getQuestion()));
 
 		return this.questionDao.create(userContext.getUuid(), question);
 	}
 
 	@Override
 	public Question updateQuestion(final UserContext userContext, final Question question) throws BusinessException {
+		question.setQuestion(StringNormalizer.normalizeAndUppCase(question.getQuestion()));
 		return this.questionDao.update(userContext.getUuid(), question);
 	}
 }
