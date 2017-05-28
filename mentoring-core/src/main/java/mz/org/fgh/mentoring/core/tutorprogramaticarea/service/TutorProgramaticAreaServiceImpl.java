@@ -21,19 +21,19 @@ public class TutorProgramaticAreaServiceImpl extends AbstractService implements 
 	private TutorProgramaticAreaDao tutorProgramaticAreaDao;
 
 	@Override
-	public TutorProgramaticArea createTutorProgramaticArea(UserContext userContext,
-			TutorProgramaticArea tutorProgramaticArea) throws BusinessException {
+	public TutorProgramaticArea createTutorProgramaticArea(final UserContext userContext,
+			final TutorProgramaticArea tutorProgramaticArea) throws BusinessException {
 
-		TutorProgramaticArea createdTutorProgramaticArea = tutorProgramaticAreaDao.create(userContext.getId(),
+		final TutorProgramaticArea createdTutorProgramaticArea = this.tutorProgramaticAreaDao.create(userContext.getUuid(),
 				tutorProgramaticArea);
 
 		return createdTutorProgramaticArea;
 	}
 
 	@Override
-	public TutorProgramaticArea updateTutorProgramaticArea(UserContext userContext,
-			TutorProgramaticArea tutorProgramaticArea) throws BusinessException {
-		return tutorProgramaticAreaDao.create(userContext.getId(), tutorProgramaticArea);
+	public TutorProgramaticArea updateTutorProgramaticArea(final UserContext userContext,
+			final TutorProgramaticArea tutorProgramaticArea) throws BusinessException {
+		return this.tutorProgramaticAreaDao.create(userContext.getUuid(), tutorProgramaticArea);
 	}
 
 }

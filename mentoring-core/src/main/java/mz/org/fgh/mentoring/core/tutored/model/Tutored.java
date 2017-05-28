@@ -33,7 +33,7 @@ import mz.org.fgh.mentoring.core.career.model.Career;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "TUTOREDS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-public class Tutored extends GenericEntity implements Versionable{
+public class Tutored extends GenericEntity implements Versionable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -49,8 +49,6 @@ public class Tutored extends GenericEntity implements Versionable{
 	@Column(name = "SURNAME", nullable = false, length = 50)
 	private String surname;
 
-	@Column(name = "OTHER_NAMES", nullable = false, length = 50)
-	private String otherNames;
 	@NotEmpty
 	@Column(name = "PHONE_NUMBER", nullable = false, length = 100)
 	private String phoneNumber;
@@ -117,13 +115,5 @@ public class Tutored extends GenericEntity implements Versionable{
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
-	}
-
-	public String getOtherNames() {
-		return otherNames;
-	}
-
-	public void setOtherNames(String otherNames) {
-		this.otherNames = otherNames;
 	}
 }

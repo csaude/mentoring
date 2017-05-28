@@ -21,15 +21,15 @@ public class TutorTutoredServiceImpl extends AbstractService implements TutorTut
 	private TutorTutoredDao tutotTutoredDao;
 
 	@Override
-	public TutorTudored createTutorTutored(UserContext userContext, TutorTudored tutorTudored)
+	public TutorTudored createTutorTutored(final UserContext userContext, final TutorTudored tutorTudored)
 			throws BusinessException {
-		return tutotTutoredDao.create(userContext.getId(), tutorTudored);
+		return this.tutotTutoredDao.create(userContext.getUuid(), tutorTudored);
 	}
 
 	@Override
-	public TutorTudored updateTutorTutored(UserContext userContext, TutorTudored tutorTudored)
+	public TutorTudored updateTutorTutored(final UserContext userContext, final TutorTudored tutorTudored)
 			throws BusinessException {
-		return tutotTutoredDao.update(userContext.getId(), tutorTudored);
+		return this.tutotTutoredDao.update(userContext.getUuid(), tutorTudored);
 	}
 
 }
