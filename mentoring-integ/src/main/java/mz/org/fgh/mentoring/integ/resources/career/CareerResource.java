@@ -33,5 +33,5 @@ public interface CareerResource {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public JResponse<List<Career>> findAllCarrers() throws BusinessException;
+	public JResponse<List<Career>> findAllCareers() throws BusinessException;
 }

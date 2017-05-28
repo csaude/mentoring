@@ -30,15 +30,15 @@ public class CarrerResourceImpl extends AbstractResource implements CareerResour
 	private CareerQueryService careerQueryService;
 
 	@Override
-	public JResponse<List<Career>> getCareersByCareerType(final CareerType carrerType) throws BusinessException {
+	public JResponse<List<Career>> getCareersByCareerType(final CareerType careerType) throws BusinessException {
 
-		final List<Career> carrers = this.careerQueryService.findCareersByCareerType(this.getUserContetx(), carrerType);
+		final List<Career> carrers = this.careerQueryService.findCareersByCareerType(this.getUserContetx(), careerType);
 
 		return JResponse.ok(carrers).build();
 	}
 
 	@Override
-	public JResponse<List<Career>> findAllCarrers() throws BusinessException {
+	public JResponse<List<Career>> findAllCareers() throws BusinessException {
 
 		final List<Career> careers = this.careerQueryService.findAllCareers(this.getUserContetx());
 
