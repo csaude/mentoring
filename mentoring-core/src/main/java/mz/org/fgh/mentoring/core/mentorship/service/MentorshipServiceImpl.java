@@ -48,7 +48,7 @@ public class MentorshipServiceImpl extends AbstractService implements Mentorship
 		mentorship.setCode(code);
 
 		mentorship.setForm(form);
-		this.mentorshipDAO.create(userContext.getId(), mentorship);
+		this.mentorshipDAO.create(userContext.getUuid(), mentorship);
 
 		for (final Answer answer : answers) {
 			answer.setMentorship(mentorship);
@@ -62,6 +62,6 @@ public class MentorshipServiceImpl extends AbstractService implements Mentorship
 	@Override
 	public Mentorship updateMentorship(final UserContext userContext, final Mentorship mentorship)
 			throws BusinessException {
-		return this.mentorshipDAO.update(userContext.getId(), mentorship);
+		return this.mentorshipDAO.update(userContext.getUuid(), mentorship);
 	}
 }

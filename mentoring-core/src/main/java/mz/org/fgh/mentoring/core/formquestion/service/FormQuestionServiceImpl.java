@@ -27,12 +27,12 @@ public class FormQuestionServiceImpl extends AbstractService implements FormQues
 	public FormQuestion createFormQuestion(final UserContext userContext, final FormQuestion formQuestion)
 			throws BusinessException {
 
-		return this.formQuestionDAO.create(userContext.getId(), formQuestion);
+		return this.formQuestionDAO.create(userContext.getUuid(), formQuestion);
 	}
 
 	@Override
-	public FormQuestion updateFormQuestion(UserContext userContext, FormQuestion formQuestion)
+	public FormQuestion updateFormQuestion(final UserContext userContext, final FormQuestion formQuestion)
 			throws BusinessException {
-		return formQuestionDAO.update(userContext.getId(), formQuestion);
+		return this.formQuestionDAO.update(userContext.getUuid(), formQuestion);
 	}
 }

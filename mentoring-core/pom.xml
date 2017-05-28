@@ -61,9 +61,9 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>3.2.1</version>
 				<configuration>
-					<url>jdbc:mysql://localhost/mentoring?autoReconnect=true</url>
-					<user>root</user>
-					<password></password>
+					<url>jdbc:mysql://localhost:3307/mentoring?autoReconnect=true</url>
+					<user>mentor</user>
+					<password>mentor</password>
 				</configuration>
 			</plugin>
 

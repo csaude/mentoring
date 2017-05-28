@@ -6,11 +6,13 @@ package mz.org.fgh.mentoring.core.tutor.service;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 import org.springframework.stereotype.Service;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
+import mz.co.mozview.frameworks.core.util.PropertyValues;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
@@ -25,9 +27,26 @@ public class TutorQueryServiceImpl implements TutorQueryService {
 	@Inject
 	private TutorDAO tutorDAO;
 
+	@Inject
+	private PropertyValues propertyValues;
+
 	@Override
 	public List<Tutor> findTutorsBySelectedFilter(final UserContext userContext, final String code, final String name,
 			final String surname, final String career, final String phoneNumber) throws BusinessException {
 		return this.tutorDAO.findBySelectedFilter(code, name, surname, phoneNumber, career, LifeCycleStatus.ACTIVE);
+	}
+
+	@Override
+	public Tutor fetchTutorByUuid(final UserContext userContext, final String uuid) throws BusinessException {
+
+		Tutor tutor = null;
+
+		try {
+			tutor = this.tutorDAO.fetchByUuid(uuid);
+		} catch (final NoResultException ex) {
+			throw new BusinessException(this.propertyValues.getPropValues("no.result.found"));
+		}
+
+		return tutor;
 	}
 }

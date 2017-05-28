@@ -25,6 +25,6 @@ public class DistrictServiceImpl extends AbstractService implements DistrictServ
 
 	@Override
 	public District createDistrict(final UserContext userContext, final District district) throws BusinessException {
-		return this.districDAO.create(userContext.getId(), district);
+		return this.districDAO.create(userContext.getUuid(), district);
 	}
 }

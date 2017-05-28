@@ -18,7 +18,16 @@ public interface TutorDAO extends GenericDAO<Tutor, Long> {
 
 	String NAME = "mz.org.fgh.mentoring.core.tutor.dao.TutorDAO";
 
-	public List<Tutor> findBySelectedFilter(final String code, final String name, final String surname,
+	class QUERY {
+		public static final String fetchByUuid = "SELECT t FROM Tutor t INNER JOIN FETCH t.career c WHERE t.uuid = :uuid";
+	}
+
+	class QUERY_NAME {
+		public static final String fetchByUuid = "Tutor.fetchByUuid";
+	}
+
+	List<Tutor> findBySelectedFilter(final String code, final String name, final String surname,
 			final String phoneNumber, String carrer, LifeCycleStatus lifeCycleStatus);
 
+	Tutor fetchByUuid(final String uuid);
 }

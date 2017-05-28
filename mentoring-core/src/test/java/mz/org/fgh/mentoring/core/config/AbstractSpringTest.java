@@ -49,6 +49,7 @@ public abstract class AbstractSpringTest {
 
 	public UserContext getUserContext() {
 		final UserContext context = new UserContext();
+		context.setUuid("682eb67387a84d54b9adf93247aefb55");
 		context.setId(1L);
 
 		context.setUnit(

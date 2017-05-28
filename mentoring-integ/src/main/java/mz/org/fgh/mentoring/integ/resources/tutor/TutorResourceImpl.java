@@ -35,8 +35,13 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 	@Override
 	public JResponse<Tutor> createTutor(final TutorBeanResource tutorBeanResource) throws BusinessException {
 
-		final Tutor tutor = this.tutorService.createTutor(tutorBeanResource.getUserContext(),
-				tutorBeanResource.getTutor());
+		final Tutor tutor = tutorBeanResource.getTutor();
+
+		try {
+			this.tutorQueryService.fetchTutorByUuid(tutorBeanResource.getUserContext(), tutor.getUuid());
+		} catch (final BusinessException ex) {
+			this.tutorService.createTutor(tutorBeanResource.getUserContext(), tutor);
+		}
 
 		return JResponse.ok(tutor).build();
 	}
@@ -45,7 +50,8 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 	public JResponse<List<Tutor>> findTutors(final String code, final String name, final String surname,
 			final String carrer, final String phoneNumber) throws BusinessException {
 
-		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(getUserContetx(), code, name, surname, carrer, phoneNumber);
+		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(this.getUserContetx(), code, name,
+				surname, carrer, phoneNumber);
 
 		return JResponse.ok(tutors).build();
 	}
@@ -55,6 +61,14 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 
 		final Tutor tutor = this.tutorService.updateTutor(tutorBeanResource.getUserContext(),
 				tutorBeanResource.getTutor());
+
+		return JResponse.ok(tutor).build();
+	}
+
+	@Override
+	public JResponse<Tutor> fetchTutorByUuid(final String uuid) throws BusinessException {
+
+		final Tutor tutor = this.tutorQueryService.fetchTutorByUuid(this.getUserContetx(), uuid);
 
 		return JResponse.ok(tutor).build();
 	}

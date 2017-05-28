@@ -5,13 +5,13 @@ package mz.org.fgh.mentoring.core.question.service;
 
 import javax.inject.Inject;
 
+import org.springframework.stereotype.Service;
+
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.service.AbstractService;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.question.dao.QuestionDAO;
 import mz.org.fgh.mentoring.core.question.model.Question;
-
-import org.springframework.stereotype.Service;
 
 /**
  * @author Eusebio Jose Maposse
@@ -23,22 +23,18 @@ public class QuestionServiceImpl extends AbstractService implements QuestionServ
 	@Inject
 	private QuestionDAO questionDao;
 
-
-
 	@Override
-	public Question createQuestion(final UserContext userContext, final  Question question) throws BusinessException {
+	public Question createQuestion(final UserContext userContext, final Question question) throws BusinessException {
 
 		// TODO generate code just a sample
 		final String code = this.questionDao.generateCode("MT", 8, "0");
 		question.setCode(code);
 
-		return this.questionDao.create(userContext.getId(), question);
+		return this.questionDao.create(userContext.getUuid(), question);
 	}
 
 	@Override
 	public Question updateQuestion(final UserContext userContext, final Question question) throws BusinessException {
-
-		return this.questionDao.update(userContext.getId(), question);
-
+		return this.questionDao.update(userContext.getUuid(), question);
 	}
 }

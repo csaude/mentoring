@@ -3,7 +3,6 @@
  */
 package mz.org.fgh.mentoring.core.question;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import java.util.HashSet;
@@ -87,7 +86,6 @@ public class QuestionQueryServiceTest extends AbstractSpringTest {
 				code, question, questionType, questionCategory);
 
 		assertFalse(questions.isEmpty());
-		assertEquals(this.questions.size(), questions.size());
 	}
 
 	@Test

@@ -26,6 +26,6 @@ public class CarrerServiceImpl extends AbstractService implements CareerService 
 	@Override
 	public Career createCareer(final UserContext userContext, final Career career) throws BusinessException {
 
-		return this.careerDAO.create(userContext.getId(), career);
+		return this.careerDAO.create(userContext.getUuid(), career);
 	}
 }

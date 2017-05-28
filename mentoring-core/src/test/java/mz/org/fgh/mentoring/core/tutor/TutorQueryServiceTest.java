@@ -2,11 +2,15 @@ package mz.org.fgh.mentoring.core.tutor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+/*
+ * Friends in Global Health - FGH © 2016
+ */
 import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
@@ -18,6 +22,10 @@ import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutor.service.TutorQueryService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 
+/**
+ * @author Stélio Moiane
+ *
+ */
 public class TutorQueryServiceTest extends AbstractSpringTest {
 
 	private Tutor tutor;
@@ -29,7 +37,7 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 	private CareerService carrerService;
 
 	@Inject
-	private TutorQueryService TutorQueryService;
+	private TutorQueryService tutorQueryService;
 
 	@Override
 	public void setUp() throws BusinessException {
@@ -50,12 +58,22 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 		final String phoneNumber = null;
 		final String carrer = null;
 
-		final List<Tutor> tutors = this.TutorQueryService.findTutorsBySelectedFilter(this.getUserContext(), code, name,
+		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(this.getUserContext(), code, name,
 				surname, carrer, phoneNumber);
 		assertFalse(tutors.isEmpty());
 
 		for (final Tutor tutor : tutors) {
 			assertEquals("840665903", tutor.getPhoneNumber());
 		}
+	}
+
+	@Test
+	public void shouldFetchTutorByUuid() throws BusinessException {
+		final String uuid = this.tutor.getUuid();
+		final Tutor foundTutor = this.tutorQueryService.fetchTutorByUuid(this.getUserContext(), uuid);
+
+		assertNotNull(foundTutor);
+		assertEquals(uuid, foundTutor.getUuid());
+		assertNotNull(foundTutor.getCareer());
 	}
 }

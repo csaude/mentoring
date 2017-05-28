@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -22,6 +24,7 @@ import com.sun.istack.NotNull;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.career.model.Career;
+import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 
 /**
  * @author Stélio Moiane
@@ -29,6 +32,7 @@ import mz.org.fgh.mentoring.core.career.model.Career;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@NamedQueries(@NamedQuery(name = TutorDAO.QUERY_NAME.fetchByUuid, query = TutorDAO.QUERY.fetchByUuid))
 @Entity
 @Table(name = "TUTORS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 public class Tutor extends GenericEntity {

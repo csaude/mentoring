@@ -4,16 +4,14 @@
 package mz.org.fgh.mentoring.integ.resources;
 
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
+import mz.co.mozview.frameworks.core.exception.ErrorMessage;
 
 /**
  * @author Stélio Moiane
- *
- *         This is the Exception Default Handler class for Jersey
  *
  */
 @Provider
@@ -21,6 +19,6 @@ public class MentoringExceptionHandler implements ExceptionMapper<BusinessExcept
 
 	@Override
 	public Response toResponse(final BusinessException businessException) {
-		return Response.status(Status.OK).entity(new ErrorMessage(businessException.getMessage())).build();
+		return Response.ok(new ErrorMessage(businessException.getMessage())).build();
 	}
 }

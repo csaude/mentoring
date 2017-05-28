@@ -55,7 +55,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 			throw new BusinessException(this.propertyValues.getPropValues("cannot.create.form.without.questions"));
 		}
 
-		this.formDAO.create(userContext.getId(), form);
+		this.formDAO.create(userContext.getUuid(), form);
 
 		for (final Question question : questions) {
 
@@ -111,7 +111,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 	public Form updateForm(final UserContext userContext, final Form form, final Set<Question> questions)
 			throws BusinessException {
 
-		final Form updatedForm = this.formDAO.update(userContext.getId(), form);
+		final Form updatedForm = this.formDAO.update(userContext.getUuid(), form);
 
 		this.inactivetedAllFormQuestion(updatedForm.getId());
 		this.getFormQuestionByList(userContext, questions, updatedForm,

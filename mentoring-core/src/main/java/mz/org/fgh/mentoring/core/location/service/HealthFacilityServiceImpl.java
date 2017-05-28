@@ -26,6 +26,6 @@ public class HealthFacilityServiceImpl extends AbstractService implements Health
 	@Override
 	public HealthFacility createHealthFacility(final UserContext userContext, final HealthFacility healthFacility)
 			throws BusinessException {
-		return this.healthFacilityDAO.create(userContext.getId(), healthFacility);
+		return this.healthFacilityDAO.create(userContext.getUuid(), healthFacility);
 	}
 }

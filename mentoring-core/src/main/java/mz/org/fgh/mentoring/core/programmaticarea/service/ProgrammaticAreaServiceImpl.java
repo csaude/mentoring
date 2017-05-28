@@ -24,18 +24,20 @@ public class ProgrammaticAreaServiceImpl extends AbstractService implements Prog
 	private ProgrammaticAreaDAO sectorDao;
 
 	@Override
-	public ProgrammaticArea createProgrammaticArea(final UserContext userContext, final ProgrammaticArea programmaticArea) throws BusinessException {
+	public ProgrammaticArea createProgrammaticArea(final UserContext userContext,
+			final ProgrammaticArea programmaticArea) throws BusinessException {
 
 		// TODO generate code just a sample
 		final String code = this.sectorDao.generateCode("MT", 8, "0");
 		programmaticArea.setCode(code);
 
-		return this.sectorDao.create(userContext.getId(), programmaticArea);
+		return this.sectorDao.create(userContext.getUuid(), programmaticArea);
 	}
 
 	@Override
-	public ProgrammaticArea updateProgrammaticArea(final UserContext userContext, final ProgrammaticArea programmaticArea) throws BusinessException {
+	public ProgrammaticArea updateProgrammaticArea(final UserContext userContext,
+			final ProgrammaticArea programmaticArea) throws BusinessException {
 
-		return this.sectorDao.update(userContext.getId(), programmaticArea);
+		return this.sectorDao.update(userContext.getUuid(), programmaticArea);
 	}
 }

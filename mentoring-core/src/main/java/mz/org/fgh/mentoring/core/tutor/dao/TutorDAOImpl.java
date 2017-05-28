@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
+import mz.co.mozview.frameworks.core.dao.ParamBuilder;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
@@ -27,13 +28,12 @@ public class TutorDAOImpl extends GenericDAOImpl<Tutor, Long> implements TutorDA
 
 	@Override
 	public List<Tutor> findBySelectedFilter(final String code, final String name, final String surname,
-			 final String phoneNumber, final String carrer, final LifeCycleStatus lifeCycleStatus) {
+			final String phoneNumber, final String carrer, final LifeCycleStatus lifeCycleStatus) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Tutor> createQuery = criteriaBuilder.createQuery(Tutor.class);
 		final Root<Tutor> root = createQuery.from(Tutor.class);
 		root.fetch("career");
-
 
 		createQuery.select(root);
 
@@ -64,5 +64,10 @@ public class TutorDAOImpl extends GenericDAOImpl<Tutor, Long> implements TutorDA
 		final TypedQuery<Tutor> query = this.getEntityManager().createQuery(createQuery);
 
 		return query.getResultList();
+	}
+
+	@Override
+	public Tutor fetchByUuid(final String uuid) {
+		return this.findSingleByNamedQuery(TutorDAO.QUERY_NAME.fetchByUuid, new ParamBuilder().add("uuid", uuid).process());
 	}
 }
