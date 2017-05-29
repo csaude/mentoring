@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.service.AbstractService;
+import mz.co.mozview.frameworks.core.util.StringNormalizer;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
@@ -26,15 +27,19 @@ public class TutorServiceImpl extends AbstractService implements TutorService {
 	@Override
 	public Tutor createTutor(final UserContext userContext, final Tutor tutor) throws BusinessException {
 
-		// TODO generate code just a sample
-		final String code = this.tutorDAO.generateCode("MT", 8, "0");
+		final String code = this.tutorDAO.generateCode("MTT", 8, "0");
 		tutor.setCode(code);
+		tutor.setName(StringNormalizer.normalizeAndUppCase(tutor.getName()));
+		tutor.setSurname(StringNormalizer.normalizeAndUppCase(tutor.getSurname()));
 
 		return this.tutorDAO.create(userContext.getUuid(), tutor);
 	}
 
 	@Override
 	public Tutor updateTutor(final UserContext userContext, final Tutor tutor) throws BusinessException {
+
+		tutor.setName(StringNormalizer.normalizeAndUppCase(tutor.getName()));
+		tutor.setSurname(StringNormalizer.normalizeAndUppCase(tutor.getSurname()));
 
 		this.tutorDAO.update(userContext.getUuid(), tutor);
 

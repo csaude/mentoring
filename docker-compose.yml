@@ -22,6 +22,6 @@ services:
        links:
          - mysql-mentoring
        volumes: 
-         - /opt/data/webapp:/usr/local/tomcat/webapps
+         - /opt/data/webapp/mentoring:/usr/local/tomcat/webapps
        hostname: tomcat-mentoring
        restart: unless-stopped

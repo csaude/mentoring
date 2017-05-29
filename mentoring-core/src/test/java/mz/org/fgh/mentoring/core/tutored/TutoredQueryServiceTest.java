@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
+import mz.co.mozview.frameworks.core.util.StringNormalizer;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.TutoredTemplate;
@@ -54,8 +55,7 @@ public class TutoredQueryServiceTest extends AbstractSpringTest {
 		assertFalse(tutoreds.isEmpty());
 
 		for (final Tutored tutored : tutoreds) {
-			assertEquals("Maposse", tutored.getSurname());
-
+			assertEquals(StringNormalizer.normalizeAndUppCase(surname), tutored.getSurname());
 		}
 	}
 }
