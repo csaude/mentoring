@@ -23,18 +23,23 @@ import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 public class TutoredQueryServiceImpl implements TutoredQueryService {
 
 	@Inject
-	private TutoredDAO tutoredDao;
+	private TutoredDAO tutoredDAO;
 
 	@Override
 	public List<Tutored> findTutoredsBySelectedFilter(final UserContext userContext, final String uuid,
 			final String code, final String name, final String surname, final String phoneNumber, final String tutored)
 			throws BusinessException {
-		return this.tutoredDao.findBySelectedFilter(uuid, code, name, surname, phoneNumber, tutored,
+		return this.tutoredDAO.findBySelectedFilter(uuid, code, name, surname, phoneNumber, tutored,
 				LifeCycleStatus.ACTIVE);
 	}
 
 	@Override
 	public Tutored findTutoredByUuid(final UserContext userContext, final String uuid) throws BusinessException {
-		return this.tutoredDao.findByUuid(uuid);
+		return this.tutoredDAO.findByUuid(uuid);
+	}
+
+	@Override
+	public List<Tutored> findTutoredsByUser(final String userUuid) {
+		return this.tutoredDAO.fetchByUser(userUuid, LifeCycleStatus.ACTIVE);
 	}
 }

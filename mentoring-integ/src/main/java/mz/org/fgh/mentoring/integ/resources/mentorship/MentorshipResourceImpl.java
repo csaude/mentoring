@@ -163,9 +163,6 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 
 		final UserContext userContext = mentorshipBeanResource.getUserContext();
 
-		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(userContext, null, null, null,
-				null, userContext.getPhoneNumber());
-
-		return tutors.get(0);
+		return this.tutorQueryService.fetchTutorByUuid(userContext, userContext.getUuid());
 	}
 }

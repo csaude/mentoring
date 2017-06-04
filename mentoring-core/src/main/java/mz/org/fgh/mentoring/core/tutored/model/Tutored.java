@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
@@ -24,11 +26,13 @@ import com.sun.istack.NotNull;
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.co.mozview.frameworks.core.model.Versionable;
 import mz.org.fgh.mentoring.core.career.model.Career;
+import mz.org.fgh.mentoring.core.tutored.dao.TutoredDAO;
 
 /**
  * @author Eusebio Jose Maposse
  *
  */
+@NamedQueries(@NamedQuery(name = TutoredDAO.QUERY_NAME.fetchByUser, query = TutoredDAO.QUERY.fetchByUser))
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
