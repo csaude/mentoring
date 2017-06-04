@@ -67,4 +67,12 @@ public class TutoredResourceImpl extends AbstractResource implements TutoredReso
 
 		return JResponse.ok(tutoredBeanResource).build();
 	}
+
+	@Override
+	public JResponse<List<Tutored>> findTutoredsByUser(final String userUuid) throws BusinessException {
+
+		final List<Tutored> tutoreds = this.tutoredQueryService.findTutoredsByUser(userUuid);
+
+		return JResponse.ok(tutoreds).build();
+	}
 }

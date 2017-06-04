@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
+import mz.co.mozview.frameworks.core.dao.ParamBuilder;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 
@@ -68,6 +69,12 @@ public class TutoredDAOImpl extends GenericDAOImpl<Tutored, Long> implements Tut
 		final TypedQuery<Tutored> query = this.getEntityManager().createQuery(createQuery);
 
 		return query.getResultList();
+	}
+
+	@Override
+	public List<Tutored> fetchByUser(final String userUuid, final LifeCycleStatus lifeCycleStatus) {
+		return this.findByNamedQuery(TutoredDAO.QUERY_NAME.fetchByUser,
+				new ParamBuilder().add("userUuid", userUuid).add("lifeCycleStatus", lifeCycleStatus).process());
 	}
 
 }

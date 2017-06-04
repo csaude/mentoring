@@ -27,7 +27,7 @@ public class TutoredQueryServiceTest extends AbstractSpringTest {
 	private TutoredService tutoredService;
 
 	@Inject
-	private TutoredQueryService TutoredQueryService;
+	private TutoredQueryService tutoredQueryService;
 
 	@Inject
 	private CareerService carrerService;
@@ -49,13 +49,24 @@ public class TutoredQueryServiceTest extends AbstractSpringTest {
 		final String surname = "Maposse";
 		final String carrer = null;
 
-		final List<Tutored> tutoreds = this.TutoredQueryService.findTutoredsBySelectedFilter(this.getUserContext(),
+		final List<Tutored> tutoreds = this.tutoredQueryService.findTutoredsBySelectedFilter(this.getUserContext(),
 				uuid, code, name, surname, phoneNumber, carrer);
 
 		assertFalse(tutoreds.isEmpty());
 
 		for (final Tutored tutored : tutoreds) {
 			assertEquals(StringNormalizer.normalizeAndUppCase(surname), tutored.getSurname());
+		}
+	}
+
+	@Test
+	public void shouldFetchTutoredsByUser() {
+
+		final List<Tutored> tutoreds = this.tutoredQueryService.findTutoredsByUser(this.getUserContext().getUuid());
+		assertFalse(tutoreds.isEmpty());
+
+		for (final Tutored tutored : tutoreds) {
+			assertEquals(tutored.getCreatedBy(), this.getUserContext().getUuid());
 		}
 	}
 }
