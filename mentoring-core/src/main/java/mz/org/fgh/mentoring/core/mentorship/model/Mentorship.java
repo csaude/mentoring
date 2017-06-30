@@ -4,10 +4,13 @@
 
 package mz.org.fgh.mentoring.core.mentorship.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,6 +31,7 @@ import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
+import mz.org.fgh.mentoring.core.util.LocalDateAdapter;
 import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
 
 /**
@@ -55,6 +59,16 @@ public class Mentorship extends GenericEntity {
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	@Column(name = "END_DATE", nullable = false)
 	private LocalDateTime endDate;
+
+	@NotNull
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
+	@Column(name = "PERFORMED_DATE", nullable = false)
+	private LocalDate performedDate;
+
+	@NotNull
+	@Column(name = "REFERRED_MONTH", nullable = false, length = 50)
+	@Enumerated(EnumType.STRING)
+	private Month referredMonth;
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -101,6 +115,22 @@ public class Mentorship extends GenericEntity {
 
 	public void setEndDate(final LocalDateTime endDate) {
 		this.endDate = endDate;
+	}
+
+	public LocalDate getPerformedDate() {
+		return this.performedDate;
+	}
+
+	public void setPerformedDate(final LocalDate performedDate) {
+		this.performedDate = performedDate;
+	}
+
+	public Month getReferredMonth() {
+		return this.referredMonth;
+	}
+
+	public void setReferredMonth(final Month referredMonth) {
+		this.referredMonth = referredMonth;
 	}
 
 	public Tutor getTutor() {

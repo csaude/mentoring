@@ -13,6 +13,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<github.maven.repository>file://home/steliomo/releases</github.maven.repository>
 	</properties>
 
 	<modules>
@@ -52,5 +53,22 @@
 		</plugins>
 
 	</build>
+
+	<distributionManagement>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>Mentoring_repository</id>
+			<name>Mentoring Repository</name>
+			<url>file:///home/steliomo/releases/</url>
+			<layout>default</layout>
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>Mentoring_repository</id>
+			<name>Mentoring Repository</name>
+			<url>file:///home/steliomo/releases/</url>
+			<layout>default</layout>
+		</snapshotRepository>
+	</distributionManagement>
 
 </project>

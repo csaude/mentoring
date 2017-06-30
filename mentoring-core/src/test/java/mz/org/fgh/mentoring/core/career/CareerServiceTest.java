@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
@@ -50,6 +51,7 @@ public class CareerServiceTest extends AbstractSpringTest {
 	}
 
 	@Test
+	@Ignore
 	public void shouldPopulateCarrers() throws BusinessException {
 
 		final List<GenericObject> carrers = this.fileReaderService.readfile("mapping-careers.xlsx");
