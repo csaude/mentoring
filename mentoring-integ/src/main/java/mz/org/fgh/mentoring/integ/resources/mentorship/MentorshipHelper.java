@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
+import mz.org.fgh.mentoring.core.util.LocalDateAdapter;
 import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
 
 /**
@@ -22,12 +23,14 @@ import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
 public class MentorshipHelper {
 
 	private Mentorship mentorship;
-	
+
 	private String uuid;
 
 	private String startDate;
 
 	private String endDate;
+
+	private String performedDate;
 
 	private List<AnswerHelper> answers;
 
@@ -44,9 +47,11 @@ public class MentorshipHelper {
 
 	public Mentorship getMentorship() {
 		final LocalDateTimeAdapter localDateTimeAdapter = new LocalDateTimeAdapter();
+		final LocalDateAdapter localDateAdapter = new LocalDateAdapter();
 		this.mentorship.setId(null);
 		this.mentorship.setStartDate(localDateTimeAdapter.unmarshal(this.startDate));
 		this.mentorship.setEndDate(localDateTimeAdapter.unmarshal(this.endDate));
+		this.mentorship.setPerformedDate(localDateAdapter.unmarshal(this.performedDate));
 		return this.mentorship;
 	}
 
@@ -61,8 +66,12 @@ public class MentorshipHelper {
 	public String getStartDate() {
 		return this.startDate;
 	}
-	
+
 	public String getUuid() {
 		return this.uuid;
+	}
+
+	public String getPerformedDate() {
+		return this.performedDate;
 	}
 }

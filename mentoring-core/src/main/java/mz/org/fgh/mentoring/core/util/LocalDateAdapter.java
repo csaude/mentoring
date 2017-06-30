@@ -16,12 +16,12 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 public class LocalDateAdapter extends XmlAdapter<String, LocalDate> {
 
 	@Override
-	public LocalDate unmarshal(final String value) throws Exception {
+	public LocalDate unmarshal(final String value) {
 		return LocalDate.parse(value, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 	}
 
 	@Override
-	public String marshal(final LocalDate value) throws Exception {
+	public String marshal(final LocalDate value) {
 		final LocalDate date = value;
 
 		return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));

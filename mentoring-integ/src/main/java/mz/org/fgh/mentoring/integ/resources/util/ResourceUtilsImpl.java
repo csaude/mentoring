@@ -12,6 +12,7 @@ import com.sun.jersey.api.JResponse;
 
 import mz.org.fgh.mentoring.core.career.model.CareerType;
 import mz.org.fgh.mentoring.core.location.model.Province;
+import mz.org.fgh.mentoring.core.mentorship.model.Month;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
 import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
@@ -36,5 +37,10 @@ public class ResourceUtilsImpl implements ResourceUtils {
 	@Override
 	public JResponse<List<QuestionType>> getQuestionTypes() {
 		return JResponse.ok(Arrays.asList(QuestionType.values())).build();
+	}
+
+	@Override
+	public JResponse<List<Month>> getMonths() {
+		return JResponse.ok(Arrays.asList(Month.values())).build();
 	}
 }
