@@ -4,7 +4,7 @@
 
 	<groupId>mz.org.fgh</groupId>
 	<artifactId>mentoring</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>mentoring</name>
@@ -22,7 +22,7 @@
 
 	<scm>
 		<connection>scm:git:https://github.com/steliomo/mentoring.git</connection>
-		<tag>1.0.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<build>
