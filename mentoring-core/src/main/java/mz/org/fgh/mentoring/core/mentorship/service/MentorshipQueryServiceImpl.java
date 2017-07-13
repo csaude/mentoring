@@ -13,6 +13,7 @@ import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.mentorship.dao.MentorshipDAO;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
+import mz.org.fgh.mentoring.core.mentorship.model.SubmitedSessions;
 
 /**
  * @author Eusebio Jose Maposse
@@ -20,13 +21,20 @@ import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
  */
 @Service(MentorshipQueryService.NAME)
 public class MentorshipQueryServiceImpl implements MentorshipQueryService {
-	
+
 	@Inject
 	private MentorshipDAO mentorshipDAO;
 
 	@Override
-	public List<Mentorship> findBySelectedFilter(final UserContext userContext,String code, String tutor, String tutored) {
-		return mentorshipDAO.findBySelectedFilter(code, tutor, tutored, LifeCycleStatus.ACTIVE);
+	public List<Mentorship> fetchBySelectedFilter(final UserContext userContext, final String code, final String tutor,
+			final String tutored, final String formName, final String healthFacility) {
+
+		return this.mentorshipDAO.fetchBySelectedFilter(code, tutor, tutored, formName, healthFacility,
+				LifeCycleStatus.ACTIVE);
 	}
 
+	@Override
+	public List<SubmitedSessions> findNumberOfSessionsPerHealthFacility(final UserContext userContext) {
+		return this.mentorshipDAO.findNumberOfSessionsPerHealthFacility(LifeCycleStatus.ACTIVE);
+	}
 }

@@ -17,6 +17,7 @@ import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
+import mz.org.fgh.mentoring.core.mentorship.model.SubmitedSessions;
 
 /**
  * @author Stélio Moiane
@@ -35,7 +36,8 @@ public interface MentorshipResource {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Mentorship>> findBySelectedFilter(@QueryParam("code") final String code,
-			@QueryParam("tutor") final String tutor, @QueryParam("tutored") final String tutored)
+			@QueryParam("tutor") final String tutor, @QueryParam("tutored") final String tutored,
+			@QueryParam("form") final String form, @QueryParam("healthFacility") final String healthFacility)
 			throws BusinessException;
 
 	@POST
@@ -44,5 +46,10 @@ public interface MentorshipResource {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<MentorshipBeanResource> syncronizeMentorships(final MentorshipBeanResource mentorshipBeanResource)
 			throws BusinessException;
+
+	@GET
+	@Path("sessions")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<SubmitedSessions>> findSubmitedSessions() throws BusinessException;
 
 }
