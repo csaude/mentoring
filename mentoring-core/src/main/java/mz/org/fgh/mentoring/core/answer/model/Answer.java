@@ -11,10 +11,17 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.answer.dao.AnswerDAO;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.question.model.Question;
@@ -23,6 +30,10 @@ import mz.org.fgh.mentoring.core.question.model.Question;
  * @author Stélio Moiane
  *
  */
+@NamedQueries({
+		@NamedQuery(name = AnswerDAO.QUERY_NAME.fetchByMentorishipUuid, query = AnswerDAO.QUERY.fetchByMentorishipUuid) })
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TYPE", discriminatorType = DiscriminatorType.STRING, length = 15)
@@ -31,11 +42,13 @@ public abstract class Answer extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	@XmlTransient
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FORM_ID", nullable = false)
 	private Form form;
 
+	@XmlTransient
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MENTORSHIP_ID", nullable = false)

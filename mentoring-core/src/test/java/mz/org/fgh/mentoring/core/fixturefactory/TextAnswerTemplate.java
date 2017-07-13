@@ -20,7 +20,7 @@ public class TextAnswerTemplate implements TemplateLoader {
 	public void load() {
 		Fixture.of(TextAnswer.class).addTemplate(VALID, new Rule() {
 			{
-				this.add("textValue", "Stelio Moiane");
+				this.add("textValue", this.random("COMPETENTE", "NAO SATISFATORIO", "NA"));
 			}
 		});
 

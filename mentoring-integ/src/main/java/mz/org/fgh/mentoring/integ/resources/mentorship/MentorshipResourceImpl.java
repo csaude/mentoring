@@ -23,6 +23,7 @@ import mz.org.fgh.mentoring.core.form.service.FormQueryService;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityQueryService;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
+import mz.org.fgh.mentoring.core.mentorship.model.SubmitedSessions;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipQueryService;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
 import mz.org.fgh.mentoring.core.question.model.Question;
@@ -81,11 +82,12 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 	}
 
 	@Override
-	public JResponse<List<Mentorship>> findBySelectedFilter(final String code, final String tutor, final String tutored)
-			throws BusinessException {
+	public JResponse<List<Mentorship>> findBySelectedFilter(final String code, final String tutor, final String tutored,
+			final String form, final String healthFacility) throws BusinessException {
 
-		final List<Mentorship> mentorships = this.mentorshipQueryService.findBySelectedFilter(this.getUserContetx(),
-				code, tutor, tutored);
+		final List<Mentorship> mentorships = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContetx(),
+				code, tutor, tutored, form, healthFacility);
+
 		return JResponse.ok(mentorships).build();
 	}
 
@@ -164,5 +166,14 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 		final UserContext userContext = mentorshipBeanResource.getUserContext();
 
 		return this.tutorQueryService.fetchTutorByUuid(userContext, userContext.getUuid());
+	}
+
+	@Override
+	public JResponse<List<SubmitedSessions>> findSubmitedSessions() throws BusinessException {
+
+		final List<SubmitedSessions> sessions = this.mentorshipQueryService
+				.findNumberOfSessionsPerHealthFacility(this.getUserContetx());
+
+		return JResponse.ok(sessions).build();
 	}
 }

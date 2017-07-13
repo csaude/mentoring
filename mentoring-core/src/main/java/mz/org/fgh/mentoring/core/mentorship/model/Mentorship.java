@@ -8,12 +8,17 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -29,6 +34,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
+import mz.org.fgh.mentoring.core.mentorship.dao.MentorshipDAO;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 import mz.org.fgh.mentoring.core.util.LocalDateAdapter;
@@ -38,6 +44,13 @@ import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
  * @author Eusebio Jose Maposse
  *
  */
+@SqlResultSetMapping(name = SubmitedSessions.TOTAL_SUBMISSIONS, classes = {
+		@ConstructorResult(targetClass = SubmitedSessions.class, columns = { @ColumnResult(name = "HEALTH_FACILITY"),
+				@ColumnResult(name = "TOTAL"), @ColumnResult(name = "LAST_UPDATE") }) })
+
+@NamedNativeQueries({
+		@NamedNativeQuery(name = MentorshipDAO.QUERY_NAME.findNumberOfSessionsPerHealthFacility, query = MentorshipDAO.QUERY.findNumberOfSessionsPerHealthFacility, resultSetMapping = SubmitedSessions.TOTAL_SUBMISSIONS) })
+
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
