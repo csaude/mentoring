@@ -16,6 +16,7 @@ import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.service.AbstractService;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.util.PropertyValues;
+import mz.co.mozview.frameworks.core.util.StringNormalizer;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.form.dao.FormDAO;
 import mz.org.fgh.mentoring.core.form.model.Form;
@@ -50,6 +51,8 @@ public class FormServiceImpl extends AbstractService implements FormService {
 		// TODO generate code just a sample
 		final String code = this.formDAO.generateCode("MT", 8, "0");
 		form.setCode(code);
+
+		form.setName(StringNormalizer.normalizeAndUppCase(form.getName()));
 
 		if (questions.isEmpty()) {
 			throw new BusinessException(this.propertyValues.getPropValues("cannot.create.form.without.questions"));
@@ -111,6 +114,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 	public Form updateForm(final UserContext userContext, final Form form, final Set<Question> questions)
 			throws BusinessException {
 
+		form.setName(StringNormalizer.normalizeAndUppCase(form.getName()));
 		final Form updatedForm = this.formDAO.update(userContext.getUuid(), form);
 
 		this.inactivetedAllFormQuestion(updatedForm.getId());
