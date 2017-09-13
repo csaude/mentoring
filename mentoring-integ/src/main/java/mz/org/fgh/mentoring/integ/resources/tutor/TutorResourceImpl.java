@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
+import mz.org.fgh.mentoring.core.career.model.CareerType;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutor.service.TutorQueryService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
@@ -48,10 +49,10 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 
 	@Override
 	public JResponse<List<Tutor>> findTutors(final String code, final String name, final String surname,
-			final String carrer, final String phoneNumber) throws BusinessException {
+			final CareerType careerType, final String phoneNumber) throws BusinessException {
 
 		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(this.getUserContetx(), code, name,
-				surname, carrer, phoneNumber);
+				surname, careerType, phoneNumber);
 
 		return JResponse.ok(tutors).build();
 	}

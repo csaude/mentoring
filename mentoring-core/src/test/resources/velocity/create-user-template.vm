@@ -1,0 +1,70 @@
+<html>
+<body>
+<head>
+ 	<style>
+ 		body, ul, li, a, table, label, p, tr, td, span, textarea, input {
+			font: 11px "Lucida Grande", Georgia, "Times New Roman", Times, serif;
+        }
+        
+        table {
+        	border-collapse: collapse;
+        	margin-left: 1px;
+        	margin-bottom: 15px;
+        	cursor: pointer;
+        }
+        
+        table th {
+        	border: 1px solid #00796B;;
+        	padding: 7px;
+        }
+        
+        table td {
+        	border: 1px solid #00796B;
+        	padding: 7px;
+        }
+        
+        table th{
+        	background: #00796B;
+        	color: #fff;
+        }
+        
+        table td:first-child{
+        	background: #7EF6E8;
+        	font-weight: bold;
+        }
+        
+        
+ 	</style>
+  	<meta charset="UTF-8">
+</head>
+<p>O(A) Tutor <b>${tutor.name} ${tutor.surname}</b> foi cadastrado conforme os detalhes abaixo:</p>
+<table>
+	<tr>
+		<th colspan="2">Detalhes do Cadastro</th>
+	</tr>
+	<tr>
+		<td width="120px">Código do Tutor</td>
+		<td width="400px">${tutor.code}</td>
+	</tr>
+	<tr>
+		<td>Nome do Tutor</td>
+		<td>${tutor.name} ${tutor.surname}</td>
+	</tr>
+	<tr>
+		<td>Posição</td>
+		<td>${tutor.career.position}</td>
+	</tr>
+	<tr>
+		<td>Nome do utilizador</td>
+		<td>${tutor.name.toLowerCase()}.${tutor.surname.toLowerCase()}</td>
+	</tr>
+	<tr>
+		<td>Senha Administrativa</td>
+		<td>${password}</td>
+	</tr>
+</table>
+<p><b>O utilizador deverá alterar a sua senha assim que aceder ao sistema pela primeira vez!</b></p>
+<p>Obrigado</p>
+<p>Pelo FGH/SIS - his@fgh.org.mz © 2017 ©</p>
+</body>
+</html>

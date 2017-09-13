@@ -22,12 +22,12 @@ public class TutorTemplate implements TemplateLoader {
 	public void load() {
 		Fixture.of(Tutor.class).addTemplate(VALID, new Rule() {
 			{
-				this.add("name", this.random("Stelio Klesio", "Eusebio Jose", "Helio Estevao"));
+				this.add("name", this.random("Stelio", "Eusebio", "Helio"));
 				this.add("surname", this.random("Moiane", "Maposse", "Machabane"));
 				this.add("career", this.one(Career.class, "valid"));
 				this.add("phoneNumber", this.random("840665903", "840665903"));
+				this.add("email", "${surname}@fgh.org.mz");
 			}
 		});
-
 	}
 }

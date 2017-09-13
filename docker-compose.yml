@@ -13,9 +13,11 @@ services:
     tomcat-mentoring:
        build: tomcat
        # ports:
-         # - "8081:8080"
-         # - "8000:8000"
+       #   - "8080:8080"
+       #   - "8000:8000"
        network_mode: bridge
+       external_links:
+         - tomcat-account
        container_name: tomcat-mentoring
        depends_on:
          - mysql-mentoring

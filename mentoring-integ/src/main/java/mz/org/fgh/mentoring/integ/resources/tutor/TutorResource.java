@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
+import mz.org.fgh.mentoring.core.career.model.CareerType;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
 /**
@@ -37,7 +38,7 @@ public interface TutorResource {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Tutor>> findTutors(@QueryParam("code") final String code,
 			@QueryParam("name") final String name, @QueryParam("surname") final String surname,
-			@QueryParam("career") final String carrer, @QueryParam("phoneNumber") final String phoneNumber)
+			@QueryParam("careerType") final CareerType careerType, @QueryParam("phoneNumber") final String phoneNumber)
 			throws BusinessException;
 
 	@PUT

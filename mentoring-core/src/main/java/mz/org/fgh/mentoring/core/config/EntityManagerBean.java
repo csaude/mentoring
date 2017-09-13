@@ -34,7 +34,7 @@ public class EntityManagerBean {
 
 	@Bean(name = "entityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(final DataSource dataSource,
-			final JpaVendorAdapter jpaVendorAdapter) {
+	        final JpaVendorAdapter jpaVendorAdapter) {
 
 		final LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
 		entityManager.setDataSource(dataSource);
@@ -63,9 +63,11 @@ public class EntityManagerBean {
 		properties.setProperty("hibernate.format_sql", this.environment.getProperty("db.hibernate.format_sql"));
 		properties.setProperty("hibernate.hbm2ddl.auto", this.environment.getProperty("db.hibernate.hbm2ddl.auto"));
 		properties.setProperty("hibernate.temp.use_jdbc_metadata_defaults",
-				this.environment.getProperty("db.hibernate.temp.use_jdbc_metadata_defaults"));
+		        this.environment.getProperty("db.hibernate.temp.use_jdbc_metadata_defaults"));
 		properties.setProperty("hibernate.enable_lazy_load_no_trans",
-				this.environment.getProperty("db.hibernate.enable_lazy_load_no_trans"));
+		        this.environment.getProperty("db.hibernate.enable_lazy_load_no_trans"));
+		properties.setProperty("hibernate.generate_statistics",
+		        this.environment.getProperty("db.hibernate.generate_statistics"));
 
 		return properties;
 	}
