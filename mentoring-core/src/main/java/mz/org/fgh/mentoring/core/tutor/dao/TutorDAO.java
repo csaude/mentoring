@@ -7,6 +7,7 @@ import java.util.List;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAO;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
+import mz.org.fgh.mentoring.core.career.model.CareerType;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
 /**
@@ -27,7 +28,7 @@ public interface TutorDAO extends GenericDAO<Tutor, Long> {
 	}
 
 	List<Tutor> findBySelectedFilter(final String code, final String name, final String surname,
-			final String phoneNumber, String carrer, LifeCycleStatus lifeCycleStatus);
+			final String phoneNumber, CareerType careerType, LifeCycleStatus lifeCycleStatus);
 
 	Tutor fetchByUuid(final String uuid);
 }

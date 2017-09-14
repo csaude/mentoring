@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.sun.istack.NotNull;
@@ -56,6 +57,10 @@ public class Tutored extends GenericEntity implements Versionable {
 	@NotEmpty
 	@Column(name = "PHONE_NUMBER", nullable = false, length = 100)
 	private String phoneNumber;
+
+	@Column(name = "EMAIL", nullable = false, length = 50)
+	@Email
+	private String email;
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -96,6 +101,14 @@ public class Tutored extends GenericEntity implements Versionable {
 
 	public void setPhoneNumber(final String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(final String email) {
+		this.email = email;
 	}
 
 	public Career getCareer() {

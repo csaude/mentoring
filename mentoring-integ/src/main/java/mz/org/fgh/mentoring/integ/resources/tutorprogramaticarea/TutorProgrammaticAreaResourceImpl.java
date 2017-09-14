@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
-import mz.org.fgh.mentoring.core.tutorprogramaticarea.model.TutorProgramaticArea;
-import mz.org.fgh.mentoring.core.tutorprogramaticarea.service.TutorProgramaticAreaService;
+import mz.org.fgh.mentoring.core.tutorprogramaticarea.model.TutorProgrammaticArea;
+import mz.org.fgh.mentoring.core.tutorprogramaticarea.service.TutorProgrammaticAreaService;
 import mz.org.fgh.mentoring.integ.resources.AbstractResource;
 
 /**
@@ -20,27 +20,27 @@ import mz.org.fgh.mentoring.integ.resources.AbstractResource;
  *
  */
 @Service(TutorProgrammaticAreaResource.NAME)
-@Path("tutorProgrammaticAreas")
+@Path("tutor-programmatic-areas")
 public class TutorProgrammaticAreaResourceImpl extends AbstractResource implements TutorProgrammaticAreaResource {
 
 	@Inject
-	private TutorProgramaticAreaService tutorProgramaticAreaService;
+	private TutorProgrammaticAreaService tutorProgramaticAreaService;
 
 	@Override
-	public JResponse<TutorProgramaticArea> createTutorProgrammaticArea(
+	public JResponse<TutorProgrammaticArea> createTutorProgrammaticArea(
 			TutorProgrammaticAreaBeanResource tutorProgrammaticAreaBeanResource) throws BusinessException {
 	
-		TutorProgramaticArea tutorProgramaticArea = tutorProgramaticAreaService.createTutorProgramaticArea(
+		TutorProgrammaticArea tutorProgramaticArea = tutorProgramaticAreaService.mapTutorToProgramaticArea(
 				tutorProgrammaticAreaBeanResource.getUserContext(), tutorProgrammaticAreaBeanResource.getTutorProgramaticArea());
 		
 		return JResponse.ok(tutorProgramaticArea).build();
 	}
 
 	@Override
-	public JResponse<TutorProgramaticArea> updateTutorProgrammaticArea(
+	public JResponse<TutorProgrammaticArea> updateTutorProgrammaticArea(
 			TutorProgrammaticAreaBeanResource tutorProgrammaticAreaBeanResource) throws BusinessException {
 
-		TutorProgramaticArea tutorProgramaticArea = tutorProgramaticAreaService.updateTutorProgramaticArea(
+		TutorProgrammaticArea tutorProgramaticArea = tutorProgramaticAreaService.updateTutorProgramaticArea(
 				getUserContetx(), tutorProgrammaticAreaBeanResource.getTutorProgramaticArea());
 
 		return JResponse.ok(tutorProgramaticArea).build();

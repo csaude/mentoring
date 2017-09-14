@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
-import mz.org.fgh.mentoring.core.tutorprogramaticarea.model.TutorProgramaticArea;
+import mz.org.fgh.mentoring.core.tutorprogramaticarea.model.TutorProgrammaticArea;
 
 /**
  * @author Eusebio Jose Maposse
@@ -25,12 +25,12 @@ public interface TutorProgrammaticAreaResource {
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public JResponse<TutorProgramaticArea> createTutorProgrammaticArea(final TutorProgrammaticAreaBeanResource tutorProgramaticArea)
+	public JResponse<TutorProgrammaticArea> createTutorProgrammaticArea(final TutorProgrammaticAreaBeanResource tutorProgramaticArea)
 			throws BusinessException;
 
 	@PUT
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public JResponse<TutorProgramaticArea> updateTutorProgrammaticArea(final TutorProgrammaticAreaBeanResource tutorProgrammaticAreaBeanResource)
+	public JResponse<TutorProgrammaticArea> updateTutorProgrammaticArea(final TutorProgrammaticAreaBeanResource tutorProgrammaticAreaBeanResource)
 			throws BusinessException;
 }

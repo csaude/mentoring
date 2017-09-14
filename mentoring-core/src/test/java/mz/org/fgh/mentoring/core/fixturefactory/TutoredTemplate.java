@@ -25,6 +25,7 @@ public class TutoredTemplate implements TemplateLoader {
 				this.add("surname", this.random("Maposse", "Maposse", "Maposse"));
 				this.add("phoneNumber", this.random("840665903", "824537865", "876543567"));
 				this.add("career", this.one(Career.class, CareerTemplate.VALID));
+				this.add("email", "${surname}@fgh.org.mz");
 			}
 		});
 	}

@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
+import mz.org.fgh.mentoring.core.career.model.CareerType;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.TutorTemplate;
@@ -56,10 +57,10 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 		final String name = null;
 		final String surname = null;
 		final String phoneNumber = null;
-		final String carrer = null;
+		final CareerType careerType = this.tutor.getCareer().getCareerType();
 
 		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(this.getUserContext(), code, name,
-				surname, carrer, phoneNumber);
+				surname, careerType, phoneNumber);
 		assertFalse(tutors.isEmpty());
 
 		for (final Tutor tutor : tutors) {

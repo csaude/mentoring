@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
 import mz.co.mozview.frameworks.core.dao.ParamBuilder;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
+import mz.org.fgh.mentoring.core.career.model.CareerType;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
 /**
@@ -28,7 +29,7 @@ public class TutorDAOImpl extends GenericDAOImpl<Tutor, Long> implements TutorDA
 
 	@Override
 	public List<Tutor> findBySelectedFilter(final String code, final String name, final String surname,
-			final String phoneNumber, final String carrer, final LifeCycleStatus lifeCycleStatus) {
+			final String phoneNumber, final CareerType careerType, final LifeCycleStatus lifeCycleStatus) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Tutor> createQuery = criteriaBuilder.createQuery(Tutor.class);
@@ -51,8 +52,8 @@ public class TutorDAOImpl extends GenericDAOImpl<Tutor, Long> implements TutorDA
 			predicates.add(criteriaBuilder.like(root.get("surname"), "%" + surname + "%"));
 		}
 
-		if (carrer != null) {
-			predicates.add(criteriaBuilder.equal(root.get("carrer").get("code"), carrer));
+		if (careerType != null) {
+			predicates.add(criteriaBuilder.equal(root.get("career").get("careerType"), careerType));
 		}
 		if (phoneNumber != null) {
 			predicates.add(criteriaBuilder.equal(root.get("phoneNumber"), phoneNumber));

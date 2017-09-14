@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
-import mz.org.fgh.mentoring.core.tutorprogramaticarea.model.TutorProgramaticArea;
+import mz.org.fgh.mentoring.core.tutorprogramaticarea.model.TutorProgrammaticArea;
 
 /**
  * @author Eusebio Jose Maposse
@@ -20,7 +20,7 @@ public class TutorProgrammaticAreaBeanResource {
 
 	private UserContext userContext;
 
-	private TutorProgramaticArea tutorProgramaticArea;
+	private TutorProgrammaticArea tutorProgramaticArea;
 
 	public TutorProgrammaticAreaBeanResource() {
 	}
@@ -29,11 +29,11 @@ public class TutorProgrammaticAreaBeanResource {
 		return this.userContext;
 	}
 
-	public TutorProgramaticArea getTutorProgramaticArea() {
+	public TutorProgrammaticArea getTutorProgramaticArea() {
 		return tutorProgramaticArea;
 	}
 
-	public void setTutorProgramaticArea(TutorProgramaticArea tutorProgramaticArea) {
+	public void setTutorProgramaticArea(TutorProgrammaticArea tutorProgramaticArea) {
 		this.tutorProgramaticArea = tutorProgramaticArea;
 	}
 

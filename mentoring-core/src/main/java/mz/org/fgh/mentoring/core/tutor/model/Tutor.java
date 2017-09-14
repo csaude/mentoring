@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.sun.istack.NotNull;
@@ -58,6 +59,13 @@ public class Tutor extends GenericEntity {
 
 	@Column(name = "PHONE_NUMBER", nullable = false, length = 50)
 	private String phoneNumber;
+
+	@Column(name = "EMAIL", nullable = false, length = 50)
+	@Email
+	private String email;
+
+	@Column(name = "IS_USER", nullable = false)
+	private Boolean isUser = Boolean.FALSE;
 
 	public Tutor() {
 	}
@@ -110,5 +118,21 @@ public class Tutor extends GenericEntity {
 
 	public void setCareer(final Career career) {
 		this.career = career;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(final String email) {
+		this.email = email;
+	}
+
+	public void setIsUser(final Boolean isUser) {
+		this.isUser = isUser;
+	}
+
+	public Boolean isUser() {
+		return this.isUser;
 	}
 }
