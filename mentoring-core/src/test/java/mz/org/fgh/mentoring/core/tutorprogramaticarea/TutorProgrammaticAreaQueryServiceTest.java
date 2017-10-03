@@ -63,8 +63,6 @@ public class TutorProgrammaticAreaQueryServiceTest extends AbstractSpringTest {
 		        TutorProgramaticAreaTamplate.VALID);
 		this.careerService.createCareer(this.getUserContext(), tutorProgramaticArea.getTutor().getCareer());
 
-		tutorProgramaticArea.getTutor().setIsUser(true);
-
 		this.tutor = this.tutorService.createTutor(this.getUserContext(), tutorProgramaticArea.getTutor());
 		this.programmaticArea = this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
 		        tutorProgramaticArea.getProgrammaticArea());

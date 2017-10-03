@@ -51,6 +51,8 @@ public class TutoredServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldCreateTutored() throws BusinessException {
 
+		this.tutored.setEmail(null);
+
 		this.tutoredService.createTutored(this.getUserContext(), this.tutored);
 
 		TestUtil.assertCreation(this.tutored);

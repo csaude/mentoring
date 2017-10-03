@@ -54,7 +54,7 @@ public class MetadataResourceImpl implements MetadataResource {
 
 		final List<Career> careers = this.careerQueryService.findAllCareers(userContext);
 
-		final List<FormQuestion> formQuestions = this.formQuestionQueryService.fetchAllFormQuestions(userContext);
+		final List<FormQuestion> formQuestions = this.formQuestionQueryService.fetchFormQuestionsByTutor(userContext);
 
 		final List<Tutored> tutoreds = this.tutoredQueryService.findTutoredsByUser(userContext.getUuid());
 

@@ -32,7 +32,7 @@ public class FormQuestionServiceResourceImpl extends AbstractResource implements
 	public JResponse<List<FormQuestion>> fetchAllFormQuestion() throws BusinessException {
 
 		final List<FormQuestion> formQuestions = this.formQuestionQueryService
-				.fetchAllFormQuestions(this.getUserContetx());
+				.fetchFormQuestionsByTutor(this.getUserContetx());
 
 		return JResponse.ok(formQuestions).build();
 	}

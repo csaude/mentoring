@@ -23,18 +23,18 @@ public class FormQuestionDAOImpl extends GenericDAOImpl<FormQuestion, Long> impl
 	@Override
 	public List<FormQuestion> findByFormId(final Long formId) {
 		return this.findByNamedQuery(FormQuestionDAO.QUERY_NAME.findByFormId,
-				new ParamBuilder().add("formId", formId).process());
+		        new ParamBuilder().add("formId", formId).process());
 	}
 
 	@Override
 	public FormQuestion findByFormIdAndQuestionId(final Long formId, final Long questionId) {
 		return this.findSingleByNamedQuery(FormQuestionDAO.QUERY_NAME.findByFormIdAndQuestionId,
-				new ParamBuilder().add("formId", formId).add("questionId", questionId).process());
+		        new ParamBuilder().add("formId", formId).add("questionId", questionId).process());
 	}
 
 	@Override
-	public List<FormQuestion> fetchAll(final LifeCycleStatus lifeCycleStatus) {
-		return this.findByNamedQuery(FormQuestionDAO.QUERY_NAME.fetchAll,
-				new ParamBuilder().add("lifeCycleStatus", lifeCycleStatus).process());
+	public List<FormQuestion> fetchByTutor(final LifeCycleStatus lifeCycleStatus, final String tutorUuid) {
+		return this.findByNamedQuery(FormQuestionDAO.QUERY_NAME.fetchByTutor,
+		        new ParamBuilder().add("lifeCycleStatus", lifeCycleStatus).add("tutorUuid", tutorUuid).process());
 	}
 }
