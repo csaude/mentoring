@@ -128,8 +128,8 @@ public class Tutor extends GenericEntity {
 		this.email = email;
 	}
 
-	public void setIsUser(final Boolean isUser) {
-		this.isUser = isUser;
+	public void setAsUser() {
+		this.isUser = Boolean.TRUE;
 	}
 
 	public Boolean isUser() {

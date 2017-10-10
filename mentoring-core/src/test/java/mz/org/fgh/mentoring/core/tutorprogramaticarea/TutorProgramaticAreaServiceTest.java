@@ -1,6 +1,8 @@
 package mz.org.fgh.mentoring.core.tutorprogramaticarea;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
 
@@ -53,7 +55,6 @@ public class TutorProgramaticAreaServiceTest extends AbstractSpringTest {
 
 		this.carrerService.createCareer(this.getUserContext(), tutor.getCareer());
 
-		tutor.setIsUser(true);
 		tutor.setEmail("stelio.moiane@fgh.org.mz");
 
 		this.tutorService.createTutor(this.getUserContext(), tutor);
@@ -65,11 +66,14 @@ public class TutorProgramaticAreaServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldMapTutorToProgramaticArea() throws BusinessException {
 
+		this.tutorProgramaticArea.mapAsUser();
+
 		final TutorProgrammaticArea mapped = this.tutorProgramaticAreaService
 		        .mapTutorToProgramaticArea(this.getUserContext(), this.tutorProgramaticArea);
 
 		TestUtil.assertCreation(mapped);
 		TestUtil.assertUpdate(mapped.getTutor());
+		assertTrue(mapped.getTutor().isUser());
 	}
 
 	@Test(expected = BusinessException.class)
@@ -84,12 +88,11 @@ public class TutorProgramaticAreaServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldMapTutorToProgramaticAreaForNotUserTutor() throws BusinessException {
 
-		this.tutorProgramaticArea.getTutor().setIsUser(Boolean.FALSE);
-
 		final TutorProgrammaticArea mapped = this.tutorProgramaticAreaService
 		        .mapTutorToProgramaticArea(this.getUserContext(), this.tutorProgramaticArea);
 
 		TestUtil.assertCreation(mapped);
 		assertNull(mapped.getTutor().getUpdatedAt());
+		assertFalse(mapped.getTutor().isUser());
 	}
 }

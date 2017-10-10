@@ -58,7 +58,7 @@ public class Tutored extends GenericEntity implements Versionable {
 	@Column(name = "PHONE_NUMBER", nullable = false, length = 100)
 	private String phoneNumber;
 
-	@Column(name = "EMAIL", nullable = false, length = 50)
+	@Column(name = "EMAIL", length = 50)
 	@Email
 	private String email;
 

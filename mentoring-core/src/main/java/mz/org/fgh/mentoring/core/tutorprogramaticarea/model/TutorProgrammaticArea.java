@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -43,6 +44,9 @@ public class TutorProgrammaticArea extends GenericEntity {
 	@JoinColumn(name = "PROGRAMMATIC_AREA_ID", nullable = false)
 	private ProgrammaticArea programmaticArea;
 
+	@Transient
+	private Boolean mapAsUser = Boolean.FALSE;
+
 	public Tutor getTutor() {
 		return this.tutor;
 	}
@@ -57,5 +61,13 @@ public class TutorProgrammaticArea extends GenericEntity {
 
 	public void setProgrammaticArea(final ProgrammaticArea programmaticArea) {
 		this.programmaticArea = programmaticArea;
+	}
+
+	public void mapAsUser() {
+		this.mapAsUser = Boolean.TRUE;
+	}
+
+	public Boolean isMappedAsUser() {
+		return this.mapAsUser;
 	}
 }

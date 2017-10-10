@@ -13,6 +13,7 @@ import mz.co.mozview.frameworks.core.email.MailSenderService;
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.service.AbstractService;
 import mz.co.mozview.frameworks.core.util.PropertyValues;
+import mz.co.mozview.frameworks.core.webservices.adapter.Entry;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.co.mozview.frameworks.core.webservices.service.ClientWS;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
@@ -67,7 +68,8 @@ public class TutorProgrammaticAreaServiceImpl extends AbstractService implements
 		final TutorProgrammaticArea mapTutorProgramaticArea = this.tutorProgramaticAreaDAO.create(userContext.getUuid(),
 		        tutorProgramaticArea);
 
-		if (tutor.isUser()) {
+		if (tutorProgramaticArea.isMappedAsUser()) {
+			tutor.setAsUser();
 			this.tutorService.updateTutor(userContext, tutor);
 
 			this.client.postJSON(this.environment.getProperty("account.manager.service.url"),
@@ -101,6 +103,7 @@ public class TutorProgrammaticAreaServiceImpl extends AbstractService implements
 		context.setEmail(tutor.getEmail());
 		context.setPhoneNumber(tutor.getPhoneNumber());
 		context.setUuid(userContext.getUuid());
+		context.addProperty(Entry.UUID, tutor.getUuid());
 
 		return context;
 	}

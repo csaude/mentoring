@@ -16,5 +16,5 @@ public interface FormQuestionQueryService {
 
 	String NAME = "mz.org.fgh.mentoring.core.formquestion.service.FormQuestionQueryService";
 
-	List<FormQuestion> fetchAllFormQuestions(final UserContext userContext);
+	List<FormQuestion> fetchFormQuestionsByTutor(final UserContext userContext);
 }

@@ -3,19 +3,27 @@
  */
 package mz.org.fgh.mentoring.core.programmaticarea.model;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import mz.co.mozview.frameworks.core.model.GenericEntity;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.tutorprogramaticarea.model.TutorProgrammaticArea;
 
 /**
  * @author Eusebio Jose Maposse
@@ -40,28 +48,36 @@ public class ProgrammaticArea extends GenericEntity {
 	@Column(name = "DESCRIPTION")
 	private String description;
 
+	@XmlTransient
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "programmaticArea")
+	private Set<TutorProgrammaticArea> tutorProgrammaticAreas = new HashSet<>();
+
 	public String getCode() {
-		return code;
+		return this.code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(final String code) {
 		this.code = code;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
+	}
+
+	public Set<TutorProgrammaticArea> getTutorProgrammaticAreas() {
+		return Collections.unmodifiableSet(this.tutorProgrammaticAreas);
 	}
 
 	@Override

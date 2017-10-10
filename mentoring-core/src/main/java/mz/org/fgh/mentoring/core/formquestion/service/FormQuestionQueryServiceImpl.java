@@ -26,7 +26,7 @@ public class FormQuestionQueryServiceImpl implements FormQuestionQueryService {
 	private FormQuestionDAO formQuestionDAO;
 
 	@Override
-	public List<FormQuestion> fetchAllFormQuestions(final UserContext userContext) {
-		return this.formQuestionDAO.fetchAll(LifeCycleStatus.ACTIVE);
+	public List<FormQuestion> fetchFormQuestionsByTutor(final UserContext userContext) {
+		return this.formQuestionDAO.fetchByTutor(LifeCycleStatus.ACTIVE, userContext.getUuid());
 	}
 }
