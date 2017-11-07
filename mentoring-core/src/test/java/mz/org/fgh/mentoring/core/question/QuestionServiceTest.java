@@ -3,7 +3,11 @@
  */
 package mz.org.fgh.mentoring.core.question;
 
+import static org.junit.Assert.assertEquals;
+
 import javax.inject.Inject;
+
+import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
@@ -12,9 +16,8 @@ import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.question.dao.QuestionDAO;
 import mz.org.fgh.mentoring.core.question.model.Question;
+import mz.org.fgh.mentoring.core.question.model.QuestionType;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
-
-import org.junit.Test;
 
 /**
  * @author Eusebio Jose Maposse
@@ -22,8 +25,6 @@ import org.junit.Test;
  *
  */
 public class QuestionServiceTest extends AbstractSpringTest {
-
-	private Question question;
 
 	@Inject
 	private QuestionService questionService;
@@ -33,29 +34,34 @@ public class QuestionServiceTest extends AbstractSpringTest {
 
 	@Override
 	public void setUp() throws BusinessException {
-		question = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
 	}
 
 	@Test
-	public void shouldCreateQuestion() throws BusinessException {
-		
-		questionService.createQuestion(getUserContext(), question);
-		TestUtil.assertCreation(this.question);
+	public void shouldCreateTextQuestion() throws BusinessException {
+		final Question question = EntityFactory.gimme(Question.class, QuestionTemplate.TEXT_QUESTION);
+		this.questionService.createQuestion(this.getUserContext(), question);
+		TestUtil.assertCreation(question);
+		assertEquals(QuestionType.TEXT, question.getQuestionType());
+	}
 
+	@Test
+	public void shouldCreateNumericQuestion() throws BusinessException {
+		final Question question = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION);
+		this.questionService.createQuestion(this.getUserContext(), question);
+		TestUtil.assertCreation(question);
+		assertEquals(QuestionType.NUMERIC, question.getQuestionType());
 	}
 
 	@Test
 	public void shouldUpdateQuestion() throws BusinessException {
-		
-		questionService.createQuestion(getUserContext(), question);
-		
-		Question questionUpdate = questionDao.findById(question.getId());
-		
-		questionService.updateQuestion(this.getUserContext(), questionUpdate);
-		
+		final Question question = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
+
+		this.questionService.createQuestion(this.getUserContext(), question);
+
+		final Question questionUpdate = this.questionDao.findById(question.getId());
+
+		this.questionService.updateQuestion(this.getUserContext(), questionUpdate);
+
 		TestUtil.assertUpdate(questionUpdate);
-
-		
 	}
-
 }

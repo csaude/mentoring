@@ -21,7 +21,7 @@ import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
-import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTamplate;
+import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
@@ -82,7 +82,7 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 	@Override
 	public void setUp() throws BusinessException {
 
-		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTamplate.VALID);
+		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTemplate.VALID);
 		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutor().getCareer());
 		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutored().getCareer());
 		this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor());

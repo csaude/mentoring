@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.answer.dao.AnswerDAO;
 import mz.org.fgh.mentoring.core.form.model.Form;
+import mz.org.fgh.mentoring.core.indicator.model.Indicator;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.question.model.Question;
 
@@ -31,7 +32,7 @@ import mz.org.fgh.mentoring.core.question.model.Question;
  *
  */
 @NamedQueries({
-		@NamedQuery(name = AnswerDAO.QUERY_NAME.fetchByMentorishipUuid, query = AnswerDAO.QUERY.fetchByMentorishipUuid) })
+        @NamedQuery(name = AnswerDAO.QUERY_NAME.fetchByMentorishipUuid, query = AnswerDAO.QUERY.fetchByMentorishipUuid) })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
@@ -49,9 +50,8 @@ public abstract class Answer extends GenericEntity {
 	private Form form;
 
 	@XmlTransient
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MENTORSHIP_ID", nullable = false)
+	@JoinColumn(name = "MENTORSHIP_ID")
 	private Mentorship mentorship;
 
 	@NotNull
@@ -59,7 +59,14 @@ public abstract class Answer extends GenericEntity {
 	@JoinColumn(name = "QUESTION_ID", nullable = false)
 	private Question question;
 
+	@XmlTransient
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "INDICATOR_ID")
+	private Indicator indicator;
+
 	public abstract void setValue(String value);
+
+	public abstract String getValue();
 
 	public Form getForm() {
 		return this.form;
@@ -83,5 +90,13 @@ public abstract class Answer extends GenericEntity {
 
 	public void setQuestion(final Question question) {
 		this.question = question;
+	}
+
+	public void setIndicator(final Indicator indicator) {
+		this.indicator = indicator;
+	}
+
+	public Indicator getIndicator() {
+		return this.indicator;
 	}
 }

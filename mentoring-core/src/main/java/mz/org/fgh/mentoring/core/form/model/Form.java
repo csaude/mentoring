@@ -9,6 +9,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -62,6 +64,11 @@ public class Form extends GenericEntity {
 	@JoinColumn(name = "PROGRAMMATIC_AREA_ID", nullable = false)
 	private ProgrammaticArea programmaticArea;
 
+	@NotNull
+	@Column(name = "FORM_TYPE", nullable = false, length = 50)
+	@Enumerated(EnumType.STRING)
+	private FormType formType;
+
 	@XmlTransient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "form")
 	private final Set<FormQuestion> formQuestions = new HashSet<>();
@@ -96,6 +103,14 @@ public class Form extends GenericEntity {
 
 	public void setDescription(final String description) {
 		this.description = description;
+	}
+
+	public FormType getFormType() {
+		return this.formType;
+	}
+
+	public void setFormType(final FormType formType) {
+		this.formType = formType;
 	}
 
 	public Set<FormQuestion> getFromQuestions() {

@@ -92,7 +92,7 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 	}
 
 	@Override
-	public JResponse<MentorshipBeanResource> syncronizeMentorships(final MentorshipBeanResource resource)
+	public JResponse<MentorshipBeanResource> synchronizeMentorships(final MentorshipBeanResource resource)
 			throws BusinessException {
 
 		for (final MentorshipHelper mentorshipHelper : resource.getMentorships()) {

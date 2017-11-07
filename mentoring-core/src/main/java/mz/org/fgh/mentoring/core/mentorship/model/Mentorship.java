@@ -45,11 +45,11 @@ import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
  *
  */
 @SqlResultSetMapping(name = SubmitedSessions.TOTAL_SUBMISSIONS, classes = {
-		@ConstructorResult(targetClass = SubmitedSessions.class, columns = { @ColumnResult(name = "HEALTH_FACILITY"),
-				@ColumnResult(name = "TOTAL"), @ColumnResult(name = "LAST_UPDATE") }) })
+        @ConstructorResult(targetClass = SubmitedSessions.class, columns = { @ColumnResult(name = "HEALTH_FACILITY"),
+                @ColumnResult(name = "TOTAL"), @ColumnResult(name = "LAST_UPDATE") }) })
 
 @NamedNativeQueries({
-		@NamedNativeQuery(name = MentorshipDAO.QUERY_NAME.findNumberOfSessionsPerHealthFacility, query = MentorshipDAO.QUERY.findNumberOfSessionsPerHealthFacility, resultSetMapping = SubmitedSessions.TOTAL_SUBMISSIONS) })
+        @NamedNativeQuery(name = MentorshipDAO.QUERY_NAME.findNumberOfSessionsPerHealthFacility, query = MentorshipDAO.QUERY.findNumberOfSessionsPerHealthFacility, resultSetMapping = SubmitedSessions.TOTAL_SUBMISSIONS) })
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -100,7 +100,7 @@ public class Mentorship extends GenericEntity {
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "HEALTH_FACILITY", nullable = false)
+	@JoinColumn(name = "HEALTH_FACILITY_ID", nullable = false)
 	private HealthFacility healthFacility;
 
 	public Mentorship() {

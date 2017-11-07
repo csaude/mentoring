@@ -3,6 +3,7 @@
  */
 package mz.org.fgh.mentoring.integ.resources.answer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,7 +15,7 @@ import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.answer.AnswerQueryService;
-import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
+import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.integ.resources.AbstractResource;
 
@@ -30,16 +31,21 @@ public class AnswerResourceImpl extends AbstractResource implements AnswerResour
 	private AnswerQueryService answerQueryService;
 
 	@Override
-	public JResponse<List<TextAnswer>> fetchAnswersByMentorshipUuid(final String mentorshipUuid)
-			throws BusinessException {
+	public JResponse<List<AnswerBeanResource>> fetchAnswersByMentorshipUuid(final String mentorshipUuid)
+	        throws BusinessException {
 
 		final Mentorship mentorship = new Mentorship();
 		mentorship.setUuid(mentorshipUuid);
 
-		final List<TextAnswer> answers = this.answerQueryService.fetchAnswersByMentorship(this.getUserContetx(),
-				mentorship);
+		final List<Answer> answers = this.answerQueryService.fetchAnswersByMentorship(this.getUserContetx(),
+		        mentorship);
 
-		return JResponse.ok(answers).build();
+		final List<AnswerBeanResource> answerBeanResources = new ArrayList<>();
+
+		for (final Answer answer : answers) {
+			answerBeanResources.add(new AnswerBeanResource(answer, answer.getValue()));
+		}
+
+		return JResponse.ok(answerBeanResources).build();
 	}
-
 }

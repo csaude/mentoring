@@ -19,6 +19,8 @@ public class QuestionTemplate implements TemplateLoader {
 
 	public static final String VALID = "VALID";
 	public static final String TEXT_QUESTION = "TEXT_QUESTION";
+	public static final String NUMERIC_QUESTION = "NUMERIC_QUESTION";
+	public static final String BOOLEAN_QUESTION = "BOOLEAN_QUESTION";
 
 	@Override
 	public void load() {
@@ -27,15 +29,27 @@ public class QuestionTemplate implements TemplateLoader {
 				this.add("question", this.random("VCT", "MCH", "MMI"));
 				this.add("questionType", this.random(QuestionType.TEXT, QuestionType.BOOLEAN));
 				this.add("questionCategory",
-						this.random(QuestionCategory.ACCURACY, QuestionCategory.PUNCTUALITY, QuestionCategory.TOTALITY,
-								QuestionCategory.PRECISION, QuestionCategory.RELIABILITY, QuestionCategory.INTEGRITY,
-								QuestionCategory.CONFIDENTIALITY));
+				        this.random(QuestionCategory.ACCURACY, QuestionCategory.PUNCTUALITY, QuestionCategory.TOTALITY,
+				                QuestionCategory.PRECISION, QuestionCategory.RELIABILITY, QuestionCategory.INTEGRITY,
+				                QuestionCategory.CONFIDENTIALITY));
 			}
 		});
-		
-		Fixture.of(Question.class).addTemplate(TEXT_QUESTION).inherits(VALID,new Rule() {
+
+		Fixture.of(Question.class).addTemplate(TEXT_QUESTION).inherits(VALID, new Rule() {
 			{
-				this.add("questionType", this.random(QuestionType.TEXT));
+				this.add("questionType", QuestionType.TEXT);
+			}
+		});
+
+		Fixture.of(Question.class).addTemplate(NUMERIC_QUESTION).inherits(VALID, new Rule() {
+			{
+				this.add("questionType", QuestionType.NUMERIC);
+			}
+		});
+
+		Fixture.of(Question.class).addTemplate(BOOLEAN_QUESTION).inherits(VALID, new Rule() {
+			{
+				this.add("questionType", QuestionType.BOOLEAN);
 			}
 		});
 	}

@@ -1,5 +1,5 @@
-/*
- * Friends in Global Health - FGH © 2016
+/**
+ *
  */
 package mz.org.fgh.mentoring.core.answer.model;
 
@@ -17,23 +17,32 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
-@DiscriminatorValue(TextAnswer.NAME)
-public class TextAnswer extends Answer {
+@DiscriminatorValue(NumericAnswer.NAME)
+public class NumericAnswer extends Answer {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String NAME = "TEXT";
+	public static final String NAME = "NUMERIC";
 
-	@Column(name = "TEXT_VALUE", length = 180)
-	private String textValue;
+	@Column(name = "NUMERIC_VALUE")
+	private Integer numericValue;
 
 	@Override
 	public void setValue(final String value) {
-		this.textValue = value;
+
+		if (value == null) {
+			return;
+		}
+
+		this.numericValue = Integer.valueOf(value);
 	}
 
 	@Override
 	public String getValue() {
-		return this.textValue;
+		return String.valueOf(this.numericValue);
+	}
+
+	public Integer getNumericValue() {
+		return this.numericValue;
 	}
 }

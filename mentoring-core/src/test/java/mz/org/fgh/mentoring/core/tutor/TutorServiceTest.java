@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.email.MailSenderService;
@@ -77,6 +78,7 @@ public class TutorServiceTest extends AbstractSpringTest {
 
 	}
 
+	@Ignore
 	@Test
 	public void shouldSendTutorEmail() throws BusinessException {
 

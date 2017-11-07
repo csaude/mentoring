@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import mz.co.mozview.frameworks.core.email.MailSenderService;
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.co.mozview.frameworks.core.fixtureFactory.util.MockUtil;
@@ -43,11 +44,15 @@ public class TutorProgramaticAreaServiceTest extends AbstractSpringTest {
 	@Mock
 	private ClientWS client;
 
+	@Mock
+	private MailSenderService mailSenderService;
+
 	@Override
 	public void setUp() throws BusinessException {
 
 		MockitoAnnotations.initMocks(this);
 		MockUtil.mockField(this.tutorProgramaticAreaService, "client", this.client);
+		MockUtil.mockField(this.tutorProgramaticAreaService, "mailSenderService", this.mailSenderService);
 
 		this.tutorProgramaticArea = EntityFactory.gimme(TutorProgrammaticArea.class,
 		        TutorProgramaticAreaTamplate.VALID);

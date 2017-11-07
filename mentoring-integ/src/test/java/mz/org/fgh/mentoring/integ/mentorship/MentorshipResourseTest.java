@@ -23,7 +23,7 @@ import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
-import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTamplate;
+import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
@@ -91,7 +91,7 @@ public class MentorshipResourseTest extends IntegAbstractSpringTest {
 		this.server = new Server().uriBase("http://localhost/services").port(8081)
 				.resourcesPackage("mz.org.fgh.mentoring.integ").context(this.applicationContext).initialize();
 
-		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTamplate.VALID);
+		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTemplate.VALID);
 		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutor().getCareer());
 		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutored().getCareer());
 		this.tutor = this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor());
