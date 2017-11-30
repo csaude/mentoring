@@ -30,10 +30,13 @@ public class AddHealthFacilityClient extends ClientConfig<AddHealthFacilityClien
 
 		final AddHealthFacilityClient client = new AddHealthFacilityClient();
 		client.setup();
+
 		client.setFileReaderService(client.getBean(FileReaderService.class));
 		client.setHealthFacilityService(client.getBean(HealthFacilityService.class));
 
 		client.process(client);
+
+		client.close();
 
 		logger.info("The Client was executed with success ........");
 	}

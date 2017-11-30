@@ -39,4 +39,8 @@ public abstract class ClientConfig<E> {
 		context.setId(1L);
 		return context;
 	}
+
+	public void close() {
+		this.context.close();
+	}
 }
