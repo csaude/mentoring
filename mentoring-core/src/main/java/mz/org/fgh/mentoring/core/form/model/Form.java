@@ -42,7 +42,8 @@ import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "FORMS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-@NamedQueries({ @NamedQuery(name = FormDAO.QUERY_NAME.fetchByFormId, query = FormDAO.QUERY.fetchByFormId) })
+@NamedQueries({ @NamedQuery(name = FormDAO.QUERY_NAME.fetchByFormId, query = FormDAO.QUERY.fetchByFormId),
+        @NamedQuery(name = FormDAO.QUERY_NAME.findSampleIndicators, query = FormDAO.QUERY.findSampleIndicators) })
 public class Form extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;

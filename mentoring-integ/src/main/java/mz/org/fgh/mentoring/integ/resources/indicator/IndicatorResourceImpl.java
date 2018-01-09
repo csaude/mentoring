@@ -19,6 +19,8 @@ import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormQueryService;
 import mz.org.fgh.mentoring.core.indicator.model.Indicator;
+import mz.org.fgh.mentoring.core.indicator.model.SampleIndicator;
+import mz.org.fgh.mentoring.core.indicator.service.IndicatorQueryService;
 import mz.org.fgh.mentoring.core.indicator.service.IndicatorService;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityQueryService;
@@ -50,6 +52,9 @@ public class IndicatorResourceImpl implements IndicatorResource {
 
 	@Inject
 	private QuestionQueryService questionQueryService;
+
+	@Inject
+	private IndicatorQueryService indicatorQueryService;
 
 	@Override
 	public JResponse<IndicatorBeanResource> synchronizeIndicators(final IndicatorBeanResource resource)
@@ -104,5 +109,19 @@ public class IndicatorResourceImpl implements IndicatorResource {
 		final UserContext userContext = indicatorBeanResource.getUserContext();
 
 		return this.tutorQueryService.fetchTutorByUuid(userContext, userContext.getUuid());
+	}
+
+	@Override
+	public JResponse<List<SampleIndicator>> findSimpleIndicators(final String districtUuid,
+	        final String healthFacilityUuid, final String formUuid, final String startDate, final String endDate)
+	        throws BusinessException {
+
+		final IndicatorHelper indicatorHelper = new IndicatorHelper(districtUuid, healthFacilityUuid, formUuid);
+
+		final List<SampleIndicator> sampleIndicators = this.indicatorQueryService.findSampleIndicatorsBySelectedFilter(
+		        indicatorHelper.getDistrict(), indicatorHelper.getHealthFacility(), indicatorHelper.getForm(),
+		        indicatorHelper.getLocalDate(startDate), indicatorHelper.getLocalDate(endDate));
+
+		return JResponse.ok(sampleIndicators).build();
 	}
 }

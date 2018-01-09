@@ -26,7 +26,7 @@ public class QuestionTemplate implements TemplateLoader {
 	public void load() {
 		Fixture.of(Question.class).addTemplate(VALID, new Rule() {
 			{
-				this.add("question", this.random("VCT", "MCH", "MMI"));
+				this.add("question", this.random("VCT", "MCH", "MMI", "JPA"));
 				this.add("questionType", this.random(QuestionType.TEXT, QuestionType.BOOLEAN));
 				this.add("questionCategory",
 				        this.random(QuestionCategory.ACCURACY, QuestionCategory.PUNCTUALITY, QuestionCategory.TOTALITY,
