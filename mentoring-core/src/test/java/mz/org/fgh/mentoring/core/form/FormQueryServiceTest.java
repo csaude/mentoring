@@ -231,6 +231,5 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		final List<Form> forms = this.formQueryService.findSampleIndicatorForms();
 
 		assertFalse(forms.isEmpty());
-		assertEquals(1, forms.size());
 	}
 }
