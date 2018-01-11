@@ -87,7 +87,7 @@ public class IndicatorDAOImpl extends GenericDAOImpl<Indicator, Long> implements
 
 		createQuery.groupBy(root.get("indicator").get("healthFacility").get("district").get("district"),
 		        root.get("indicator").get("healthFacility").get("healthFacility"), root.get("form").get("name"),
-		        root.get("question").get("question"));
+		        root.get("question").get("question"), root.get("indicator").get("referredMonth"));
 
 		createQuery.orderBy(criteriaBuilder.asc(root.get("indicator").get("referredMonth")),
 		        criteriaBuilder.asc(root.get("indicator").get("healthFacility").get("district").get("district")),
