@@ -20,6 +20,7 @@ import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.answer.model.NumericAnswer;
 import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
+import mz.org.fgh.mentoring.core.answer.service.AnswerQueryService;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTemplate;

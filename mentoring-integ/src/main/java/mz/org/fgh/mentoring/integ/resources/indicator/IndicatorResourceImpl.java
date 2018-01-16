@@ -86,7 +86,7 @@ public class IndicatorResourceImpl implements IndicatorResource {
 				answers.add(answer);
 			}
 
-			this.indicatorService.createIndicator(resource.getUserContext(), indicator, form, answers);
+			this.indicatorService.synchronizeIndicator(resource.getUserContext(), indicator, form, answers);
 			resource.addIndicatorUuid(indicator.getUuid());
 		}
 

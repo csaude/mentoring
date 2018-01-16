@@ -17,9 +17,11 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
+import mz.co.mozview.frameworks.core.dao.ParamBuilder;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.answer.model.NumericAnswer;
 import mz.org.fgh.mentoring.core.form.model.Form;
+import mz.org.fgh.mentoring.core.indicator.model.DuplicatedIndicator;
 import mz.org.fgh.mentoring.core.indicator.model.Indicator;
 import mz.org.fgh.mentoring.core.indicator.model.SampleIndicator;
 import mz.org.fgh.mentoring.core.indicator.model.SampleQuestion;
@@ -98,5 +100,20 @@ public class IndicatorDAOImpl extends GenericDAOImpl<Indicator, Long> implements
 		final TypedQuery<SampleIndicator> query = this.getEntityManager().createQuery(createQuery);
 
 		return query.getResultList();
+	}
+
+	@Override
+	public List<Indicator> findByHealthFacilityFormAndReferredMonth(final HealthFacility healthFacility,
+	        final Form form, final LocalDate referredMonth, final LifeCycleStatus lifeCycleStatus) {
+
+		return this.findByNamedQuery(IndicatorDAO.QUERY_NAME.findByHealthFacilityFormAndReferredMonth,
+		        new ParamBuilder().add("healthFacilityId", healthFacility.getId()).add("formId", form.getId())
+		                .add("referredMonth", referredMonth).add("lifeCycleStatus", lifeCycleStatus).process());
+	}
+
+	@Override
+	public List<DuplicatedIndicator> findDuplicated(final LifeCycleStatus lifeCycleStatus) {
+		return this.findByNamedQuery(IndicatorDAO.QUERY_NAME.findDuplicated,
+		        new ParamBuilder().add("lifeCycleStatus", lifeCycleStatus).process(), DuplicatedIndicator.class);
 	}
 }

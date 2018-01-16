@@ -14,6 +14,8 @@ import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.indicator.dao.IndicatorDAO;
+import mz.org.fgh.mentoring.core.indicator.model.DuplicatedIndicator;
+import mz.org.fgh.mentoring.core.indicator.model.Indicator;
 import mz.org.fgh.mentoring.core.indicator.model.SampleIndicator;
 import mz.org.fgh.mentoring.core.location.model.District;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
@@ -37,5 +39,18 @@ public class IndicatorQueryServiceImpl implements IndicatorQueryService {
 
 		return this.indicatorDAO.findSamplesBySelectedFilter(district, healthFacility, form, startDate, endDate,
 		        LifeCycleStatus.ACTIVE);
+	}
+
+	@Override
+	public List<Indicator> findIndicatorsByHealthFacilityFormAndReferredMonth(final HealthFacility healthFacility,
+	        final Form form, final LocalDate referredMonth) throws BusinessException {
+
+		return this.indicatorDAO.findByHealthFacilityFormAndReferredMonth(healthFacility, form, referredMonth,
+		        LifeCycleStatus.ACTIVE);
+	}
+
+	@Override
+	public List<DuplicatedIndicator> findDuplicatedIndicators() {
+		return this.indicatorDAO.findDuplicated(LifeCycleStatus.ACTIVE);
 	}
 }

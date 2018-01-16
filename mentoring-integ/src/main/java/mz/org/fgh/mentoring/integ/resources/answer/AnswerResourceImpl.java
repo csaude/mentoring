@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
-import mz.org.fgh.mentoring.core.answer.AnswerQueryService;
 import mz.org.fgh.mentoring.core.answer.model.Answer;
+import mz.org.fgh.mentoring.core.answer.service.AnswerQueryService;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.integ.resources.AbstractResource;
 

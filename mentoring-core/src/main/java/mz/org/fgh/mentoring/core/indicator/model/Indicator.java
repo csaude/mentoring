@@ -5,18 +5,25 @@ package mz.org.fgh.mentoring.core.indicator.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -24,7 +31,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.form.model.Form;
+import mz.org.fgh.mentoring.core.indicator.dao.IndicatorDAO;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.util.LocalDateAdapter;
@@ -36,6 +45,9 @@ import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@NamedQueries({
+        @NamedQuery(name = IndicatorDAO.QUERY_NAME.findByHealthFacilityFormAndReferredMonth, query = IndicatorDAO.QUERY.findByHealthFacilityFormAndReferredMonth),
+        @NamedQuery(name = IndicatorDAO.QUERY_NAME.findDuplicated, query = IndicatorDAO.QUERY.findDuplicated) })
 @Entity
 @Table(name = "INDICATORS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 public class Indicator extends GenericEntity {
@@ -70,6 +82,10 @@ public class Indicator extends GenericEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "HEALTH_FACILITY_ID", nullable = false)
 	private HealthFacility healthFacility;
+
+	@XmlTransient
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "indicator")
+	private final Set<Answer> answers = new HashSet<>();
 
 	public String getCode() {
 		return this.code;
@@ -115,17 +131,21 @@ public class Indicator extends GenericEntity {
 		return this.healthFacility;
 	}
 
+	public Set<Answer> getAnswers() {
+		return Collections.unmodifiableSet(this.answers);
+	}
+
 	public void setHealthFacility(final HealthFacility healthFacility) {
 		this.healthFacility = healthFacility;
 	}
 
 	@Override
 	public boolean equals(final Object that) {
-		return EqualsBuilder.reflectionEquals(this, that, "tutor", "form", "healthFacility");
+		return EqualsBuilder.reflectionEquals(this, that, "tutor", "form", "healthFacility", "answers");
 	}
 
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, "tutor", "form", "healthFacility");
+		return HashCodeBuilder.reflectionHashCode(this, "tutor", "form", "healthFacility", "answers");
 	}
 }

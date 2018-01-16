@@ -3,8 +3,11 @@
  */
 package mz.org.fgh.mentoring.core.indicator;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -23,6 +26,7 @@ import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
 import mz.org.fgh.mentoring.core.indicator.model.Indicator;
+import mz.org.fgh.mentoring.core.indicator.service.IndicatorQueryService;
 import mz.org.fgh.mentoring.core.indicator.service.IndicatorService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
@@ -60,6 +64,9 @@ public class IndicatorServiceTest extends AbstractSpringTest {
 
 	@Inject
 	private IndicatorService indicatorService;
+
+	@Inject
+	private IndicatorQueryService indicatorQueryService;
 
 	private Indicator indicator;
 
@@ -102,4 +109,45 @@ public class IndicatorServiceTest extends AbstractSpringTest {
 		TestUtil.assertCreation(this.indicator);
 	}
 
+	@Test
+	public void shouldUpdateIndicator() throws BusinessException {
+
+		final Answer answer = new BooleanAnswer();
+		answer.setQuestion(this.question);
+		answer.setValue(String.valueOf(Boolean.TRUE));
+
+		this.indicatorService.createIndicator(this.getUserContext(), this.indicator, this.form, Arrays.asList(answer));
+
+		final Answer answerUpdated = new BooleanAnswer();
+		answerUpdated.setQuestion(this.question);
+		answerUpdated.setValue(String.valueOf(Boolean.FALSE));
+
+		final List<Indicator> foundIndicators = this.indicatorQueryService
+		        .findIndicatorsByHealthFacilityFormAndReferredMonth(this.indicator.getHealthFacility(), this.form,
+		                this.indicator.getReferredMonth());
+
+		final Indicator foundIndicator = foundIndicators.get(0);
+
+		this.indicatorService.updateIndicator(this.getUserContext(), this.indicator, Arrays.asList(answerUpdated),
+		        foundIndicator);
+
+		TestUtil.assertUpdate(foundIndicator);
+		for (final Answer answerFound : foundIndicator.getAnswers()) {
+			TestUtil.assertUpdate(answerFound);
+			assertEquals(answerUpdated.getValue(), answerFound.getValue());
+		}
+	}
+
+	@Test
+	public void shouldSynchronizeIndicators() throws BusinessException {
+
+		final Answer answer = new BooleanAnswer();
+		answer.setQuestion(this.question);
+		answer.setValue(String.valueOf(Boolean.TRUE));
+
+		this.indicatorService.synchronizeIndicator(this.getUserContext(), this.indicator, this.form,
+		        Arrays.asList(answer));
+
+		TestUtil.assertCreation(this.indicator);
+	}
 }

@@ -4,6 +4,7 @@
 package mz.org.fgh.mentoring.core.indicator.service;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -33,6 +34,9 @@ public class IndicatorServiceImpl extends AbstractService implements IndicatorSe
 	private AnswerService answerService;
 
 	@Inject
+	private IndicatorQueryService indicatorQueryService;
+
+	@Inject
 	private PropertyValues propertyValues;
 
 	@Override
@@ -53,6 +57,57 @@ public class IndicatorServiceImpl extends AbstractService implements IndicatorSe
 			answer.setIndicator(indicator);
 			answer.setForm(form);
 			this.answerService.createAnswer(userContext, answer);
+		}
+
+		return indicator;
+	}
+
+	@Override
+	public Indicator updateIndicator(final UserContext userContext, final Indicator indicator,
+	        final List<Answer> answers, final Indicator foundIndicator) throws BusinessException {
+
+		foundIndicator.setTutor(indicator.getTutor());
+		this.indicatorDAO.update(userContext.getUuid(), foundIndicator);
+
+		for (final Answer answer : answers) {
+			this.updateValue(userContext, answer, foundIndicator.getAnswers());
+		}
+
+		return foundIndicator;
+	}
+
+	private void updateValue(final UserContext userContext, final Answer answer, final Set<Answer> answers)
+	        throws BusinessException {
+
+		for (final Answer answerFound : answers) {
+			if (answer.getQuestion().getUuid().equals(answerFound.getQuestion().getUuid())) {
+				answerFound.setValue(answer.getValue());
+				this.answerService.updateAnswer(userContext, answerFound);
+				return;
+			}
+		}
+	}
+
+	@Override
+	public Indicator updateIndicator(final UserContext userContext, final Indicator indicator)
+	        throws BusinessException {
+		return this.indicatorDAO.update(userContext.getUuid(), indicator);
+	}
+
+	@Override
+	public Indicator synchronizeIndicator(final UserContext userContext, final Indicator indicator, final Form form,
+	        final List<Answer> answers) throws BusinessException {
+
+		final List<Indicator> foundIndicators = this.indicatorQueryService
+		        .findIndicatorsByHealthFacilityFormAndReferredMonth(indicator.getHealthFacility(), form,
+		                indicator.getReferredMonth());
+
+		if (!foundIndicators.isEmpty()) {
+			final Indicator foundIndicator = foundIndicators.get(0);
+			this.updateIndicator(userContext, indicator, answers, foundIndicator);
+		}
+		else {
+			this.createIndicator(userContext, indicator, form, answers);
 		}
 
 		return indicator;

@@ -21,4 +21,12 @@ public interface IndicatorService {
 
 	Indicator createIndicator(final UserContext userContext, final Indicator indicator, final Form form,
 	        final List<Answer> answers) throws BusinessException;
+
+	Indicator updateIndicator(UserContext userContext, Indicator indicator, List<Answer> answers,
+	        final Indicator foundIndicator) throws BusinessException;
+
+	Indicator updateIndicator(final UserContext userContext, final Indicator indicator) throws BusinessException;
+
+	Indicator synchronizeIndicator(final UserContext userContext, final Indicator indicator, final Form form,
+	        final List<Answer> answers) throws BusinessException;
 }
