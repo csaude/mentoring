@@ -6,7 +6,6 @@ package mz.org.fgh.mentoring.core.mentorship;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -95,7 +94,7 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 		questions.add(this.question);
 
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
-				this.mentorship.getForm().getProgrammaticArea());
+		        this.mentorship.getForm().getProgrammaticArea());
 
 		this.form = this.mentorship.getForm();
 		this.formService.createForm(this.getUserContext(), this.form, questions);
@@ -107,16 +106,18 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 		answer.setQuestion(this.question);
 		answer.setValue("COMPETENTE");
 
-		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship, this.form,
-				Arrays.asList(answer));
+		this.mentorship.addAnswer(answer);
+		this.mentorship.setForm(this.form);
+
+		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship);
 	}
 
 	@Test
 	public void shouldFetchMentorshipsBySeletedFilter() {
 
 		final List<Mentorship> mentorships = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
-				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
-				this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility());
+		        this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
+		        this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility());
 
 		assertFalse(mentorships.isEmpty());
 
@@ -132,7 +133,7 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 	public void shouldFindNumberOfSessionsPerHealthFacility() {
 
 		final List<SubmitedSessions> submitedSessions = this.mentorshipQueryService
-				.findNumberOfSessionsPerHealthFacility(this.getUserContext());
+		        .findNumberOfSessionsPerHealthFacility(this.getUserContext());
 
 		assertFalse(submitedSessions.isEmpty());
 	}

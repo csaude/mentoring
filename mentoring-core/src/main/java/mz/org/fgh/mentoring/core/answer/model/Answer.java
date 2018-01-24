@@ -43,7 +43,6 @@ public abstract class Answer extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@XmlTransient
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FORM_ID", nullable = false)

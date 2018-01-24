@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
 import mz.co.mozview.frameworks.core.fixtureFactory.TemplateLoader;
+import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
@@ -23,7 +24,9 @@ import mz.org.fgh.mentoring.core.tutored.model.Tutored;
  */
 public class MentorshipTemplate implements TemplateLoader {
 
-	public static final String VALID = "valid";
+	public static final String VALID = "VALID";
+
+	public static final String WITH_ANSWERS = "WITH_ANSWERS";
 
 	@Override
 	public void load() {
@@ -36,8 +39,14 @@ public class MentorshipTemplate implements TemplateLoader {
 				this.add("form", this.one(Form.class, FormTemplate.VALID));
 				this.add("healthFacility", this.one(HealthFacility.class, HealthFacilityTemplate.VALID));
 				this.add("performedDate", LocalDate.now());
-				this.add("referredMonth", this.random(Month.JANUARY, Month.FEBRUARY, Month.MARCH, Month.JUNE, Month.JULY,
-						Month.AUGUST, Month.SEPTEMBER, Month.OCTOBER, Month.NOVEMBER, Month.DECEMBER));
+				this.add("referredMonth", this.random(Month.JANUARY, Month.FEBRUARY, Month.MARCH, Month.JUNE,
+				        Month.JULY, Month.AUGUST, Month.SEPTEMBER, Month.OCTOBER, Month.NOVEMBER, Month.DECEMBER));
+			}
+		});
+
+		Fixture.of(Mentorship.class).addTemplate(WITH_ANSWERS).inherits(VALID, new Rule() {
+			{
+				this.add("answers", this.has(5).of(TextAnswer.class, TextAnswerTemplate.VALID));
 			}
 		});
 	}

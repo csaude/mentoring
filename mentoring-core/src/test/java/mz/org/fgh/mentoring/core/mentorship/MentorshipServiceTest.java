@@ -3,10 +3,11 @@
  */
 package mz.org.fgh.mentoring.core.mentorship;
 
+import static org.junit.Assert.assertFalse;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -21,8 +22,10 @@ import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
+import mz.org.fgh.mentoring.core.fixturefactory.MentorshipProcessor;
 import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
+import mz.org.fgh.mentoring.core.fixturefactory.SessionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
@@ -33,6 +36,7 @@ import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
+import mz.org.fgh.mentoring.core.session.model.Session;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
 
@@ -95,7 +99,7 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 		questions.add(this.question);
 
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
-				this.mentorship.getForm().getProgrammaticArea());
+		        this.mentorship.getForm().getProgrammaticArea());
 
 		this.form = this.mentorship.getForm();
 		this.formService.createForm(this.getUserContext(), this.form, questions);
@@ -111,8 +115,9 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 		answer.setQuestion(this.question);
 		answer.setValue("COMPETENTE");
 
-		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship, this.form,
-				Arrays.asList(answer));
+		this.mentorship.addAnswer(answer);
+
+		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship);
 
 		TestUtil.assertCreation(this.mentorship);
 	}
@@ -121,7 +126,7 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldUpdateMentorship() throws BusinessException {
 
-		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship, this.form, new ArrayList<>());
+		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship);
 
 		final Mentorship mentorshipUpdate = this.mentorshipDAO.findById(this.mentorship.getId());
 
@@ -135,5 +140,28 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 		this.mentorshipService.updateMentorship(this.getUserContext(), mentorshipUpdate);
 
 		TestUtil.assertUpdate(mentorshipUpdate);
+	}
+
+	@Test
+	public void shouldSynchronizeMentorships() throws BusinessException {
+
+		List<Session> sessions = EntityFactory.gimme(Session.class, 10, SessionTemplate.VALID,
+		        new MentorshipProcessor(this.getUserContext(), this.formService, this.careerService,
+		                this.programmaticAreaService, this.districtService, this.heathFacilityService,
+		                this.questionService, this.tutorService, this.tutoredService));
+
+		sessions = this.mentorshipService.synchronizeMentorships(this.getUserContext(), sessions);
+
+		sessions.forEach(session -> {
+			TestUtil.assertCreation(session);
+
+			assertFalse(session.getMentorships().isEmpty());
+
+			session.getMentorships().forEach(mentorship -> {
+				TestUtil.assertCreation(mentorship);
+				mentorship.getAnswers().forEach(answer -> TestUtil.assertCreation(answer));
+			});
+
+		});
 	}
 }

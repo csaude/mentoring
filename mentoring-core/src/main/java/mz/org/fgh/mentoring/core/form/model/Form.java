@@ -4,7 +4,6 @@
 package mz.org.fgh.mentoring.core.form.model;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -72,7 +71,11 @@ public class Form extends GenericEntity {
 
 	@XmlTransient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "form")
-	private final Set<FormQuestion> formQuestions = new HashSet<>();
+	private Set<FormQuestion> formQuestions;
+
+	@NotNull
+	@Column(name = "TARGET", nullable = false)
+	private Integer target;
 
 	public String getCode() {
 		return this.code;
@@ -116,6 +119,14 @@ public class Form extends GenericEntity {
 
 	public Set<FormQuestion> getFromQuestions() {
 		return Collections.unmodifiableSet(this.formQuestions);
+	}
+
+	public Integer getTarget() {
+		return this.target;
+	}
+
+	public void setTarget(final Integer target) {
+		this.target = target;
 	}
 
 	@Override

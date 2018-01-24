@@ -1,11 +1,13 @@
-/*
- * Friends in Global Health - FGH © 2016
+/**
+ *
  */
-package mz.org.fgh.mentoring.integ.resources.mentorship;
+package mz.org.fgh.mentoring.core.answer.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import mz.org.fgh.mentoring.core.question.model.Question;
 
 /**
  * @author Stélio Moiane
@@ -19,19 +21,23 @@ public class AnswerHelper {
 
 	private String answerUuid;
 
+	private Question question;
+
 	private String value;
 
 	public AnswerHelper() {
 	}
 
-	public AnswerHelper(final String questionUuid, final String answerUuid, final String value) {
-		this.questionUuid = questionUuid;
-		this.answerUuid = answerUuid;
-		this.value = value;
-	}
-
 	public String getQuestionUuid() {
 		return this.questionUuid;
+	}
+
+	public Question getQuestion() {
+		return this.question;
+	}
+
+	public void setQuestion(final Question question) {
+		this.question = question;
 	}
 
 	public String getAnswerUuid() {
@@ -40,5 +46,9 @@ public class AnswerHelper {
 
 	public String getValue() {
 		return this.value;
+	}
+
+	public void setValue(final String value) {
+		this.value = value;
 	}
 }

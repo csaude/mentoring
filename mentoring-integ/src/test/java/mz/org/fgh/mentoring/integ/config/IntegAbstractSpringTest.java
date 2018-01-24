@@ -52,11 +52,12 @@ public abstract class IntegAbstractSpringTest {
 
 	public UserContext getUserContext() {
 		final UserContext context = new UserContext();
+		context.setUuid("682eb67387a84d54b9adf93247aefb55");
 		context.setId(1L);
 
 		context.setUnit(
-				new UnitWS("NCU000001", "102124774", "Office Alima", "Bairro Djuba, Q-2, Casa nr. 375, Matola-Rio",
-						"+(258) 82 2546100 ou +(258) 84 0546824", "steliomo@gmail.com"));
+		        new UnitWS("NCU000001", "102124774", "Office Alima", "Bairro Djuba, Q-2, Casa nr. 375, Matola-Rio",
+		                "+(258) 82 2546100 ou +(258) 84 0546824", "steliomo@gmail.com"));
 
 		return context;
 	}

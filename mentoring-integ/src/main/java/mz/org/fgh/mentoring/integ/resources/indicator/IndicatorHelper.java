@@ -10,12 +10,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import mz.org.fgh.mentoring.core.answer.model.AnswerHelper;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.indicator.model.Indicator;
 import mz.org.fgh.mentoring.core.location.model.District;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.util.LocalDateAdapter;
-import mz.org.fgh.mentoring.integ.resources.mentorship.AnswerHelper;
 
 /**
  * @author Stélio Moiane

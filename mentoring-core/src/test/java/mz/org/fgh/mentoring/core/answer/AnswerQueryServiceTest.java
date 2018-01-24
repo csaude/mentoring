@@ -6,7 +6,6 @@ package mz.org.fgh.mentoring.core.answer;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -116,8 +115,11 @@ public class AnswerQueryServiceTest extends AbstractSpringTest {
 		answer2.setQuestion(question2);
 		answer3.setQuestion(question3);
 
-		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship, form,
-		        Arrays.asList(answer1, answer2, answer3));
+		this.mentorship.addAnswer(answer1);
+		this.mentorship.addAnswer(answer2);
+		this.mentorship.addAnswer(answer3);
+
+		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship);
 	}
 
 	@Test

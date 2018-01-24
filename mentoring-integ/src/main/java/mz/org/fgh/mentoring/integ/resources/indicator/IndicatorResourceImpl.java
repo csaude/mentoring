@@ -16,6 +16,7 @@ import com.sun.jersey.api.JResponse;
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.answer.model.Answer;
+import mz.org.fgh.mentoring.core.answer.model.AnswerHelper;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormQueryService;
 import mz.org.fgh.mentoring.core.indicator.model.Indicator;
@@ -28,7 +29,6 @@ import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionQueryService;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutor.service.TutorQueryService;
-import mz.org.fgh.mentoring.integ.resources.mentorship.AnswerHelper;
 
 /**
  * @author Stélio Moiane
