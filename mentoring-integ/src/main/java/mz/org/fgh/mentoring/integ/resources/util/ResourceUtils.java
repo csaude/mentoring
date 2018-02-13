@@ -15,7 +15,6 @@ import com.sun.jersey.api.JResponse;
 import mz.org.fgh.mentoring.core.career.model.CareerType;
 import mz.org.fgh.mentoring.core.form.model.FormType;
 import mz.org.fgh.mentoring.core.location.model.Province;
-import mz.org.fgh.mentoring.core.mentorship.model.Month;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
 import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
@@ -46,11 +45,6 @@ public interface ResourceUtils {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/questiontypes")
 	public JResponse<List<QuestionType>> getQuestionTypes();
-
-	@GET
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Path("/months")
-	public JResponse<List<Month>> getMonths();
 
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
