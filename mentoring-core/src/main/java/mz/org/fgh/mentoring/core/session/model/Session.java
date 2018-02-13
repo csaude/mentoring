@@ -3,6 +3,7 @@
  */
 package mz.org.fgh.mentoring.core.session.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +28,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
+import mz.org.fgh.mentoring.core.util.LocalDateAdapter;
 import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
 
 /**
@@ -50,6 +52,11 @@ public class Session extends GenericEntity {
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	@Column(name = "END_DATE", nullable = false)
 	private LocalDateTime endDate;
+
+	@NotNull
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
+	@Column(name = "PERFORMED_DATE", nullable = false)
+	private LocalDate performedDate;
 
 	@NotNull
 	@Column(name = "STATUS", nullable = false, length = 20)
@@ -77,6 +84,14 @@ public class Session extends GenericEntity {
 
 	public void setEndDate(final LocalDateTime endDate) {
 		this.endDate = endDate;
+	}
+
+	public LocalDate getPerformedDate() {
+		return this.performedDate;
+	}
+
+	public void setPerformedDate(final LocalDate performedDate) {
+		this.performedDate = performedDate;
 	}
 
 	public SessionStatus getStatus() {

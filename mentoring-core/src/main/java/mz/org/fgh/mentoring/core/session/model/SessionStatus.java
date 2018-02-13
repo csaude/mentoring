@@ -11,6 +11,5 @@ public enum SessionStatus {
 
 	COMPLETE,
 
-	INCOMPLETE,
-
+	INCOMPLETE;
 }

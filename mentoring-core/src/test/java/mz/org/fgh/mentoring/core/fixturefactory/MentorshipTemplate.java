@@ -14,7 +14,6 @@ import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
-import mz.org.fgh.mentoring.core.mentorship.model.Month;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 
@@ -39,8 +38,6 @@ public class MentorshipTemplate implements TemplateLoader {
 				this.add("form", this.one(Form.class, FormTemplate.VALID));
 				this.add("healthFacility", this.one(HealthFacility.class, HealthFacilityTemplate.VALID));
 				this.add("performedDate", LocalDate.now());
-				this.add("referredMonth", this.random(Month.JANUARY, Month.FEBRUARY, Month.MARCH, Month.JUNE,
-				        Month.JULY, Month.AUGUST, Month.SEPTEMBER, Month.OCTOBER, Month.NOVEMBER, Month.DECEMBER));
 			}
 		});
 

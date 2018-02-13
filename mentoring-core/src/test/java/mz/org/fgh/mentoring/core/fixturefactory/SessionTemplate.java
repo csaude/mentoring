@@ -3,6 +3,7 @@
  */
 package mz.org.fgh.mentoring.core.fixturefactory;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import br.com.six2six.fixturefactory.Fixture;
@@ -26,6 +27,7 @@ public class SessionTemplate implements TemplateLoader {
 			{
 				this.add("startDate", LocalDateTime.now());
 				this.add("endDate", LocalDateTime.now());
+				this.add("performedDate", LocalDate.now());
 				this.add("status", this.random(SessionStatus.COMPLETE, SessionStatus.INCOMPLETE));
 				this.add("reason", "NA");
 				this.add("mentorships", this.has(5).of(Mentorship.class, MentorshipTemplate.WITH_ANSWERS));

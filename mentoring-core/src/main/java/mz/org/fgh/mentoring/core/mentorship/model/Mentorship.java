@@ -14,8 +14,6 @@ import javax.persistence.Column;
 import javax.persistence.ColumnResult;
 import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -86,11 +84,6 @@ public class Mentorship extends GenericEntity {
 	private LocalDate performedDate;
 
 	@NotNull
-	@Column(name = "REFERRED_MONTH", nullable = false, length = 50)
-	@Enumerated(EnumType.STRING)
-	private Month referredMonth;
-
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TUTOR_ID", nullable = false)
 	private Tutor tutor;
@@ -152,14 +145,6 @@ public class Mentorship extends GenericEntity {
 
 	public void setPerformedDate(final LocalDate performedDate) {
 		this.performedDate = performedDate;
-	}
-
-	public Month getReferredMonth() {
-		return this.referredMonth;
-	}
-
-	public void setReferredMonth(final Month referredMonth) {
-		this.referredMonth = referredMonth;
 	}
 
 	public Tutor getTutor() {
