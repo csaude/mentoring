@@ -3,15 +3,6 @@
  */
 package mz.org.fgh.mentoring.core.form.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.inject.Inject;
-
-import org.springframework.stereotype.Service;
-
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.service.AbstractService;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
@@ -24,6 +15,15 @@ import mz.org.fgh.mentoring.core.formquestion.dao.FormQuestionDAO;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.formquestion.service.FormQuestionService;
 import mz.org.fgh.mentoring.core.question.model.Question;
+import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Eusebio Jose Maposse
@@ -69,6 +69,30 @@ public class FormServiceImpl extends AbstractService implements FormService {
 			this.formQuestionService.createFormQuestion(userContext, formQuestion);
 		}
 
+		return form;
+	}
+
+	@Override
+	public Form createForm(UserContext userContext, Form form, Map<Integer, Question> questions) throws BusinessException {
+		// TODO generate code just a sample
+		final String code = this.formDAO.generateCode("MT", 8, "0");
+		form.setCode(code);
+
+		form.setName(StringNormalizer.normalizeAndUppCase(form.getName()));
+
+		if (questions.isEmpty()) {
+			throw new BusinessException(this.propertyValues.getPropValues("cannot.create.form.without.questions"));
+		}
+
+		this.formDAO.create(userContext.getUuid(), form);
+
+		for(final Map.Entry<Integer, Question> entry: questions.entrySet()) {
+			final FormQuestion formQuestion = new FormQuestion();
+			formQuestion.setForm(form);
+			formQuestion.setQuestion(entry.getValue());
+			formQuestion.setSequence(entry.getKey());
+			this.formQuestionService.createFormQuestion(userContext, formQuestion);
+		}
 		return form;
 	}
 
@@ -122,5 +146,61 @@ public class FormServiceImpl extends AbstractService implements FormService {
 				this.inactivetedAllFormQuestion(updatedForm.getId()));
 
 		return updatedForm;
+	}
+
+	@Override
+	public Form updateForm(UserContext userContext, Form form, Map<Integer, Question> questions) throws BusinessException {
+		form.setName(StringNormalizer.normalizeAndUppCase(form.getName()));
+		final Form updatedForm = formDAO.update(userContext.getUuid(), form);
+
+		Set<FormQuestion> associatedFormQuestions = new HashSet<>(formQuestionDao.findByFormId(updatedForm.getId()));
+		deactivateRemovedQuestions(associatedFormQuestions, new HashSet<Question>(questions.values()));
+
+		// Update sequence information
+
+		List<FormQuestion> newFormQuestions = new ArrayList<>();
+		questions.forEach((sequence, question) -> {
+			FormQuestion foundFormQuestion = findFormQuestionWithQuestion(question, associatedFormQuestions);
+			if(foundFormQuestion != null) {
+				foundFormQuestion.setSequence(sequence);
+				if(foundFormQuestion.getLifeCycleStatus().equals(LifeCycleStatus.INACTIVE)) {
+					foundFormQuestion.setLifeCycleStatus(LifeCycleStatus.ACTIVE);
+				}
+			}
+			else {
+				final FormQuestion formQuestion = new FormQuestion();
+				formQuestion.setForm(updatedForm);
+				formQuestion.setQuestion(question);
+				formQuestion.setSequence(sequence);
+				formQuestion.setLifeCycleStatus(LifeCycleStatus.ACTIVE);
+				newFormQuestions.add(formQuestion);
+			}
+		});
+
+		// Update existing & create new ones.
+		for(FormQuestion existing: associatedFormQuestions) {
+			formQuestionService.updateFormQuestion(userContext, existing);
+		}
+
+		for(FormQuestion newFormQuestion: newFormQuestions) {
+			formQuestionService.createFormQuestion(userContext, newFormQuestion);
+		}
+
+		return updatedForm;
+	}
+
+	private void deactivateRemovedQuestions(Set<FormQuestion> formQuestions, Set<Question> newQuestions) {
+		formQuestions.forEach(formQuestion -> {
+			if(!newQuestions.stream().anyMatch(question -> formQuestion.getQuestion().getUuid().equals(question.getUuid()))) {
+				formQuestion.setLifeCycleStatus(LifeCycleStatus.INACTIVE);
+			}
+		});
+	}
+
+	private FormQuestion findFormQuestionWithQuestion(Question question, Set<FormQuestion> formQuestions) {
+		return formQuestions.stream()
+				.filter(formQuestion -> formQuestion.getQuestion().getUuid().equals(question.getUuid()))
+				.findFirst()
+				.orElse(null);
 	}
 }
