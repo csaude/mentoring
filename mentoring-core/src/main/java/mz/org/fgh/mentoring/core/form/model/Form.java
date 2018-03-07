@@ -117,7 +117,7 @@ public class Form extends GenericEntity {
 		this.formType = formType;
 	}
 
-	public Set<FormQuestion> getFromQuestions() {
+	public Set<FormQuestion> getFormQuestions() {
 		return Collections.unmodifiableSet(this.formQuestions);
 	}
 

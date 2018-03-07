@@ -27,6 +27,7 @@ public class FormBeanResource {
 	private UserContext userContext;
 	private Form form;
 	private final Set<Question> questions = new HashSet<>();
+	private final Set<QuestionSequence> questionSequences = new HashSet<>();
 
 	public UserContext getUserContext() {
 		return this.userContext;
@@ -38,5 +39,9 @@ public class FormBeanResource {
 
 	public Set<Question> getQuestions() {
 		return Collections.unmodifiableSet(this.questions);
+	}
+
+	public Set<QuestionSequence> getQuestionSequences() {
+		return questionSequences;
 	}
 }
