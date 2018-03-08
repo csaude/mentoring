@@ -27,12 +27,13 @@ public class TextAnswer extends Answer {
 	@Column(name = "TEXT_VALUE", length = 180)
 	private String textValue;
 
-	public String getTextValue() {
-		return this.textValue;
-	}
-
 	@Override
 	public void setValue(final String value) {
 		this.textValue = value;
+	}
+
+	@Override
+	public String getValue() {
+		return this.textValue;
 	}
 }

@@ -9,6 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -30,7 +31,7 @@ public interface FormServiceResource {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<Form> createForm(final FormBeanResource formBeanResource) throws BusinessException;
-	
+
 	@PUT
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -39,6 +40,11 @@ public interface FormServiceResource {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Form>> findBySelectedFilter(@QueryParam("code") final String code,
-			@QueryParam("name") final String name,
-			@QueryParam("programmaticAreaCode") final String programmaticAreaCode) throws BusinessException;
+	        @QueryParam("name") final String name,
+	        @QueryParam("programmaticAreaCode") final String programmaticAreaCode) throws BusinessException;
+
+	@GET
+	@Path("sample-forms")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	JResponse<List<Form>> findSampleIndicatorForms() throws BusinessException;
 }

@@ -1,7 +1,7 @@
 /*
  * Friends in Global Health - FGH © 2016
  */
-package mz.org.fgh.mentoring.core.answer;
+package mz.org.fgh.mentoring.core.answer.service;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.answer.dao.AnswerDAO;
-import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
+import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 
 /**
@@ -26,7 +26,7 @@ public class AnswerQueryServiceImpl implements AnswerQueryService {
 	private AnswerDAO answerDAO;
 
 	@Override
-	public List<TextAnswer> fetchAnswersByMentorship(final UserContext userContext, final Mentorship mentorship) {
+	public List<Answer> fetchAnswersByMentorship(final UserContext userContext, final Mentorship mentorship) {
 
 		return this.answerDAO.fetchByMentorishipUuid(mentorship.getUuid(), LifeCycleStatus.ACTIVE);
 	}

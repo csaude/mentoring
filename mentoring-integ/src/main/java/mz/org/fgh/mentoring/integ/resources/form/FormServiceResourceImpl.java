@@ -36,29 +36,35 @@ public class FormServiceResourceImpl extends AbstractResource implements FormSer
 	public JResponse<Form> createForm(final FormBeanResource formBeanResource) throws BusinessException {
 
 		final Form form = this.formService.createForm(formBeanResource.getUserContext(), formBeanResource.getForm(),
-				formBeanResource.getQuestions());
+		        formBeanResource.getQuestions());
 
 		return JResponse.ok(form).build();
 	}
 
 	@Override
-	public JResponse<Form> updateForm(FormBeanResource formBeanResource) throws BusinessException {
+	public JResponse<Form> updateForm(final FormBeanResource formBeanResource) throws BusinessException {
 
 		final Form form = this.formService.updateForm(formBeanResource.getUserContext(), formBeanResource.getForm(),
-				formBeanResource.getQuestions());
+		        formBeanResource.getQuestions());
 
 		return JResponse.ok(form).build();
-
 	}
 
 	@Override
 	public JResponse<List<Form>> findBySelectedFilter(final String code, final String name,
-			final String programmaticAreaCode) throws BusinessException {
+	        final String programmaticAreaCode) throws BusinessException {
 
 		final List<Form> forms = this.formQueryService.findBySelectedFilter(this.getUserContetx(), code, name,
-				programmaticAreaCode);
+		        programmaticAreaCode);
 
 		return JResponse.ok(forms).build();
 	}
 
+	@Override
+	public JResponse<List<Form>> findSampleIndicatorForms() throws BusinessException {
+
+		final List<Form> forms = this.formQueryService.findSampleIndicatorForms();
+
+		return JResponse.ok(forms).build();
+	}
 }

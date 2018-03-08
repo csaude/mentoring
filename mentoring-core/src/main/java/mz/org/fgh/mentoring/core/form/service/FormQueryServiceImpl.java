@@ -3,6 +3,7 @@
  */
 package mz.org.fgh.mentoring.core.form.service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,6 +15,7 @@ import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.form.dao.FormDAO;
 import mz.org.fgh.mentoring.core.form.model.Form;
+import mz.org.fgh.mentoring.core.indicator.model.SampleQuestion;
 
 /**
  * @author Eusebio Jose Maposse
@@ -32,12 +34,21 @@ public class FormQueryServiceImpl implements FormQueryService {
 
 	@Override
 	public List<Form> findBySelectedFilter(final UserContext userContext, final String code, final String name,
-			final String programmaticAreaCode) {
+	        final String programmaticAreaCode) {
 		return this.formDAO.findBySelectedFilter(code, name, programmaticAreaCode, LifeCycleStatus.ACTIVE);
 	}
 
 	@Override
 	public Form findFormByUuid(final UserContext userContext, final String uuid) throws BusinessException {
 		return this.formDAO.findByUuid(uuid);
+	}
+
+	@Override
+	public List<Form> findSampleIndicatorForms() throws BusinessException {
+
+		return this.formDAO.findSampleIndicators(Arrays.asList(SampleQuestion.NUMBER_OF_COLLECTED_SAMPLES.getValue(),
+		        SampleQuestion.NUMBER_OF_REJECTED_SAMPLES.getValue(),
+		        SampleQuestion.NUMBER_OF_TRANSPORTED_SAMPLES.getValue(),
+		        SampleQuestion.NUMER_OF_RECEIVED_SAMPLES.getValue()), LifeCycleStatus.ACTIVE);
 	}
 }

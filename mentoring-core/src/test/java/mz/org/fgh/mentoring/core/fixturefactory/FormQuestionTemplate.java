@@ -16,15 +16,24 @@ import mz.org.fgh.mentoring.core.question.model.Question;
  */
 public class FormQuestionTemplate implements TemplateLoader {
 
-	public static final String VALID = "valid";
+	public static final String VALID = "VALID";
+
+	public static final String WITH_NO_FORM = "WITH_NO_FORM";
 
 	@Override
 	public void load() {
 		Fixture.of(FormQuestion.class).addTemplate(VALID, new Rule() {
 			{
-				add("form", one(Form.class, "valid"));
-				add("question", one(Question.class, "valid"));
-				add("mandatory", true);
+				this.add("form", this.one(Form.class, FormTemplate.VALID));
+				this.add("question", this.one(Question.class, QuestionTemplate.TEXT_QUESTION));
+				this.add("mandatory", true);
+			}
+		});
+
+		Fixture.of(FormQuestion.class).addTemplate(WITH_NO_FORM, new Rule() {
+			{
+				this.add("question", this.one(Question.class, QuestionTemplate.TEXT_QUESTION));
+				this.add("mandatory", true);
 			}
 		});
 	}

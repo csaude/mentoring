@@ -23,6 +23,5 @@ public class TextAnswerTemplate implements TemplateLoader {
 				this.add("textValue", this.random("COMPETENTE", "NAO SATISFATORIO", "NA"));
 			}
 		});
-
 	}
 }

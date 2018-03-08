@@ -4,7 +4,9 @@
 package mz.org.fgh.mentoring.integ.resources.mentorship;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -12,8 +14,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.answer.model.Answer;
-import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
+import mz.org.fgh.mentoring.core.session.model.Session;
+import mz.org.fgh.mentoring.integ.resources.mentorship.dto.SessionDTO;
 
 /**
  * @author Stélio Moiane
@@ -27,13 +30,9 @@ public class MentorshipBeanResource {
 
 	private Mentorship mentorship;
 
-	private List<QuestionHelper> questions;
+	private List<SessionDTO> sessions;
 
-	private Form form;
-
-	private List<MentorshipHelper> mentorships;
-
-	private List<String> mentorshipUuids;
+	private List<String> sessionUuids;
 
 	public MentorshipBeanResource() {
 	}
@@ -50,42 +49,46 @@ public class MentorshipBeanResource {
 		return this.mentorship;
 	}
 
-	public Form getForm() {
-		return this.form;
+	public List<Session> getSessions() {
+		return this.sessions.stream().map(sessionDTO -> {
+			final Session session = sessionDTO.getSession();
+
+			sessionDTO.getMentorships().forEach(mentorshipDTO -> {
+				final Mentorship mentorship = mentorshipDTO.getMentorship();
+
+				mentorshipDTO.getAnswers().forEach(answerDTO -> {
+					final Answer answer = answerDTO.getQuestion().getQuestionType().getAnswer();
+
+					answer.setUuid(answerDTO.getAnswerUuid());
+					answer.setValue(answerDTO.getValue());
+					answer.setQuestion(answerDTO.getQuestion());
+
+					mentorship.addAnswer(answer);
+				});
+
+				session.addMentorship(mentorship);
+			});
+
+			return session;
+		}).collect(Collectors.toList());
 	}
 
-	public List<MentorshipHelper> getMentorships() {
-		return this.mentorships;
+	public void setSessionUuids() {
+		this.sessionUuids = this.sessions.stream().map(sessionDTO -> sessionDTO.getSession().getUuid())
+		        .collect(Collectors.toList());
+		this.sessions = null;
 	}
 
-	public void setMentorships(final List<MentorshipHelper> mentorships) {
-		this.mentorships = mentorships;
+	public List<String> getSessionUuids() {
+		return Collections.unmodifiableList(this.sessionUuids);
 	}
 
-	public List<Answer> getAnswers() {
+	public void addSessionDTO(final SessionDTO sessionDTO) {
 
-		final List<Answer> answers = new ArrayList<>();
-
-		if (this.questions == null) {
-			return answers;
+		if (this.sessions == null) {
+			this.sessions = new ArrayList<>();
 		}
 
-		for (final QuestionHelper question : this.questions) {
-			final Answer answer = question.getQuestionType().getAnswer();
-			answer.setValue(question.getValue());
-			answer.setQuestion(question.getQuestionObject());
-			answers.add(answer);
-		}
-
-		return answers;
-	}
-
-	public void addMentorshipUuid(final String uuid) {
-
-		if (this.mentorshipUuids == null) {
-			this.mentorshipUuids = new ArrayList<>();
-		}
-
-		this.mentorshipUuids.add(uuid);
+		this.sessions.add(sessionDTO);
 	}
 }
