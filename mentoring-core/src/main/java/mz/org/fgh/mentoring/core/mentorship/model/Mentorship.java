@@ -6,18 +6,20 @@ package mz.org.fgh.mentoring.core.mentorship.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.ColumnResult;
 import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -25,6 +27,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -32,9 +35,11 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.mentorship.dao.MentorshipDAO;
+import mz.org.fgh.mentoring.core.session.model.Session;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 import mz.org.fgh.mentoring.core.util.LocalDateAdapter;
@@ -45,11 +50,11 @@ import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
  *
  */
 @SqlResultSetMapping(name = SubmitedSessions.TOTAL_SUBMISSIONS, classes = {
-		@ConstructorResult(targetClass = SubmitedSessions.class, columns = { @ColumnResult(name = "HEALTH_FACILITY"),
-				@ColumnResult(name = "TOTAL"), @ColumnResult(name = "LAST_UPDATE") }) })
+        @ConstructorResult(targetClass = SubmitedSessions.class, columns = { @ColumnResult(name = "HEALTH_FACILITY"),
+                @ColumnResult(name = "TOTAL"), @ColumnResult(name = "LAST_UPDATE") }) })
 
 @NamedNativeQueries({
-		@NamedNativeQuery(name = MentorshipDAO.QUERY_NAME.findNumberOfSessionsPerHealthFacility, query = MentorshipDAO.QUERY.findNumberOfSessionsPerHealthFacility, resultSetMapping = SubmitedSessions.TOTAL_SUBMISSIONS) })
+        @NamedNativeQuery(name = MentorshipDAO.QUERY_NAME.findNumberOfSessionsPerHealthFacility, query = MentorshipDAO.QUERY.findNumberOfSessionsPerHealthFacility, resultSetMapping = SubmitedSessions.TOTAL_SUBMISSIONS) })
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -79,11 +84,6 @@ public class Mentorship extends GenericEntity {
 	private LocalDate performedDate;
 
 	@NotNull
-	@Column(name = "REFERRED_MONTH", nullable = false, length = 50)
-	@Enumerated(EnumType.STRING)
-	private Month referredMonth;
-
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TUTOR_ID", nullable = false)
 	private Tutor tutor;
@@ -100,8 +100,17 @@ public class Mentorship extends GenericEntity {
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "HEALTH_FACILITY", nullable = false)
+	@JoinColumn(name = "HEALTH_FACILITY_ID", nullable = false)
 	private HealthFacility healthFacility;
+
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "SESSION_ID")
+	private Session session;
+
+	@XmlTransient
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mentorship")
+	private List<Answer> answers;
 
 	public Mentorship() {
 	}
@@ -138,14 +147,6 @@ public class Mentorship extends GenericEntity {
 		this.performedDate = performedDate;
 	}
 
-	public Month getReferredMonth() {
-		return this.referredMonth;
-	}
-
-	public void setReferredMonth(final Month referredMonth) {
-		this.referredMonth = referredMonth;
-	}
-
 	public Tutor getTutor() {
 		return this.tutor;
 	}
@@ -178,13 +179,36 @@ public class Mentorship extends GenericEntity {
 		this.healthFacility = healthFacility;
 	}
 
+	public Session getSession() {
+		return this.session;
+	}
+
+	public void setSession(final Session session) {
+		this.session = session;
+	}
+
+	public List<Answer> getAnswers() {
+		return Collections.unmodifiableList(this.answers);
+	}
+
+	public void addAnswer(final Answer answer) {
+
+		if (this.answers == null) {
+			this.answers = new ArrayList<>();
+		}
+
+		this.answers.add(answer);
+	}
+
 	@Override
 	public boolean equals(final Object that) {
-		return EqualsBuilder.reflectionEquals(this, that, "tutor", "tutored", "form", "healthFacility");
+		return EqualsBuilder.reflectionEquals(this, that, "tutor", "tutored", "form", "healthFacility", "session",
+		        "answers", "answerHelpers");
 	}
 
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, "tutor", "tutored", "form", "healthFacility");
+		return HashCodeBuilder.reflectionHashCode(this, "tutor", "tutored", "form", "healthFacility", "session",
+		        "answers", "answerHelpers");
 	}
 }

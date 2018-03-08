@@ -3,6 +3,7 @@
  */
 package mz.org.fgh.mentoring.integ.resources.mentorship;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,9 +11,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import mz.org.fgh.mentoring.core.answer.model.AnswerHelper;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
-import mz.org.fgh.mentoring.core.util.LocalDateAdapter;
-import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
 
 /**
  * @author Stélio Moiane
@@ -24,54 +24,29 @@ public class MentorshipHelper {
 
 	private Mentorship mentorship;
 
-	private String uuid;
-
-	private String startDate;
-
-	private String endDate;
-
-	private String performedDate;
-
 	private List<AnswerHelper> answers;
 
 	public MentorshipHelper() {
 	}
 
-	public MentorshipHelper(final Mentorship mentorship, final String startDate, final String endDate,
-			final List<AnswerHelper> answers) {
-		this.mentorship = mentorship;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.answers = answers;
+	public Mentorship getMentorship() {
+		return this.mentorship;
 	}
 
-	public Mentorship getMentorship() {
-		final LocalDateTimeAdapter localDateTimeAdapter = new LocalDateTimeAdapter();
-		final LocalDateAdapter localDateAdapter = new LocalDateAdapter();
-		this.mentorship.setId(null);
-		this.mentorship.setStartDate(localDateTimeAdapter.unmarshal(this.startDate));
-		this.mentorship.setEndDate(localDateTimeAdapter.unmarshal(this.endDate));
-		this.mentorship.setPerformedDate(localDateAdapter.unmarshal(this.performedDate));
-		return this.mentorship;
+	public void setMentorship(final Mentorship mentorship) {
+		this.mentorship = mentorship;
 	}
 
 	public List<AnswerHelper> getAnswers() {
 		return Collections.unmodifiableList(this.answers);
 	}
 
-	public String getEndDate() {
-		return this.endDate;
-	}
+	public void addAnswerHelper(final AnswerHelper answerHelper) {
 
-	public String getStartDate() {
-		return this.startDate;
-	}
+		if (this.answers == null) {
+			this.answers = new ArrayList<>();
+		}
 
-	public String getUuid() {
-		return this.uuid;
-	}
-
-	public String getPerformedDate() {
-		return this.performedDate;
+		this.answers.add(answerHelper);
 	}
 }

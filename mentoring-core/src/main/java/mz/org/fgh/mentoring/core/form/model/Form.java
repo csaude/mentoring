@@ -4,11 +4,12 @@
 package mz.org.fgh.mentoring.core.form.model;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -40,7 +41,8 @@ import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "FORMS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
-@NamedQueries({ @NamedQuery(name = FormDAO.QUERY_NAME.fetchByFormId, query = FormDAO.QUERY.fetchByFormId) })
+@NamedQueries({ @NamedQuery(name = FormDAO.QUERY_NAME.fetchByFormId, query = FormDAO.QUERY.fetchByFormId),
+        @NamedQuery(name = FormDAO.QUERY_NAME.findSampleIndicators, query = FormDAO.QUERY.findSampleIndicators) })
 public class Form extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -62,9 +64,18 @@ public class Form extends GenericEntity {
 	@JoinColumn(name = "PROGRAMMATIC_AREA_ID", nullable = false)
 	private ProgrammaticArea programmaticArea;
 
+	@NotNull
+	@Column(name = "FORM_TYPE", nullable = false, length = 50)
+	@Enumerated(EnumType.STRING)
+	private FormType formType;
+
 	@XmlTransient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "form")
-	private final Set<FormQuestion> formQuestions = new HashSet<>();
+	private Set<FormQuestion> formQuestions;
+
+	@NotNull
+	@Column(name = "TARGET", nullable = false)
+	private Integer target;
 
 	public String getCode() {
 		return this.code;
@@ -98,8 +109,24 @@ public class Form extends GenericEntity {
 		this.description = description;
 	}
 
+	public FormType getFormType() {
+		return this.formType;
+	}
+
+	public void setFormType(final FormType formType) {
+		this.formType = formType;
+	}
+
 	public Set<FormQuestion> getFromQuestions() {
 		return Collections.unmodifiableSet(this.formQuestions);
+	}
+
+	public Integer getTarget() {
+		return this.target;
+	}
+
+	public void setTarget(final Integer target) {
+		this.target = target;
 	}
 
 	@Override

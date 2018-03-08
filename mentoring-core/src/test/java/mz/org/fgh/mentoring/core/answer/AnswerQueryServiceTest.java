@@ -6,7 +6,6 @@ package mz.org.fgh.mentoring.core.answer;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,10 +17,13 @@ import org.junit.Test;
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.org.fgh.mentoring.core.answer.model.Answer;
+import mz.org.fgh.mentoring.core.answer.model.NumericAnswer;
 import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
+import mz.org.fgh.mentoring.core.answer.service.AnswerQueryService;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
-import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTamplate;
+import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTemplate;
+import mz.org.fgh.mentoring.core.fixturefactory.NumericAnswerTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.TextAnswerTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
@@ -76,24 +78,28 @@ public class AnswerQueryServiceTest extends AbstractSpringTest {
 
 	@Override
 	public void setUp() throws BusinessException {
-		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTamplate.VALID);
+		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTemplate.VALID);
 		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutor().getCareer());
 		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutored().getCareer());
 		this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor());
 		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
 
-		final Question question1 = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
+		final Question question1 = EntityFactory.gimme(Question.class, QuestionTemplate.TEXT_QUESTION);
 		this.questionService.createQuestion(this.getUserContext(), question1);
 
-		final Question question2 = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
+		final Question question2 = EntityFactory.gimme(Question.class, QuestionTemplate.TEXT_QUESTION);
 		this.questionService.createQuestion(this.getUserContext(), question2);
+
+		final Question question3 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION);
+		this.questionService.createQuestion(this.getUserContext(), question3);
 
 		final Set<Question> questions = new HashSet<>();
 		questions.add(question1);
 		questions.add(question2);
+		questions.add(question3);
 
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
-				this.mentorship.getForm().getProgrammaticArea());
+		        this.mentorship.getForm().getProgrammaticArea());
 
 		final Form form = this.mentorship.getForm();
 		this.formService.createForm(this.getUserContext(), form, questions);
@@ -103,19 +109,24 @@ public class AnswerQueryServiceTest extends AbstractSpringTest {
 
 		final Answer answer1 = EntityFactory.gimme(TextAnswer.class, TextAnswerTemplate.VALID);
 		final Answer answer2 = EntityFactory.gimme(TextAnswer.class, TextAnswerTemplate.VALID);
+		final Answer answer3 = EntityFactory.gimme(NumericAnswer.class, NumericAnswerTemplate.VALID);
 
 		answer1.setQuestion(question1);
 		answer2.setQuestion(question2);
+		answer3.setQuestion(question3);
 
-		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship, form,
-				Arrays.asList(answer1, answer2));
+		this.mentorship.addAnswer(answer1);
+		this.mentorship.addAnswer(answer2);
+		this.mentorship.addAnswer(answer3);
+
+		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship);
 	}
 
 	@Test
 	public void shouldFetchAnswersByMentorship() {
 
-		final List<TextAnswer> answers = this.answerQueryService.fetchAnswersByMentorship(this.getUserContext(),
-				this.mentorship);
+		final List<Answer> answers = this.answerQueryService.fetchAnswersByMentorship(this.getUserContext(),
+		        this.mentorship);
 
 		assertFalse(answers.isEmpty());
 

@@ -29,12 +29,12 @@ public class FormDAOImpl extends GenericDAOImpl<Form, Long> implements FormDAO {
 	@Override
 	public Form fetchByFormId(final Long formId) {
 		return this.findSingleByNamedQuery(FormDAO.QUERY_NAME.fetchByFormId,
-				new ParamBuilder().add("formId", formId).process());
+		        new ParamBuilder().add("formId", formId).process());
 	}
 
 	@Override
 	public List<Form> findBySelectedFilter(final String code, final String name, final String programmaticAreaCode,
-			final LifeCycleStatus lifeCycleStatus) {
+	        final LifeCycleStatus lifeCycleStatus) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Form> createQuery = criteriaBuilder.createQuery(Form.class);
@@ -62,6 +62,17 @@ public class FormDAOImpl extends GenericDAOImpl<Form, Long> implements FormDAO {
 		createQuery.where(predicates.toArray(new Predicate[predicates.size()]));
 
 		final TypedQuery<Form> query = this.getEntityManager().createQuery(createQuery);
+
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Form> findSampleIndicators(final List<String> questionUuids, final LifeCycleStatus lifeCycleStatus) {
+
+		final TypedQuery<Form> query = this.findByQuery(FormDAO.QUERY_NAME.findSampleIndicators,
+		        new ParamBuilder().add("lifeCycleStatus", lifeCycleStatus).process());
+
+		query.setParameter("questionUuids", questionUuids);
 
 		return query.getResultList();
 	}

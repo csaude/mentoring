@@ -11,7 +11,6 @@ import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
 import mz.co.mozview.frameworks.core.dao.ParamBuilder;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.answer.model.Answer;
-import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
 
 /**
  * @author Stélio Moiane
@@ -21,9 +20,8 @@ import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
 public class AnswerDAOImpl extends GenericDAOImpl<Answer, Long> implements AnswerDAO {
 
 	@Override
-	public List<TextAnswer> fetchByMentorishipUuid(final String mentorshipUuid, final LifeCycleStatus lifeCycleStatus) {
+	public List<Answer> fetchByMentorishipUuid(final String mentorshipUuid, final LifeCycleStatus lifeCycleStatus) {
 		return this.findByNamedQuery(AnswerDAO.QUERY_NAME.fetchByMentorishipUuid, new ParamBuilder()
-				.add("mentorshipUuid", mentorshipUuid).add("lifeCycleStatus", lifeCycleStatus).process(),
-				TextAnswer.class);
+		        .add("mentorshipUuid", mentorshipUuid).add("lifeCycleStatus", lifeCycleStatus).process());
 	}
 }

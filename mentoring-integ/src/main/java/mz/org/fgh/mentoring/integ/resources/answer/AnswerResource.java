@@ -14,7 +14,6 @@ import javax.ws.rs.core.MediaType;
 import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
-import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
 
 /**
  * @author Stélio Moiane
@@ -27,6 +26,6 @@ public interface AnswerResource {
 	@GET
 	@Path("{mentorshipUuid}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	JResponse<List<TextAnswer>> fetchAnswersByMentorshipUuid(@PathParam("mentorshipUuid") final String mentorshipUuid)
-			throws BusinessException;
+	JResponse<List<AnswerBeanResource>> fetchAnswersByMentorshipUuid(
+	        @PathParam("mentorshipUuid") final String mentorshipUuid) throws BusinessException;
 }
