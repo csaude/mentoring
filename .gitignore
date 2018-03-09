@@ -26,3 +26,6 @@ mentoring-integ/.settings/
 mentoring-integ/.classpath
 mentoring-integ/.metadata/
 tomcat/*.war
+
+.idea
+**/*.iml

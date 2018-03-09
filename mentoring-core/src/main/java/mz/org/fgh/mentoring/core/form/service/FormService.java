@@ -3,6 +3,7 @@
  */
 package mz.org.fgh.mentoring.core.form.service;
 
+import java.util.Map;
 import java.util.Set;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
@@ -20,5 +21,25 @@ public interface FormService {
 
 	Form createForm(final UserContext userContext, final Form form, Set<Question> questions) throws BusinessException;
 
+	/**
+	 *
+	 * @param userContext
+	 * @param form
+	 * @param questions
+	 * @return
+	 * @throws BusinessException
+	 */
+	Form createForm(final UserContext userContext, final Form form, Map<Integer, Question> questions) throws BusinessException;
+
 	Form updateForm(final UserContext userContext, final Form form, Set<Question> questions) throws BusinessException;
+
+	/**
+	 *
+	 * @param userContext
+	 * @param form
+	 * @param questions
+	 * @return
+	 * @throws BusinessException
+	 */
+	Form updateForm(final UserContext userContext, final Form form, Map<Integer, Question> questions) throws BusinessException;
 }

@@ -56,6 +56,9 @@ public class FormQuestion extends GenericEntity {
 	@Column(name = "MANDATORY", nullable = false)
 	private boolean mandatory;
 
+	@Column(name = "SEQUENCE")
+	private Integer sequence;
+
 	public Form getForm() {
 		return this.form;
 	}
@@ -78,6 +81,14 @@ public class FormQuestion extends GenericEntity {
 
 	public void setMandatory(final boolean mandatory) {
 		this.mandatory = mandatory;
+	}
+
+	public Integer getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(Integer sequence) {
+		this.sequence = sequence;
 	}
 
 	@Override
