@@ -9,6 +9,7 @@ import java.util.List;
 import mz.co.mozview.frameworks.core.dao.GenericDAO;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.form.model.Form;
+import mz.org.fgh.mentoring.core.indicator.model.AnalysisTable;
 import mz.org.fgh.mentoring.core.indicator.model.DuplicatedIndicator;
 import mz.org.fgh.mentoring.core.indicator.model.Indicator;
 import mz.org.fgh.mentoring.core.indicator.model.SampleIndicator;
@@ -40,4 +41,7 @@ public interface IndicatorDAO extends GenericDAO<Indicator, Long> {
 	        final LocalDate referredMonth, final LifeCycleStatus lifeCycleStatus);
 
 	List<DuplicatedIndicator> findDuplicated(final LifeCycleStatus lifeCycleStatus);
+
+	List<AnalysisTable> findAnalysisTableBySelectedFilter(final District district, final LocalDate startDate,
+	        final LocalDate endDate);
 }
