@@ -47,7 +47,7 @@ public class IndicatorServiceImpl extends AbstractService implements IndicatorSe
 			throw new BusinessException(this.propertyValues.getPropValues("cannot.create.indicator.with.no.answers"));
 		}
 
-		final String code = this.indicatorDAO.generateCode("IN", 8, "0");
+		final String code = this.indicatorDAO.generateCode("IND", 8, "0");
 		indicator.setCode(code);
 
 		indicator.setForm(form);

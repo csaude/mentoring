@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
+import mz.org.fgh.mentoring.core.indicator.model.AnalysisTable;
 import mz.org.fgh.mentoring.core.indicator.model.SampleIndicator;
 
 /**
@@ -37,8 +38,14 @@ public interface IndicatorResource {
 	@Path("sample-indicators")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	JResponse<List<SampleIndicator>> findSimpleIndicators(@QueryParam("districtUuid") String districtUuid,
+	JResponse<List<SampleIndicator>> findSampleIndicators(@QueryParam("districtUuid") String districtUuid,
 	        @QueryParam("healthFacilityUuid") String healthFacilityUuid, @QueryParam("formUuid") String formUuid,
 	        @QueryParam("startDate") String startDate, @QueryParam("endDate") String endDate) throws BusinessException;
 
+	@GET
+	@Path("analysis-tables")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	JResponse<List<AnalysisTable>> findAnalysisTable(@QueryParam("districtUuid") String districtUuid,
+	        @QueryParam("startDate") String startDate, @QueryParam("endDate") String endDate) throws BusinessException;
 }
