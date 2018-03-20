@@ -3,6 +3,7 @@
  */
 package mz.org.fgh.mentoring.core.indicator.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -10,6 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -17,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -43,6 +47,13 @@ import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
  * @author Stélio Moiane
  *
  */
+@SqlResultSetMapping(name = SampleIndicator.NAME, classes = {
+        @ConstructorResult(targetClass = SampleIndicator.class, columns = {
+                @ColumnResult(name = "DISTRICT", type = String.class), @ColumnResult(name = "HEALTH_FACILITY"),
+                @ColumnResult(name = "NAME"), @ColumnResult(name = "COLLECTED", type = Long.class),
+                @ColumnResult(name = "REJECTED", type = BigDecimal.class),
+                @ColumnResult(name = "RECEIVED", type = BigDecimal.class),
+                @ColumnResult(name = "TRANSPORTED", type = BigDecimal.class) }) })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @NamedQueries({

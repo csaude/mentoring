@@ -15,7 +15,7 @@ public enum SampleQuestion {
 
 	NUMBER_OF_REJECTED_SAMPLES("afd9e8aa511a4ea796f1f7126a9eca4f"),
 
-	NUMER_OF_RECEIVED_SAMPLES("0dfc7d54c2c64c049f23d3ec49855a81");
+	NUMBER_OF_RECEIVED_SAMPLES("0dfc7d54c2c64c049f23d3ec49855a81");
 
 	private String value;
 

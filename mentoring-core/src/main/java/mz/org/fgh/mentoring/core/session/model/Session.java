@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -28,6 +30,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
+import mz.org.fgh.mentoring.core.session.dao.SessionDAO;
 import mz.org.fgh.mentoring.core.util.LocalDateAdapter;
 import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
 
@@ -35,6 +38,8 @@ import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
  * @author Stélio Moiane
  *
  */
+@NamedQueries({
+        @NamedQuery(name = SessionDAO.QUERY_NAME.findNumberOfSessionsPerDistrict, query = SessionDAO.QUERY.findNumberOfSessionsPerDistrict) })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity

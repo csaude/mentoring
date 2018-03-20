@@ -49,6 +49,6 @@ public class FormQueryServiceImpl implements FormQueryService {
 		return this.formDAO.findSampleIndicators(Arrays.asList(SampleQuestion.NUMBER_OF_COLLECTED_SAMPLES.getValue(),
 		        SampleQuestion.NUMBER_OF_REJECTED_SAMPLES.getValue(),
 		        SampleQuestion.NUMBER_OF_TRANSPORTED_SAMPLES.getValue(),
-		        SampleQuestion.NUMER_OF_RECEIVED_SAMPLES.getValue()), LifeCycleStatus.ACTIVE);
+		        SampleQuestion.NUMBER_OF_RECEIVED_SAMPLES.getValue()), LifeCycleStatus.ACTIVE);
 	}
 }

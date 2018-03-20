@@ -27,7 +27,6 @@ import mz.org.fgh.mentoring.core.form.service.FormService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
-import mz.org.fgh.mentoring.core.mentorship.model.SubmitedSessions;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipQueryService;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
@@ -127,14 +126,5 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 			assertNotNull(mentorship.getForm());
 			assertNotNull(mentorship.getHealthFacility());
 		}
-	}
-
-	@Test
-	public void shouldFindNumberOfSessionsPerHealthFacility() {
-
-		final List<SubmitedSessions> submitedSessions = this.mentorshipQueryService
-		        .findNumberOfSessionsPerHealthFacility(this.getUserContext());
-
-		assertFalse(submitedSessions.isEmpty());
 	}
 }
