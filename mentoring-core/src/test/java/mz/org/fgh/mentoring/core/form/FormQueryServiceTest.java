@@ -119,9 +119,9 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		final Form fetchedFrom = this.formQueryService.fetchByForm(this.getUserContext(), this.createdform);
 
 		assertEquals(this.createdform.getCode(), fetchedFrom.getCode());
-		assertFalse(fetchedFrom.getFromQuestions().isEmpty());
+		assertFalse(fetchedFrom.getFormQuestions().isEmpty());
 
-		fetchedFrom.getFromQuestions().stream().forEach(formQuestion -> {
+		fetchedFrom.getFormQuestions().stream().forEach(formQuestion -> {
 			assertEquals(formQuestion.getForm().getCode(), fetchedFrom.getCode());
 			assertNotNull(formQuestion.getQuestion());
 		});
