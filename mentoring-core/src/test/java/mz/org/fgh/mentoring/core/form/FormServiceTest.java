@@ -5,13 +5,19 @@ package mz.org.fgh.mentoring.core.form;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
 
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
@@ -106,9 +112,9 @@ public class FormServiceTest extends AbstractSpringTest {
 
 		TestUtil.assertCreation(createdForm);
 
-		assertFalse(fetchedByFormId.getFromQuestions().isEmpty());
+		assertFalse(fetchedByFormId.getFormQuestions().isEmpty());
 
-		fetchedByFormId.getFromQuestions().stream().forEach(formQuestion -> {
+		fetchedByFormId.getFormQuestions().stream().forEach(formQuestion -> {
 			assertEquals(formQuestion.getForm().getCode(), this.form.getCode());
 		});
 	}
@@ -125,5 +131,62 @@ public class FormServiceTest extends AbstractSpringTest {
 		this.formService.updateForm(this.getUserContext(), updateForm, questions);
 
 		TestUtil.assertUpdate(updateForm);
+	}
+
+	@Test
+	public void createForm_shouldCreateFormWithSequence() throws BusinessException {
+		// Create a question sequence Map.
+		Map<Integer, Question>  questionsSequence = createAMapOfSequenceToQuestion();
+		final Form createdForm = this.formService.createForm(this.getUserContext(), this.form, questionsSequence);
+
+		final Form fetchedByFormId = this.formDAO.fetchByFormId(createdForm.getId());
+
+		TestUtil.assertCreation(createdForm);
+
+		Set<FormQuestion> formQuestions = fetchedByFormId.getFormQuestions();
+		assertFalse(formQuestions.isEmpty());
+
+		formQuestions.stream().forEach(formQuestion -> {
+			assertEquals(formQuestion.getForm().getCode(), this.form.getCode());
+			assertTrue(formQuestion.getSequence() != null);
+			assertTrue(formQuestion.getSequence() > 0);
+		});
+	}
+
+	@Test
+	public void updateForm_shouldUpdateFormTheQuestionSequenceIfProvided() throws BusinessException {
+
+		Form createdForm = this.formService.createForm(this.getUserContext(), this.form, questions);
+
+		questions.add(this.questionService.createQuestion(this.getUserContext(), newQuestion));
+
+		Form updateForm = this.formDAO.findById(createdForm.getId());
+
+		// Create a question sequence Map.
+		Map<Integer, Question>  questionsSequence = createAMapOfSequenceToQuestion();
+
+		updateForm = this.formService.updateForm(this.getUserContext(), updateForm, questionsSequence);
+
+		Set<FormQuestion> formQuestions = updateForm.getFormQuestions();
+
+		assertNotNull(formQuestions);
+		assertFalse(formQuestions.isEmpty());
+		assertTrue(formQuestions.stream().allMatch(formQuestion -> {
+			Integer questionSequence = formQuestion.getSequence();
+			return questionSequence != null && questionSequence.intValue() > 0;
+		}));
+		TestUtil.assertUpdate(updateForm);
+	}
+
+	private Map<Integer, Question> createAMapOfSequenceToQuestion() {
+		// Create a question sequence Map.
+		Map<Integer, Question>  questionsSequence = new HashMap<>();
+		Iterator<Question> iterator = questions.iterator();
+		Integer sequence = 1;
+		while(iterator.hasNext()) {
+			questionsSequence.put(sequence++, iterator.next());
+		}
+
+		return questionsSequence;
 	}
 }

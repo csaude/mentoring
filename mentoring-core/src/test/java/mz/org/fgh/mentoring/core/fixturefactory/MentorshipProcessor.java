@@ -67,7 +67,7 @@ public class MentorshipProcessor implements Processor {
 		if (object instanceof Mentorship) {
 			final Mentorship mentorship = (Mentorship) object;
 
-			final Set<Question> questions = mentorship.getForm().getFromQuestions().stream()
+			final Set<Question> questions = mentorship.getForm().getFormQuestions().stream()
 			        .map(FormQuestion::getQuestion).collect(Collectors.toSet());
 
 			questions.forEach(question -> {
