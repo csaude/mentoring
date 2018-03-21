@@ -7,7 +7,6 @@ import java.util.List;
 
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
-import mz.org.fgh.mentoring.core.mentorship.model.SubmitedSessions;
 
 /**
  * @author Eusebio Jose Maposse
@@ -18,8 +17,5 @@ public interface MentorshipQueryService {
 	String NAME = "mz.org.fgh.mentoring.core.mentorship.service.MentorshipQueryService";
 
 	public List<Mentorship> fetchBySelectedFilter(final UserContext userContext, String code, final String tutor,
-			final String tutored, final String formName, final String healthFacility);
-
-	public List<SubmitedSessions> findNumberOfSessionsPerHealthFacility(UserContext userContext);
-
+	        final String tutored, final String formName, final String healthFacility);
 }

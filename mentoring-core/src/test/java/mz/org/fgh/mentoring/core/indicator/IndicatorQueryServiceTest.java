@@ -6,7 +6,7 @@ package mz.org.fgh.mentoring.core.indicator;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_COLLECTED_SAMPLES;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_REJECTED_SAMPLES;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_TRANSPORTED_SAMPLES;
-import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMER_OF_RECEIVED_SAMPLES;
+import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_RECEIVED_SAMPLES;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -116,7 +116,7 @@ public class IndicatorQueryServiceTest extends AbstractSpringTest {
 
 		final Question question4 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
 		        new QuestionProcessor());
-		question4.setUuid(NUMER_OF_RECEIVED_SAMPLES.getValue());
+		question4.setUuid(NUMBER_OF_RECEIVED_SAMPLES.getValue());
 		this.questionService.createQuestion(this.getUserContext(), question4);
 
 		final Set<Question> questions = new HashSet<>();
@@ -157,7 +157,7 @@ public class IndicatorQueryServiceTest extends AbstractSpringTest {
 		        this.indicator.getForm(), this.indicator.getReferredMonth(), this.indicator.getReferredMonth());
 
 		assertFalse(sampleIndicators.isEmpty());
-		assertEquals(4, sampleIndicators.size());
+		assertEquals(1, sampleIndicators.size());
 	}
 
 	@Test
