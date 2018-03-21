@@ -3,14 +3,11 @@
  */
 package mz.org.fgh.mentoring.core.indicator.model;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import mz.org.fgh.mentoring.core.util.LocalDateAdapter;
 
 /**
  * @author Stélio Moiane
@@ -20,30 +17,35 @@ import mz.org.fgh.mentoring.core.util.LocalDateAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SampleIndicator {
 
+	public static final String NAME = "SampleIndicator";
+
 	private String district;
 
 	private String healthFacility;
 
 	private String form;
 
-	private String indicator;
+	private BigDecimal collectedSamples;
 
-	@XmlJavaTypeAdapter(LocalDateAdapter.class)
-	private LocalDate referredMonth;
+	private BigDecimal rejectedSamples;
 
-	private Integer value;
+	private BigDecimal receivedSamples;
+
+	private BigDecimal transportedSamples;
 
 	public SampleIndicator() {
 	}
 
 	public SampleIndicator(final String district, final String healthFacility, final String form,
-	        final String indicator, final LocalDate referredMonth, final Integer value) {
+	        final BigDecimal collectedSamples, final BigDecimal rejectedSamples, final BigDecimal receivedSamples,
+	        final BigDecimal transportedSamples) {
 		this.district = district;
 		this.healthFacility = healthFacility;
 		this.form = form;
-		this.indicator = indicator;
-		this.referredMonth = referredMonth;
-		this.value = value;
+		this.collectedSamples = collectedSamples;
+		this.rejectedSamples = rejectedSamples;
+		this.receivedSamples = receivedSamples;
+		this.transportedSamples = transportedSamples;
 	}
 
 	public String getDistrict() {
@@ -58,15 +60,19 @@ public class SampleIndicator {
 		return this.form;
 	}
 
-	public String getIndicator() {
-		return this.indicator;
+	public BigDecimal getCollectedSamples() {
+		return this.collectedSamples;
 	}
 
-	public LocalDate getReferredMonth() {
-		return this.referredMonth;
+	public BigDecimal getRejectedSamples() {
+		return this.rejectedSamples;
 	}
 
-	public Integer getValue() {
-		return this.value;
+	public BigDecimal getReceivedSamples() {
+		return this.receivedSamples;
+	}
+
+	public BigDecimal getTransportedSamples() {
+		return this.transportedSamples;
 	}
 }

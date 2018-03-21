@@ -15,10 +15,8 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
-import mz.co.mozview.frameworks.core.dao.ParamBuilder;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
-import mz.org.fgh.mentoring.core.mentorship.model.SubmitedSessions;
 
 /**
  * @author Eusebio Jose Maposse
@@ -29,7 +27,7 @@ public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implemen
 
 	@Override
 	public List<Mentorship> fetchBySelectedFilter(final String code, final String tutorName, final String tutoredName,
-			final String formName, final String healthFacility, final LifeCycleStatus lifeCycleStatus) {
+	        final String formName, final String healthFacility, final LifeCycleStatus lifeCycleStatus) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Mentorship> createQuery = criteriaBuilder.createQuery(Mentorship.class);
@@ -61,7 +59,7 @@ public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implemen
 
 		if (healthFacility != null) {
 			predicates.add(
-					criteriaBuilder.like(root.get("healthFacility").get("healthFacility"), "%" + healthFacility + "%"));
+			        criteriaBuilder.like(root.get("healthFacility").get("healthFacility"), "%" + healthFacility + "%"));
 		}
 
 		predicates.add(criteriaBuilder.equal(root.get("lifeCycleStatus"), lifeCycleStatus));
@@ -72,11 +70,5 @@ public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implemen
 		final TypedQuery<Mentorship> query = this.getEntityManager().createQuery(createQuery);
 
 		return query.getResultList();
-	}
-
-	@Override
-	public List<SubmitedSessions> findNumberOfSessionsPerHealthFacility(final LifeCycleStatus lifeCycleStatus) {
-		return this.findByNamedQuery(MentorshipDAO.QUERY_NAME.findNumberOfSessionsPerHealthFacility,
-				new ParamBuilder().add("lifeCycleStatus", lifeCycleStatus.name()).process(), SubmitedSessions.class);
 	}
 }
