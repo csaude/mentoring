@@ -19,6 +19,7 @@ import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.answer.model.AnswerHelper;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormQueryService;
+import mz.org.fgh.mentoring.core.indicator.model.AnalysisTable;
 import mz.org.fgh.mentoring.core.indicator.model.Indicator;
 import mz.org.fgh.mentoring.core.indicator.model.SampleIndicator;
 import mz.org.fgh.mentoring.core.indicator.service.IndicatorQueryService;
@@ -112,7 +113,7 @@ public class IndicatorResourceImpl implements IndicatorResource {
 	}
 
 	@Override
-	public JResponse<List<SampleIndicator>> findSimpleIndicators(final String districtUuid,
+	public JResponse<List<SampleIndicator>> findSampleIndicators(final String districtUuid,
 	        final String healthFacilityUuid, final String formUuid, final String startDate, final String endDate)
 	        throws BusinessException {
 
@@ -123,5 +124,17 @@ public class IndicatorResourceImpl implements IndicatorResource {
 		        indicatorHelper.getLocalDate(startDate), indicatorHelper.getLocalDate(endDate));
 
 		return JResponse.ok(sampleIndicators).build();
+	}
+
+	@Override
+	public JResponse<List<AnalysisTable>> findAnalysisTable(final String districtUuid, final String startDate,
+	        final String endDate) throws BusinessException {
+		final IndicatorHelper indicatorHelper = new IndicatorHelper(districtUuid, null, null);
+
+		final List<AnalysisTable> analysisTables = this.indicatorQueryService.findAnalysisTableBySelectedFilter(
+		        indicatorHelper.getDistrict(), indicatorHelper.getLocalDate(startDate),
+		        indicatorHelper.getLocalDate(endDate));
+
+		return JResponse.ok(analysisTables).build();
 	}
 }
