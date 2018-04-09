@@ -4,9 +4,9 @@
 package mz.org.fgh.mentoring.core.indicator;
 
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_COLLECTED_SAMPLES;
+import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_RECEIVED_SAMPLES;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_REJECTED_SAMPLES;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_TRANSPORTED_SAMPLES;
-import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_RECEIVED_SAMPLES;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -32,6 +32,7 @@ import mz.org.fgh.mentoring.core.fixturefactory.IndicatorTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionProcessor;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.indicator.model.AnalysisTable;
 import mz.org.fgh.mentoring.core.indicator.model.DuplicatedIndicator;
 import mz.org.fgh.mentoring.core.indicator.model.Indicator;
 import mz.org.fgh.mentoring.core.indicator.model.SampleIndicator;
@@ -190,5 +191,15 @@ public class IndicatorQueryServiceTest extends AbstractSpringTest {
 
 		assertFalse(duplicatedIndicators.isEmpty());
 		assertTrue(duplicatedIndicators.size() == 1);
+	}
+
+	@Test
+	public void shouldFindAnalysisTableBySelectedFilter() {
+
+		final List<AnalysisTable> analysisTables = this.indicatorQueryService.findAnalysisTableBySelectedFilter(
+		        this.indicator.getHealthFacility().getDistrict(), this.indicator.getReferredMonth(),
+		        this.indicator.getReferredMonth());
+
+		assertFalse(analysisTables.isEmpty());
 	}
 }

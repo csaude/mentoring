@@ -21,6 +21,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SqlResultSetMapping;
+import javax.persistence.SqlResultSetMappings;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -47,13 +48,23 @@ import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
  * @author Stélio Moiane
  *
  */
-@SqlResultSetMapping(name = SampleIndicator.NAME, classes = {
-        @ConstructorResult(targetClass = SampleIndicator.class, columns = {
-                @ColumnResult(name = "DISTRICT", type = String.class), @ColumnResult(name = "HEALTH_FACILITY"),
-                @ColumnResult(name = "NAME"), @ColumnResult(name = "COLLECTED", type = Long.class),
-                @ColumnResult(name = "REJECTED", type = BigDecimal.class),
-                @ColumnResult(name = "RECEIVED", type = BigDecimal.class),
-                @ColumnResult(name = "TRANSPORTED", type = BigDecimal.class) }) })
+@SqlResultSetMappings({
+        @SqlResultSetMapping(name = SampleIndicator.NAME, classes = {
+                @ConstructorResult(targetClass = SampleIndicator.class, columns = {
+                        @ColumnResult(name = "DISTRICT", type = String.class), @ColumnResult(name = "HEALTH_FACILITY"),
+                        @ColumnResult(name = "NAME"), @ColumnResult(name = "COLLECTED", type = Long.class),
+                        @ColumnResult(name = "REJECTED", type = BigDecimal.class),
+                        @ColumnResult(name = "RECEIVED", type = BigDecimal.class),
+                        @ColumnResult(name = "TRANSPORTED", type = BigDecimal.class), }) }),
+        @SqlResultSetMapping(name = AnalysisTable.NAME, classes = {
+                @ConstructorResult(targetClass = AnalysisTable.class, columns = { @ColumnResult(name = "NAME"),
+                        @ColumnResult(name = "COLLECTED_SAMPLES", type = Long.class),
+                        @ColumnResult(name = "REFERRED_SAMPLES", type = BigDecimal.class),
+                        @ColumnResult(name = "REJECTED_SAMPLES", type = BigDecimal.class),
+                        @ColumnResult(name = "RECEIVED_RESULT", type = BigDecimal.class),
+                        @ColumnResult(name = "TRANSPORTED", type = BigDecimal.class),
+                        @ColumnResult(name = "REJECTED", type = BigDecimal.class),
+                        @ColumnResult(name = "RESULT", type = BigDecimal.class) }) }) })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @NamedQueries({
