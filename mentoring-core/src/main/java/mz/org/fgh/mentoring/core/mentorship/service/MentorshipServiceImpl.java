@@ -19,7 +19,9 @@ import mz.org.fgh.mentoring.core.career.model.Career;
 import mz.org.fgh.mentoring.core.career.service.CareerQueryService;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormQueryService;
+import mz.org.fgh.mentoring.core.location.model.Cabinet;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
+import mz.org.fgh.mentoring.core.location.service.CabinetQueryService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityQueryService;
 import mz.org.fgh.mentoring.core.mentorship.dao.MentorshipDAO;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
@@ -72,6 +74,9 @@ public class MentorshipServiceImpl extends AbstractService implements Mentorship
 
 	@Inject
 	private QuestionQueryService questionQueryService;
+
+	@Inject
+	private CabinetQueryService cabinetQueryService;
 
 	@Override
 	public Mentorship createMentorship(final UserContext userContext, final Mentorship mentorship)
@@ -132,11 +137,14 @@ public class MentorshipServiceImpl extends AbstractService implements Mentorship
 
 				final Tutored tutored = this.getTutored(userContext, mentorship);
 
+				final Cabinet cabinet = this.cabinetQueryService.findCabinetByUuid(mentorship.getCabinet().getUuid());
+
 				mentorship.setSession(session);
 				mentorship.setForm(form);
 				mentorship.setHealthFacility(healthFacility);
 				mentorship.setTutor(tutor);
 				mentorship.setTutored(tutored);
+				mentorship.setCabinet(cabinet);
 
 				this.createMentorship(userContext, mentorship);
 			}
