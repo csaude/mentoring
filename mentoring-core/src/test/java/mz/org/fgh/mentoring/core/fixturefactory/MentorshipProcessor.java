@@ -12,6 +12,7 @@ import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.form.service.FormService;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
+import mz.org.fgh.mentoring.core.location.service.CabinetService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
@@ -45,11 +46,13 @@ public class MentorshipProcessor implements Processor {
 
 	private final TutoredService tutoredService;
 
+	private final CabinetService cabinetService;
+
 	public MentorshipProcessor(final UserContext userContext, final FormService formService,
 	        final CareerService careerService, final ProgrammaticAreaService programmaticAreaService,
 	        final DistrictService districtService, final HealthFacilityService heathFacilityService,
-	        final QuestionService questionService, final TutorService tutorService,
-	        final TutoredService tutoredService) {
+	        final QuestionService questionService, final TutorService tutorService, final TutoredService tutoredService,
+	        final CabinetService cabinetService) {
 		this.userContext = userContext;
 		this.formService = formService;
 		this.careerService = careerService;
@@ -59,6 +62,7 @@ public class MentorshipProcessor implements Processor {
 		this.questionService = questionService;
 		this.tutorService = tutorService;
 		this.tutoredService = tutoredService;
+		this.cabinetService = cabinetService;
 	}
 
 	@Override
@@ -93,8 +97,10 @@ public class MentorshipProcessor implements Processor {
 				this.tutorService.createTutor(this.userContext, mentorship.getTutor());
 				this.programmaticAreaService.createProgrammaticArea(this.userContext,
 				        mentorship.getForm().getProgrammaticArea());
+				this.cabinetService.createCabinet(this.userContext, mentorship.getCabinet());
 
 				this.formService.createForm(this.userContext, mentorship.getForm(), questions);
+
 			}
 			catch (final BusinessException e) {
 				e.printStackTrace();
