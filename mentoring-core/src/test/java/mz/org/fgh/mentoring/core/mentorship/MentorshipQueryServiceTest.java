@@ -24,6 +24,7 @@ import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.location.service.CabinetService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
@@ -71,6 +72,9 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 	@Inject
 	private MentorshipQueryService mentorshipQueryService;
 
+	@Inject
+	private CabinetService cabinetService;
+
 	private Mentorship mentorship;
 
 	private Question question;
@@ -85,6 +89,7 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutored().getCareer());
 		this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor());
 		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
+		this.cabinetService.createCabinet(this.getUserContext(), this.mentorship.getCabinet());
 
 		this.question = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
 		this.questionService.createQuestion(this.getUserContext(), this.question);
