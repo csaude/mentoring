@@ -12,6 +12,7 @@ import br.com.six2six.fixturefactory.Rule;
 import mz.co.mozview.frameworks.core.fixtureFactory.TemplateLoader;
 import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
 import mz.org.fgh.mentoring.core.form.model.Form;
+import mz.org.fgh.mentoring.core.location.model.Cabinet;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
@@ -38,6 +39,7 @@ public class MentorshipTemplate implements TemplateLoader {
 				this.add("form", this.one(Form.class, FormTemplate.VALID));
 				this.add("healthFacility", this.one(HealthFacility.class, HealthFacilityTemplate.VALID));
 				this.add("performedDate", LocalDate.now());
+				this.add("cabinet", this.one(Cabinet.class, CabinetTemplate.VALID));
 			}
 		});
 

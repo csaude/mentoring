@@ -28,6 +28,7 @@ import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.SessionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.location.service.CabinetService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.mentorship.dao.MentorshipDAO;
@@ -77,6 +78,9 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 	@Inject
 	private DistrictService districtService;
 
+	@Inject
+	private CabinetService cabinetService;
+
 	private Mentorship mentorship;
 
 	private Question question;
@@ -91,6 +95,7 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutored().getCareer());
 		this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor());
 		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
+		this.cabinetService.createCabinet(this.getUserContext(), this.mentorship.getCabinet());
 
 		this.question = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
 		this.questionService.createQuestion(this.getUserContext(), this.question);
@@ -148,7 +153,7 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 		List<Session> sessions = EntityFactory.gimme(Session.class, 10, SessionTemplate.VALID,
 		        new MentorshipProcessor(this.getUserContext(), this.formService, this.careerService,
 		                this.programmaticAreaService, this.districtService, this.heathFacilityService,
-		                this.questionService, this.tutorService, this.tutoredService));
+		                this.questionService, this.tutorService, this.tutoredService, this.cabinetService));
 
 		sessions = this.mentorshipService.synchronizeMentorships(this.getUserContext(), sessions);
 

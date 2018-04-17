@@ -32,6 +32,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.form.model.Form;
+import mz.org.fgh.mentoring.core.location.model.Cabinet;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.session.model.Session;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
@@ -94,6 +95,11 @@ public class Mentorship extends GenericEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "SESSION_ID")
 	private Session session;
+
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CABINET_ID")
+	private Cabinet cabinet;
 
 	@XmlTransient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mentorship")
@@ -174,6 +180,14 @@ public class Mentorship extends GenericEntity {
 		this.session = session;
 	}
 
+	public Cabinet getCabinet() {
+		return this.cabinet;
+	}
+
+	public void setCabinet(final Cabinet cabinet) {
+		this.cabinet = cabinet;
+	}
+
 	public List<Answer> getAnswers() {
 		return Collections.unmodifiableList(this.answers);
 	}
@@ -190,12 +204,12 @@ public class Mentorship extends GenericEntity {
 	@Override
 	public boolean equals(final Object that) {
 		return EqualsBuilder.reflectionEquals(this, that, "tutor", "tutored", "form", "healthFacility", "session",
-		        "answers", "answerHelpers");
+		        "answers", "answerHelpers", "cabinet");
 	}
 
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this, "tutor", "tutored", "form", "healthFacility", "session",
-		        "answers", "answerHelpers");
+		        "answers", "answerHelpers", "cabinet");
 	}
 }
