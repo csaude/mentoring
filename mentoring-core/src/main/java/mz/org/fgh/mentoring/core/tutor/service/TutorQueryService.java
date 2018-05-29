@@ -19,7 +19,9 @@ public interface TutorQueryService {
 	String NAME = "mz.org.fgh.mentoring.core.tutor.service.TutorQueryService";
 
 	List<Tutor> findTutorsBySelectedFilter(final UserContext userContext, final String code, final String name,
-			final String surname, CareerType careerType, final String phoneNumber) throws BusinessException;
+	        final String surname, CareerType careerType, final String phoneNumber) throws BusinessException;
 
 	Tutor fetchTutorByUuid(final UserContext userContext, final String uuid) throws BusinessException;
+
+	Tutor fetchTutorByEmail(final UserContext userContext, final String email) throws BusinessException;
 }

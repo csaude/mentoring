@@ -21,14 +21,18 @@ public interface TutorDAO extends GenericDAO<Tutor, Long> {
 
 	class QUERY {
 		public static final String fetchByUuid = "SELECT t FROM Tutor t INNER JOIN FETCH t.career c WHERE t.uuid = :uuid";
+		public static final String fetchByEmail = "SELECT t FROM Tutor t INNER JOIN FETCH t.career WHERE t.email = :email AND t.lifeCycleStatus = :lifeCycleStatus";
 	}
 
 	class QUERY_NAME {
 		public static final String fetchByUuid = "Tutor.fetchByUuid";
+		public static final String fetchByEmail = "Tutor.findByEmail";
 	}
 
 	List<Tutor> findBySelectedFilter(final String code, final String name, final String surname,
-			final String phoneNumber, CareerType careerType, LifeCycleStatus lifeCycleStatus);
+	        final String phoneNumber, CareerType careerType, LifeCycleStatus lifeCycleStatus);
 
 	Tutor fetchByUuid(final String uuid);
+
+	Tutor fecthByEmail(final String email, final LifeCycleStatus lifeCycleStatus);
 }

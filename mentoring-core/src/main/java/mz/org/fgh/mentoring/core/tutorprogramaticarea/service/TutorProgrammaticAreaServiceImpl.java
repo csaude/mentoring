@@ -13,6 +13,7 @@ import mz.co.mozview.frameworks.core.email.MailSenderService;
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.service.AbstractService;
 import mz.co.mozview.frameworks.core.util.PropertyValues;
+import mz.co.mozview.frameworks.core.util.RandomStringFactory;
 import mz.co.mozview.frameworks.core.webservices.adapter.Entry;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.co.mozview.frameworks.core.webservices.service.ClientWS;
@@ -48,6 +49,8 @@ public class TutorProgrammaticAreaServiceImpl extends AbstractService implements
 
 	@Inject
 	private MailSenderService mailSenderService;
+
+	private static final int PASSWORD_LENTH = 10;
 
 	@Override
 	public TutorProgrammaticArea mapTutorToProgramaticArea(final UserContext userContext,
@@ -89,7 +92,7 @@ public class TutorProgrammaticAreaServiceImpl extends AbstractService implements
 
 		final Map<String, Object> params = new HashMap<>();
 		params.put("tutor", tutor);
-		params.put("password", this.propertyValues.getPropValues("tutor.admin.pass"));
+		params.put("password", RandomStringFactory.generate(PASSWORD_LENTH).toLowerCase());
 
 		this.mailSenderService.send(params);
 	}

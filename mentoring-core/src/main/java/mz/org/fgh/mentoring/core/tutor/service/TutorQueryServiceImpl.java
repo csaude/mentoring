@@ -33,7 +33,7 @@ public class TutorQueryServiceImpl implements TutorQueryService {
 
 	@Override
 	public List<Tutor> findTutorsBySelectedFilter(final UserContext userContext, final String code, final String name,
-			final String surname, final CareerType careerType, final String phoneNumber) throws BusinessException {
+	        final String surname, final CareerType careerType, final String phoneNumber) throws BusinessException {
 		return this.tutorDAO.findBySelectedFilter(code, name, surname, phoneNumber, careerType, LifeCycleStatus.ACTIVE);
 	}
 
@@ -44,7 +44,23 @@ public class TutorQueryServiceImpl implements TutorQueryService {
 
 		try {
 			tutor = this.tutorDAO.fetchByUuid(uuid);
-		} catch (final NoResultException ex) {
+		}
+		catch (final NoResultException ex) {
+			throw new BusinessException(this.propertyValues.getPropValues("no.result.found"));
+		}
+
+		return tutor;
+	}
+
+	@Override
+	public Tutor fetchTutorByEmail(final UserContext userContext, final String email) throws BusinessException {
+
+		Tutor tutor = null;
+
+		try {
+			tutor = this.tutorDAO.fecthByEmail(email, LifeCycleStatus.ACTIVE);
+		}
+		catch (final NoResultException ex) {
 			throw new BusinessException(this.propertyValues.getPropValues("no.result.found"));
 		}
 
