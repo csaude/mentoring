@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
+import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.career.model.CareerType;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
@@ -37,9 +38,9 @@ public interface TutorResource {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Tutor>> findTutors(@QueryParam("code") final String code,
-			@QueryParam("name") final String name, @QueryParam("surname") final String surname,
-			@QueryParam("careerType") final CareerType careerType, @QueryParam("phoneNumber") final String phoneNumber)
-			throws BusinessException;
+	        @QueryParam("name") final String name, @QueryParam("surname") final String surname,
+	        @QueryParam("careerType") final CareerType careerType, @QueryParam("phoneNumber") final String phoneNumber)
+	        throws BusinessException;
 
 	@PUT
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -50,4 +51,10 @@ public interface TutorResource {
 	@Path("{uuid}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<Tutor> fetchTutorByUuid(@PathParam("uuid") final String uuid) throws BusinessException;
+
+	@PUT
+	@Path("reset-password")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<Tutor> resetPassword(final UserContext userContext) throws BusinessException;
 }

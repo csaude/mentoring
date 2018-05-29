@@ -18,4 +18,6 @@ public interface TutorService {
 	Tutor createTutor(final UserContext userContext, final Tutor tutor) throws BusinessException;
 
 	Tutor updateTutor(final UserContext userContext, final Tutor tutor) throws BusinessException;
+
+	Tutor resetPassword(final UserContext userContext, final Tutor tutor) throws BusinessException;
 }
