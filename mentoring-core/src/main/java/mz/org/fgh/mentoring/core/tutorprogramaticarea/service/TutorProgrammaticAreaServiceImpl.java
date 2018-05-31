@@ -78,13 +78,13 @@ public class TutorProgrammaticAreaServiceImpl extends AbstractService implements
 			this.client.postJSON(this.environment.getProperty("account.manager.service.url"),
 			        this.getUser(userContext, tutor));
 
-			this.sendTutorEmail(tutor);
+			this.sendTutorEmail(userContext, tutor);
 		}
 
 		return mapTutorProgramaticArea;
 	}
 
-	private void sendTutorEmail(final Tutor tutor) throws BusinessException {
+	private void sendTutorEmail(final UserContext userContext, final Tutor tutor) throws BusinessException {
 
 		this.mailSenderService.subject(this.propertyValues.getPropValues("tutor.email.subject"));
 		this.mailSenderService.to(tutor.getEmail());
@@ -92,7 +92,7 @@ public class TutorProgrammaticAreaServiceImpl extends AbstractService implements
 
 		final Map<String, Object> params = new HashMap<>();
 		params.put("tutor", tutor);
-		params.put("password", RandomStringFactory.generate(PASSWORD_LENTH).toLowerCase());
+		params.put("password", userContext.getPassword());
 
 		this.mailSenderService.send(params);
 	}
@@ -102,7 +102,7 @@ public class TutorProgrammaticAreaServiceImpl extends AbstractService implements
 		final UserContext context = new UserContext();
 		context.setFullName(tutor.getName() + " " + tutor.getSurname());
 		context.setUsername(tutor.getName().toLowerCase() + "." + tutor.getSurname().toLowerCase());
-		context.setPassword(this.propertyValues.getPropValues("tutor.admin.pass"));
+		context.setPassword(RandomStringFactory.generate(PASSWORD_LENTH).toLowerCase());
 		context.setEmail(tutor.getEmail());
 		context.setPhoneNumber(tutor.getPhoneNumber());
 		context.setUuid(userContext.getUuid());
