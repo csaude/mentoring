@@ -75,16 +75,17 @@ public class TutorProgrammaticAreaServiceImpl extends AbstractService implements
 			tutor.setAsUser();
 			this.tutorService.updateTutor(userContext, tutor);
 
-			this.client.postJSON(this.environment.getProperty("account.manager.service.url"),
-			        this.getUser(userContext, tutor));
+			final UserContext user = this.getUser(userContext, tutor);
 
-			this.sendTutorEmail(userContext, tutor);
+			this.client.postJSON(this.environment.getProperty("account.manager.service.url"), user);
+
+			this.sendTutorEmail(user, tutor);
 		}
 
 		return mapTutorProgramaticArea;
 	}
 
-	private void sendTutorEmail(final UserContext userContext, final Tutor tutor) throws BusinessException {
+	private void sendTutorEmail(final UserContext user, final Tutor tutor) throws BusinessException {
 
 		this.mailSenderService.subject(this.propertyValues.getPropValues("tutor.email.subject"));
 		this.mailSenderService.to(tutor.getEmail());
@@ -92,7 +93,7 @@ public class TutorProgrammaticAreaServiceImpl extends AbstractService implements
 
 		final Map<String, Object> params = new HashMap<>();
 		params.put("tutor", tutor);
-		params.put("password", userContext.getPassword());
+		params.put("password", user.getPassword());
 
 		this.mailSenderService.send(params);
 	}
