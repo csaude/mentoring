@@ -19,4 +19,4 @@ RUN curl -k -L https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE
     rm /tmp/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz; \
     apk del curl unzip && rm -f /var/cache/apk/*;
 
-CMD dockerize -wait tcp://mysql-mentoring:3306 -timeout 300s /usr/local/tomcat/bin/catalina.sh run
+#CMD dockerize -wait tcp://mysql-mentoring:3306 -timeout 300s /usr/local/tomcat/bin/catalina.sh run
