@@ -1,0 +1,29 @@
+version: '2'
+services:
+    mysql-mentoring-test:
+       build: mysql
+       ports: 
+        - "3310:3306"
+       network_mode: bridge
+       container_name: mysql-mentoring-test
+       volumes:
+         - /opt/data/webapp/test/mentoring:/usr/local/mysql
+       hostname: mysql-mentoring-test
+       restart: unless-stopped
+    tomcat-mentoring-test:
+       build: tomcat
+      #  ports:
+      #    - "8080:8080"
+      #    - "8000:8000"
+       network_mode: bridge
+       external_links:
+         - tomcat-account-test
+       container_name: tomcat-mentoring-test
+       depends_on:
+         - mysql-mentoring-test
+       links:
+         - mysql-mentoring-test
+       volumes: 
+         - /opt/data/webapp/test/mentoring:/usr/local/tomcat/webapps
+       hostname: tomcat-mentoring-test
+       restart: unless-stopped
