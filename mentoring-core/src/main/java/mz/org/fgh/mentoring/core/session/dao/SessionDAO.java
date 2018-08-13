@@ -15,6 +15,7 @@ import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.session.model.PerformedSession;
 import mz.org.fgh.mentoring.core.session.model.Session;
 import mz.org.fgh.mentoring.core.session.model.SubmitedSessions;
+import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
 /**
  * @author Stélio Moiane
@@ -22,9 +23,9 @@ import mz.org.fgh.mentoring.core.session.model.SubmitedSessions;
  */
 public interface SessionDAO extends GenericDAO<Session, Long> {
 
-	public static final String NAME = "mz.org.fgh.mentoring.core.session.dao.SessionDAO";
+	String NAME = "mz.org.fgh.mentoring.core.session.dao.SessionDAO";
 
-	public List<PerformedSession> findBySelectedFilter(final District distric, final HealthFacility healthFacility,
+	List<PerformedSession> findBySelectedFilter(final District distric, final HealthFacility healthFacility,
 	        final ProgrammaticArea programmaticArea, final Form form, final LocalDate startDate,
 	        final LocalDate endDate, final LifeCycleStatus lifeCycleStatus);
 
@@ -36,5 +37,7 @@ public interface SessionDAO extends GenericDAO<Session, Long> {
 		public static final String findNumberOfSessionsPerDistrict = "SubmitedSessions.findNumberOfSessionsPerDistrict";
 	}
 
-	public List<SubmitedSessions> findNumberOfSessionsPerDistrict(LifeCycleStatus lifeCycleStatus);
+	List<SubmitedSessions> findNumberOfSessionsPerDistrict(LifeCycleStatus lifeCycleStatus);
+
+	List<PerformedSession> findByTutorAndForm(Tutor tutor, Form form, LocalDate startDate, LocalDate endDate);
 }

@@ -16,12 +16,15 @@ import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.career.model.Career;
 import mz.org.fgh.mentoring.core.career.service.CareerQueryService;
+import mz.org.fgh.mentoring.core.form.model.FormTarget;
+import mz.org.fgh.mentoring.core.form.service.FormTargetQueryService;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.formquestion.service.FormQuestionQueryService;
 import mz.org.fgh.mentoring.core.location.model.Cabinet;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.location.service.CabinetQueryService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityQueryService;
+import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 import mz.org.fgh.mentoring.core.tutored.service.TutoredQueryService;
 
@@ -48,6 +51,9 @@ public class MetadataResourceImpl implements MetadataResource {
 	@Inject
 	private CabinetQueryService cabinetQueryService;
 
+	@Inject
+	private FormTargetQueryService formTargetQueryService;
+
 	@Override
 	public JResponse<Metadata> loadMetadata(final String uuid) throws BusinessException {
 
@@ -65,7 +71,13 @@ public class MetadataResourceImpl implements MetadataResource {
 
 		final List<Cabinet> cabinets = this.cabinetQueryService.findAllCabinets();
 
-		final Metadata metadata = new Metadata(healthFacilities, careers, formQuestions, tutoreds, cabinets);
+		final Tutor tutor = new Tutor();
+		tutor.setUuid(uuid);
+
+		final List<FormTarget> formTargets = this.formTargetQueryService.findFormTargetByTutor(tutor);
+
+		final Metadata metadata = new Metadata(healthFacilities, careers, formQuestions, tutoreds, cabinets,
+		        formTargets);
 
 		return JResponse.ok(metadata).build();
 	}

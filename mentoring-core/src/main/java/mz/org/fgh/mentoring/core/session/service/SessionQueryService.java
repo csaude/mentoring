@@ -13,6 +13,7 @@ import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.session.model.PerformedSession;
 import mz.org.fgh.mentoring.core.session.model.SubmitedSessions;
+import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
 /**
  * @author Stélio Moiane
@@ -24,5 +25,8 @@ public interface SessionQueryService {
 	        final HealthFacility healthFacility, final ProgrammaticArea programmaticArea, final Form form,
 	        final LocalDate startDate, final LocalDate endDate);
 
-	public List<SubmitedSessions> findNumberOfSessionsPerDistrict(UserContext userContext);
+	List<SubmitedSessions> findNumberOfSessionsPerDistrict(UserContext userContext);
+
+	List<PerformedSession> findPerformedSessionsByTutorAndForm(Tutor tutor, Form form, LocalDate startDate,
+	        LocalDate endDate);
 }

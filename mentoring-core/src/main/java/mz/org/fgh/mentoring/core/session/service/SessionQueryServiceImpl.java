@@ -19,6 +19,7 @@ import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.session.dao.SessionDAO;
 import mz.org.fgh.mentoring.core.session.model.PerformedSession;
 import mz.org.fgh.mentoring.core.session.model.SubmitedSessions;
+import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
 /**
  * @author Stélio Moiane
@@ -44,5 +45,12 @@ public class SessionQueryServiceImpl implements SessionQueryService {
 	@Override
 	public List<SubmitedSessions> findNumberOfSessionsPerDistrict(final UserContext userContext) {
 		return this.sessionDAO.findNumberOfSessionsPerDistrict(LifeCycleStatus.ACTIVE);
+	}
+
+	@Override
+	public List<PerformedSession> findPerformedSessionsByTutorAndForm(final Tutor tutor, final Form form,
+	        final LocalDate startDate, final LocalDate endDate) {
+
+		return this.sessionDAO.findByTutorAndForm(tutor, form, startDate, endDate);
 	}
 }
