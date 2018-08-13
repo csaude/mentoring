@@ -20,11 +20,13 @@ public interface CareerQueryService {
 	String NAME = "mz.org.fgh.mentoring.core.career.service.CareerQueryService";
 
 	List<Career> findCareersByCareerType(final UserContext userContext, final CareerType careerType)
-			throws BusinessException;
+	        throws BusinessException;
 
 	Career findByCareerId(final UserContext userContext, final Long careerId) throws BusinessException;
 
 	List<Career> findAllCareers(final UserContext userContext) throws BshExecutionException;
 
 	Career findCarrerByuuid(final UserContext userContext, final String uuid) throws BusinessException;
+
+	Career findCareerByTypeAndPosition(final CareerType careerType, final String position) throws BusinessException;
 }

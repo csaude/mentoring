@@ -31,6 +31,12 @@ public class PerformedSession {
 		this.totalPerformed = totalPerformed;
 	}
 
+	public PerformedSession(final String district, final String healthFacility, final Long totalPerformed) {
+		this.district = district;
+		this.healthFacility = healthFacility;
+		this.totalPerformed = totalPerformed;
+	}
+
 	public String getDistrict() {
 		return this.district;
 	}

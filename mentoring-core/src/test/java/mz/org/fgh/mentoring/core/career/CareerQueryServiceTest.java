@@ -5,6 +5,7 @@ package mz.org.fgh.mentoring.core.career;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -32,21 +33,21 @@ public class CareerQueryServiceTest extends AbstractSpringTest {
 	@Inject
 	private CareerQueryService careerQueryService;
 
-	private Career carrer;
+	private Career career;
 
 	@Override
 	public void setUp() throws BusinessException {
-		this.carrer = EntityFactory.gimme(Career.class, CareerTemplate.VALID);
-		this.carrerService.createCareer(this.getUserContext(), this.carrer);
+		this.career = EntityFactory.gimme(Career.class, CareerTemplate.VALID);
+		this.carrerService.createCareer(this.getUserContext(), this.career);
 	}
 
 	@Test
 	public void shouldFindCarrersByCarrerType() throws BusinessException {
 		final List<Career> carres = this.careerQueryService.findCareersByCareerType(this.getUserContext(),
-				this.carrer.getCareerType());
+		        this.career.getCareerType());
 
 		assertFalse(carres.isEmpty());
-		carres.forEach(carrer -> assertEquals(carrer.getCareerType(), this.carrer.getCareerType()));
+		carres.forEach(carrer -> assertEquals(carrer.getCareerType(), this.career.getCareerType()));
 	}
 
 	@Test
@@ -54,5 +55,16 @@ public class CareerQueryServiceTest extends AbstractSpringTest {
 		final List<Career> carrers = this.careerQueryService.findAllCareers(this.getUserContext());
 
 		assertFalse(carrers.isEmpty());
+	}
+
+	@Test
+	public void shouldFindCareerByTypeAndPosition() throws BusinessException {
+
+		final Career careerFound = this.careerQueryService.findCareerByTypeAndPosition(this.career.getCareerType(),
+		        this.career.getPosition());
+
+		assertNotNull(careerFound);
+		assertEquals(this.career.getCareerType(), careerFound.getCareerType());
+		assertEquals(this.career.getPosition(), careerFound.getPosition());
 	}
 }
