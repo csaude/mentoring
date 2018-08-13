@@ -26,7 +26,8 @@ public class FormTemplate implements TemplateLoader {
 				this.add("name", this.random("MMT", "DFR", "HRT"));
 				this.add("programmaticArea", this.one(ProgrammaticArea.class, "valid"));
 				this.add("formType", this.random(FormType.MENTORING, FormType.INDICATORS));
-				this.add("target", this.random(Integer.class, this.range(1, 10)));
+				this.add("targetPatient", this.random(Integer.class, this.range(1, 10)));
+				this.add("targetFile", this.random(Integer.class, this.range(1, 10)));
 				this.add("formQuestions", this.has(5).of(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM));
 			}
 		});

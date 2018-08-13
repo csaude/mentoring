@@ -74,8 +74,14 @@ public class Form extends GenericEntity {
 	private Set<FormQuestion> formQuestions;
 
 	@NotNull
-	@Column(name = "TARGET", nullable = false)
-	private Integer target;
+	@Column(name = "TARGET_PATIENT", nullable = false)
+	private Integer targetPatient;
+
+	@NotNull
+	@Column(name = "TARGET_FILE", nullable = false)
+	private Integer targetFile;
+
+
 
 	public String getCode() {
 		return this.code;
@@ -121,12 +127,20 @@ public class Form extends GenericEntity {
 		return Collections.unmodifiableSet(this.formQuestions);
 	}
 
-	public Integer getTarget() {
-		return this.target;
+	public Integer getTargetPatient() {
+		return this.targetPatient;
 	}
 
-	public void setTarget(final Integer target) {
-		this.target = target;
+	public void setTargetPatient(final Integer targetPatient) {
+		this.targetPatient = targetPatient;
+	}
+
+	public Integer getTargetFile() {
+		return targetFile;
+	}
+
+	public void setTargetFile(Integer targetFile) {
+		this.targetFile = targetFile;
 	}
 
 	@Override
