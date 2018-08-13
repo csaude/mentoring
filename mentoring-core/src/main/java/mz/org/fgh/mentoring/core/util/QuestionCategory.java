@@ -47,5 +47,7 @@ public enum QuestionCategory {
 
 	COMUNICATION,
 
+	FEEDBACK_QUESTIONS,
+
 	NA;
 }
