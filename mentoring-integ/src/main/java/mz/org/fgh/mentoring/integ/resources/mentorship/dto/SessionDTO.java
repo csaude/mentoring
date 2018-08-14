@@ -17,6 +17,7 @@ import mz.org.fgh.mentoring.core.location.model.District;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.session.model.Session;
+import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.util.LocalDateAdapter;
 import mz.org.fgh.mentoring.integ.resources.mentorship.MentorshipHelper;
 
@@ -46,6 +47,8 @@ public class SessionDTO {
 
 	private LocalDateAdapter localDateAdapter;
 
+	private String tutorUuid;
+
 	public SessionDTO() {
 	}
 
@@ -56,6 +59,15 @@ public class SessionDTO {
 		this.healthFacilityUuid = healthFacilityUuid;
 		this.formUuid = formUuid;
 		this.programmaticAreaUuid = programmaticAreaUuid;
+		this.startDate = startDate;
+		this.endDate = endDate;
+
+		this.localDateAdapter = new LocalDateAdapter();
+	}
+
+	public SessionDTO(final String tutorUuid, final String formUuid, final String startDate, final String endDate) {
+		this.tutorUuid = tutorUuid;
+		this.formUuid = formUuid;
 		this.startDate = startDate;
 		this.endDate = endDate;
 
@@ -143,5 +155,17 @@ public class SessionDTO {
 		}
 
 		return this.localDateAdapter.unmarshal(this.endDate);
+	}
+
+	public Tutor getTutor() {
+
+		if (this.tutorUuid == null) {
+			return null;
+		}
+
+		final Tutor tutor = new Tutor();
+		tutor.setUuid(this.tutorUuid);
+
+		return tutor;
 	}
 }

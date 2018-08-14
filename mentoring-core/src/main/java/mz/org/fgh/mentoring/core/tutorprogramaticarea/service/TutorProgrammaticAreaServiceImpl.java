@@ -13,6 +13,7 @@ import mz.co.mozview.frameworks.core.email.MailSenderService;
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.service.AbstractService;
 import mz.co.mozview.frameworks.core.util.PropertyValues;
+import mz.co.mozview.frameworks.core.util.RandomStringFactory;
 import mz.co.mozview.frameworks.core.webservices.adapter.Entry;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.co.mozview.frameworks.core.webservices.service.ClientWS;
@@ -49,6 +50,8 @@ public class TutorProgrammaticAreaServiceImpl extends AbstractService implements
 	@Inject
 	private MailSenderService mailSenderService;
 
+	private static final int PASSWORD_LENTH = 10;
+
 	@Override
 	public TutorProgrammaticArea mapTutorToProgramaticArea(final UserContext userContext,
 	        final TutorProgrammaticArea tutorProgramaticArea) throws BusinessException {
@@ -72,16 +75,17 @@ public class TutorProgrammaticAreaServiceImpl extends AbstractService implements
 			tutor.setAsUser();
 			this.tutorService.updateTutor(userContext, tutor);
 
-			this.client.postJSON(this.environment.getProperty("account.manager.service.url"),
-			        this.getUser(userContext, tutor));
+			final UserContext user = this.getUser(userContext, tutor);
 
-			this.sendTutorEmail(tutor);
+			this.client.postJSON(this.environment.getProperty("account.manager.service.url"), user);
+
+			this.sendTutorEmail(user, tutor);
 		}
 
 		return mapTutorProgramaticArea;
 	}
 
-	private void sendTutorEmail(final Tutor tutor) throws BusinessException {
+	private void sendTutorEmail(final UserContext user, final Tutor tutor) throws BusinessException {
 
 		this.mailSenderService.subject(this.propertyValues.getPropValues("tutor.email.subject"));
 		this.mailSenderService.to(tutor.getEmail());
@@ -89,7 +93,7 @@ public class TutorProgrammaticAreaServiceImpl extends AbstractService implements
 
 		final Map<String, Object> params = new HashMap<>();
 		params.put("tutor", tutor);
-		params.put("password", this.propertyValues.getPropValues("tutor.admin.pass"));
+		params.put("password", user.getPassword());
 
 		this.mailSenderService.send(params);
 	}
@@ -99,7 +103,7 @@ public class TutorProgrammaticAreaServiceImpl extends AbstractService implements
 		final UserContext context = new UserContext();
 		context.setFullName(tutor.getName() + " " + tutor.getSurname());
 		context.setUsername(tutor.getName().toLowerCase() + "." + tutor.getSurname().toLowerCase());
-		context.setPassword(this.propertyValues.getPropValues("tutor.admin.pass"));
+		context.setPassword(RandomStringFactory.generate(PASSWORD_LENTH).toLowerCase());
 		context.setEmail(tutor.getEmail());
 		context.setPhoneNumber(tutor.getPhoneNumber());
 		context.setUuid(userContext.getUuid());

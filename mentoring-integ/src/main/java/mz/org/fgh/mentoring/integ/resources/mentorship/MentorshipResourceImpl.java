@@ -92,4 +92,16 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 
 		return JResponse.ok(performedSessions).build();
 	}
+
+	@Override
+	public JResponse<List<PerformedSession>> findPerformedSessionsByTutorAndForm(final String tutorUuid,
+	        final String formUuid, final String startDate, final String endDate) throws BusinessException {
+
+		final SessionDTO sessionDTO = new SessionDTO(tutorUuid, formUuid, startDate, endDate);
+
+		final List<PerformedSession> performedSessions = this.sessionQueryService.findPerformedSessionsByTutorAndForm(
+		        sessionDTO.getTutor(), sessionDTO.getForm(), sessionDTO.getStartDate(), sessionDTO.getEndDate());
+
+		return JResponse.ok(performedSessions).build();
+	}
 }

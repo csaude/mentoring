@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import mz.org.fgh.mentoring.core.career.model.Career;
+import mz.org.fgh.mentoring.core.form.model.FormTarget;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.location.model.Cabinet;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
@@ -33,16 +34,20 @@ public class Metadata {
 
 	private List<Cabinet> cabinets;
 
+	private List<FormTarget> formTargets;
+
 	public Metadata() {
 	}
 
 	public Metadata(final List<HealthFacility> healthFacilities, final List<Career> careers,
-	        final List<FormQuestion> formQuestions, final List<Tutored> tutoreds, final List<Cabinet> cabinets) {
+	        final List<FormQuestion> formQuestions, final List<Tutored> tutoreds, final List<Cabinet> cabinets,
+	        final List<FormTarget> formTargets) {
 		this.healthFacilities = healthFacilities;
 		this.careers = careers;
 		this.formQuestions = formQuestions;
 		this.tutoreds = tutoreds;
 		this.cabinets = cabinets;
+		this.formTargets = formTargets;
 	}
 
 	public List<HealthFacility> getHealthFacilities() {
@@ -63,5 +68,9 @@ public class Metadata {
 
 	public List<Cabinet> getCabinets() {
 		return this.cabinets;
+	}
+
+	public List<FormTarget> getFormTargets() {
+		return this.formTargets;
 	}
 }

@@ -166,4 +166,17 @@ public class SessionQueryServiceTest extends AbstractSpringTest {
 		});
 	}
 
+	@Test
+	public void shouldFindPerformedSessionsByTutorAndForm() {
+
+		final LocalDate startDate = LocalDate.now();
+		final LocalDate endDate = LocalDate.now();
+
+		final List<PerformedSession> performedSessions = this.sessionQueryService.findPerformedSessionsByTutorAndForm(
+		        this.mentorship.getTutor(), this.mentorship.getForm(), startDate, endDate);
+
+		assertFalse(performedSessions.isEmpty());
+		assertEquals(this.session.getPerformedDate(), startDate);
+	}
+
 }

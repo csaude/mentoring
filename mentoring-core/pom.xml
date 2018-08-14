@@ -24,7 +24,7 @@
 		<dependency>
 			<groupId>mz.co.mozview</groupId>
 			<artifactId>frameworks-core</artifactId>
-			<version>1.2.2</version>
+			<version>1.2.4</version>
 		</dependency>
 
 		<!-- Test tools -->
@@ -81,5 +81,67 @@
 
 		</plugins>
 	</build>
+
+	<profiles>
+
+		<profile>
+			<id>prod</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.4</version>
+						<executions>
+							<execution>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<echo>Using db.prod.properties</echo>
+										<copy file="src/main/resources/db.prod.properties"
+											tofile="${project.build.outputDirectory}/db.properties" />
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.4</version>
+						<executions>
+							<execution>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<echo>Using db.test.properties</echo>
+										<copy file="src/main/resources/db.test.properties"
+											tofile="${project.build.outputDirectory}/db.properties" />
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

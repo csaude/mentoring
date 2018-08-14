@@ -29,7 +29,7 @@ public class CareerQueryServiceImpl implements CareerQueryService {
 
 	@Override
 	public List<Career> findCareersByCareerType(final UserContext userContext, final CareerType careerType)
-			throws BusinessException {
+	        throws BusinessException {
 		return this.careerDAO.findByCarrerType(careerType, LifeCycleStatus.ACTIVE);
 	}
 
@@ -46,5 +46,11 @@ public class CareerQueryServiceImpl implements CareerQueryService {
 	@Override
 	public Career findCarrerByuuid(final UserContext userContext, final String uuid) throws BusinessException {
 		return this.careerDAO.findByUuid(uuid);
+	}
+
+	@Override
+	public Career findCareerByTypeAndPosition(final CareerType careerType, final String position)
+	        throws BusinessException {
+		return this.careerDAO.findByTypeAndPosition(careerType, position, LifeCycleStatus.ACTIVE);
 	}
 }
