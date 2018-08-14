@@ -49,6 +49,24 @@
 				</configuration>
 			</plugin>
 
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+						<configuration>
+							<urls>
+								<url>file:///${env.HOME}/mentoring_dev.properties</url>
+							</urls>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 
 	</build>
@@ -58,14 +76,14 @@
 			<uniqueVersion>false</uniqueVersion>
 			<id>Mentoring_repository</id>
 			<name>Mentoring Repository</name>
-			<url>file:///home/steliomo/releases/</url>
+			<url>file://${mentoring.local.repository}</url>
 			<layout>default</layout>
 		</repository>
 		<snapshotRepository>
 			<uniqueVersion>false</uniqueVersion>
 			<id>Mentoring_repository</id>
 			<name>Mentoring Repository</name>
-			<url>file:///home/steliomo/releases/</url>
+			<url>file://${mentoring.local.repository}</url>
 			<layout>default</layout>
 		</snapshotRepository>
 	</distributionManagement>

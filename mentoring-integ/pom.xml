@@ -57,6 +57,24 @@
 				</configuration>
 			</plugin>
 
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+						<configuration>
+							<urls>
+								<url>file:///${env.HOME}/mentoring_dev.properties</url>
+							</urls>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 
 	</build>
@@ -71,7 +89,6 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-antrun-plugin</artifactId>
 						<executions>
 							<execution>
@@ -81,9 +98,10 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<delete file="/opt/data/webapp/mentoring/mentoring-integ.war" />
-										<copy file="${project.basedir}/target/mentoring-integ.war"
-											todir="/opt/data/webapp/mentoring/" />
+										<delete file="${warfile.copy.prod.directory}/mentoring-integ.war"/>
+										<copy
+												file="${project.basedir}/target/mentoring-integ.war"
+												todir="${warfile.copy.prod.directory}" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -108,9 +126,9 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<delete file="/opt/data/webapp/test/mentoring/mentoring-integ.war" />
+										<delete file="${warfile.test.copy.directory}/mentoring-integ.war" />
 										<copy file="${project.basedir}/target/mentoring-integ.war"
-											todir="/opt/data/webapp/test/mentoring/" />
+											todir="${warfile.test.copy.directory}" />
 									</tasks>
 								</configuration>
 							</execution>
