@@ -29,7 +29,7 @@ public class TutorDAOImpl extends GenericDAOImpl<Tutor, Long> implements TutorDA
 
 	@Override
 	public List<Tutor> findBySelectedFilter(final String code, final String name, final String surname,
-			final String phoneNumber, final CareerType careerType, final LifeCycleStatus lifeCycleStatus) {
+	        final String phoneNumber, final CareerType careerType, final LifeCycleStatus lifeCycleStatus) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Tutor> createQuery = criteriaBuilder.createQuery(Tutor.class);
@@ -69,6 +69,13 @@ public class TutorDAOImpl extends GenericDAOImpl<Tutor, Long> implements TutorDA
 
 	@Override
 	public Tutor fetchByUuid(final String uuid) {
-		return this.findSingleByNamedQuery(TutorDAO.QUERY_NAME.fetchByUuid, new ParamBuilder().add("uuid", uuid).process());
+		return this.findSingleByNamedQuery(TutorDAO.QUERY_NAME.fetchByUuid,
+		        new ParamBuilder().add("uuid", uuid).process());
+	}
+
+	@Override
+	public Tutor fecthByEmail(final String email, final LifeCycleStatus lifeCycleStatus) {
+		return this.findSingleByNamedQuery(TutorDAO.QUERY_NAME.fetchByEmail,
+		        new ParamBuilder().add("email", email).add("lifeCycleStatus", lifeCycleStatus).process());
 	}
 }

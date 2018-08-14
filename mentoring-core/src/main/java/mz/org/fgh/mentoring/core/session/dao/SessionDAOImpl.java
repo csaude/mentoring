@@ -27,6 +27,7 @@ import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.session.model.PerformedSession;
 import mz.org.fgh.mentoring.core.session.model.Session;
 import mz.org.fgh.mentoring.core.session.model.SubmitedSessions;
+import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
 /**
  * @author Stélio Moiane
@@ -50,7 +51,7 @@ public class SessionDAOImpl extends GenericDAOImpl<Session, Long> implements Ses
 		createQuery.select(criteriaBuilder.construct(PerformedSession.class,
 		        mentorships.get("healthFacility").get("district").get("district"),
 		        mentorships.get("healthFacility").get("healthFacility"), mentorships.get("form").get("name"),
-		        criteriaBuilder.count(root.get("id"))));
+		        criteriaBuilder.countDistinct(root.get("id"))));
 
 		final List<Predicate> predicates = new ArrayList<>();
 
@@ -101,5 +102,59 @@ public class SessionDAOImpl extends GenericDAOImpl<Session, Long> implements Ses
 	public List<SubmitedSessions> findNumberOfSessionsPerDistrict(final LifeCycleStatus lifeCycleStatus) {
 		return this.findByNamedQuery(SessionDAO.QUERY_NAME.findNumberOfSessionsPerDistrict,
 		        new ParamBuilder().add("lifeCycleStatus", lifeCycleStatus).process(), SubmitedSessions.class);
+	}
+
+	@Override
+	public List<PerformedSession> findByTutorAndForm(final Tutor tutor, final Form form, final LocalDate startDate,
+	        final LocalDate endDate) {
+
+		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
+
+		final CriteriaQuery<PerformedSession> createQuery = criteriaBuilder.createQuery(PerformedSession.class);
+
+		final Root<Session> root = createQuery.from(Session.class);
+
+		final Join<Session, Mentorship> mentorships = root.join("mentorships");
+
+		mentorships.join("tutor");
+		mentorships.join("form");
+		mentorships.join("healthFacility").join("district");
+
+		createQuery.select(criteriaBuilder.construct(PerformedSession.class,
+		        mentorships.get("healthFacility").get("district").get("district"),
+		        mentorships.get("healthFacility").get("healthFacility"),
+		        criteriaBuilder.countDistinct(root.get("id"))));
+
+		final List<Predicate> predicates = new ArrayList<>();
+
+		if (tutor != null) {
+			predicates.add(criteriaBuilder.equal(mentorships.get("tutor").get("uuid"), tutor.getUuid()));
+		}
+
+		if (form != null) {
+			predicates.add(criteriaBuilder.equal(mentorships.get("form").get("uuid"), form.getUuid()));
+		}
+
+		if (startDate != null) {
+			predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("performedDate"), startDate));
+		}
+
+		if (endDate != null) {
+			predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("performedDate"), endDate));
+		}
+
+		predicates.add(criteriaBuilder.equal(root.get("lifeCycleStatus"), LifeCycleStatus.ACTIVE));
+
+		createQuery.where(predicates.toArray(new Predicate[predicates.size()]));
+
+		createQuery.groupBy(mentorships.get("healthFacility").get("district").get("district"),
+		        mentorships.get("healthFacility").get("healthFacility"));
+
+		createQuery.orderBy(criteriaBuilder.asc(mentorships.get("healthFacility").get("district").get("district")),
+		        criteriaBuilder.asc(mentorships.get("healthFacility").get("healthFacility")));
+
+		final TypedQuery<PerformedSession> query = this.getEntityManager().createQuery(createQuery);
+
+		return query.getResultList();
 	}
 }

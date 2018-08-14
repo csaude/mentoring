@@ -96,4 +96,16 @@ public class TutorServiceTest extends AbstractSpringTest {
 		this.mailSenderService.send(params);
 	}
 
+	@Test
+	@Ignore
+	public void shouldResetTutorPassword() throws BusinessException {
+
+		this.tutorService.createTutor(this.getUserContext(), this.tutor);
+
+		this.tutor.setUuid("a8ae2efe207c47abb134d7091850f35c");
+		this.tutor.setAsUser();
+		this.tutorService.resetPassword(this.getUserContext(), this.tutor);
+
+		TestUtil.assertUpdate(this.tutor);
+	}
 }

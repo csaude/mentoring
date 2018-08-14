@@ -60,7 +60,7 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 		final CareerType careerType = this.tutor.getCareer().getCareerType();
 
 		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(this.getUserContext(), code, name,
-				surname, careerType, phoneNumber);
+		        surname, careerType, phoneNumber);
 		assertFalse(tutors.isEmpty());
 
 		for (final Tutor tutor : tutors) {
@@ -76,5 +76,24 @@ public class TutorQueryServiceTest extends AbstractSpringTest {
 		assertNotNull(foundTutor);
 		assertEquals(uuid, foundTutor.getUuid());
 		assertNotNull(foundTutor.getCareer());
+	}
+
+	@Test
+	public void shouldFetchTutorByEmail() throws BusinessException {
+
+		final Tutor newTutor = EntityFactory.gimme(Tutor.class, TutorTemplate.VALID);
+		this.carrerService.createCareer(this.getUserContext(), newTutor.getCareer());
+
+		newTutor.setEmail("actuator@gmail.com");
+
+		this.tutorService.createTutor(this.getUserContext(), newTutor);
+		final Tutor foundTutor = this.tutorQueryService.fetchTutorByEmail(this.getUserContext(), newTutor.getEmail());
+		assertEquals(newTutor.getEmail(), foundTutor.getEmail());
+		assertNotNull(foundTutor.getCareer());
+	}
+
+	@Test(expected = BusinessException.class)
+	public void shouldNotFindTutorByEmail() throws BusinessException {
+		this.tutorQueryService.fetchTutorByEmail(this.getUserContext(), "hawena@hawena.com");
 	}
 }

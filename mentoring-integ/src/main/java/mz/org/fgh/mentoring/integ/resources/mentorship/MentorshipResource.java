@@ -60,4 +60,11 @@ public interface MentorshipResource {
 	        @QueryParam("healthFacilityUuid") String healthFacilityUuid, @QueryParam("formUuid") String formUuid,
 	        @QueryParam("programmaticAreaUuid") String programmaticAreaUuid, @QueryParam("startDate") String startDate,
 	        @QueryParam("endDate") String endDate) throws BusinessException;
+
+	@GET
+	@Path("performed-sessions-by-tutor-and-form")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<PerformedSession>> findPerformedSessionsByTutorAndForm(
+	        @QueryParam("tutorUuid") String tutorUuid, @QueryParam("formUuid") String formUuid,
+	        @QueryParam("startDate") String startDate, @QueryParam("endDate") String endDate) throws BusinessException;
 }
