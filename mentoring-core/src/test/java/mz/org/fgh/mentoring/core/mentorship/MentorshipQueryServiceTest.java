@@ -3,15 +3,19 @@
  */
 package mz.org.fgh.mentoring.core.mentorship;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.inject.Inject;
 
+import mz.org.fgh.mentoring.core.mentorship.model.IterationType;
 import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
@@ -113,6 +117,9 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 		this.mentorship.addAnswer(answer);
 		this.mentorship.setForm(this.form);
 
+		this.mentorship.setIterationType(IterationType.PATIENT);
+		this.mentorship.setIterationNumber(1);
+
 		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship);
 	}
 
@@ -121,7 +128,7 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 
 		final List<Mentorship> mentorships = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
 		        this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
-		        this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility());
+		        this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility(), null, null);
 
 		assertFalse(mentorships.isEmpty());
 
@@ -131,5 +138,40 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 			assertNotNull(mentorship.getForm());
 			assertNotNull(mentorship.getHealthFacility());
 		}
+	}
+
+	@Test
+	public void fetchBySelectedFilterShouldSearchByIterationType() {
+		List<Mentorship> results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
+				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
+				this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility(), "patient", null);
+
+		assertNotNull(results);
+		assertTrue(results.size() > 0);
+		assertEquals(IterationType.PATIENT, results.get(0).getIterationType());
+
+		results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
+				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
+				this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility(), "file", null);
+
+		assertTrue(results == null || results.size() == 0);
+	}
+
+	@Test
+	public void fetchBySelectedFilterShouldSearchByIterationNumber() {
+		List<Mentorship> results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
+				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
+				this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility(), null, 1);
+
+		assertNotNull(results);
+		assertTrue(results.size() > 0);
+		assertEquals(Integer.valueOf(1), results.get(0).getIterationNumber());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void fetchBySelectedFilterShouldThrowIfUnknownIterationTypeIsPassed() {
+		this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
+				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
+				this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility(), "unknown type", 1);
 	}
 }
