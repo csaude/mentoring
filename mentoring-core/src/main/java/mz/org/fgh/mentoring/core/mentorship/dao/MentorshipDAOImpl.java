@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import mz.org.fgh.mentoring.core.mentorship.model.IterationType;
 import org.springframework.stereotype.Repository;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
@@ -27,7 +28,8 @@ public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implemen
 
 	@Override
 	public List<Mentorship> fetchBySelectedFilter(final String code, final String tutorName, final String tutoredName,
-	        final String formName, final String healthFacility, final LifeCycleStatus lifeCycleStatus) {
+												  final String formName, final String healthFacility, final IterationType iterationType,
+												  final Integer iterationNumber, final LifeCycleStatus lifeCycleStatus) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Mentorship> createQuery = criteriaBuilder.createQuery(Mentorship.class);
@@ -60,6 +62,14 @@ public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implemen
 		if (healthFacility != null) {
 			predicates.add(
 			        criteriaBuilder.like(root.get("healthFacility").get("healthFacility"), "%" + healthFacility + "%"));
+		}
+
+		if(iterationType != null) {
+			predicates.add(criteriaBuilder.equal(root.get("iterationType"), iterationType));
+		}
+
+		if(iterationNumber != null) {
+			predicates.add(criteriaBuilder.equal(root.get("iterationNumber"), iterationNumber));
 		}
 
 		predicates.add(criteriaBuilder.equal(root.get("lifeCycleStatus"), lifeCycleStatus));

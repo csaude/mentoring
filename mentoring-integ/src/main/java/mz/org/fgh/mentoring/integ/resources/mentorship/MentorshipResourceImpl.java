@@ -51,10 +51,10 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 
 	@Override
 	public JResponse<List<Mentorship>> findBySelectedFilter(final String code, final String tutor, final String tutored,
-	        final String form, final String healthFacility) throws BusinessException {
+	        final String form, final String healthFacility, final String iterationType, final Integer iterationNumber) throws BusinessException {
 
 		final List<Mentorship> mentorships = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContetx(),
-		        code, tutor, tutored, form, healthFacility);
+		        code, tutor, tutored, form, healthFacility, iterationType, iterationNumber);
 
 		return JResponse.ok(mentorships).build();
 	}

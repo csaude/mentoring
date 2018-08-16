@@ -12,6 +12,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -105,6 +107,13 @@ public class Mentorship extends GenericEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mentorship")
 	private List<Answer> answers;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "ITERATION_TYPE")
+	private IterationType iterationType;
+
+	@Column(name = "ITERATION_NUMBER")
+	private Integer iterationNumber;
+
 	public Mentorship() {
 	}
 
@@ -190,6 +199,22 @@ public class Mentorship extends GenericEntity {
 
 	public List<Answer> getAnswers() {
 		return Collections.unmodifiableList(this.answers);
+	}
+
+	public IterationType getIterationType() {
+		return iterationType;
+	}
+
+	public void setIterationType(final IterationType iterationType) {
+		this.iterationType = iterationType;
+	}
+
+	public Integer getIterationNumber() {
+		return iterationNumber;
+	}
+
+	public void setIterationNumber(final Integer iterationNumber) {
+		this.iterationNumber = iterationNumber;
 	}
 
 	public void addAnswer(final Answer answer) {

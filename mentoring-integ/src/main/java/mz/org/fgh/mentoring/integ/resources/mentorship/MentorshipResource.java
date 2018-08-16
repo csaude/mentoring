@@ -38,7 +38,8 @@ public interface MentorshipResource {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Mentorship>> findBySelectedFilter(@QueryParam("code") final String code,
 	        @QueryParam("tutor") final String tutor, @QueryParam("tutored") final String tutored,
-	        @QueryParam("form") final String form, @QueryParam("healthFacility") final String healthFacility)
+	        @QueryParam("form") final String form, @QueryParam("healthFacility") final String healthFacility,
+			@QueryParam("iterationType") final String iterationType, @QueryParam("iterationNumber") final Integer iterationNumber)
 	        throws BusinessException;
 
 	@POST
