@@ -137,7 +137,11 @@ public class MentorshipServiceImpl extends AbstractService implements Mentorship
 
 				final Tutored tutored = this.getTutored(userContext, mentorship);
 
-				final Cabinet cabinet = this.cabinetQueryService.findCabinetByUuid(mentorship.getCabinet().getUuid());
+				Cabinet cabinet = null;
+
+				if (mentorship.getCabinet().getUuid() != null) {
+					cabinet = this.cabinetQueryService.findCabinetByUuid(mentorship.getCabinet().getUuid());
+				}
 
 				mentorship.setSession(session);
 				mentorship.setForm(form);
