@@ -10,12 +10,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.inject.Inject;
 
-import mz.org.fgh.mentoring.core.mentorship.model.IterationType;
 import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
@@ -24,18 +22,19 @@ import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
+import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTemplate;
-import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.location.service.CabinetService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
+import mz.org.fgh.mentoring.core.mentorship.model.IterationType;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipQueryService;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
-import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
@@ -81,7 +80,7 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 
 	private Mentorship mentorship;
 
-	private Question question;
+	private FormQuestion formQuestion;
 
 	private Form form;
 
@@ -95,23 +94,23 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
 		this.cabinetService.createCabinet(this.getUserContext(), this.mentorship.getCabinet());
 
-		this.question = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
-		this.questionService.createQuestion(this.getUserContext(), this.question);
+		this.formQuestion = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.VALID);
+		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
 
-		final Set<Question> questions = new HashSet<>();
-		questions.add(this.question);
+		final Set<FormQuestion> formQuestions = new HashSet<>();
+		formQuestions.add(this.formQuestion);
 
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
 		        this.mentorship.getForm().getProgrammaticArea());
 
 		this.form = this.mentorship.getForm();
-		this.formService.createForm(this.getUserContext(), this.form, questions);
+		this.formService.createForm(this.getUserContext(), this.form, formQuestions);
 
 		this.districtService.createDistrict(this.getUserContext(), this.mentorship.getHealthFacility().getDistrict());
 		this.heathFacilityService.createHealthFacility(this.getUserContext(), this.mentorship.getHealthFacility());
 
 		final Answer answer = new TextAnswer();
-		answer.setQuestion(this.question);
+		answer.setQuestion(this.formQuestion.getQuestion());
 		answer.setValue("COMPETENTE");
 
 		this.mentorship.addAnswer(answer);
@@ -143,25 +142,25 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 	@Test
 	public void fetchBySelectedFilterShouldSearchByIterationType() {
 		List<Mentorship> results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
-				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
-				this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility(), "patient", null);
+		        this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
+		        this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility(), "patient", null);
 
 		assertNotNull(results);
 		assertTrue(results.size() > 0);
 		assertEquals(IterationType.PATIENT, results.get(0).getIterationType());
 
-		results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
-				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
-				this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility(), "file", null);
+		results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(), this.mentorship.getCode(),
+		        this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(), this.form.getName(),
+		        this.mentorship.getHealthFacility().getHealthFacility(), "file", null);
 
-		assertTrue(results == null || results.size() == 0);
+		assertTrue((results == null) || (results.size() == 0));
 	}
 
 	@Test
 	public void fetchBySelectedFilterShouldSearchByIterationNumber() {
-		List<Mentorship> results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
-				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
-				this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility(), null, 1);
+		final List<Mentorship> results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
+		        this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
+		        this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility(), null, 1);
 
 		assertNotNull(results);
 		assertTrue(results.size() > 0);
@@ -170,8 +169,8 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void fetchBySelectedFilterShouldThrowIfUnknownIterationTypeIsPassed() {
-		this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
-				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
-				this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility(), "unknown type", 1);
+		this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(), this.mentorship.getCode(),
+		        this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(), this.form.getName(),
+		        this.mentorship.getHealthFacility().getHealthFacility(), "unknown type", 1);
 	}
 }

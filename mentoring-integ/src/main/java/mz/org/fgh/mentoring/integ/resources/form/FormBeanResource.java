@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.form.model.Form;
-import mz.org.fgh.mentoring.core.question.model.Question;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 
 /**
  * @author Stélio Moiane
@@ -26,8 +26,7 @@ public class FormBeanResource {
 
 	private UserContext userContext;
 	private Form form;
-	private final Set<Question> questions = new HashSet<>();
-	private final Set<QuestionSequence> questionSequences = new HashSet<>();
+	private final Set<FormQuestion> formQuestions = new HashSet<>();
 
 	public UserContext getUserContext() {
 		return this.userContext;
@@ -37,11 +36,7 @@ public class FormBeanResource {
 		return this.form;
 	}
 
-	public Set<Question> getQuestions() {
-		return Collections.unmodifiableSet(this.questions);
-	}
-
-	public Set<QuestionSequence> getQuestionSequences() {
-		return questionSequences;
+	public Set<FormQuestion> getFormQuestions() {
+		return Collections.unmodifiableSet(this.formQuestions);
 	}
 }

@@ -22,19 +22,19 @@ import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
 import mz.org.fgh.mentoring.core.answer.service.AnswerQueryService;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
+import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.NumericAnswerTemplate;
-import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.TextAnswerTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.location.service.CabinetService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
-import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
@@ -89,25 +89,25 @@ public class AnswerQueryServiceTest extends AbstractSpringTest {
 		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
 		this.cabinetService.createCabinet(this.getUserContext(), this.mentorship.getCabinet());
 
-		final Question question1 = EntityFactory.gimme(Question.class, QuestionTemplate.TEXT_QUESTION);
-		this.questionService.createQuestion(this.getUserContext(), question1);
+		final FormQuestion formQuestion1 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		this.questionService.createQuestion(this.getUserContext(), formQuestion1.getQuestion());
 
-		final Question question2 = EntityFactory.gimme(Question.class, QuestionTemplate.TEXT_QUESTION);
-		this.questionService.createQuestion(this.getUserContext(), question2);
+		final FormQuestion formQuestion2 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		this.questionService.createQuestion(this.getUserContext(), formQuestion2.getQuestion());
 
-		final Question question3 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION);
-		this.questionService.createQuestion(this.getUserContext(), question3);
+		final FormQuestion formQuestion3 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		this.questionService.createQuestion(this.getUserContext(), formQuestion3.getQuestion());
 
-		final Set<Question> questions = new HashSet<>();
-		questions.add(question1);
-		questions.add(question2);
-		questions.add(question3);
+		final Set<FormQuestion> formQuestions = new HashSet<>();
+		formQuestions.add(formQuestion1);
+		formQuestions.add(formQuestion2);
+		formQuestions.add(formQuestion3);
 
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
 		        this.mentorship.getForm().getProgrammaticArea());
 
 		final Form form = this.mentorship.getForm();
-		this.formService.createForm(this.getUserContext(), form, questions);
+		this.formService.createForm(this.getUserContext(), form, formQuestions);
 
 		this.districtService.createDistrict(this.getUserContext(), this.mentorship.getHealthFacility().getDistrict());
 		this.heathFacilityService.createHealthFacility(this.getUserContext(), this.mentorship.getHealthFacility());
@@ -116,9 +116,9 @@ public class AnswerQueryServiceTest extends AbstractSpringTest {
 		final Answer answer2 = EntityFactory.gimme(TextAnswer.class, TextAnswerTemplate.VALID);
 		final Answer answer3 = EntityFactory.gimme(NumericAnswer.class, NumericAnswerTemplate.VALID);
 
-		answer1.setQuestion(question1);
-		answer2.setQuestion(question2);
-		answer3.setQuestion(question3);
+		answer1.setQuestion(formQuestion1.getQuestion());
+		answer2.setQuestion(formQuestion2.getQuestion());
+		answer3.setQuestion(formQuestion3.getQuestion());
 
 		this.mentorship.addAnswer(answer1);
 		this.mentorship.addAnswer(answer2);

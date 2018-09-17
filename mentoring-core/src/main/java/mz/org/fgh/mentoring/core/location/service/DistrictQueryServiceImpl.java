@@ -28,7 +28,13 @@ public class DistrictQueryServiceImpl implements DistrictQueryService {
 
 	@Override
 	public List<District> findDistrictsByProvince(final UserContext userContext, final Province province)
-			throws BusinessException {
+	        throws BusinessException {
 		return this.districtDAO.findByProvince(province, LifeCycleStatus.ACTIVE);
+	}
+
+	@Override
+	public District findDistrictByProvinceAndName(final UserContext userContext, final Province province,
+	        final String district) {
+		return this.districtDAO.findByProvinceAndName(province, district, LifeCycleStatus.ACTIVE);
 	}
 }

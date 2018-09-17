@@ -15,9 +15,9 @@ import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.files.FileReaderService;
 import mz.co.mozview.frameworks.core.util.GenericObject;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
-import mz.org.fgh.mentoring.core.location.model.District;
-import mz.org.fgh.mentoring.core.location.model.Province;
+import mz.org.fgh.mentoring.core.location.service.DistrictQueryService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
+import mz.org.fgh.mentoring.core.location.service.HealthFacilityQueryService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 
 /**
@@ -35,6 +35,12 @@ public class AddHealthFacilityClientTest extends AbstractSpringTest {
 	@Inject
 	private DistrictService districtService;
 
+	@Inject
+	DistrictQueryService districtQueryService;
+
+	@Inject
+	private HealthFacilityQueryService healthFacilityQueryService;
+
 	private AddHealthFacilityClient client;
 
 	@Override
@@ -42,30 +48,17 @@ public class AddHealthFacilityClientTest extends AbstractSpringTest {
 		this.client = new AddHealthFacilityClient();
 		this.client.setHealthFacilityService(this.healthFacilityService);
 		this.client.setFileReaderService(this.fileReaderService);
-		this.addDistricts();
-	}
-
-	private void addDistricts() throws BusinessException {
-		final List<GenericObject> districts = this.fileReaderService.readfile("mapping-districts.xlsx");
-
-		for (final GenericObject genericObject : districts) {
-
-			final District districtToInsert = new District();
-			final String province = (String) genericObject.getValue("Province");
-			final String district = (String) genericObject.getValue("District");
-
-			districtToInsert.setProvince(Province.valueOf(province));
-			districtToInsert.setDistrict(district);
-
-			this.districtService.createDistrict(this.getUserContext(), districtToInsert);
-		}
+		this.client.setDistrictService(this.districtService);
+		this.client.setDistrictQueryService(this.districtQueryService);
+		this.client.setHealthFacilityQueryService(this.healthFacilityQueryService);
 	}
 
 	@Test
 	public void shouldAddHealthFacilities() throws BusinessException {
 
 		final List<GenericObject> healthFacilities = this.fileReaderService
-		        .readfile("add-health-facilities_20171129.xlsx");
+		        .readfile("add-health-facilities_20181029.xlsx");
+
 		final int records = this.client.process(this.client);
 
 		assertEquals(healthFacilities.size(), records);

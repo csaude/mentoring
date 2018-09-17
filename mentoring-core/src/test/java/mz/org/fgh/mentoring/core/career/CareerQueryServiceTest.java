@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
+import mz.co.mozview.frameworks.core.util.CleanDBUtil;
 import mz.org.fgh.mentoring.core.career.model.Career;
 import mz.org.fgh.mentoring.core.career.service.CareerQueryService;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
@@ -32,6 +33,9 @@ public class CareerQueryServiceTest extends AbstractSpringTest {
 
 	@Inject
 	private CareerQueryService careerQueryService;
+
+	@Inject
+	CleanDBUtil cleanDBUtil;
 
 	private Career career;
 
