@@ -21,17 +21,17 @@ import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.answer.model.BooleanAnswer;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
+import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.IndicatorTemplate;
-import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.indicator.model.Indicator;
 import mz.org.fgh.mentoring.core.indicator.service.IndicatorQueryService;
 import mz.org.fgh.mentoring.core.indicator.service.IndicatorService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
-import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 
@@ -70,7 +70,7 @@ public class IndicatorServiceTest extends AbstractSpringTest {
 
 	private Indicator indicator;
 
-	private Question question;
+	private FormQuestion formQuestion;
 
 	private Form form;
 
@@ -81,27 +81,28 @@ public class IndicatorServiceTest extends AbstractSpringTest {
 		this.careerService.createCareer(this.getUserContext(), this.indicator.getTutor().getCareer());
 		this.tutorService.createTutor(this.getUserContext(), this.indicator.getTutor());
 
-		this.question = EntityFactory.gimme(Question.class, QuestionTemplate.BOOLEAN_QUESTION);
-		this.questionService.createQuestion(this.getUserContext(), this.question);
+		this.formQuestion = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
 
-		final Set<Question> questions = new HashSet<>();
-		questions.add(this.question);
+		final Set<FormQuestion> formQuestions = new HashSet<>();
+		formQuestions.add(this.formQuestion);
 
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
 		        this.indicator.getForm().getProgrammaticArea());
 
 		this.form = this.indicator.getForm();
-		this.formService.createForm(this.getUserContext(), this.form, questions);
+		this.formService.createForm(this.getUserContext(), this.form, formQuestions);
 
 		this.districtService.createDistrict(this.getUserContext(), this.indicator.getHealthFacility().getDistrict());
 		this.heathFacilityService.createHealthFacility(this.getUserContext(), this.indicator.getHealthFacility());
+
 	}
 
 	@Test
 	public void shouldCreateIndicator() throws BusinessException {
 
 		final Answer answer = new BooleanAnswer();
-		answer.setQuestion(this.question);
+		answer.setQuestion(this.formQuestion.getQuestion());
 		answer.setValue(String.valueOf(Boolean.TRUE));
 
 		this.indicatorService.createIndicator(this.getUserContext(), this.indicator, this.form, Arrays.asList(answer));
@@ -113,13 +114,13 @@ public class IndicatorServiceTest extends AbstractSpringTest {
 	public void shouldUpdateIndicator() throws BusinessException {
 
 		final Answer answer = new BooleanAnswer();
-		answer.setQuestion(this.question);
+		answer.setQuestion(this.formQuestion.getQuestion());
 		answer.setValue(String.valueOf(Boolean.TRUE));
 
 		this.indicatorService.createIndicator(this.getUserContext(), this.indicator, this.form, Arrays.asList(answer));
 
 		final Answer answerUpdated = new BooleanAnswer();
-		answerUpdated.setQuestion(this.question);
+		answerUpdated.setQuestion(this.formQuestion.getQuestion());
 		answerUpdated.setValue(String.valueOf(Boolean.FALSE));
 
 		final List<Indicator> foundIndicators = this.indicatorQueryService
@@ -142,7 +143,7 @@ public class IndicatorServiceTest extends AbstractSpringTest {
 	public void shouldSynchronizeIndicators() throws BusinessException {
 
 		final Answer answer = new BooleanAnswer();
-		answer.setQuestion(this.question);
+		answer.setQuestion(this.formQuestion.getQuestion());
 		answer.setValue(String.valueOf(Boolean.TRUE));
 
 		this.indicatorService.synchronizeIndicator(this.getUserContext(), this.indicator, this.form,

@@ -22,18 +22,18 @@ import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
+import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTemplate;
-import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.SessionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.location.service.CabinetService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
-import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.session.model.PerformedSession;
 import mz.org.fgh.mentoring.core.session.model.Session;
@@ -104,23 +104,23 @@ public class SessionQueryServiceTest extends AbstractSpringTest {
 		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
 		this.cabinetService.createCabinet(this.getUserContext(), this.mentorship.getCabinet());
 
-		final Question question = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
-		this.questionService.createQuestion(this.getUserContext(), question);
+		final FormQuestion formQuestion = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 
-		final Set<Question> questions = new HashSet<>();
-		questions.add(question);
+		final Set<FormQuestion> formQuestions = new HashSet<>();
+		formQuestions.add(formQuestion);
 
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
 		        this.mentorship.getForm().getProgrammaticArea());
 
 		final Form form = this.mentorship.getForm();
-		this.formService.createForm(this.getUserContext(), form, questions);
+		this.formService.createForm(this.getUserContext(), form, formQuestions);
 
 		this.districtService.createDistrict(this.getUserContext(), this.mentorship.getHealthFacility().getDistrict());
 		this.healthFacilityService.createHealthFacility(this.getUserContext(), this.mentorship.getHealthFacility());
 
 		final Answer answer = new TextAnswer();
-		answer.setQuestion(question);
+		answer.setQuestion(formQuestion.getQuestion());
 		answer.setValue("COMPETENTE");
 
 		this.mentorship.addAnswer(answer);

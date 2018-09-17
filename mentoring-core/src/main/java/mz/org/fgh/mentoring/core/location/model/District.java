@@ -24,7 +24,8 @@ import mz.org.fgh.mentoring.core.location.dao.DistrictDAO;
  * @author Stélio Moiane
  *
  */
-@NamedQueries({ @NamedQuery(name = DistrictDAO.QUERY_NAME.findByProvince, query = DistrictDAO.QUERY.findByProvince) })
+@NamedQueries({ @NamedQuery(name = DistrictDAO.QUERY_NAME.findByProvince, query = DistrictDAO.QUERY.findByProvince),
+        @NamedQuery(name = DistrictDAO.QUERY_NAME.findByProvinceAndName, query = DistrictDAO.QUERY.findByProvinceAndName) })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity

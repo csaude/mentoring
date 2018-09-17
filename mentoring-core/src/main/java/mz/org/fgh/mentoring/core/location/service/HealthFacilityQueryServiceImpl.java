@@ -29,7 +29,7 @@ public class HealthFacilityQueryServiceImpl extends AbstractService implements H
 
 	@Override
 	public List<HealthFacility> findHealthFacilityByDistrict(final UserContext userContext, final District district)
-			throws BusinessException {
+	        throws BusinessException {
 		return this.healthFacilityDAO.findByDistrict(district.getId(), LifeCycleStatus.ACTIVE);
 	}
 
@@ -40,7 +40,12 @@ public class HealthFacilityQueryServiceImpl extends AbstractService implements H
 
 	@Override
 	public HealthFacility findHealthFacilityByUuid(final UserContext userContext, final String uuid)
-			throws BusinessException {
+	        throws BusinessException {
 		return this.healthFacilityDAO.findByUuid(uuid);
+	}
+
+	@Override
+	public HealthFacility findHealthFacilityByDistrictAndName(final District district, final String healthFacility) {
+		return this.healthFacilityDAO.findByDistrictAndName(district, healthFacility, LifeCycleStatus.ACTIVE);
 	}
 }

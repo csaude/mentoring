@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
 import mz.co.mozview.frameworks.core.dao.ParamBuilder;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
+import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 
 /**
@@ -21,8 +22,8 @@ import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 public class FormQuestionDAOImpl extends GenericDAOImpl<FormQuestion, Long> implements FormQuestionDAO {
 
 	@Override
-	public List<FormQuestion> findByFormId(final Long formId) {
-		return this.findByNamedQuery(FormQuestionDAO.QUERY_NAME.findByFormId,
+	public List<FormQuestion> findAllByFormId(final Long formId) {
+		return this.findByNamedQuery(FormQuestionDAO.QUERY_NAME.findAllByFormId,
 		        new ParamBuilder().add("formId", formId).process());
 	}
 
@@ -36,5 +37,11 @@ public class FormQuestionDAOImpl extends GenericDAOImpl<FormQuestion, Long> impl
 	public List<FormQuestion> fetchByTutor(final LifeCycleStatus lifeCycleStatus, final String tutorUuid) {
 		return this.findByNamedQuery(FormQuestionDAO.QUERY_NAME.fetchByTutor,
 		        new ParamBuilder().add("lifeCycleStatus", lifeCycleStatus).add("tutorUuid", tutorUuid).process());
+	}
+
+	@Override
+	public List<FormQuestion> fetchByForm(final Form form, final LifeCycleStatus lifeCycleStatus) {
+		return this.findByNamedQuery(FormQuestionDAO.QUERY_NAME.fetchByForm,
+		        new ParamBuilder().add("formId", form.getId()).add("lifeCycleStatus", lifeCycleStatus).process());
 	}
 }

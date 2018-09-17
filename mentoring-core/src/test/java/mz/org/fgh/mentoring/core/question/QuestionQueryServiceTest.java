@@ -16,11 +16,12 @@ import org.junit.Test;
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
+import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.FormTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.ProgrammaticAreaTemplate;
-import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
 import mz.org.fgh.mentoring.core.question.model.Question;
@@ -44,9 +45,7 @@ public class QuestionQueryServiceTest extends AbstractSpringTest {
 	@Inject
 	private ProgrammaticAreaService programmaticAreaService;
 
-	private List<Question> questions;
-
-	private final Set<Question> createdQuestions = new HashSet<>();
+	private Set<FormQuestion> formQuestions;
 
 	private ProgrammaticArea programmaticArea;
 
@@ -58,19 +57,18 @@ public class QuestionQueryServiceTest extends AbstractSpringTest {
 	@Override
 	public void setUp() throws BusinessException {
 
-		this.questions = (EntityFactory.gimme(Question.class, 5, QuestionTemplate.VALID));
+		this.formQuestions = new HashSet<>(
+		        EntityFactory.gimme(FormQuestion.class, 5, FormQuestionTemplate.WITH_NO_FORM));
+
 		this.programmaticArea = EntityFactory.gimme(ProgrammaticArea.class, ProgrammaticAreaTemplate.VALID);
 		this.form = EntityFactory.gimme(Form.class, FormTemplate.VALID);
 
-		for (final Question question : this.questions) {
-
-			this.questionService.createQuestion(this.getUserContext(), question);
-			this.createdQuestions.add(question);
-
+		for (final FormQuestion formQuestion : this.formQuestions) {
+			this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 		}
 		this.form.setProgrammaticArea(this.programmaticArea);
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(), this.programmaticArea);
-		this.formService.createForm(this.getUserContext(), this.form, this.createdQuestions);
+		this.formService.createForm(this.getUserContext(), this.form, this.formQuestions);
 
 	}
 
@@ -83,7 +81,7 @@ public class QuestionQueryServiceTest extends AbstractSpringTest {
 		final QuestionCategory questionCategory = null;
 
 		final List<Question> questions = this.questionQueryService.findQuestionsBySelectedFilter(this.getUserContext(),
-				code, question, questionType, questionCategory);
+		        code, question, questionType, questionCategory);
 
 		assertFalse(questions.isEmpty());
 	}

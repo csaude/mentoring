@@ -20,11 +20,16 @@ public interface DistrictDAO extends GenericDAO<District, Long> {
 
 	public static class QUERY {
 		public static final String findByProvince = "SELECT d FROM District d where d.province = :province and d.lifeCycleStatus = :lifeCycleStatus";
+		public static final String findByProvinceAndName = "SELECT d FROM District d WHERE d.province = :province AND d.district = :district AND d.lifeCycleStatus = :lifeCycleStatus";
 	}
 
 	public static class QUERY_NAME {
 		public static final String findByProvince = "District.findByProvince";
+		public static final String findByProvinceAndName = "District.findByProvinceAndName";
 	}
 
 	List<District> findByProvince(final Province province, final LifeCycleStatus lifeCycleStatus);
+
+	District findByProvinceAndName(final Province province, final String district,
+	        final LifeCycleStatus lifeCycleStatus);
 }
