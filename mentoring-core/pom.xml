@@ -41,6 +41,13 @@
 			<version>5.1.30</version>
 		</dependency>
 
+		<!-- Flyway Core -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>5.1.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -56,17 +63,6 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.flywaydb</groupId>
-				<artifactId>flyway-maven-plugin</artifactId>
-				<version>3.2.1</version>
-				<configuration>
-					<url>jdbc:mysql://localhost:3307/mentoring?autoReconnect=true</url>
-					<user>mentor</user>
-					<password>mentor</password>
-				</configuration>
-			</plugin>
-
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>3.0.2</version>
@@ -77,6 +73,17 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>3.2.1</version>
+				<configuration>
+					<url>jdbc:mysql://localhost:3307/mentoring?autoReconnect=true</url>
+					<user>mentor</user>
+					<password>mentor</password>
+				</configuration>
 			</plugin>
 
 		</plugins>
