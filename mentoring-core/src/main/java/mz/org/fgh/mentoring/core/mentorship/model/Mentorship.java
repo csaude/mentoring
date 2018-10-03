@@ -98,7 +98,6 @@ public class Mentorship extends GenericEntity {
 	@JoinColumn(name = "SESSION_ID")
 	private Session session;
 
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CABINET_ID")
 	private Cabinet cabinet;
@@ -202,7 +201,7 @@ public class Mentorship extends GenericEntity {
 	}
 
 	public IterationType getIterationType() {
-		return iterationType;
+		return this.iterationType;
 	}
 
 	public void setIterationType(final IterationType iterationType) {
@@ -210,7 +209,7 @@ public class Mentorship extends GenericEntity {
 	}
 
 	public Integer getIterationNumber() {
-		return iterationNumber;
+		return this.iterationNumber;
 	}
 
 	public void setIterationNumber(final Integer iterationNumber) {

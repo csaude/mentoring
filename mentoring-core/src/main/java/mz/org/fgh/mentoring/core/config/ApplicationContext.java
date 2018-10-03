@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @ComponentScan(basePackages = { "mz.co.mozview.frameworks.core", "mz.org.fgh.mentoring.core" })
-@Import({ DataSourceBean.class, EntityManagerBean.class, EmailBean.class })
+@Import({ DataSourceBean.class, FlywayBean.class, EntityManagerBean.class, EmailBean.class })
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
 @PropertySource("classpath:db.properties")
