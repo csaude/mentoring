@@ -59,6 +59,10 @@ public class FormQuestion extends GenericEntity {
 	@Column(name = "SEQUENCE")
 	private Integer sequence;
 
+	@NotNull
+	@Column(name = "APPLICABLE", nullable = false)
+	private Boolean applicable;
+
 	public Form getForm() {
 		return this.form;
 	}
@@ -84,11 +88,19 @@ public class FormQuestion extends GenericEntity {
 	}
 
 	public Integer getSequence() {
-		return sequence;
+		return this.sequence;
 	}
 
-	public void setSequence(Integer sequence) {
+	public void setSequence(final Integer sequence) {
 		this.sequence = sequence;
+	}
+
+	public Boolean isApplicable() {
+		return this.applicable;
+	}
+
+	public void setApplicable(final Boolean applicable) {
+		this.applicable = applicable;
 	}
 
 	@Override

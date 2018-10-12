@@ -4,9 +4,9 @@
 package mz.org.fgh.mentoring.core.client;
 
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_COLLECTED_SAMPLES;
+import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_RECEIVED_SAMPLES;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_REJECTED_SAMPLES;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_TRANSPORTED_SAMPLES;
-import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_RECEIVED_SAMPLES;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -26,10 +26,11 @@ import mz.org.fgh.mentoring.core.answer.model.NumericAnswer;
 import mz.org.fgh.mentoring.core.answer.service.AnswerService;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
+import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.IndicatorTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionProcessor;
-import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.indicator.model.DuplicatedIndicator;
 import mz.org.fgh.mentoring.core.indicator.model.Indicator;
 import mz.org.fgh.mentoring.core.indicator.service.IndicatorQueryService;
@@ -37,7 +38,6 @@ import mz.org.fgh.mentoring.core.indicator.service.IndicatorService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
-import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 
@@ -93,7 +93,7 @@ public class RemoveDuplicatedIndicatorsClientTest extends AbstractSpringTest {
 		this.districtService.createDistrict(this.getUserContext(), indicator.getHealthFacility().getDistrict());
 		this.healthFacilityService.createHealthFacility(this.getUserContext(), indicator.getHealthFacility());
 
-		this.formService.createForm(this.getUserContext(), indicator.getForm(), this.getQuestions());
+		this.formService.createForm(this.getUserContext(), indicator.getForm(), this.getFormQuestions());
 
 		for (int i = 0; i < 10; i++) {
 			this.createIndicator(indicator);
@@ -116,9 +116,9 @@ public class RemoveDuplicatedIndicatorsClientTest extends AbstractSpringTest {
 	private List<Answer> getAnswers() throws BusinessException {
 		final List<Answer> answers = new ArrayList<Answer>();
 
-		for (final Question question : this.getQuestions()) {
+		for (final FormQuestion formQuestion : this.getFormQuestions()) {
 			final NumericAnswer answer = new NumericAnswer();
-			answer.setQuestion(question);
+			answer.setQuestion(formQuestion.getQuestion());
 			answer.setValue(String.valueOf(this.getRandomInt()));
 			answers.add(answer);
 		}
@@ -134,35 +134,35 @@ public class RemoveDuplicatedIndicatorsClientTest extends AbstractSpringTest {
 		return random.nextInt((max - min) + 1) + min;
 	}
 
-	private Set<Question> getQuestions() throws BusinessException {
+	private Set<FormQuestion> getFormQuestions() throws BusinessException {
 
-		final Question question1 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
+		final FormQuestion formQuestion1 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM,
 		        new QuestionProcessor());
-		question1.setUuid(NUMBER_OF_COLLECTED_SAMPLES.getValue());
-		this.questionService.createQuestion(this.getUserContext(), question1);
+		formQuestion1.setUuid(NUMBER_OF_COLLECTED_SAMPLES.getValue());
+		this.questionService.createQuestion(this.getUserContext(), formQuestion1.getQuestion());
 
-		final Question question2 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
+		final FormQuestion formQuestion2 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM,
 		        new QuestionProcessor());
-		question2.setUuid(NUMBER_OF_TRANSPORTED_SAMPLES.getValue());
-		this.questionService.createQuestion(this.getUserContext(), question2);
+		formQuestion2.setUuid(NUMBER_OF_TRANSPORTED_SAMPLES.getValue());
+		this.questionService.createQuestion(this.getUserContext(), formQuestion2.getQuestion());
 
-		final Question question3 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
+		final FormQuestion formQuestion3 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM,
 		        new QuestionProcessor());
-		question3.setUuid(NUMBER_OF_REJECTED_SAMPLES.getValue());
-		this.questionService.createQuestion(this.getUserContext(), question3);
+		formQuestion3.setUuid(NUMBER_OF_REJECTED_SAMPLES.getValue());
+		this.questionService.createQuestion(this.getUserContext(), formQuestion3.getQuestion());
 
-		final Question question4 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
+		final FormQuestion formQuestion4 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM,
 		        new QuestionProcessor());
-		question4.setUuid(NUMBER_OF_RECEIVED_SAMPLES.getValue());
-		this.questionService.createQuestion(this.getUserContext(), question4);
+		formQuestion4.setUuid(NUMBER_OF_RECEIVED_SAMPLES.getValue());
+		this.questionService.createQuestion(this.getUserContext(), formQuestion4.getQuestion());
 
-		final Set<Question> questions = new HashSet<>();
-		questions.add(question1);
-		questions.add(question2);
-		questions.add(question3);
-		questions.add(question4);
+		final Set<FormQuestion> formQuestions = new HashSet<>();
+		formQuestions.add(formQuestion1);
+		formQuestions.add(formQuestion2);
+		formQuestions.add(formQuestion3);
+		formQuestions.add(formQuestion4);
 
-		return questions;
+		return formQuestions;
 	}
 
 	@Test

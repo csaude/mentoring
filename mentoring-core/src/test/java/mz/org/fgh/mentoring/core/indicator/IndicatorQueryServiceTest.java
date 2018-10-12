@@ -28,10 +28,12 @@ import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.answer.model.NumericAnswer;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
+import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.IndicatorTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionProcessor;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.indicator.model.AnalysisTable;
 import mz.org.fgh.mentoring.core.indicator.model.DuplicatedIndicator;
 import mz.org.fgh.mentoring.core.indicator.model.Indicator;
@@ -93,40 +95,50 @@ public class IndicatorQueryServiceTest extends AbstractSpringTest {
 		this.districtService.createDistrict(this.getUserContext(), this.indicator.getHealthFacility().getDistrict());
 		this.heathFacilityService.createHealthFacility(this.getUserContext(), this.indicator.getHealthFacility());
 
-		this.formService.createForm(this.getUserContext(), this.indicator.getForm(), this.getQuestions());
+		this.formService.createForm(this.getUserContext(), this.indicator.getForm(), this.getFormQuestions());
 
 		this.indicatorService.createIndicator(this.getUserContext(), this.indicator, this.indicator.getForm(),
 		        this.getAnswers());
 	}
 
-	private Set<Question> getQuestions() throws BusinessException {
+	private Set<FormQuestion> getFormQuestions() throws BusinessException {
+
 		final Question question1 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
 		        new QuestionProcessor());
 		question1.setUuid(NUMBER_OF_COLLECTED_SAMPLES.getValue());
 		this.questionService.createQuestion(this.getUserContext(), question1);
+		final FormQuestion formQuestion1 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		formQuestion1.setQuestion(question1);
 
 		final Question question2 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
 		        new QuestionProcessor());
 		question2.setUuid(NUMBER_OF_TRANSPORTED_SAMPLES.getValue());
 		this.questionService.createQuestion(this.getUserContext(), question2);
+		final FormQuestion formQuestion2 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		formQuestion2.setQuestion(question2);
 
 		final Question question3 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
 		        new QuestionProcessor());
 		question3.setUuid(NUMBER_OF_REJECTED_SAMPLES.getValue());
 		this.questionService.createQuestion(this.getUserContext(), question3);
+		final FormQuestion formQuestion3 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		formQuestion3.setQuestion(question3);
 
 		final Question question4 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
 		        new QuestionProcessor());
 		question4.setUuid(NUMBER_OF_RECEIVED_SAMPLES.getValue());
 		this.questionService.createQuestion(this.getUserContext(), question4);
 
-		final Set<Question> questions = new HashSet<>();
-		questions.add(question1);
-		questions.add(question2);
-		questions.add(question3);
-		questions.add(question4);
+		final FormQuestion formQuestion4 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		formQuestion4.setQuestion(question4);
 
-		return questions;
+		final Set<FormQuestion> formQuestions = new HashSet<>();
+		formQuestions.add(formQuestion1);
+		formQuestions.add(formQuestion2);
+		formQuestions.add(formQuestion3);
+		formQuestions.add(formQuestion4);
+
+		return formQuestions;
 	}
 
 	private int getRandomInt() {
@@ -141,9 +153,9 @@ public class IndicatorQueryServiceTest extends AbstractSpringTest {
 	private List<Answer> getAnswers() throws BusinessException {
 		final List<Answer> answers = new ArrayList<Answer>();
 
-		for (final Question question : this.getQuestions()) {
+		for (final FormQuestion formQuestion : this.getFormQuestions()) {
 			final NumericAnswer answer = new NumericAnswer();
-			answer.setQuestion(question);
+			answer.setQuestion(formQuestion.getQuestion());
 			answer.setValue(String.valueOf(this.getRandomInt()));
 			answers.add(answer);
 		}

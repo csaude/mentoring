@@ -22,12 +22,13 @@ import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
+import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.MentorshipProcessor;
 import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTemplate;
-import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.SessionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.location.service.CabinetService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
@@ -35,7 +36,6 @@ import mz.org.fgh.mentoring.core.mentorship.dao.MentorshipDAO;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
-import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.session.model.Session;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
@@ -83,7 +83,7 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 
 	private Mentorship mentorship;
 
-	private Question question;
+	private FormQuestion formQuestion;
 
 	private Form form;
 
@@ -97,17 +97,17 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
 		this.cabinetService.createCabinet(this.getUserContext(), this.mentorship.getCabinet());
 
-		this.question = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
-		this.questionService.createQuestion(this.getUserContext(), this.question);
+		this.formQuestion = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
 
-		final Set<Question> questions = new HashSet<>();
-		questions.add(this.question);
+		final Set<FormQuestion> formQuestions = new HashSet<>();
+		formQuestions.add(this.formQuestion);
 
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
 		        this.mentorship.getForm().getProgrammaticArea());
 
 		this.form = this.mentorship.getForm();
-		this.formService.createForm(this.getUserContext(), this.form, questions);
+		this.formService.createForm(this.getUserContext(), this.form, formQuestions);
 
 		this.districtService.createDistrict(this.getUserContext(), this.mentorship.getHealthFacility().getDistrict());
 		this.heathFacilityService.createHealthFacility(this.getUserContext(), this.mentorship.getHealthFacility());
@@ -117,7 +117,7 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 	public void shouldCreateMentorship() throws BusinessException {
 
 		final Answer answer = new TextAnswer();
-		answer.setQuestion(this.question);
+		answer.setQuestion(this.formQuestion.getQuestion());
 		answer.setValue("COMPETENTE");
 
 		this.mentorship.addAnswer(answer);
@@ -166,7 +166,6 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 				TestUtil.assertCreation(mentorship);
 				mentorship.getAnswers().forEach(answer -> TestUtil.assertCreation(answer));
 			});
-
 		});
 	}
 }
