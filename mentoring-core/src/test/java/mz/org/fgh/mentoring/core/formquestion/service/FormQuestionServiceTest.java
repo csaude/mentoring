@@ -31,10 +31,13 @@ import mz.org.fgh.mentoring.core.question.service.QuestionService;
 public class FormQuestionServiceTest extends AbstractSpringTest {
 	@Inject
 	private ProgrammaticAreaService programmaticAreaService;
+
 	@Inject
-	private FormQuestionService formQuestionService;
+	private FormQuestionQueryService formQuestionQueryService;
+
 	@Inject
 	private QuestionService questionService;
+
 	@Inject
 	private FormService formService;
 
@@ -62,7 +65,7 @@ public class FormQuestionServiceTest extends AbstractSpringTest {
 
 	@Test
 	public void getFormQuestionByFormId_shouldReturnAListOfFormQuestionGivenFormId() throws BusinessException {
-		final List<FormQuestion> formQuestions = this.formQuestionService.getFormQuestionByFormId(this.form.getId());
+		final List<FormQuestion> formQuestions = this.formQuestionQueryService.findFormQuestionByForm(this.form);
 
 		assertFalse(formQuestions.isEmpty());
 		assertEquals(this.questions.size(), formQuestions.size());

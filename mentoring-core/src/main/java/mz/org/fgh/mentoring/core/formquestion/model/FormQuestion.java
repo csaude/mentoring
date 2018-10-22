@@ -35,9 +35,11 @@ import mz.org.fgh.mentoring.core.question.model.Question;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "FORMS_QUESTIONS", uniqueConstraints = @UniqueConstraint(columnNames = { "FORM_ID", "QUESTION_ID" }))
-@NamedQueries({ @NamedQuery(name = FormQuestionDAO.QUERY_NAME.findByFormId, query = FormQuestionDAO.QUERY.findByFormId),
+@NamedQueries({
+        @NamedQuery(name = FormQuestionDAO.QUERY_NAME.findAllByFormId, query = FormQuestionDAO.QUERY.findAllByFormId),
         @NamedQuery(name = FormQuestionDAO.QUERY_NAME.findByFormIdAndQuestionId, query = FormQuestionDAO.QUERY.findByFormIdAndQuestionId),
-        @NamedQuery(name = FormQuestionDAO.QUERY_NAME.fetchByTutor, query = FormQuestionDAO.QUERY.fetchByTutor) })
+        @NamedQuery(name = FormQuestionDAO.QUERY_NAME.fetchByTutor, query = FormQuestionDAO.QUERY.fetchByTutor),
+        @NamedQuery(name = FormQuestionDAO.QUERY_NAME.fetchByForm, query = FormQuestionDAO.QUERY.fetchByForm) })
 public class FormQuestion extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
