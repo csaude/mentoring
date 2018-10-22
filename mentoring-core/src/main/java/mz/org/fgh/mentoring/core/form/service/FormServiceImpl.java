@@ -70,7 +70,7 @@ public class FormServiceImpl extends AbstractService implements FormService {
 
 	private List<FormQuestion> inactivatedAllFormQuestion(final Long formId) {
 
-		final List<FormQuestion> formQuestions = this.formQuestionDao.findByFormId(formId);
+		final List<FormQuestion> formQuestions = this.formQuestionDao.findAllByFormId(formId);
 
 		for (final FormQuestion formQuestionInterator : formQuestions) {
 			formQuestionInterator.setLifeCycleStatus(LifeCycleStatus.INACTIVE);
