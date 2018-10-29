@@ -5,6 +5,7 @@ package mz.org.fgh.mentoring.core.location;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -43,9 +44,19 @@ public class DistrictQueryServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldFindDistricsByProvince() throws BusinessException {
 		final List<District> districts = this.districtQueryService.findDistrictsByProvince(this.getUserContext(),
-				this.district.getProvince());
+		        this.district.getProvince());
 
 		assertFalse(districts.isEmpty());
 		districts.forEach(district -> assertEquals(district.getProvince(), this.district.getProvince()));
+	}
+
+	@Test
+	public void shouldFindDistricsByProvinceAndName() throws BusinessException {
+		final District district = this.districtQueryService.findDistrictByProvinceAndName(this.getUserContext(),
+		        this.district.getProvince(), this.district.getDistrict());
+
+		assertNotNull(district);
+		assertEquals(district.getProvince(), this.district.getProvince());
+		assertEquals(district.getDistrict(), this.district.getDistrict());
 	}
 }
