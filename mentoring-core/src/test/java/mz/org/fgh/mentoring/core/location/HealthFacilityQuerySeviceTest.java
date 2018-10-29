@@ -4,6 +4,7 @@
 package mz.org.fgh.mentoring.core.location;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class HealthFacilityQuerySeviceTest extends AbstractSpringTest {
 	@Test
 	public void shoulFindHealthFacilitiesByDistrict() throws BusinessException {
 		final List<HealthFacility> healthFacilities = this.healthFacilityQueryService
-				.findHealthFacilityByDistrict(this.getUserContext(), this.district);
+		        .findHealthFacilityByDistrict(this.getUserContext(), this.district);
 
 		assertFalse(healthFacilities.isEmpty());
 	}
@@ -58,8 +59,16 @@ public class HealthFacilityQuerySeviceTest extends AbstractSpringTest {
 	@Test
 	public void shouldFetchAllHealthFacilities() {
 		final List<HealthFacility> fetchAllHealthFacilities = this.healthFacilityQueryService
-				.fetchAllHealthFacilities(this.getUserContext());
+		        .fetchAllHealthFacilities(this.getUserContext());
 
 		assertFalse(fetchAllHealthFacilities.isEmpty());
+	}
+
+	@Test
+	public void shouldFindHealthFacilityByDistrictAndName() {
+		final HealthFacility healthFacility = this.healthFacilityQueryService
+		        .findHealthFacilityByDistrictAndName(this.district, this.healthFacility.getHealthFacility());
+
+		assertNotNull(healthFacility);
 	}
 }
