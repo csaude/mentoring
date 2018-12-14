@@ -52,8 +52,8 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 
 	@Override
 	public JResponse<List<Mentorship>> findBySelectedFilter(final String code, final String tutor, final String tutored,
-	        final String form, final String healthFacility, final String iterationType, final Integer iterationNumber, final String performedStartDate,
-			final String performedEndDate) throws BusinessException {
+	        final String form, final String healthFacility, final String iterationType, final Integer iterationNumber, final String lifeCycleStatus,
+			final String performedStartDate, final String performedEndDate) throws BusinessException {
 
 		LocalDate performedStartDateParam = null;
 		LocalDate performedEndDateParam = null;
@@ -82,7 +82,7 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 		}
 
 		final List<Mentorship> mentorships = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContetx(),
-		        code, tutor, tutored, form, healthFacility, iterationType, iterationNumber, performedStartDateParam, performedEndDateParam);
+		        code, tutor, tutored, form, healthFacility, iterationType, iterationNumber, lifeCycleStatus, performedStartDateParam, performedEndDateParam);
 
 		return JResponse.ok(mentorships).build();
 	}

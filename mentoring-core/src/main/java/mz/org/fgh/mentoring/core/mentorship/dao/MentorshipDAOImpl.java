@@ -42,7 +42,7 @@ public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implemen
 		root.fetch("tutored").fetch("career");
 		root.fetch("form").fetch("programmaticArea");
 		root.fetch("healthFacility").fetch("district");
-		root.fetch("session");
+		root.fetch("session", JoinType.LEFT);
 		root.fetch("cabinet", JoinType.LEFT);
 
 		createQuery.select(root);
@@ -91,7 +91,9 @@ public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implemen
 			predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("performedDate"), param));
 		}
 
-		predicates.add(criteriaBuilder.equal(root.get("lifeCycleStatus"), lifeCycleStatus));
+		if(lifeCycleStatus != null) {
+			predicates.add(criteriaBuilder.equal(root.get("lifeCycleStatus"), lifeCycleStatus));
+		}
 
 		createQuery.where(predicates.toArray(new Predicate[predicates.size()]));
 		createQuery.orderBy(criteriaBuilder.asc(root.get("code")));
