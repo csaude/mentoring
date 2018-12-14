@@ -27,5 +27,10 @@ mentoring-integ/.classpath
 mentoring-integ/.metadata/
 tomcat/*.war
 
+mentoring-core/**/dev-db-test.properties
+
 .idea
 **/*.iml
+
+# Ignore docker .env file used for custom variables.
+.env
