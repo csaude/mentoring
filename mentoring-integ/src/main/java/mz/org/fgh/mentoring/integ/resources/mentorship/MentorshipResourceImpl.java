@@ -3,15 +3,7 @@
  */
 package mz.org.fgh.mentoring.integ.resources.mentorship;
 
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.ws.rs.Path;
-
-import org.springframework.stereotype.Service;
-
 import com.sun.jersey.api.JResponse;
-
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipQueryService;
@@ -21,6 +13,15 @@ import mz.org.fgh.mentoring.core.session.model.SubmitedSessions;
 import mz.org.fgh.mentoring.core.session.service.SessionQueryService;
 import mz.org.fgh.mentoring.integ.resources.AbstractResource;
 import mz.org.fgh.mentoring.integ.resources.mentorship.dto.SessionDTO;
+import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
+import javax.ws.rs.Path;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.List;
 
 /**
  * @author Stélio Moiane
@@ -51,10 +52,37 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 
 	@Override
 	public JResponse<List<Mentorship>> findBySelectedFilter(final String code, final String tutor, final String tutored,
-	        final String form, final String healthFacility, final String iterationType, final Integer iterationNumber) throws BusinessException {
+	        final String form, final String healthFacility, final String iterationType, final Integer iterationNumber, final String performedStartDate,
+			final String performedEndDate) throws BusinessException {
+
+		LocalDate performedStartDateParam = null;
+		LocalDate performedEndDateParam = null;
+		if(performedStartDate != null) {
+			try {
+				performedStartDateParam = LocalDate.parse(performedStartDate);
+			} catch (DateTimeParseException e) {
+				throw new WebApplicationException(
+					Response.status(Response.Status.BAD_REQUEST)
+						.entity("performedStartDate parameter should be of the form yyyy-mm-dd e.g. 2018-12-31")
+						.build()
+				);
+			}
+		}
+
+		if(performedEndDate != null) {
+			try {
+				performedEndDateParam = LocalDate.parse(performedEndDate);
+			} catch (DateTimeParseException e) {
+				throw new WebApplicationException(
+					Response.status(Response.Status.BAD_REQUEST)
+						.entity("performedEndDate parameter should be of the form yyyy-mm-dd e.g. 2018-12-31")
+						.build()
+				);
+			}
+		}
 
 		final List<Mentorship> mentorships = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContetx(),
-		        code, tutor, tutored, form, healthFacility, iterationType, iterationNumber);
+		        code, tutor, tutored, form, healthFacility, iterationType, iterationNumber, performedStartDateParam, performedEndDateParam);
 
 		return JResponse.ok(mentorships).build();
 	}
