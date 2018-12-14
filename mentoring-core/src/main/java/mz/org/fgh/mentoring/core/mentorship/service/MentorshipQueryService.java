@@ -3,6 +3,7 @@
  */
 package mz.org.fgh.mentoring.core.mentorship.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
@@ -19,5 +20,6 @@ public interface MentorshipQueryService {
 
 	public List<Mentorship> fetchBySelectedFilter(final UserContext userContext, String code, final String tutor,
 												  final String tutored, final String formName, final String healthFacility,
-												  final String iterationType, final Integer iterationNumber);
+												  final String iterationType, final Integer iterationNumber, final LocalDate performedStartDate,
+												  final LocalDate performedEndDate);
 }
