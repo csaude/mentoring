@@ -3,6 +3,7 @@
  */
 package mz.org.fgh.mentoring.core.mentorship.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAO;
@@ -21,5 +22,6 @@ public interface MentorshipDAO extends GenericDAO<Mentorship, Long> {
 
 	public List<Mentorship> fetchBySelectedFilter(String code, final String tutorName, final String tutoredName,
 												  final String formName, final String healthFacility, final IterationType iterationType,
-												  final Integer iterationNumber, final LifeCycleStatus lifeCycleStatus);
+												  final Integer iterationNumber, final LifeCycleStatus lifeCycleStatus,
+												  final LocalDate startPerformedDate, final LocalDate endPerformedDate);
 }

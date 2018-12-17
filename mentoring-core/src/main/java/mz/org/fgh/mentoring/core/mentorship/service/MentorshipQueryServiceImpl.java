@@ -11,6 +11,7 @@ import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -25,12 +26,13 @@ public class MentorshipQueryServiceImpl implements MentorshipQueryService {
 	@Override
 	public List<Mentorship> fetchBySelectedFilter(final UserContext userContext, final String code, final String tutor, final String tutored,
 												  final String formName, final String healthFacility, final String iterationType,
-												  final Integer iterationNumber) {
+												  final Integer iterationNumber, final LocalDate performedStartDate, final LocalDate performedEndDate) {
 
 		IterationType type = null;
 		if(iterationType != null) {
 			type = IterationType.valueOf(iterationType.toUpperCase());
 		}
-		return this.mentorshipDAO.fetchBySelectedFilter(code, tutor, tutored, formName, healthFacility, type, iterationNumber, LifeCycleStatus.ACTIVE);
+		return this.mentorshipDAO.fetchBySelectedFilter(code, tutor, tutored, formName, healthFacility, type, iterationNumber, LifeCycleStatus.ACTIVE,
+				performedStartDate, performedEndDate);
 	}
 }
