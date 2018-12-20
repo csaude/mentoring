@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
 @PropertySource("classpath:db-test.properties")
+@PropertySource(name="developerConfigs", value = "classpath:dev-db-test.properties", ignoreResourceNotFound = true)
 @EnableJpaRepositories(basePackages = "mz.org.fgh.mentoring.core", repositoryImplementationPostfix = "Helper")
 @EnableScheduling
 @Profile("test")
