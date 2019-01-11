@@ -96,6 +96,11 @@ public class SessionQueryServiceTest extends AbstractSpringTest {
 	}
 
 	private void createMentorship() throws BusinessException {
+		this.prepareMentorship(this.session);
+		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship);
+	}
+
+	private void prepareMentorship(final Session session) throws BusinessException {
 		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTemplate.VALID);
 
 		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutor().getCareer());
@@ -125,9 +130,7 @@ public class SessionQueryServiceTest extends AbstractSpringTest {
 
 		this.mentorship.addAnswer(answer);
 		this.mentorship.setForm(form);
-		this.mentorship.setSession(this.session);
-
-		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship);
+		this.mentorship.setSession(session);
 	}
 
 	private Session createSession() throws BusinessException {
@@ -179,4 +182,25 @@ public class SessionQueryServiceTest extends AbstractSpringTest {
 		assertEquals(this.session.getPerformedDate(), startDate);
 	}
 
+	@Test
+	public void shouldFindSessionsWithDuplicatedUuid() throws BusinessException {
+
+		for (int i = 0; i < 3; i++) {
+			this.session.setId(null);
+			this.session.setCreatedAt(null);
+			this.session.setCreatedBy(null);
+
+			this.sessionService.createSession(this.getUserContext(), this.session);
+			this.prepareMentorship(this.session);
+		}
+
+		final List<Session> sessions = this.sessionQueryService.findSessionsWithDuplicatedUuids();
+		assertFalse(sessions.isEmpty());
+	}
+
+	@Test
+	public void shouldFetchSessionsByUuid() throws BusinessException {
+		final List<Session> sessions = this.sessionQueryService.fetchSessionsByUuid(this.session.getUuid());
+		assertFalse(sessions.isEmpty());
+	}
 }
