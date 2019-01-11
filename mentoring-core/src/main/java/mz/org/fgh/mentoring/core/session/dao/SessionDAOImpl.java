@@ -157,4 +157,16 @@ public class SessionDAOImpl extends GenericDAOImpl<Session, Long> implements Ses
 
 		return query.getResultList();
 	}
+
+	@Override
+	public List<Session> findWithDuplicatedUuids(final LifeCycleStatus lifeCycleStatus) {
+		return this.findByNamedQuery(SessionDAO.QUERY_NAME.findWithDuplicatedUuids,
+		        new ParamBuilder().add("lifeCycleStatus", lifeCycleStatus).process());
+	}
+
+	@Override
+	public List<Session> fetchSessionsByUuid(final String sessionUuid, final LifeCycleStatus lifeCycleStatus) {
+		return this.findByNamedQuery(SessionDAO.QUERY_NAME.fetchSessionsByUuid,
+		        new ParamBuilder().add("sessionUuid", sessionUuid).add("lifeCycleStatus", lifeCycleStatus).process());
+	}
 }

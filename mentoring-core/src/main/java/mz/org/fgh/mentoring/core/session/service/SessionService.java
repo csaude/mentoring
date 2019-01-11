@@ -15,4 +15,6 @@ public interface SessionService {
 
 	Session createSession(final UserContext userContext, final Session session) throws BusinessException;
 
+	Session updateSession(final UserContext userContext, final Session session) throws BusinessException;
+
 }
