@@ -81,5 +81,7 @@ public enum QuestionCategory {
 
 	FOLLOW_UP_PLAN,
 
-	NA;
+	NA,
+
+	OTHERS;
 }
