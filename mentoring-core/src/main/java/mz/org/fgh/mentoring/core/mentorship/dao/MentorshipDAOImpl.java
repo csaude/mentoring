@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -42,7 +43,7 @@ public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implemen
 		root.fetch("form").fetch("programmaticArea");
 		root.fetch("healthFacility").fetch("district");
 		root.fetch("session");
-		root.fetch("cabinet");
+		root.fetch("cabinet", JoinType.LEFT);
 
 		createQuery.select(root);
 
