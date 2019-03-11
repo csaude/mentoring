@@ -36,16 +36,16 @@ public class TutoredResourceImpl extends AbstractResource implements TutoredReso
 	public JResponse<Tutored> createTutored(final TutoredBeanResource tutoredBeanResource) throws BusinessException {
 
 		final Tutored tutored = this.tutoredService.createTutored(tutoredBeanResource.getUserContext(),
-				tutoredBeanResource.getTutored());
+		        tutoredBeanResource.getTutored());
 
 		return JResponse.ok(tutored).build();
 	}
 
 	@Override
 	public JResponse<List<Tutored>> findTutoreds(final String uuid, final String code, final String name,
-			final String surname, final String phoneNumber, final String tutored) throws BusinessException {
+	        final String surname, final String phoneNumber, final String tutored) throws BusinessException {
 		final List<Tutored> tutoreds = this.tutoredQueryService.findTutoredsBySelectedFilter(this.getUserContetx(),
-				uuid, code, name, surname, phoneNumber, tutored);
+		        uuid, code, name, surname, phoneNumber, tutored);
 
 		return JResponse.ok(tutoreds).build();
 	}
@@ -53,17 +53,17 @@ public class TutoredResourceImpl extends AbstractResource implements TutoredReso
 	@Override
 	public JResponse<Tutored> updateTutored(final TutoredBeanResource tutoredBeanResource) throws BusinessException {
 		final Tutored tutored = this.tutoredService.updateTutored(tutoredBeanResource.getUserContext(),
-				tutoredBeanResource.getTutored());
+		        tutoredBeanResource.getTutored());
 
 		return JResponse.ok(tutored).build();
 	}
 
 	@Override
 	public JResponse<TutoredBeanResource> syncronizeTutoreds(final TutoredBeanResource tutoredBeanResource)
-			throws BusinessException {
+	        throws BusinessException {
 
 		this.tutoredService.syncronizeTutoreds(tutoredBeanResource.getUserContext(), tutoredBeanResource.getTutoreds());
-		tutoredBeanResource.prepareSingleResponse();
+		tutoredBeanResource.prepareResponse();
 
 		return JResponse.ok(tutoredBeanResource).build();
 	}

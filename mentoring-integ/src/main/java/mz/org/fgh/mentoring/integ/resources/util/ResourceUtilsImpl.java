@@ -13,8 +13,8 @@ import com.sun.jersey.api.JResponse;
 import mz.org.fgh.mentoring.core.career.model.CareerType;
 import mz.org.fgh.mentoring.core.form.model.FormType;
 import mz.org.fgh.mentoring.core.location.model.Province;
+import mz.org.fgh.mentoring.core.question.model.QuestionCategory;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
-import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 @Path("utils")
 public class ResourceUtilsImpl implements ResourceUtils {

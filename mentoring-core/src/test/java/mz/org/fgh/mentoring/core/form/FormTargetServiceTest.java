@@ -25,6 +25,7 @@ import mz.org.fgh.mentoring.core.form.service.FormTargetService;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 
 /**
@@ -48,6 +49,9 @@ public class FormTargetServiceTest extends AbstractSpringTest {
 	@Inject
 	private CareerService careerService;
 
+	@Inject
+	private QuestionCategoryService questionCategoryService;
+
 	private FormTarget formTarget;
 
 	@Override
@@ -70,6 +74,8 @@ public class FormTargetServiceTest extends AbstractSpringTest {
 
 		formQuestions.forEach(formQuestion -> {
 			try {
+				this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+				        formQuestion.getQuestion().getQuestionsCategory());
 				this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 			}
 			catch (final BusinessException e) {

@@ -3,8 +3,8 @@
  */
 package mz.org.fgh.mentoring.integ.resources.tutored;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -21,13 +21,13 @@ import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TutoredBeanResource {
 
-	private static final int SINGLE_RESPONSE = 1;
-
 	private UserContext userContext;
 
 	private Tutored tutored;
 
 	private List<Tutored> tutoreds;
+
+	private List<String> tutoredUuids;
 
 	public TutoredBeanResource() {
 	}
@@ -56,13 +56,13 @@ public class TutoredBeanResource {
 		return this.tutoreds;
 	}
 
-	public void prepareSingleResponse() {
+	public void prepareResponse() {
+		this.tutoredUuids = this.tutoreds.stream().map(tutor -> tutor.getUuid()).collect(Collectors.toList());
+		this.tutored = null;
+		this.tutoreds = null;
+	}
 
-		if (!(SINGLE_RESPONSE == this.tutoreds.size())) {
-			return;
-		}
-
-		this.tutored = this.tutoreds.get(0);
-		this.tutoreds = new ArrayList<>();
+	public List<String> getTutoredUuids() {
+		return this.tutoredUuids;
 	}
 }

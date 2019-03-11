@@ -35,6 +35,7 @@ import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
@@ -76,6 +77,9 @@ public class AnswerQueryServiceTest extends AbstractSpringTest {
 	private AnswerQueryService answerQueryService;
 
 	@Inject
+	private QuestionCategoryService questionCategoryService;
+
+	@Inject
 	private CabinetService cabinetService;
 
 	private Mentorship mentorship;
@@ -90,12 +94,18 @@ public class AnswerQueryServiceTest extends AbstractSpringTest {
 		this.cabinetService.createCabinet(this.getUserContext(), this.mentorship.getCabinet());
 
 		final FormQuestion formQuestion1 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+		        formQuestion1.getQuestion().getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), formQuestion1.getQuestion());
 
 		final FormQuestion formQuestion2 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+		        formQuestion2.getQuestion().getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), formQuestion2.getQuestion());
 
 		final FormQuestion formQuestion3 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+		        formQuestion3.getQuestion().getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), formQuestion3.getQuestion());
 
 		final Set<FormQuestion> formQuestions = new HashSet<>();
