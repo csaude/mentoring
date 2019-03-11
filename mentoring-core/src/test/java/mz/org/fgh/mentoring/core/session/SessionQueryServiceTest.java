@@ -34,6 +34,7 @@ import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.session.model.PerformedSession;
 import mz.org.fgh.mentoring.core.session.model.Session;
@@ -85,6 +86,9 @@ public class SessionQueryServiceTest extends AbstractSpringTest {
 	@Inject
 	private CabinetService cabinetService;
 
+	@Inject
+	private QuestionCategoryService questionCategoryService;
+
 	private Session session;
 
 	private Mentorship mentorship;
@@ -105,6 +109,8 @@ public class SessionQueryServiceTest extends AbstractSpringTest {
 		this.cabinetService.createCabinet(this.getUserContext(), this.mentorship.getCabinet());
 
 		final FormQuestion formQuestion = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+		        formQuestion.getQuestion().getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 
 		final Set<FormQuestion> formQuestions = new HashSet<>();

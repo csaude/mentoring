@@ -8,8 +8,8 @@ import java.util.List;
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.question.model.Question;
+import mz.org.fgh.mentoring.core.question.model.QuestionCategory;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
-import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 /**
  * @author Eusebio Jose Maposse

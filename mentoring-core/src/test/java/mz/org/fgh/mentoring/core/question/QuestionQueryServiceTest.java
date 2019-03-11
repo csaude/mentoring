@@ -25,10 +25,11 @@ import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
 import mz.org.fgh.mentoring.core.question.model.Question;
+import mz.org.fgh.mentoring.core.question.model.QuestionCategory;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionQueryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
-import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 /**
  * @author Stélio Moiane
@@ -44,6 +45,9 @@ public class QuestionQueryServiceTest extends AbstractSpringTest {
 
 	@Inject
 	private ProgrammaticAreaService programmaticAreaService;
+
+	@Inject
+	private QuestionCategoryService questionCategoryService;
 
 	private Set<FormQuestion> formQuestions;
 
@@ -64,8 +68,11 @@ public class QuestionQueryServiceTest extends AbstractSpringTest {
 		this.form = EntityFactory.gimme(Form.class, FormTemplate.VALID);
 
 		for (final FormQuestion formQuestion : this.formQuestions) {
+			this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+			        formQuestion.getQuestion().getQuestionsCategory());
 			this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 		}
+
 		this.form.setProgrammaticArea(this.programmaticArea);
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(), this.programmaticArea);
 		this.formService.createForm(this.getUserContext(), this.form, this.formQuestions);

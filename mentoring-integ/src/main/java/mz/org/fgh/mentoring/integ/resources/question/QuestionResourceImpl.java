@@ -14,10 +14,10 @@ import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.question.model.Question;
+import mz.org.fgh.mentoring.core.question.model.QuestionCategory;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
 import mz.org.fgh.mentoring.core.question.service.QuestionQueryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
-import mz.org.fgh.mentoring.core.util.QuestionCategory;
 import mz.org.fgh.mentoring.integ.resources.AbstractResource;
 
 /**
@@ -35,7 +35,7 @@ public class QuestionResourceImpl extends AbstractResource implements QuestionRe
 	private QuestionQueryService questionQueryService;
 
 	@Override
-	public JResponse<Question> createQuetion(final QuestionBeanResource questionBeanResource) throws BusinessException {
+	public JResponse<Question> createQuestion(final QuestionBeanResource questionBeanResource) throws BusinessException {
 
 		final Question question = this.questionService.createQuestion(questionBeanResource.getUserContext(),
 				questionBeanResource.getQuestion());

@@ -17,6 +17,7 @@ import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.question.dao.QuestionDAO;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 
 /**
@@ -32,6 +33,9 @@ public class QuestionServiceTest extends AbstractSpringTest {
 	@Inject
 	private QuestionDAO questionDao;
 
+	@Inject
+	private QuestionCategoryService questionCategoryService;
+
 	@Override
 	public void setUp() throws BusinessException {
 	}
@@ -39,6 +43,7 @@ public class QuestionServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldCreateTextQuestion() throws BusinessException {
 		final Question question = EntityFactory.gimme(Question.class, QuestionTemplate.TEXT_QUESTION);
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), question);
 		TestUtil.assertCreation(question);
 		assertEquals(QuestionType.TEXT, question.getQuestionType());
@@ -47,6 +52,7 @@ public class QuestionServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldCreateNumericQuestion() throws BusinessException {
 		final Question question = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION);
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), question);
 		TestUtil.assertCreation(question);
 		assertEquals(QuestionType.NUMERIC, question.getQuestionType());
@@ -55,6 +61,7 @@ public class QuestionServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldUpdateQuestion() throws BusinessException {
 		final Question question = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question.getQuestionsCategory());
 
 		this.questionService.createQuestion(this.getUserContext(), question);
 

@@ -19,8 +19,8 @@ import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.question.model.Question;
+import mz.org.fgh.mentoring.core.question.model.QuestionCategory;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
-import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 /**
  * @author Eusebio Jose Maposse
@@ -33,7 +33,7 @@ public interface QuestionResource {
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public JResponse<Question> createQuetion(final QuestionBeanResource questionBeanResource) throws BusinessException;
+	public JResponse<Question> createQuestion(final QuestionBeanResource questionBeanResource) throws BusinessException;
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

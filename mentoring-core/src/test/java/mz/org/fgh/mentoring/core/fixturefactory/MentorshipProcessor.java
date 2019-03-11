@@ -14,6 +14,7 @@ import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
 import mz.org.fgh.mentoring.core.question.model.Question;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
@@ -44,11 +45,13 @@ public class MentorshipProcessor implements Processor {
 
 	private final CabinetService cabinetService;
 
+	private final QuestionCategoryService questionCategoryService;
+
 	public MentorshipProcessor(final UserContext userContext, final FormService formService,
 	        final CareerService careerService, final ProgrammaticAreaService programmaticAreaService,
 	        final DistrictService districtService, final HealthFacilityService heathFacilityService,
 	        final QuestionService questionService, final TutorService tutorService, final TutoredService tutoredService,
-	        final CabinetService cabinetService) {
+	        final CabinetService cabinetService, final QuestionCategoryService questionCategoryService) {
 		this.userContext = userContext;
 		this.formService = formService;
 		this.careerService = careerService;
@@ -59,6 +62,7 @@ public class MentorshipProcessor implements Processor {
 		this.tutorService = tutorService;
 		this.tutoredService = tutoredService;
 		this.cabinetService = cabinetService;
+		this.questionCategoryService = questionCategoryService;
 	}
 
 	@Override
@@ -69,7 +73,8 @@ public class MentorshipProcessor implements Processor {
 
 			mentorship.getForm().getFormQuestions().stream().forEach(formQuestion -> {
 				try {
-
+					this.questionCategoryService.createQuestionCategory(this.userContext,
+					        formQuestion.getQuestion().getQuestionsCategory());
 					final Question question = this.questionService.createQuestion(this.userContext,
 					        formQuestion.getQuestion());
 

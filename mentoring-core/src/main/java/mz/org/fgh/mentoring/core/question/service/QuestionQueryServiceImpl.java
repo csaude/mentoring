@@ -14,8 +14,8 @@ import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.question.dao.QuestionDAO;
 import mz.org.fgh.mentoring.core.question.model.Question;
+import mz.org.fgh.mentoring.core.question.model.QuestionCategory;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
-import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 /**
  * @author Eusebio Jose Maposse
