@@ -54,7 +54,8 @@ public interface MentorshipResource {
 	        @QueryParam("tutor") final String tutor, @QueryParam("tutored") final String tutored,
 	        @QueryParam("form") final String form, @QueryParam("healthFacility") final String healthFacility,
 			@QueryParam("iterationType") final String iterationType, @QueryParam("iterationNumber") final Integer iterationNumber,
-			@QueryParam("performedStartDate") final String performedStartDate, @QueryParam("performedEndDate") final String performedEndDate)
+			@QueryParam("lifeCycleStatus") final String lifeCycleStatus, @QueryParam("performedStartDate") final String performedStartDate,
+			@QueryParam("performedEndDate") final String performedEndDate)
 	        throws BusinessException;
 
 	@POST

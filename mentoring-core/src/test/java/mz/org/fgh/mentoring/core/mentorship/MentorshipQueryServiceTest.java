@@ -17,6 +17,7 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 
+import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.mentorship.model.IterationType;
 import org.junit.Test;
 
@@ -85,6 +86,8 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 
 	private Question question;
 
+	private static final String LIFE_CYCLE_STATUS_ACTIVE = "ACTIVE";			// Was automatically set to this value before calling DAO (band aid)
+
 	@Override
 	public void setUp() throws BusinessException {
 		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTemplate.VALID);
@@ -98,7 +101,8 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 
 		final List<Mentorship> mentorships = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
 		        this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
-		        this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), null, null, null, null);
+		        this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), null, null,
+					LIFE_CYCLE_STATUS_ACTIVE, null, null);
 
 		assertFalse(mentorships.isEmpty());
 
@@ -114,7 +118,8 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 	public void fetchBySelectedFilterShouldSearchByIterationType() {
 		List<Mentorship> results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
 				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
-				this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), "patient", null, null, null);
+				this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), "patient", null,
+					LIFE_CYCLE_STATUS_ACTIVE, null, null);
 
 		assertNotNull(results);
 		assertTrue(results.size() > 0);
@@ -122,7 +127,8 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 
 		results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
 				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
-				this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), "file", null, null, null);
+				this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), "file", null,
+					LIFE_CYCLE_STATUS_ACTIVE, null, null);
 
 		assertTrue(results == null || results.size() == 0);
 	}
@@ -131,7 +137,8 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 	public void fetchBySelectedFilterShouldSearchByIterationNumber() {
 		List<Mentorship> results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
 				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
-				this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), null, 1, null, null);
+				this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), null, 1,
+					LIFE_CYCLE_STATUS_ACTIVE, null, null);
 
 		assertNotNull(results);
 		assertTrue(results.size() > 0);
@@ -142,7 +149,8 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 	public void fetchBySelectedFilterShouldThrowIfUnknownIterationTypeIsPassed() {
 		this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
 				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
-				this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), "unknown type", 1, null, null);
+				this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), "unknown type", 1,
+					LIFE_CYCLE_STATUS_ACTIVE, null, null);
 	}
 
 	@Test
@@ -151,14 +159,16 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 		this.prepareAndCreateMentorship(EntityFactory.gimme(Mentorship.class, MentorshipTemplate.DATE_PERFORMED_MAY_20_2018));
 
 		List<Mentorship> mentorshipList = mentorshipQueryService.fetchBySelectedFilter(getUserContext(), null, null, null,
-				null, null, null, null, MentorshipTemplate.DATE_MAY_12_2018, null);
+				null, null, null, null, LIFE_CYCLE_STATUS_ACTIVE, MentorshipTemplate.DATE_MAY_12_2018,
+				null);
 
 		assertNotNull(mentorshipList);
 		assertTrue(mentorshipList.size() >= 1);
 		assertTrue(mentorshipList.stream().anyMatch(mship -> mship.getPerformedDate().equals(MentorshipTemplate.DATE_MAY_12_2018)));
 
 		mentorshipList = mentorshipQueryService.fetchBySelectedFilter(getUserContext(), null, null, null,
-				null, null, null, null, MentorshipTemplate.DATE_MAY_12_2018, MentorshipTemplate.DATE_MAY_20_2018);
+				null, null, null, null, LIFE_CYCLE_STATUS_ACTIVE, MentorshipTemplate.DATE_MAY_12_2018,
+				MentorshipTemplate.DATE_MAY_20_2018);
 
 		assertNotNull(mentorshipList);
 		assertEquals(2, mentorshipList.size());
@@ -167,13 +177,13 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 
 		// end date earlier before anything is performed
 		mentorshipList = mentorshipQueryService.fetchBySelectedFilter(getUserContext(), null, null, null,
-				null, null, null, null, null, LocalDate.of(2018,1,1));
+				null, null, null, null, LIFE_CYCLE_STATUS_ACTIVE, null,LocalDate.of(2018,1,1));
 
 		assertTrue(mentorshipList.isEmpty());
 
 		LocalDate janNextYear = LocalDate.of(LocalDate.now().getYear() + 1, 1,1); // January next year - future
 		mentorshipList = mentorshipQueryService.fetchBySelectedFilter(getUserContext(), null, null, null,
-				null, null, null, null, janNextYear, LocalDate.of(2018,1,1));
+				null, null, null, null, LIFE_CYCLE_STATUS_ACTIVE, janNextYear, LocalDate.of(2018,1,1));
 
 		assertTrue(mentorshipList.isEmpty());
 	}
