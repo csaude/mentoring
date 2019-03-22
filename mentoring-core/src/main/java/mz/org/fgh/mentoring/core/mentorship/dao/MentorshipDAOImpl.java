@@ -42,7 +42,7 @@ public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implemen
 		root.fetch("tutored").fetch("career");
 		root.fetch("form").fetch("programmaticArea");
 		root.fetch("healthFacility").fetch("district");
-		root.fetch("session");
+		root.fetch("session", JoinType.LEFT);
 		root.fetch("cabinet", JoinType.LEFT);
 
 		createQuery.select(root);
