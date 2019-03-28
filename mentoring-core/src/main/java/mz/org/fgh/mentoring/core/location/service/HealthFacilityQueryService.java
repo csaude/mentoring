@@ -19,9 +19,11 @@ public interface HealthFacilityQueryService {
 	String NAME = "mz.org.fgh.mentoring.core.location.service.HealthFacilityQueryService";
 
 	List<HealthFacility> findHealthFacilityByDistrict(final UserContext userContext, final District district)
-			throws BusinessException;
+	        throws BusinessException;
 
 	List<HealthFacility> fetchAllHealthFacilities(final UserContext userContext);
 
 	HealthFacility findHealthFacilityByUuid(final UserContext userContext, final String uuid) throws BusinessException;
+
+	HealthFacility findHealthFacilityByDistrictAndName(final District district, final String healthFacility);
 }

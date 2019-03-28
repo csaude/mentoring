@@ -3,15 +3,11 @@
  */
 package mz.org.fgh.mentoring.integ.resources.form;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.ws.rs.Path;
 
-import mz.org.fgh.mentoring.core.question.model.Question;
 import org.springframework.stereotype.Service;
 
 import com.sun.jersey.api.JResponse;
@@ -38,37 +34,18 @@ public class FormServiceResourceImpl extends AbstractResource implements FormSer
 
 	@Override
 	public JResponse<Form> createForm(final FormBeanResource formBeanResource) throws BusinessException {
-		Map<Integer, Question> sequenceQuestionMap = createSequenceQuestionMap(formBeanResource.getQuestionSequences());
 
-		if(!sequenceQuestionMap.isEmpty()) {
-			final Form form = this.formService.createForm(formBeanResource.getUserContext(), formBeanResource.getForm(),
-					sequenceQuestionMap);
-
-			return JResponse.ok(form).build();
-		}
-
-		// Do it with questions only
 		final Form form = this.formService.createForm(formBeanResource.getUserContext(), formBeanResource.getForm(),
-		        formBeanResource.getQuestions());
+		        formBeanResource.getFormQuestions());
 
 		return JResponse.ok(form).build();
 	}
 
 	@Override
 	public JResponse<Form> updateForm(final FormBeanResource formBeanResource) throws BusinessException {
-		// Create a Map.
-		Map<Integer, Question> sequenceQuestionMap = createSequenceQuestionMap(formBeanResource.getQuestionSequences());
 
-		if(!sequenceQuestionMap.isEmpty()) {
-			final Form form = this.formService.updateForm(formBeanResource.getUserContext(), formBeanResource.getForm(),
-					sequenceQuestionMap);
-
-			return JResponse.ok(form).build();
-		}
-
-		// else do it with questions.
 		final Form form = this.formService.updateForm(formBeanResource.getUserContext(), formBeanResource.getForm(),
-				formBeanResource.getQuestions());
+		        formBeanResource.getFormQuestions());
 
 		return JResponse.ok(form).build();
 	}
@@ -89,15 +66,5 @@ public class FormServiceResourceImpl extends AbstractResource implements FormSer
 		final List<Form> forms = this.formQueryService.findSampleIndicatorForms();
 
 		return JResponse.ok(forms).build();
-	}
-
-	private Map<Integer, Question> createSequenceQuestionMap(Set<QuestionSequence> questionSequences) {
-		Map<Integer, Question> sequenceQuestionMap = new HashMap<>();
-
-		for(QuestionSequence qs: questionSequences) {
-			sequenceQuestionMap.put(qs.getSequence(), qs.getQuestion());
-		}
-
-		return sequenceQuestionMap;
 	}
 }

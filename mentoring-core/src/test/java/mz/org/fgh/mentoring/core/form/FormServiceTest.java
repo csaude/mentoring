@@ -8,31 +8,27 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
 
-import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.co.mozview.frameworks.core.fixtureFactory.util.TestUtil;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
+import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.FormTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.ProgrammaticAreaTemplate;
-import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.dao.FormDAO;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
-import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 
 /**
@@ -54,13 +50,13 @@ public class FormServiceTest extends AbstractSpringTest {
 	@Inject
 	private QuestionService questionService;
 
-	public Set<Question> questions = new HashSet<>();
-
 	private ProgrammaticArea programmaticArea;
 
 	private Form form;
 
-	private Question newQuestion;
+	private FormQuestion formQuestion;
+
+	private List<FormQuestion> formQuestions;
 
 	@Override
 	public void setUp() throws BusinessException {
@@ -69,24 +65,21 @@ public class FormServiceTest extends AbstractSpringTest {
 
 		this.form = EntityFactory.gimme(Form.class, FormTemplate.VALID);
 
-		form.setProgrammaticArea(programmaticAreaService.createProgrammaticArea(getUserContext(), programmaticArea));
-		newQuestion = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
+		this.form.setProgrammaticArea(
+		        this.programmaticAreaService.createProgrammaticArea(this.getUserContext(), this.programmaticArea));
+		this.formQuestion = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
 
-		List<Question> createdQuestions = (EntityFactory.gimme(Question.class, 10, QuestionTemplate.VALID));
+		this.formQuestions = EntityFactory.gimme(FormQuestion.class, 10, FormQuestionTemplate.WITH_NO_FORM);
 
-		for (Question question : createdQuestions) {
-
-			this.questionService.createQuestion(this.getUserContext(), question);
-
-			questions.add(question);
+		for (final FormQuestion formQuestion : this.formQuestions) {
+			this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 		}
-
 	}
 
 	@Test(expected = BusinessException.class)
 	public void shouldNotCreateFormWithoutQuestions() throws BusinessException {
 
-		Form createdForm = this.formService.createForm(this.getUserContext(), this.form, new HashSet<>());
+		final Form createdForm = this.formService.createForm(this.getUserContext(), this.form, new HashSet<>());
 
 		TestUtil.assertCreation(createdForm);
 	}
@@ -94,11 +87,11 @@ public class FormServiceTest extends AbstractSpringTest {
 	@Test(expected = BusinessException.class)
 	public void shouldNotUpdateFormWithoutQuestions() throws BusinessException {
 
-		Form createdForm = this.formService.createForm(this.getUserContext(), this.form, new HashSet<>());
+		final Form createdForm = this.formService.createForm(this.getUserContext(), this.form, new HashSet<>());
 
 		final Form updateForm = this.formDAO.findById(createdForm.getId());
 
-		Form updatedForm = this.formService.updateForm(this.getUserContext(), updateForm, new HashSet<>());
+		final Form updatedForm = this.formService.updateForm(this.getUserContext(), updateForm, new HashSet<>());
 
 		TestUtil.assertUpdate(updatedForm);
 	}
@@ -106,7 +99,8 @@ public class FormServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldCreateForm() throws BusinessException {
 
-		final Form createdForm = this.formService.createForm(this.getUserContext(), this.form, questions);
+		final Form createdForm = this.formService.createForm(this.getUserContext(), this.form,
+		        new HashSet<>(this.formQuestions));
 
 		final Form fetchedByFormId = this.formDAO.fetchByFormId(createdForm.getId());
 
@@ -122,28 +116,30 @@ public class FormServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldUpdateForm() throws BusinessException {
 
-		Form createdForm = this.formService.createForm(this.getUserContext(), this.form, questions);
-		
-		questions.add(this.questionService.createQuestion(this.getUserContext(), newQuestion));
+		final Form createdForm = this.formService.createForm(this.getUserContext(), this.form,
+		        new HashSet<>(this.formQuestions));
+
+		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
+		this.formQuestions.add(this.formQuestion);
 
 		final Form updateForm = this.formDAO.findById(createdForm.getId());
 
-		this.formService.updateForm(this.getUserContext(), updateForm, questions);
+		this.formService.updateForm(this.getUserContext(), updateForm, new HashSet<>(this.formQuestions));
 
 		TestUtil.assertUpdate(updateForm);
 	}
 
 	@Test
 	public void createForm_shouldCreateFormWithSequence() throws BusinessException {
-		// Create a question sequence Map.
-		Map<Integer, Question>  questionsSequence = createAMapOfSequenceToQuestion();
-		final Form createdForm = this.formService.createForm(this.getUserContext(), this.form, questionsSequence);
+
+		final Form createdForm = this.formService.createForm(this.getUserContext(), this.form,
+		        new HashSet<>(this.formQuestions));
 
 		final Form fetchedByFormId = this.formDAO.fetchByFormId(createdForm.getId());
 
 		TestUtil.assertCreation(createdForm);
 
-		Set<FormQuestion> formQuestions = fetchedByFormId.getFormQuestions();
+		final Set<FormQuestion> formQuestions = fetchedByFormId.getFormQuestions();
 		assertFalse(formQuestions.isEmpty());
 
 		formQuestions.stream().forEach(formQuestion -> {
@@ -156,37 +152,25 @@ public class FormServiceTest extends AbstractSpringTest {
 	@Test
 	public void updateForm_shouldUpdateFormTheQuestionSequenceIfProvided() throws BusinessException {
 
-		Form createdForm = this.formService.createForm(this.getUserContext(), this.form, questions);
+		final Form createdForm = this.formService.createForm(this.getUserContext(), this.form,
+		        new HashSet<>(this.formQuestions));
 
-		questions.add(this.questionService.createQuestion(this.getUserContext(), newQuestion));
+		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
+		this.formQuestions.add(this.formQuestion);
 
 		Form updateForm = this.formDAO.findById(createdForm.getId());
 
-		// Create a question sequence Map.
-		Map<Integer, Question>  questionsSequence = createAMapOfSequenceToQuestion();
+		updateForm = this.formService.updateForm(this.getUserContext(), updateForm, new HashSet<>(this.formQuestions));
 
-		updateForm = this.formService.updateForm(this.getUserContext(), updateForm, questionsSequence);
-
-		Set<FormQuestion> formQuestions = updateForm.getFormQuestions();
+		final Set<FormQuestion> formQuestions = updateForm.getFormQuestions();
 
 		assertNotNull(formQuestions);
 		assertFalse(formQuestions.isEmpty());
 		assertTrue(formQuestions.stream().allMatch(formQuestion -> {
-			Integer questionSequence = formQuestion.getSequence();
-			return questionSequence != null && questionSequence.intValue() > 0;
+			final Integer questionSequence = formQuestion.getSequence();
+			return (questionSequence != null) && (questionSequence.intValue() > 0);
 		}));
+
 		TestUtil.assertUpdate(updateForm);
-	}
-
-	private Map<Integer, Question> createAMapOfSequenceToQuestion() {
-		// Create a question sequence Map.
-		Map<Integer, Question>  questionsSequence = new HashMap<>();
-		Iterator<Question> iterator = questions.iterator();
-		Integer sequence = 1;
-		while(iterator.hasNext()) {
-			questionsSequence.put(sequence++, iterator.next());
-		}
-
-		return questionsSequence;
 	}
 }

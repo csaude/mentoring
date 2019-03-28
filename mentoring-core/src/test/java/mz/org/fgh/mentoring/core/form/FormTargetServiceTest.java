@@ -15,16 +15,16 @@ import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.co.mozview.frameworks.core.fixtureFactory.util.TestUtil;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
+import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.FormTargetTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.ProgrammaticAreaTemplate;
-import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.model.FormTarget;
 import mz.org.fgh.mentoring.core.form.service.FormService;
 import mz.org.fgh.mentoring.core.form.service.FormTargetService;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
-import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 
 /**
@@ -65,18 +65,19 @@ public class FormTargetServiceTest extends AbstractSpringTest {
 		form.setProgrammaticArea(
 		        this.programmaticAreaService.createProgrammaticArea(this.getUserContext(), programmaticArea));
 
-		final List<Question> questions = (EntityFactory.gimme(Question.class, 10, QuestionTemplate.VALID));
+		final List<FormQuestion> formQuestions = (EntityFactory.gimme(FormQuestion.class, 10,
+		        FormQuestionTemplate.WITH_NO_FORM));
 
-		questions.forEach(question -> {
+		formQuestions.forEach(formQuestion -> {
 			try {
-				this.questionService.createQuestion(this.getUserContext(), question);
+				this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 			}
 			catch (final BusinessException e) {
 				e.printStackTrace();
 			}
 		});
 
-		this.formService.createForm(this.getUserContext(), form, new HashSet<>(questions));
+		this.formService.createForm(this.getUserContext(), form, new HashSet<>(formQuestions));
 	}
 
 	@Test

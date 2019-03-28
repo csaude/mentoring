@@ -19,5 +19,8 @@ public interface DistrictQueryService {
 	String NAME = "mz.org.fgh.mentoring.core.location.service.DistrictQueryService";
 
 	List<District> findDistrictsByProvince(final UserContext userContext, final Province province)
-			throws BusinessException;
+	        throws BusinessException;
+
+	District findDistrictByProvinceAndName(final UserContext userContext, final Province province,
+	        final String district);
 }

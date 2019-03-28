@@ -4,7 +4,8 @@ services:
        build: mysql
        ports: 
         - "${MENTORING_MYSQL_PUBLISHED_PORT:-3307}:3306"
-       network_mode: bridge
+       networks:
+        - network
        container_name: mysql-mentoring
        volumes:
          - ${MENTORING_MYSQL_DIR:-/opt/data/webapp/mentoring}:/usr/local/mysql
@@ -15,7 +16,9 @@ services:
        ports:
          - "${MENTORING_TOMCAT_PUBLISHED_PORT:-8080}:8080"
          - "8000:8000"
-       network_mode: bridge
+       networks: 
+         - network
+         - account-manager_network
        external_links:
          - tomcat-account
        container_name: tomcat-mentoring
@@ -27,3 +30,9 @@ services:
          - ${MENTORING_TOMCAT_WEBAPPS_DIR:-/opt/data/webapp/mentoring}:/usr/local/tomcat/webapps
        hostname: tomcat-mentoring
        restart: unless-stopped
+
+networks:
+  network:
+    driver: bridge
+  account-manager_network:
+    external: true

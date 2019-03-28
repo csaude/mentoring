@@ -26,8 +26,9 @@ import mz.org.fgh.mentoring.core.location.dao.HealthFacilityDAO;
  *
  */
 @NamedQueries({
-		@NamedQuery(name = HealthFacilityDAO.QUERY_NAME.findByDistrict, query = HealthFacilityDAO.QUERY.findByDistrict),
-		@NamedQuery(name = HealthFacilityDAO.QUERY_NAME.fetchAll, query = HealthFacilityDAO.QUERY.fetchAll)})
+        @NamedQuery(name = HealthFacilityDAO.QUERY_NAME.findByDistrict, query = HealthFacilityDAO.QUERY.findByDistrict),
+        @NamedQuery(name = HealthFacilityDAO.QUERY_NAME.fetchAll, query = HealthFacilityDAO.QUERY.fetchAll),
+        @NamedQuery(name = HealthFacilityDAO.QUERY_NAME.findByDistrictAndName, query = HealthFacilityDAO.QUERY.findByDistrictAndName) })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity

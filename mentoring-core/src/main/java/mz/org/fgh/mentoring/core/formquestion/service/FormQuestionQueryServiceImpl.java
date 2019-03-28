@@ -9,8 +9,10 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
+import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.formquestion.dao.FormQuestionDAO;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 
@@ -28,5 +30,10 @@ public class FormQuestionQueryServiceImpl implements FormQuestionQueryService {
 	@Override
 	public List<FormQuestion> fetchFormQuestionsByTutor(final UserContext userContext) {
 		return this.formQuestionDAO.fetchByTutor(LifeCycleStatus.ACTIVE, userContext.getUuid());
+	}
+
+	@Override
+	public List<FormQuestion> findFormQuestionByForm(final Form form) throws BusinessException {
+		return this.formQuestionDAO.fetchByForm(form, LifeCycleStatus.ACTIVE);
 	}
 }

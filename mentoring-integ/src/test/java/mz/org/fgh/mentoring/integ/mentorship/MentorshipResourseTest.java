@@ -22,16 +22,16 @@ import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.answer.model.AnswerHelper;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
+import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTemplate;
-import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.SessionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
-import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.session.model.Session;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
@@ -86,7 +86,7 @@ public class MentorshipResourseTest extends IntegAbstractSpringTest {
 
 	private Session session;
 
-	private Question question;
+	private FormQuestion formQuestion;
 
 	@Override
 	public void setUp() throws BusinessException {
@@ -102,15 +102,15 @@ public class MentorshipResourseTest extends IntegAbstractSpringTest {
 		this.tutor = this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor());
 		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
 
-		this.question = EntityFactory.gimme(Question.class, QuestionTemplate.TEXT_QUESTION);
+		this.formQuestion = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
 
-		this.questionService.createQuestion(this.getUserContext(), this.question);
+		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
 
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
 		        this.mentorship.getForm().getProgrammaticArea());
 
 		this.form = this.mentorship.getForm();
-		this.formService.createForm(this.getUserContext(), this.form, new HashSet<>(Arrays.asList(this.question)));
+		this.formService.createForm(this.getUserContext(), this.form, new HashSet<>(Arrays.asList(this.formQuestion)));
 
 		this.districtService.createDistrict(this.getUserContext(), this.mentorship.getHealthFacility().getDistrict());
 		this.heathFacilityService.createHealthFacility(this.getUserContext(), this.mentorship.getHealthFacility());
@@ -128,7 +128,7 @@ public class MentorshipResourseTest extends IntegAbstractSpringTest {
 		mentorshipHelper.setMentorship(this.mentorship);
 
 		final AnswerHelper answerHelper = new AnswerHelper();
-		answerHelper.setQuestion(this.question);
+		answerHelper.setQuestion(this.formQuestion.getQuestion());
 		answerHelper.setValue("Funciona!!!");
 
 		mentorshipHelper.addAnswerHelper(answerHelper);
