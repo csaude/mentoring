@@ -25,8 +25,12 @@ import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 public class MentorshipTemplate implements TemplateLoader {
 
 	public static final String VALID = "VALID";
-
 	public static final String WITH_ANSWERS = "WITH_ANSWERS";
+	public static final String DATE_PERFORMED_MAY_12_2018 = "PERFORMED_DATE_MAY_12_2018";
+	public static final String DATE_PERFORMED_MAY_20_2018 = "PERFORMED_DATE_MAY_20_2018";
+
+	public static final LocalDate DATE_MAY_12_2018 = LocalDate.of(2018, 5, 12);
+	public static final LocalDate DATE_MAY_20_2018 = LocalDate.of(2018, 5, 20);
 
 	@Override
 	public void load() {
@@ -46,6 +50,18 @@ public class MentorshipTemplate implements TemplateLoader {
 		Fixture.of(Mentorship.class).addTemplate(WITH_ANSWERS).inherits(VALID, new Rule() {
 			{
 				this.add("answers", this.has(5).of(TextAnswer.class, TextAnswerTemplate.VALID));
+			}
+		});
+
+		Fixture.of(Mentorship.class).addTemplate(DATE_PERFORMED_MAY_12_2018).inherits(VALID, new Rule() {
+			{
+				this.add("performedDate", DATE_MAY_12_2018);
+			}
+		});
+
+		Fixture.of(Mentorship.class).addTemplate(DATE_PERFORMED_MAY_20_2018).inherits(VALID, new Rule() {
+			{
+				this.add("performedDate", DATE_MAY_20_2018);
 			}
 		});
 	}

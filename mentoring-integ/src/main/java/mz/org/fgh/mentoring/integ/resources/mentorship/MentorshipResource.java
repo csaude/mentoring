@@ -34,12 +34,28 @@ public interface MentorshipResource {
 	public JResponse<Mentorship> createMentorshipProcess(final MentorshipBeanResource mentorshipBeanResource)
 	        throws BusinessException;
 
+	/**
+	 *
+	 * @param code
+	 * @param tutor
+	 * @param tutored
+	 * @param form
+	 * @param healthFacility
+	 * @param iterationType
+	 * @param iterationNumber
+	 * @param performedStartDate Optional date string of the form "YYYY-mm-dd" e.g "2018-12-31"
+	 * @param performedEndDate	Optional date string of the form "YYYY-mm-dd" e.g "2018-12-31"
+	 * @return
+	 * @throws BusinessException
+	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Mentorship>> findBySelectedFilter(@QueryParam("code") final String code,
 	        @QueryParam("tutor") final String tutor, @QueryParam("tutored") final String tutored,
 	        @QueryParam("form") final String form, @QueryParam("healthFacility") final String healthFacility,
-			@QueryParam("iterationType") final String iterationType, @QueryParam("iterationNumber") final Integer iterationNumber)
+			@QueryParam("iterationType") final String iterationType, @QueryParam("iterationNumber") final Integer iterationNumber,
+			@QueryParam("lifeCycleStatus") final String lifeCycleStatus, @QueryParam("performedStartDate") final String performedStartDate,
+			@QueryParam("performedEndDate") final String performedEndDate)
 	        throws BusinessException;
 
 	@POST
