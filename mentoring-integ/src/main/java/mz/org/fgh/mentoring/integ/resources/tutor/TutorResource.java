@@ -29,6 +29,7 @@ import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 public interface TutorResource {
 
 	String NAME = "mz.org.fgh.mentoring.integ.resources.tutor.TutorResource";
+	String RESET_PASSWORD_PATH = "reset-password";
 
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -53,7 +54,7 @@ public interface TutorResource {
 	public JResponse<Tutor> fetchTutorByUuid(@PathParam("uuid") final String uuid) throws BusinessException;
 
 	@PUT
-	@Path("reset-password")
+	@Path(RESET_PASSWORD_PATH)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<Tutor> resetPassword(final UserContext userContext) throws BusinessException;

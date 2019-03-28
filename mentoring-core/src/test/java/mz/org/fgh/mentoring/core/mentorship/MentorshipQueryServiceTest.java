@@ -8,12 +8,16 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 
+import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
+import mz.org.fgh.mentoring.core.mentorship.model.IterationType;
 import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
@@ -82,44 +86,14 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 
 	private FormQuestion formQuestion;
 
-	private Form form;
+	private static final String LIFE_CYCLE_STATUS_ACTIVE = "ACTIVE";			// Was automatically set to this value before calling DAO (band aid)
 
 	@Override
 	public void setUp() throws BusinessException {
-
 		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTemplate.VALID);
-		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutor().getCareer());
-		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutored().getCareer());
-		this.tutorService.createTutor(this.getUserContext(), this.mentorship.getTutor());
-		this.tutoredService.createTutored(this.getUserContext(), this.mentorship.getTutored());
-		this.cabinetService.createCabinet(this.getUserContext(), this.mentorship.getCabinet());
-
-		this.formQuestion = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.VALID);
-		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
-
-		final Set<FormQuestion> formQuestions = new HashSet<>();
-		formQuestions.add(this.formQuestion);
-
-		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
-		        this.mentorship.getForm().getProgrammaticArea());
-
-		this.form = this.mentorship.getForm();
-		this.formService.createForm(this.getUserContext(), this.form, formQuestions);
-
-		this.districtService.createDistrict(this.getUserContext(), this.mentorship.getHealthFacility().getDistrict());
-		this.heathFacilityService.createHealthFacility(this.getUserContext(), this.mentorship.getHealthFacility());
-
-		final Answer answer = new TextAnswer();
-		answer.setQuestion(this.formQuestion.getQuestion());
-		answer.setValue("COMPETENTE");
-
-		this.mentorship.addAnswer(answer);
-		this.mentorship.setForm(this.form);
-
-		this.mentorship.setIterationType(IterationType.PATIENT);
-		this.mentorship.setIterationNumber(1);
-
-		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship);
+		this.question = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
+		this.questionService.createQuestion(this.getUserContext(), this.question);
+		this.prepareAndCreateMentorship(mentorship);
 	}
 
 	@Test
@@ -127,7 +101,8 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 
 		final List<Mentorship> mentorships = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
 		        this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
-		        this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility(), null, null);
+		        this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), null, null,
+					LIFE_CYCLE_STATUS_ACTIVE, null, null);
 
 		assertFalse(mentorships.isEmpty());
 
@@ -142,26 +117,29 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 	@Test
 	public void fetchBySelectedFilterShouldSearchByIterationType() {
 		List<Mentorship> results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
-		        this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
-		        this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility(), "patient", null);
+				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
+				this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), "patient", null,
+					LIFE_CYCLE_STATUS_ACTIVE, null, null);
 
 		assertNotNull(results);
 		assertTrue(results.size() > 0);
 		assertEquals(IterationType.PATIENT, results.get(0).getIterationType());
-
-		results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(), this.mentorship.getCode(),
-		        this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(), this.form.getName(),
-		        this.mentorship.getHealthFacility().getHealthFacility(), "file", null);
-
+    
+		results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
+				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
+				this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), "file", null,
+					LIFE_CYCLE_STATUS_ACTIVE, null, null);
+    
 		assertTrue((results == null) || (results.size() == 0));
 	}
 
 	@Test
 	public void fetchBySelectedFilterShouldSearchByIterationNumber() {
-		final List<Mentorship> results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
-		        this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
-		        this.form.getName(), this.mentorship.getHealthFacility().getHealthFacility(), null, 1);
-
+		List<Mentorship> results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
+				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
+				this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), null, 1,
+					LIFE_CYCLE_STATUS_ACTIVE, null, null);
+    
 		assertNotNull(results);
 		assertTrue(results.size() > 0);
 		assertEquals(Integer.valueOf(1), results.get(0).getIterationNumber());
@@ -169,8 +147,73 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void fetchBySelectedFilterShouldThrowIfUnknownIterationTypeIsPassed() {
-		this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(), this.mentorship.getCode(),
-		        this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(), this.form.getName(),
-		        this.mentorship.getHealthFacility().getHealthFacility(), "unknown type", 1);
+		this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
+				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
+				this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), "unknown type", 1,
+					LIFE_CYCLE_STATUS_ACTIVE, null, null);
+	}
+
+	@Test
+	public void fetchBySelectedFilterShouldSearchByPerformedDateRange() throws BusinessException {
+		this.prepareAndCreateMentorship(EntityFactory.gimme(Mentorship.class, MentorshipTemplate.DATE_PERFORMED_MAY_12_2018));
+		this.prepareAndCreateMentorship(EntityFactory.gimme(Mentorship.class, MentorshipTemplate.DATE_PERFORMED_MAY_20_2018));
+
+		List<Mentorship> mentorshipList = mentorshipQueryService.fetchBySelectedFilter(getUserContext(), null, null, null,
+				null, null, null, null, LIFE_CYCLE_STATUS_ACTIVE, MentorshipTemplate.DATE_MAY_12_2018,
+				null);
+
+		assertNotNull(mentorshipList);
+		assertTrue(mentorshipList.size() >= 1);
+		assertTrue(mentorshipList.stream().anyMatch(mship -> mship.getPerformedDate().equals(MentorshipTemplate.DATE_MAY_12_2018)));
+
+		mentorshipList = mentorshipQueryService.fetchBySelectedFilter(getUserContext(), null, null, null,
+				null, null, null, null, LIFE_CYCLE_STATUS_ACTIVE, MentorshipTemplate.DATE_MAY_12_2018,
+				MentorshipTemplate.DATE_MAY_20_2018);
+
+		assertNotNull(mentorshipList);
+		assertEquals(2, mentorshipList.size());
+		assertTrue(mentorshipList.stream().anyMatch(mship -> mship.getPerformedDate().equals(MentorshipTemplate.DATE_MAY_12_2018)));
+		assertTrue(mentorshipList.stream().anyMatch(mship -> mship.getPerformedDate().equals(MentorshipTemplate.DATE_MAY_20_2018)));
+
+		// end date earlier before anything is performed
+		mentorshipList = mentorshipQueryService.fetchBySelectedFilter(getUserContext(), null, null, null,
+				null, null, null, null, LIFE_CYCLE_STATUS_ACTIVE, null,LocalDate.of(2018,1,1));
+
+		assertTrue(mentorshipList.isEmpty());
+
+		LocalDate janNextYear = LocalDate.of(LocalDate.now().getYear() + 1, 1,1); // January next year - future
+		mentorshipList = mentorshipQueryService.fetchBySelectedFilter(getUserContext(), null, null, null,
+				null, null, null, null, LIFE_CYCLE_STATUS_ACTIVE, janNextYear, LocalDate.of(2018,1,1));
+
+		assertTrue(mentorshipList.isEmpty());
+	}
+
+	private void prepareAndCreateMentorship(@NotNull final Mentorship mentorship) throws BusinessException {
+		this.careerService.createCareer(this.getUserContext(), mentorship.getTutor().getCareer());
+		this.careerService.createCareer(this.getUserContext(), mentorship.getTutored().getCareer());
+		this.tutorService.createTutor(this.getUserContext(), mentorship.getTutor());
+		this.tutoredService.createTutored(this.getUserContext(), mentorship.getTutored());
+		this.cabinetService.createCabinet(this.getUserContext(), mentorship.getCabinet());
+
+		final Set<Question> questions = new HashSet<>();
+		questions.add(this.question);
+
+		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(), mentorship.getForm().getProgrammaticArea());
+
+		this.formService.createForm(this.getUserContext(), mentorship.getForm(), questions);
+
+		this.districtService.createDistrict(this.getUserContext(), mentorship.getHealthFacility().getDistrict());
+		this.heathFacilityService.createHealthFacility(this.getUserContext(), mentorship.getHealthFacility());
+
+		final Answer answer = new TextAnswer();
+		answer.setQuestion(this.question);
+		answer.setValue("COMPETENTE");
+
+		mentorship.addAnswer(answer);
+
+		mentorship.setIterationType(IterationType.PATIENT);
+		mentorship.setIterationNumber(1);
+
+		this.mentorshipService.createMentorship(this.getUserContext(), mentorship);
 	}
 }

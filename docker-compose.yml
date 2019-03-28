@@ -1,20 +1,20 @@
-version: '2'
+version: '2.1'
 services:
     mysql-mentoring:
        build: mysql
        ports: 
-        - "3307:3306"
+        - "${MENTORING_MYSQL_PUBLISHED_PORT:-3307}:3306"
        networks:
         - network
        container_name: mysql-mentoring
        volumes:
-         - /opt/data/webapp/mentoring:/usr/local/mysql
+         - ${MENTORING_MYSQL_DIR:-/opt/data/webapp/mentoring}:/usr/local/mysql
        hostname: mysql-mentoring
        restart: unless-stopped
     tomcat-mentoring:
        build: tomcat
        ports:
-         - "8080:8080"
+         - "${MENTORING_TOMCAT_PUBLISHED_PORT:-8080}:8080"
          - "8000:8000"
        networks: 
          - network
@@ -27,7 +27,7 @@ services:
        links:
          - mysql-mentoring
        volumes: 
-         - /opt/data/webapp/mentoring:/usr/local/tomcat/webapps
+         - ${MENTORING_TOMCAT_WEBAPPS_DIR:-/opt/data/webapp/mentoring}:/usr/local/tomcat/webapps
        hostname: tomcat-mentoring
        restart: unless-stopped
 

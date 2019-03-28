@@ -15,6 +15,9 @@
 
 	<url>http://maven.apache.org</url>
 
+	<properties>
+		<war.deployment.dir>/opt/data/webapp/test/mentoring/</war.deployment.dir>
+	</properties>
 	<dependencies>
 
 		<dependency>
@@ -31,6 +34,11 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>3.7.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -81,9 +89,9 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<delete file="/opt/data/webapp/mentoring/mentoring-integ.war" />
+										<delete file="${war.deployment.dir}mentoring-integ.war" />
 										<copy file="${project.basedir}/target/mentoring-integ.war"
-											todir="/opt/data/webapp/mentoring/" />
+											todir="${war.deployment.dir}" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -108,9 +116,9 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<delete file="/opt/data/webapp/test/mentoring/mentoring-integ.war" />
+										<delete file="${war.deployment.dir}mentoring-integ.war" />
 										<copy file="${project.basedir}/target/mentoring-integ.war"
-											todir="/opt/data/webapp/test/mentoring/" />
+											todir="${war.deployment.dir}" />
 									</tasks>
 								</configuration>
 							</execution>

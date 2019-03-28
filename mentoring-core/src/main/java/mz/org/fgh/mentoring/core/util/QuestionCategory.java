@@ -80,8 +80,8 @@ public enum QuestionCategory {
 	GENDER_BASED_VIOLENCE,
 
 	FOLLOW_UP_PLAN,
-
-	OTHERS,
-
-	NA;
+  
+	NA,
+  
+	OTHERS;
 }
