@@ -11,7 +11,6 @@ import static org.junit.Assert.assertTrue;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -27,18 +26,19 @@ import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.answer.model.TextAnswer;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
+import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTemplate;
-import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.location.service.CabinetService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
+import mz.org.fgh.mentoring.core.mentorship.model.IterationType;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipQueryService;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
-import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
@@ -84,7 +84,7 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 
 	private Mentorship mentorship;
 
-	private Question question;
+	private FormQuestion formQuestion;
 
 	private static final String LIFE_CYCLE_STATUS_ACTIVE = "ACTIVE";			// Was automatically set to this value before calling DAO (band aid)
 
@@ -124,13 +124,13 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 		assertNotNull(results);
 		assertTrue(results.size() > 0);
 		assertEquals(IterationType.PATIENT, results.get(0).getIterationType());
-
+    
 		results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
 				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
 				this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), "file", null,
 					LIFE_CYCLE_STATUS_ACTIVE, null, null);
-
-		assertTrue(results == null || results.size() == 0);
+    
+		assertTrue((results == null) || (results.size() == 0));
 	}
 
 	@Test
@@ -139,7 +139,7 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 				this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
 				this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), null, 1,
 					LIFE_CYCLE_STATUS_ACTIVE, null, null);
-
+    
 		assertNotNull(results);
 		assertTrue(results.size() > 0);
 		assertEquals(Integer.valueOf(1), results.get(0).getIterationNumber());

@@ -3,15 +3,11 @@
  */
 package mz.org.fgh.mentoring.core.fixturefactory;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import br.com.six2six.fixturefactory.processor.Processor;
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.form.service.FormService;
-import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.location.service.CabinetService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
@@ -71,17 +67,18 @@ public class MentorshipProcessor implements Processor {
 		if (object instanceof Mentorship) {
 			final Mentorship mentorship = (Mentorship) object;
 
-			final Set<Question> questions = mentorship.getForm().getFormQuestions().stream()
-			        .map(FormQuestion::getQuestion).collect(Collectors.toSet());
-
-			questions.forEach(question -> {
+			mentorship.getForm().getFormQuestions().stream().forEach(formQuestion -> {
 				try {
-					this.questionService.createQuestion(this.userContext, question);
+
+					final Question question = this.questionService.createQuestion(this.userContext,
+					        formQuestion.getQuestion());
+
 					mentorship.getAnswers().forEach(answer -> {
 						final Question newQuestion = new Question();
 						newQuestion.setUuid(question.getUuid());
 						answer.setQuestion(newQuestion);
 					});
+
 				}
 				catch (final BusinessException e) {
 					e.printStackTrace();
@@ -99,7 +96,8 @@ public class MentorshipProcessor implements Processor {
 				        mentorship.getForm().getProgrammaticArea());
 				this.cabinetService.createCabinet(this.userContext, mentorship.getCabinet());
 
-				this.formService.createForm(this.userContext, mentorship.getForm(), questions);
+				this.formService.createForm(this.userContext, mentorship.getForm(),
+				        mentorship.getForm().getFormQuestions());
 
 			}
 			catch (final BusinessException e) {

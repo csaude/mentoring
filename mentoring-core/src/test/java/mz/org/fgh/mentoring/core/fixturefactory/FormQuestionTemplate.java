@@ -26,14 +26,15 @@ public class FormQuestionTemplate implements TemplateLoader {
 			{
 				this.add("form", this.one(Form.class, FormTemplate.VALID));
 				this.add("question", this.one(Question.class, QuestionTemplate.TEXT_QUESTION));
-				this.add("mandatory", true);
+				this.add("mandatory", this.random(Boolean.FALSE, Boolean.TRUE));
+				this.add("sequence", this.random(Integer.class, this.range(1, 1000)));
+				this.add("applicable", this.random(Boolean.FALSE, Boolean.TRUE));
 			}
 		});
 
-		Fixture.of(FormQuestion.class).addTemplate(WITH_NO_FORM, new Rule() {
+		Fixture.of(FormQuestion.class).addTemplate(WITH_NO_FORM).inherits(VALID, new Rule() {
 			{
-				this.add("question", this.one(Question.class, QuestionTemplate.TEXT_QUESTION));
-				this.add("mandatory", true);
+				this.add("form", null);
 			}
 		});
 	}

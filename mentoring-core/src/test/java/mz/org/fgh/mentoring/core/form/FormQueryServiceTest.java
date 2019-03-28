@@ -4,9 +4,9 @@
 package mz.org.fgh.mentoring.core.form;
 
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_COLLECTED_SAMPLES;
+import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_RECEIVED_SAMPLES;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_REJECTED_SAMPLES;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_TRANSPORTED_SAMPLES;
-import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_RECEIVED_SAMPLES;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -28,6 +28,7 @@ import mz.org.fgh.mentoring.core.answer.model.Answer;
 import mz.org.fgh.mentoring.core.answer.model.NumericAnswer;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
+import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.FormTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.IndicatorTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionProcessor;
@@ -104,13 +105,14 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		this.programmaticArea = this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
 		        form.getProgrammaticArea());
 
-		final List<Question> questions = EntityFactory.gimme(Question.class, 5, QuestionTemplate.VALID);
+		final List<FormQuestion> formQuestions = EntityFactory.gimme(FormQuestion.class, 5,
+		        FormQuestionTemplate.WITH_NO_FORM);
 
-		for (final Question question : questions) {
-			this.questionService.createQuestion(this.getUserContext(), question);
+		for (final FormQuestion formQuestion : formQuestions) {
+			this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 		}
 
-		this.createdform = this.formService.createForm(this.getUserContext(), form, new HashSet<>(questions));
+		this.createdform = this.formService.createForm(this.getUserContext(), form, new HashSet<>(formQuestions));
 	}
 
 	@Test
@@ -178,33 +180,42 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		        new QuestionProcessor());
 		question1.setUuid(NUMBER_OF_COLLECTED_SAMPLES.getValue());
 		this.questionService.createQuestion(this.getUserContext(), question1);
+		final FormQuestion formQuestion1 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		formQuestion1.setQuestion(question1);
 
 		final Question question2 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
 		        new QuestionProcessor());
 		question2.setUuid(NUMBER_OF_TRANSPORTED_SAMPLES.getValue());
 		this.questionService.createQuestion(this.getUserContext(), question2);
+		final FormQuestion formQuestion2 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		formQuestion2.setQuestion(question2);
 
 		final Question question3 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
 		        new QuestionProcessor());
 		question3.setUuid(NUMBER_OF_REJECTED_SAMPLES.getValue());
 		this.questionService.createQuestion(this.getUserContext(), question3);
+		final FormQuestion formQuestion3 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		formQuestion3.setQuestion(question3);
 
 		final Question question4 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
 		        new QuestionProcessor());
 		question4.setUuid(NUMBER_OF_RECEIVED_SAMPLES.getValue());
 		this.questionService.createQuestion(this.getUserContext(), question4);
 
-		final Set<Question> questions = new HashSet<>();
-		questions.add(question1);
-		questions.add(question2);
-		questions.add(question3);
-		questions.add(question4);
+		final FormQuestion formQuestion4 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+		formQuestion4.setQuestion(question4);
+
+		final Set<FormQuestion> formQuestions = new HashSet<>();
+		formQuestions.add(formQuestion1);
+		formQuestions.add(formQuestion2);
+		formQuestions.add(formQuestion3);
+		formQuestions.add(formQuestion4);
 
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
 		        indicator.getForm().getProgrammaticArea());
 
 		final Form form = indicator.getForm();
-		this.formService.createForm(this.getUserContext(), form, questions);
+		this.formService.createForm(this.getUserContext(), form, formQuestions);
 
 		this.districtService.createDistrict(this.getUserContext(), indicator.getHealthFacility().getDistrict());
 		this.healthFacilityService.createHealthFacility(this.getUserContext(), indicator.getHealthFacility());
