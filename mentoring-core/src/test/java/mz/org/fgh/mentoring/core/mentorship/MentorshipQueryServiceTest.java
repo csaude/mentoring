@@ -28,6 +28,7 @@ import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.MentorshipTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.location.service.CabinetService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
@@ -200,8 +201,11 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 		this.tutoredService.createTutored(this.getUserContext(), mentorship.getTutored());
 		this.cabinetService.createCabinet(this.getUserContext(), mentorship.getCabinet());
 
-		final Set<Question> questions = new HashSet<>();
-		questions.add(this.question);
+		final Set<FormQuestion> questions = new HashSet<>();
+		final FormQuestion formQuestion = new FormQuestion();
+		formQuestion.setQuestion(this.question);
+
+		questions.add(formQuestion);
 
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
 		        mentorship.getForm().getProgrammaticArea());
