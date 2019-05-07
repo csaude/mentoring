@@ -76,8 +76,10 @@ public class FormServiceTest extends AbstractSpringTest {
 		this.formQuestions = EntityFactory.gimme(FormQuestion.class, 10, FormQuestionTemplate.WITH_NO_FORM);
 
 		for (final FormQuestion formQuestion : this.formQuestions) {
+
 			this.questionCategoryService.createQuestionCategory(this.getUserContext(),
 			        formQuestion.getQuestion().getQuestionsCategory());
+
 			this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 		}
 	}
@@ -127,6 +129,7 @@ public class FormServiceTest extends AbstractSpringTest {
 
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
 		        this.formQuestion.getQuestion().getQuestionsCategory());
+
 		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
 		this.formQuestions.add(this.formQuestion);
 
@@ -165,6 +168,7 @@ public class FormServiceTest extends AbstractSpringTest {
 
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
 		        this.formQuestion.getQuestion().getQuestionsCategory());
+
 		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
 		this.formQuestions.add(this.formQuestion);
 

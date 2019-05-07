@@ -60,8 +60,10 @@ public class FormQuestionServiceTest extends AbstractSpringTest {
 		        FormQuestionTemplate.WITH_NO_FORM);
 
 		for (final FormQuestion formQuestion : formQuestions) {
+
 			this.questionCategoryService.createQuestionCategory(this.getUserContext(),
 			        formQuestion.getQuestion().getQuestionsCategory());
+
 			this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 			this.questions.add(formQuestion.getQuestion());
 		}

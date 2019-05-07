@@ -68,8 +68,10 @@ public class QuestionQueryServiceTest extends AbstractSpringTest {
 		this.form = EntityFactory.gimme(Form.class, FormTemplate.VALID);
 
 		for (final FormQuestion formQuestion : this.formQuestions) {
+
 			this.questionCategoryService.createQuestionCategory(this.getUserContext(),
 			        formQuestion.getQuestion().getQuestionsCategory());
+
 			this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 		}
 
