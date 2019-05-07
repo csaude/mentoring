@@ -28,6 +28,7 @@ import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionQueryService;
 import mz.org.fgh.mentoring.core.session.model.Session;
+import mz.org.fgh.mentoring.core.session.service.SessionQueryService;
 import mz.org.fgh.mentoring.core.session.service.SessionService;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutor.service.TutorQueryService;
@@ -78,6 +79,9 @@ public class MentorshipServiceImpl extends AbstractService implements Mentorship
 	@Inject
 	private CabinetQueryService cabinetQueryService;
 
+	@Inject
+	SessionQueryService sessionQueryService;
+
 	@Override
 	public Mentorship createMentorship(final UserContext userContext, final Mentorship mentorship)
 	        throws BusinessException {
@@ -123,34 +127,40 @@ public class MentorshipServiceImpl extends AbstractService implements Mentorship
 				        this.propertyValues.getPropValues("cannot.create.session.without.mentorships"));
 			}
 
-			this.sessionService.createSession(userContext, session);
+			final List<Session> duplicatedSessions = this.sessionQueryService.fetchSessionsByUuid(session.getUuid());
 
-			for (final Mentorship mentorship : session.getMentorships()) {
+			if (duplicatedSessions.isEmpty()) {
 
-				final Form form = this.formQueryService.findFormByUuid(userContext, mentorship.getForm().getUuid());
+				this.sessionService.createSession(userContext, session);
 
-				final HealthFacility healthFacility = this.healthFacilityQueryService
-				        .findHealthFacilityByUuid(userContext, mentorship.getHealthFacility().getUuid());
+				for (final Mentorship mentorship : session.getMentorships()) {
 
-				final Tutor tutor = this.tutorQueryService.fetchTutorByUuid(userContext,
-				        mentorship.getTutor().getUuid());
+					final Form form = this.formQueryService.findFormByUuid(userContext, mentorship.getForm().getUuid());
 
-				final Tutored tutored = this.getTutored(userContext, mentorship);
+					final HealthFacility healthFacility = this.healthFacilityQueryService
+					        .findHealthFacilityByUuid(userContext, mentorship.getHealthFacility().getUuid());
 
-				Cabinet cabinet = null;
+					final Tutor tutor = this.tutorQueryService.fetchTutorByUuid(userContext,
+					        mentorship.getTutor().getUuid());
 
-				if (mentorship.getCabinet().getUuid() != null) {
-					cabinet = this.cabinetQueryService.findCabinetByUuid(mentorship.getCabinet().getUuid());
+					final Tutored tutored = this.getTutored(userContext, mentorship);
+
+					Cabinet cabinet = null;
+
+					if (mentorship.getCabinet().getUuid() != null) {
+						cabinet = this.cabinetQueryService.findCabinetByUuid(mentorship.getCabinet().getUuid());
+					}
+
+					mentorship.setSession(session);
+					mentorship.setForm(form);
+					mentorship.setHealthFacility(healthFacility);
+					mentorship.setTutor(tutor);
+					mentorship.setTutored(tutored);
+					mentorship.setCabinet(cabinet);
+
+					this.createMentorship(userContext, mentorship);
 				}
 
-				mentorship.setSession(session);
-				mentorship.setForm(form);
-				mentorship.setHealthFacility(healthFacility);
-				mentorship.setTutor(tutor);
-				mentorship.setTutored(tutored);
-				mentorship.setCabinet(cabinet);
-
-				this.createMentorship(userContext, mentorship);
 			}
 		}
 

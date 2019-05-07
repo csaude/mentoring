@@ -102,8 +102,10 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 		this.cabinetService.createCabinet(this.getUserContext(), this.mentorship.getCabinet());
 
 		this.formQuestion = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
 		        this.formQuestion.getQuestion().getQuestionsCategory());
+
 		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
 
 		final Set<FormQuestion> formQuestions = new HashSet<>();

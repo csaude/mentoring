@@ -73,8 +73,10 @@ public class MentorshipProcessor implements Processor {
 
 			mentorship.getForm().getFormQuestions().stream().forEach(formQuestion -> {
 				try {
+
 					this.questionCategoryService.createQuestionCategory(this.userContext,
 					        formQuestion.getQuestion().getQuestionsCategory());
+
 					final Question question = this.questionService.createQuestion(this.userContext,
 					        formQuestion.getQuestion());
 

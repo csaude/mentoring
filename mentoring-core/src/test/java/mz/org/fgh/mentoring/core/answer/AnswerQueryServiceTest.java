@@ -94,6 +94,7 @@ public class AnswerQueryServiceTest extends AbstractSpringTest {
 		this.cabinetService.createCabinet(this.getUserContext(), this.mentorship.getCabinet());
 
 		final FormQuestion formQuestion1 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
 		        formQuestion1.getQuestion().getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), formQuestion1.getQuestion());
@@ -106,6 +107,7 @@ public class AnswerQueryServiceTest extends AbstractSpringTest {
 		final FormQuestion formQuestion3 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
 		        formQuestion3.getQuestion().getQuestionsCategory());
+
 		this.questionService.createQuestion(this.getUserContext(), formQuestion3.getQuestion());
 
 		final Set<FormQuestion> formQuestions = new HashSet<>();

@@ -87,7 +87,6 @@ public class FormTargetQueryServiceTest extends AbstractSpringTest {
 
 		formQuestions.forEach(formQuestion -> {
 			try {
-
 				final Question question = formQuestion.getQuestion();
 				this.questionCategoryService.createQuestionCategory(this.getUserContext(),
 				        question.getQuestionsCategory());

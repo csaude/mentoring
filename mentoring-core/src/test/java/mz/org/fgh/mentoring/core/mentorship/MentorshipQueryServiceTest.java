@@ -38,6 +38,7 @@ import mz.org.fgh.mentoring.core.mentorship.service.MentorshipQueryService;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
 import mz.org.fgh.mentoring.core.question.model.Question;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 import mz.org.fgh.mentoring.core.tutored.service.TutoredService;
@@ -81,6 +82,9 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 	@Inject
 	private CabinetService cabinetService;
 
+	@Inject
+	private QuestionCategoryService questionCategoryService;
+
 	private Mentorship mentorship;
 
 	private Question question;
@@ -88,7 +92,10 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 	@Override
 	public void setUp() throws BusinessException {
 		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTemplate.VALID);
+
 		this.question = EntityFactory.gimme(Question.class, QuestionTemplate.VALID);
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+		        this.question.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), this.question);
 		this.prepareAndCreateMentorship(this.mentorship);
 	}
@@ -115,6 +122,7 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 	public void fetchBySelectedFilterShouldSearchByIterationType() {
 		List<Mentorship> results = this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(),
 		        this.mentorship.getCode(), this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
+
 		        this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(), "patient",
 		        null, LifeCycleStatus.ACTIVE.toString(), null, null);
 
@@ -145,6 +153,7 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void fetchBySelectedFilterShouldThrowIfUnknownIterationTypeIsPassed() {
 		this.mentorshipQueryService.fetchBySelectedFilter(this.getUserContext(), this.mentorship.getCode(),
+
 		        this.mentorship.getTutor().getName(), this.mentorship.getTutored().getName(),
 		        this.mentorship.getForm().getName(), this.mentorship.getHealthFacility().getHealthFacility(),
 		        "unknown type", 1, LifeCycleStatus.ACTIVE.toString(), null, null);
@@ -204,6 +213,7 @@ public class MentorshipQueryServiceTest extends AbstractSpringTest {
 		final Set<FormQuestion> questions = new HashSet<>();
 		final FormQuestion formQuestion = new FormQuestion();
 		formQuestion.setQuestion(this.question);
+		formQuestion.setApplicable(Boolean.TRUE);
 
 		questions.add(formQuestion);
 

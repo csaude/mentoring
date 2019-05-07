@@ -86,8 +86,10 @@ public class IndicatorServiceTest extends AbstractSpringTest {
 		this.tutorService.createTutor(this.getUserContext(), this.indicator.getTutor());
 
 		this.formQuestion = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
 		        this.formQuestion.getQuestion().getQuestionsCategory());
+
 		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
 
 		final Set<FormQuestion> formQuestions = new HashSet<>();
@@ -101,7 +103,6 @@ public class IndicatorServiceTest extends AbstractSpringTest {
 
 		this.districtService.createDistrict(this.getUserContext(), this.indicator.getHealthFacility().getDistrict());
 		this.heathFacilityService.createHealthFacility(this.getUserContext(), this.indicator.getHealthFacility());
-
 	}
 
 	@Test
