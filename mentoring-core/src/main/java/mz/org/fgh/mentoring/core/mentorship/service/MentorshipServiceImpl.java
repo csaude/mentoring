@@ -90,7 +90,7 @@ public class MentorshipServiceImpl extends AbstractService implements Mentorship
 			throw new BusinessException(this.propertyValues.getPropValues("cannot.create.mentoship.with.no.answers"));
 		}
 
-		final String code = this.mentorshipDAO.generateCode("MT", 8, "0");
+		final String code = this.mentorshipDAO.generateCode("MT", 10, "0");
 		mentorship.setCode(code);
 
 		this.mentorshipDAO.create(userContext.getUuid(), mentorship);

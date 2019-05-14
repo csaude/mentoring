@@ -18,7 +18,7 @@ public interface AnswerDAO extends GenericDAO<Answer, Long> {
 	String NAME = "mz.org.fgh.mentoring.core.answer.dao.AnswerDAO";
 
 	class QUERY {
-		public static final String fetchByMentorishipUuid = "SELECT a FROM Answer a INNER JOIN FETCH a.question q INNER JOIN a.mentorship m WHERE m.uuid = :mentorshipUuid AND a.lifeCycleStatus = :lifeCycleStatus ORDER BY q.questionCategory ASC";
+		public static final String fetchByMentorishipUuid = "SELECT a FROM Answer a INNER JOIN FETCH a.question q INNER JOIN a.mentorship m WHERE m.uuid = :mentorshipUuid AND a.lifeCycleStatus = :lifeCycleStatus";
 	}
 
 	class QUERY_NAME {

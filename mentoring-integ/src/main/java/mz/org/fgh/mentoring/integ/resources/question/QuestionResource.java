@@ -19,7 +19,6 @@ import com.sun.jersey.api.JResponse;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.org.fgh.mentoring.core.question.model.Question;
-import mz.org.fgh.mentoring.core.question.model.QuestionCategory;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
 
 /**
@@ -38,14 +37,14 @@ public interface QuestionResource {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Question>> findQuestions(@QueryParam("code") final String code,
-			@QueryParam("question") final String question, @QueryParam("questionType") final QuestionType questionType,
-			@QueryParam("questionCategory") final QuestionCategory questionCategory) throws BusinessException;
+	        @QueryParam("question") final String question, @QueryParam("questionType") final QuestionType questionType)
+	        throws BusinessException;
 
 	@GET
 	@Path("{formCode}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Question>> findQuestionsByForm(@PathParam("formCode") final String formCode)
-			throws BusinessException;
+	        throws BusinessException;
 
 	@PUT
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

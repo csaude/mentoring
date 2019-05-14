@@ -19,7 +19,6 @@ import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
 import mz.co.mozview.frameworks.core.dao.ParamBuilder;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.question.model.Question;
-import mz.org.fgh.mentoring.core.question.model.QuestionCategory;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
 
 /**
@@ -37,8 +36,7 @@ public class QuestionDAOImpl extends GenericDAOImpl<Question, Long> implements Q
 
 	@Override
 	public List<Question> findBySelectedFilter(final String code, final String question,
-	        final QuestionType questionType, final QuestionCategory questionCategory,
-	        final LifeCycleStatus lifeCycleStatus) {
+	        final QuestionType questionType, final LifeCycleStatus lifeCycleStatus) {
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Question> createQuery = criteriaBuilder.createQuery(Question.class);
 		final Root<Question> root = createQuery.from(Question.class);
@@ -58,9 +56,6 @@ public class QuestionDAOImpl extends GenericDAOImpl<Question, Long> implements Q
 
 		if (questionType != null) {
 			predicates.add(criteriaBuilder.equal(root.get("questionType"), questionType));
-		}
-		if (questionCategory != null) {
-			predicates.add(criteriaBuilder.equal(root.get("questionCategory"), questionCategory));
 		}
 
 		predicates.add(criteriaBuilder.equal(root.get("lifeCycleStatus"), lifeCycleStatus));
