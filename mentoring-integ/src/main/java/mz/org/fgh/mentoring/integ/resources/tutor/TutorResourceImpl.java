@@ -25,9 +25,9 @@ import mz.org.fgh.mentoring.integ.resources.AbstractResource;
  *
  */
 @Service(TutorResource.NAME)
-@Path(TutorResourceImpl.TUTOR_RESOURCE_PATH)
+@Path("tutors")
 public class TutorResourceImpl extends AbstractResource implements TutorResource {
-	public static final String TUTOR_RESOURCE_PATH = "tutors";
+
 	@Inject
 	private TutorService tutorService;
 

@@ -59,10 +59,6 @@ public class Question extends GenericEntity {
 	@Enumerated(EnumType.STRING)
 	private QuestionType questionType;
 
-	@Column(name = "QUESTION_CATEGORY", length = 50)
-	@Enumerated(EnumType.STRING)
-	private QuestionCategory questionCategory;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "QUESTION_CATEGORY_ID")
 	private QuestionsCategory questionsCategory;
@@ -114,14 +110,6 @@ public class Question extends GenericEntity {
 
 	public void setFormQuestions(final Set<FormQuestion> formQuestions) {
 		this.formQuestions = formQuestions;
-	}
-
-	public QuestionCategory getQuestionCategory() {
-		return this.questionCategory;
-	}
-
-	public void setQuestionCategory(final QuestionCategory questionCategory) {
-		this.questionCategory = questionCategory;
 	}
 
 	public QuestionsCategory getQuestionsCategory() {

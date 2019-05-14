@@ -25,7 +25,6 @@ import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
 import mz.org.fgh.mentoring.core.question.model.Question;
-import mz.org.fgh.mentoring.core.question.model.QuestionCategory;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
 import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionQueryService;
@@ -87,10 +86,9 @@ public class QuestionQueryServiceTest extends AbstractSpringTest {
 		final String code = null;
 		final String question = null;
 		final QuestionType questionType = null;
-		final QuestionCategory questionCategory = null;
 
 		final List<Question> questions = this.questionQueryService.findQuestionsBySelectedFilter(this.getUserContext(),
-		        code, question, questionType, questionCategory);
+		        code, question, questionType);
 
 		assertFalse(questions.isEmpty());
 	}
