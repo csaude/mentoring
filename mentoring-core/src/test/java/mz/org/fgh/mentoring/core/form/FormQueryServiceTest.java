@@ -47,6 +47,7 @@ import mz.org.fgh.mentoring.core.programmaticarea.dao.ProgrammaticAreaDAO;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
 import mz.org.fgh.mentoring.core.question.model.Question;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
@@ -95,6 +96,9 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 	@Inject
 	private IndicatorService indicatorService;
 
+	@Inject
+	private QuestionCategoryService questionCategoryService;
+
 	private Form createdform;
 
 	private ProgrammaticArea programmaticArea;
@@ -109,6 +113,10 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		        FormQuestionTemplate.WITH_NO_FORM);
 
 		for (final FormQuestion formQuestion : formQuestions) {
+
+			this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+			        formQuestion.getQuestion().getQuestionsCategory());
+
 			this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 		}
 
@@ -179,6 +187,7 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		final Question question1 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
 		        new QuestionProcessor());
 		question1.setUuid(NUMBER_OF_COLLECTED_SAMPLES.getValue());
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question1.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), question1);
 		final FormQuestion formQuestion1 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
 		formQuestion1.setQuestion(question1);
@@ -186,6 +195,7 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		final Question question2 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
 		        new QuestionProcessor());
 		question2.setUuid(NUMBER_OF_TRANSPORTED_SAMPLES.getValue());
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question2.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), question2);
 		final FormQuestion formQuestion2 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
 		formQuestion2.setQuestion(question2);
@@ -193,6 +203,7 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		final Question question3 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
 		        new QuestionProcessor());
 		question3.setUuid(NUMBER_OF_REJECTED_SAMPLES.getValue());
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question3.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), question3);
 		final FormQuestion formQuestion3 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
 		formQuestion3.setQuestion(question3);
@@ -200,6 +211,7 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		final Question question4 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
 		        new QuestionProcessor());
 		question4.setUuid(NUMBER_OF_RECEIVED_SAMPLES.getValue());
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question4.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), question4);
 
 		final FormQuestion formQuestion4 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);

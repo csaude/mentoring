@@ -38,6 +38,7 @@ import mz.org.fgh.mentoring.core.indicator.service.IndicatorService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 
@@ -76,6 +77,9 @@ public class RemoveDuplicatedIndicatorsClientTest extends AbstractSpringTest {
 
 	@Inject
 	private AnswerService answerService;
+
+	@Inject
+	private QuestionCategoryService questionCategoryService;
 
 	private RemoveDulicatedIndicatorsClient client;
 
@@ -139,21 +143,37 @@ public class RemoveDuplicatedIndicatorsClientTest extends AbstractSpringTest {
 		final FormQuestion formQuestion1 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM,
 		        new QuestionProcessor());
 		formQuestion1.setUuid(NUMBER_OF_COLLECTED_SAMPLES.getValue());
+
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+		        formQuestion1.getQuestion().getQuestionsCategory());
+
 		this.questionService.createQuestion(this.getUserContext(), formQuestion1.getQuestion());
 
 		final FormQuestion formQuestion2 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM,
 		        new QuestionProcessor());
 		formQuestion2.setUuid(NUMBER_OF_TRANSPORTED_SAMPLES.getValue());
+
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+		        formQuestion2.getQuestion().getQuestionsCategory());
+
 		this.questionService.createQuestion(this.getUserContext(), formQuestion2.getQuestion());
 
 		final FormQuestion formQuestion3 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM,
 		        new QuestionProcessor());
 		formQuestion3.setUuid(NUMBER_OF_REJECTED_SAMPLES.getValue());
+
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+		        formQuestion3.getQuestion().getQuestionsCategory());
+
 		this.questionService.createQuestion(this.getUserContext(), formQuestion3.getQuestion());
 
 		final FormQuestion formQuestion4 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM,
 		        new QuestionProcessor());
 		formQuestion4.setUuid(NUMBER_OF_RECEIVED_SAMPLES.getValue());
+
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+		        formQuestion4.getQuestion().getQuestionsCategory());
+
 		this.questionService.createQuestion(this.getUserContext(), formQuestion4.getQuestion());
 
 		final Set<FormQuestion> formQuestions = new HashSet<>();

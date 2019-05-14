@@ -23,6 +23,7 @@ import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
 import mz.org.fgh.mentoring.core.question.model.Question;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 
 /**
@@ -41,6 +42,9 @@ public class FormQuestionServiceTest extends AbstractSpringTest {
 	@Inject
 	private FormService formService;
 
+	@Inject
+	private QuestionCategoryService questionCategoryService;
+
 	private final Set<Question> questions = new HashSet<>();
 	private Form form;
 
@@ -56,6 +60,10 @@ public class FormQuestionServiceTest extends AbstractSpringTest {
 		        FormQuestionTemplate.WITH_NO_FORM);
 
 		for (final FormQuestion formQuestion : formQuestions) {
+
+			this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+			        formQuestion.getQuestion().getQuestionsCategory());
+
 			this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 			this.questions.add(formQuestion.getQuestion());
 		}

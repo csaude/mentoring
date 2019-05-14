@@ -11,9 +11,10 @@ import org.springframework.stereotype.Service;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.service.AbstractService;
-import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.util.StringNormalizer;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
+import mz.org.fgh.mentoring.core.career.model.Career;
+import mz.org.fgh.mentoring.core.career.service.CareerQueryService;
 import mz.org.fgh.mentoring.core.tutored.dao.TutoredDAO;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 
@@ -26,6 +27,9 @@ public class TutoredServiceImpl extends AbstractService implements TutoredServic
 
 	@Inject
 	private TutoredDAO tutoredDAO;
+
+	@Inject
+	private CareerQueryService careerQueryService;
 
 	@Override
 	public Tutored createTutored(final UserContext userContext, final Tutored tutored) throws BusinessException {
@@ -52,16 +56,24 @@ public class TutoredServiceImpl extends AbstractService implements TutoredServic
 
 	@Override
 	public List<Tutored> syncronizeTutoreds(final UserContext userContext, final List<Tutored> tutoreds)
-			throws BusinessException {
+	        throws BusinessException {
 
 		for (final Tutored tutored : tutoreds) {
-			tutored.setId(null);
 
-			final List<Tutored> foundTutoreds = this.tutoredDAO.findBySelectedFilter(tutored.getUuid(), null, null,
-					null, null, null, LifeCycleStatus.ACTIVE);
+			try {
+				final Tutored foundTutored = this.tutoredDAO.findByUuid(tutored.getUuid());
+				final Career career = this.careerQueryService.findCarrerByuuid(userContext,
+				        tutored.getCareer().getUuid());
 
-			if (foundTutoreds.isEmpty()) {
-				this.createTutored(userContext, tutored);
+				foundTutored.setCareer(career);
+				foundTutored.setName(tutored.getName());
+				foundTutored.setSurname(tutored.getSurname());
+				foundTutored.setPhoneNumber(tutored.getPhoneNumber());
+				foundTutored.setLifeCycleStatus(tutored.getLifeCycleStatus());
+
+				this.updateTutored(userContext, foundTutored);
+			}
+			catch (final BusinessException e) {
 			}
 		}
 

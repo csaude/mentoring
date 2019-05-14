@@ -14,7 +14,6 @@ import mz.org.fgh.mentoring.core.career.model.CareerType;
 import mz.org.fgh.mentoring.core.form.model.FormType;
 import mz.org.fgh.mentoring.core.location.model.Province;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
-import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 @Path("utils")
 public class ResourceUtilsImpl implements ResourceUtils {
@@ -22,11 +21,6 @@ public class ResourceUtilsImpl implements ResourceUtils {
 	@Override
 	public JResponse<List<Province>> getProvinces() {
 		return JResponse.ok(Arrays.asList(Province.values())).build();
-	}
-
-	@Override
-	public JResponse<List<QuestionCategory>> getQuestionCategory() {
-		return JResponse.ok(Arrays.asList(QuestionCategory.values())).build();
 	}
 
 	@Override

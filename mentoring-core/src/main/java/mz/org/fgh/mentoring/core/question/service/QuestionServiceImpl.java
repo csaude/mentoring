@@ -31,12 +31,17 @@ public class QuestionServiceImpl extends AbstractService implements QuestionServ
 		question.setCode(code);
 		question.setQuestion(StringNormalizer.normalizeAndUppCase(question.getQuestion()));
 
-		return this.questionDao.create(userContext.getUuid(), question);
+		this.questionDao.create(userContext.getUuid(), question);
+
+		return question;
 	}
 
 	@Override
 	public Question updateQuestion(final UserContext userContext, final Question question) throws BusinessException {
 		question.setQuestion(StringNormalizer.normalizeAndUppCase(question.getQuestion()));
-		return this.questionDao.update(userContext.getUuid(), question);
+
+		this.questionDao.update(userContext.getUuid(), question);
+
+		return question;
 	}
 }

@@ -29,6 +29,8 @@ import mz.org.fgh.mentoring.core.form.service.FormTargetService;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
+import mz.org.fgh.mentoring.core.question.model.Question;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
@@ -60,6 +62,9 @@ public class FormTargetQueryServiceTest extends AbstractSpringTest {
 	@Inject
 	private FormTargetQueryService formTargetQueryService;
 
+	@Inject
+	private QuestionCategoryService questionCategoryService;
+
 	private Tutor tutor;
 
 	@Override
@@ -82,7 +87,10 @@ public class FormTargetQueryServiceTest extends AbstractSpringTest {
 
 		formQuestions.forEach(formQuestion -> {
 			try {
-				this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
+				final Question question = formQuestion.getQuestion();
+				this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+				        question.getQuestionsCategory());
+				this.questionService.createQuestion(this.getUserContext(), question);
 			}
 			catch (final BusinessException e) {
 				e.printStackTrace();

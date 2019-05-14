@@ -9,7 +9,7 @@ import br.com.six2six.fixturefactory.Rule;
 import mz.co.mozview.frameworks.core.fixtureFactory.TemplateLoader;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
-import mz.org.fgh.mentoring.core.util.QuestionCategory;
+import mz.org.fgh.mentoring.core.question.model.QuestionsCategory;
 
 /**
  * @author Eusebio Jose Maposse
@@ -28,10 +28,7 @@ public class QuestionTemplate implements TemplateLoader {
 			{
 				this.add("question", this.random("VCT", "MCH", "MMI", "JPA"));
 				this.add("questionType", this.random(QuestionType.TEXT, QuestionType.BOOLEAN));
-				this.add("questionCategory",
-				        this.random(QuestionCategory.ACCURACY, QuestionCategory.PUNCTUALITY, QuestionCategory.TOTALITY,
-				                QuestionCategory.PRECISION, QuestionCategory.RELIABILITY, QuestionCategory.INTEGRITY,
-				                QuestionCategory.CONFIDENTIALITY));
+				this.add("questionsCategory", this.one(QuestionsCategory.class, QuestionCategoryTemplate.VALID));
 			}
 		});
 

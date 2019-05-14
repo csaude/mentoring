@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.form.model.Form;
@@ -18,6 +19,7 @@ import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.session.dao.SessionDAO;
 import mz.org.fgh.mentoring.core.session.model.PerformedSession;
+import mz.org.fgh.mentoring.core.session.model.Session;
 import mz.org.fgh.mentoring.core.session.model.SubmitedSessions;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
@@ -52,5 +54,15 @@ public class SessionQueryServiceImpl implements SessionQueryService {
 	        final LocalDate startDate, final LocalDate endDate) {
 
 		return this.sessionDAO.findByTutorAndForm(tutor, form, startDate, endDate);
+	}
+
+	@Override
+	public List<Session> findSessionsWithDuplicatedUuids() throws BusinessException {
+		return this.sessionDAO.findWithDuplicatedUuids(LifeCycleStatus.ACTIVE);
+	}
+
+	@Override
+	public List<Session> fetchSessionsByUuid(final String sessionUuid) throws BusinessException {
+		return this.sessionDAO.fetchSessionsByUuid(sessionUuid, LifeCycleStatus.ACTIVE);
 	}
 }
