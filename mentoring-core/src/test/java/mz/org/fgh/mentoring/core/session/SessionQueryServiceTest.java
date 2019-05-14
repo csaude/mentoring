@@ -34,6 +34,7 @@ import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.session.model.PerformedSession;
 import mz.org.fgh.mentoring.core.session.model.Session;
@@ -85,6 +86,9 @@ public class SessionQueryServiceTest extends AbstractSpringTest {
 	@Inject
 	private CabinetService cabinetService;
 
+	@Inject
+	private QuestionCategoryService questionCategoryService;
+
 	private Session session;
 
 	private Mentorship mentorship;
@@ -96,6 +100,11 @@ public class SessionQueryServiceTest extends AbstractSpringTest {
 	}
 
 	private void createMentorship() throws BusinessException {
+		this.prepareMentorship(this.session);
+		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship);
+	}
+
+	private void prepareMentorship(final Session session) throws BusinessException {
 		this.mentorship = EntityFactory.gimme(Mentorship.class, MentorshipTemplate.VALID);
 
 		this.careerService.createCareer(this.getUserContext(), this.mentorship.getTutor().getCareer());
@@ -105,6 +114,10 @@ public class SessionQueryServiceTest extends AbstractSpringTest {
 		this.cabinetService.createCabinet(this.getUserContext(), this.mentorship.getCabinet());
 
 		final FormQuestion formQuestion = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+		        formQuestion.getQuestion().getQuestionsCategory());
+
 		this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 
 		final Set<FormQuestion> formQuestions = new HashSet<>();
@@ -125,9 +138,7 @@ public class SessionQueryServiceTest extends AbstractSpringTest {
 
 		this.mentorship.addAnswer(answer);
 		this.mentorship.setForm(form);
-		this.mentorship.setSession(this.session);
-
-		this.mentorshipService.createMentorship(this.getUserContext(), this.mentorship);
+		this.mentorship.setSession(session);
 	}
 
 	private Session createSession() throws BusinessException {
@@ -179,4 +190,25 @@ public class SessionQueryServiceTest extends AbstractSpringTest {
 		assertEquals(this.session.getPerformedDate(), startDate);
 	}
 
+	@Test
+	public void shouldFindSessionsWithDuplicatedUuid() throws BusinessException {
+
+		for (int i = 0; i < 3; i++) {
+			this.session.setId(null);
+			this.session.setCreatedAt(null);
+			this.session.setCreatedBy(null);
+
+			this.sessionService.createSession(this.getUserContext(), this.session);
+			this.prepareMentorship(this.session);
+		}
+
+		final List<Session> sessions = this.sessionQueryService.findSessionsWithDuplicatedUuids();
+		assertFalse(sessions.isEmpty());
+	}
+
+	@Test
+	public void shouldFetchSessionsByUuid() throws BusinessException {
+		final List<Session> sessions = this.sessionQueryService.fetchSessionsByUuid(this.session.getUuid());
+		assertFalse(sessions.isEmpty());
+	}
 }

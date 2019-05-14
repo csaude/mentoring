@@ -17,7 +17,6 @@ import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
 import mz.org.fgh.mentoring.core.question.service.QuestionQueryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
-import mz.org.fgh.mentoring.core.util.QuestionCategory;
 import mz.org.fgh.mentoring.integ.resources.AbstractResource;
 
 /**
@@ -35,39 +34,40 @@ public class QuestionResourceImpl extends AbstractResource implements QuestionRe
 	private QuestionQueryService questionQueryService;
 
 	@Override
-	public JResponse<Question> createQuetion(final QuestionBeanResource questionBeanResource) throws BusinessException {
+	public JResponse<Question> createQuestion(final QuestionBeanResource questionBeanResource)
+	        throws BusinessException {
 
 		final Question question = this.questionService.createQuestion(questionBeanResource.getUserContext(),
-				questionBeanResource.getQuestion());
+		        questionBeanResource.getQuestion());
 
 		return JResponse.ok(question).build();
 	}
 
 	@Override
 	public JResponse<List<Question>> findQuestions(final String code, final String question,
-			final QuestionType questionType, QuestionCategory questionCategory) throws BusinessException {
+	        final QuestionType questionType) throws BusinessException {
 
 		final List<Question> questions = this.questionQueryService.findQuestionsBySelectedFilter(this.getUserContetx(),
-				code, question, questionType, questionCategory);
+		        code, question, questionType);
 
 		return JResponse.ok(questions).build();
 	}
 
 	@Override
 	public JResponse<Question> updateQuestion(final QuestionBeanResource questionBeanResource)
-			throws BusinessException {
+	        throws BusinessException {
 
 		final Question question = this.questionService.updateQuestion(questionBeanResource.getUserContext(),
-				questionBeanResource.getQuestion());
+		        questionBeanResource.getQuestion());
 
 		return JResponse.ok(question).build();
 	}
 
 	@Override
 	public JResponse<List<Question>> findQuestionsByForm(final String code) throws BusinessException {
-		
+
 		final List<Question> questions = this.questionQueryService.findByFormCode(code);
-		
+
 		return JResponse.ok(questions).build();
 	}
 }

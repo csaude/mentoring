@@ -6,12 +6,14 @@ package mz.org.fgh.mentoring.core.session.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.location.model.District;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.session.model.PerformedSession;
+import mz.org.fgh.mentoring.core.session.model.Session;
 import mz.org.fgh.mentoring.core.session.model.SubmitedSessions;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 
@@ -29,4 +31,8 @@ public interface SessionQueryService {
 
 	List<PerformedSession> findPerformedSessionsByTutorAndForm(Tutor tutor, Form form, LocalDate startDate,
 	        LocalDate endDate);
+
+	List<Session> findSessionsWithDuplicatedUuids() throws BusinessException;
+
+	List<Session> fetchSessionsByUuid(String sessionUuid) throws BusinessException;
 }

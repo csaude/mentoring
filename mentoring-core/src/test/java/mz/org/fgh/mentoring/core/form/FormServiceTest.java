@@ -29,6 +29,7 @@ import mz.org.fgh.mentoring.core.form.service.FormService;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 
 /**
@@ -49,6 +50,9 @@ public class FormServiceTest extends AbstractSpringTest {
 
 	@Inject
 	private QuestionService questionService;
+
+	@Inject
+	private QuestionCategoryService questionCategoryService;
 
 	private ProgrammaticArea programmaticArea;
 
@@ -72,6 +76,10 @@ public class FormServiceTest extends AbstractSpringTest {
 		this.formQuestions = EntityFactory.gimme(FormQuestion.class, 10, FormQuestionTemplate.WITH_NO_FORM);
 
 		for (final FormQuestion formQuestion : this.formQuestions) {
+
+			this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+			        formQuestion.getQuestion().getQuestionsCategory());
+
 			this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
 		}
 	}
@@ -119,6 +127,9 @@ public class FormServiceTest extends AbstractSpringTest {
 		final Form createdForm = this.formService.createForm(this.getUserContext(), this.form,
 		        new HashSet<>(this.formQuestions));
 
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+		        this.formQuestion.getQuestion().getQuestionsCategory());
+
 		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
 		this.formQuestions.add(this.formQuestion);
 
@@ -154,6 +165,9 @@ public class FormServiceTest extends AbstractSpringTest {
 
 		final Form createdForm = this.formService.createForm(this.getUserContext(), this.form,
 		        new HashSet<>(this.formQuestions));
+
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+		        this.formQuestion.getQuestion().getQuestionsCategory());
 
 		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
 		this.formQuestions.add(this.formQuestion);

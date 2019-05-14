@@ -9,7 +9,6 @@ import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.model.QuestionType;
-import mz.org.fgh.mentoring.core.util.QuestionCategory;
 
 /**
  * @author Eusebio Jose Maposse
@@ -20,7 +19,7 @@ public interface QuestionQueryService {
 	String NAME = "mz.org.fgh.mentoring.core.question.service.QuestionQueryService";
 
 	List<Question> findQuestionsBySelectedFilter(final UserContext userContext, final String code,
-			final String question, final QuestionType questionType, final QuestionCategory questionCategory);
+	        final String question, final QuestionType questionType);
 
 	List<Question> findByFormCode(final String code);
 

@@ -36,6 +36,7 @@ import mz.org.fgh.mentoring.core.mentorship.dao.MentorshipDAO;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import mz.org.fgh.mentoring.core.mentorship.service.MentorshipService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.session.model.Session;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
@@ -81,6 +82,9 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 	@Inject
 	private CabinetService cabinetService;
 
+	@Inject
+	private QuestionCategoryService questionCategoryService;
+
 	private Mentorship mentorship;
 
 	private FormQuestion formQuestion;
@@ -98,6 +102,10 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 		this.cabinetService.createCabinet(this.getUserContext(), this.mentorship.getCabinet());
 
 		this.formQuestion = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+		        this.formQuestion.getQuestion().getQuestionsCategory());
+
 		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
 
 		final Set<FormQuestion> formQuestions = new HashSet<>();
@@ -153,7 +161,8 @@ public class MentorshipServiceTest extends AbstractSpringTest {
 		List<Session> sessions = EntityFactory.gimme(Session.class, 10, SessionTemplate.VALID,
 		        new MentorshipProcessor(this.getUserContext(), this.formService, this.careerService,
 		                this.programmaticAreaService, this.districtService, this.heathFacilityService,
-		                this.questionService, this.tutorService, this.tutoredService, this.cabinetService));
+		                this.questionService, this.tutorService, this.tutoredService, this.cabinetService,
+		                this.questionCategoryService));
 
 		sessions = this.mentorshipService.synchronizeMentorships(this.getUserContext(), sessions);
 

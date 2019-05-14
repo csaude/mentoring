@@ -29,4 +29,9 @@ public class SessionServiceImpl extends AbstractService implements SessionServic
 	public Session createSession(final UserContext userContext, final Session session) throws BusinessException {
 		return this.sessionDAO.create(userContext.getUuid(), session);
 	}
+
+	@Override
+	public Session updateSession(final UserContext userContext, final Session session) throws BusinessException {
+		return this.sessionDAO.update(userContext.getUuid(), session);
+	}
 }

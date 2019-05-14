@@ -32,6 +32,7 @@ import mz.org.fgh.mentoring.core.indicator.service.IndicatorService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
+import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 
@@ -68,6 +69,9 @@ public class IndicatorServiceTest extends AbstractSpringTest {
 	@Inject
 	private IndicatorQueryService indicatorQueryService;
 
+	@Inject
+	private QuestionCategoryService questionCategoryService;
+
 	private Indicator indicator;
 
 	private FormQuestion formQuestion;
@@ -82,6 +86,10 @@ public class IndicatorServiceTest extends AbstractSpringTest {
 		this.tutorService.createTutor(this.getUserContext(), this.indicator.getTutor());
 
 		this.formQuestion = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM);
+
+		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
+		        this.formQuestion.getQuestion().getQuestionsCategory());
+
 		this.questionService.createQuestion(this.getUserContext(), this.formQuestion.getQuestion());
 
 		final Set<FormQuestion> formQuestions = new HashSet<>();
@@ -95,7 +103,6 @@ public class IndicatorServiceTest extends AbstractSpringTest {
 
 		this.districtService.createDistrict(this.getUserContext(), this.indicator.getHealthFacility().getDistrict());
 		this.heathFacilityService.createHealthFacility(this.getUserContext(), this.indicator.getHealthFacility());
-
 	}
 
 	@Test
