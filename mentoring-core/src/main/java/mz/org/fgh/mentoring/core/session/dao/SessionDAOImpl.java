@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -20,6 +21,7 @@ import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
 import mz.co.mozview.frameworks.core.dao.ParamBuilder;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.org.fgh.mentoring.core.form.model.Form;
+import mz.org.fgh.mentoring.core.location.model.Cabinet;
 import mz.org.fgh.mentoring.core.location.model.District;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
@@ -38,8 +40,8 @@ public class SessionDAOImpl extends GenericDAOImpl<Session, Long> implements Ses
 
 	@Override
 	public List<PerformedSession> findBySelectedFilter(final District district, final HealthFacility healthFacility,
-	        final ProgrammaticArea programmaticArea, final Form form, final LocalDate startDate,
-	        final LocalDate endDate, final LifeCycleStatus lifeCycleStatus) {
+	        final ProgrammaticArea programmaticArea, final Form form, final Tutor tutor, final Cabinet cabinet,
+	        final LocalDate startDate, final LocalDate endDate, final LifeCycleStatus lifeCycleStatus) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<PerformedSession> createQuery = criteriaBuilder.createQuery(PerformedSession.class);
@@ -47,6 +49,8 @@ public class SessionDAOImpl extends GenericDAOImpl<Session, Long> implements Ses
 		final Join<Session, Mentorship> mentorships = root.join("mentorships");
 		mentorships.join("form").join("programmaticArea");
 		mentorships.join("healthFacility").join("district");
+		mentorships.join("tutor");
+		mentorships.join("cabinet", JoinType.LEFT);
 
 		createQuery.select(criteriaBuilder.construct(PerformedSession.class,
 		        mentorships.get("healthFacility").get("district").get("district"),
@@ -72,6 +76,14 @@ public class SessionDAOImpl extends GenericDAOImpl<Session, Long> implements Ses
 
 		if (form != null) {
 			predicates.add(criteriaBuilder.equal(mentorships.get("form").get("uuid"), form.getUuid()));
+		}
+
+		if (tutor != null) {
+			predicates.add(criteriaBuilder.equal(mentorships.get("tutor").get("uuid"), tutor.getUuid()));
+		}
+
+		if (cabinet != null) {
+			predicates.add(criteriaBuilder.equal(mentorships.get("cabinet").get("uuid"), cabinet.getUuid()));
 		}
 
 		if (startDate != null) {
