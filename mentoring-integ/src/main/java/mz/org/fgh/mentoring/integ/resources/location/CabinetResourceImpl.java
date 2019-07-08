@@ -24,10 +24,10 @@ import mz.org.fgh.mentoring.core.location.service.CabinetQueryService;
 @Path("cabinets")
 public class CabinetResourceImpl implements CabinetResource {
 
+	public static final String NAME = "mz.org.fgh.mentoring.integ.resources.location.CabinetResourceImpl";
+
 	@Inject
 	private CabinetQueryService cabinetQueryService;
-
-	public static final String NAME = "mz.org.fgh.mentoring.integ.resources.location.CabinetResourceImpl";
 
 	@Override
 	public JResponse<List<Cabinet>> getCabinets() throws BusinessException {
