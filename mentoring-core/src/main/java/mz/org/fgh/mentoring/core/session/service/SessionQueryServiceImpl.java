@@ -66,4 +66,13 @@ public class SessionQueryServiceImpl implements SessionQueryService {
 	public List<Session> fetchSessionsByUuid(final String sessionUuid) throws BusinessException {
 		return this.sessionDAO.fetchSessionsByUuid(sessionUuid, LifeCycleStatus.ACTIVE);
 	}
+
+	@Override
+	public List<PerformedSession> findPerformedSessionsBySelectedFilterList(final District distric,
+	        final HealthFacility healthFacility, final ProgrammaticArea programmaticArea, final Form form,
+	        final Tutor tutor, final Cabinet cabinet, final LocalDate startDate, final LocalDate endDate) {
+
+		return this.sessionDAO.findBySelectedFilterList(distric, healthFacility, programmaticArea, form, tutor, cabinet,
+		        startDate, endDate, LifeCycleStatus.ACTIVE);
+	}
 }

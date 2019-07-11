@@ -83,6 +83,15 @@ public interface MentorshipResource {
 	        @QueryParam("endDate") String endDate) throws BusinessException;
 
 	@GET
+	@Path("performed-sessions-list")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<PerformedSession>> findPerformedSessionsList(@QueryParam("districtUuid") String districtUuid,
+	        @QueryParam("healthFacilityUuid") String healthFacilityUuid, @QueryParam("formUuid") String formUuid,
+	        @QueryParam("programmaticAreaUuid") String programmaticAreaUuid, @QueryParam("tutorUuid") String tutorUuid,
+	        @QueryParam("cabinetUuid") String cabinetUuid, @QueryParam("startDate") String startDate,
+	        @QueryParam("endDate") String endDate) throws BusinessException;
+
+	@GET
 	@Path("performed-sessions-by-tutor-and-form")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<PerformedSession>> findPerformedSessionsByTutorAndForm(

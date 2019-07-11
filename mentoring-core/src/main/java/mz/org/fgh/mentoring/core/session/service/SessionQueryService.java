@@ -28,6 +28,10 @@ public interface SessionQueryService {
 	        ProgrammaticArea programmaticArea, Form form, Tutor tutor, Cabinet cabinet, LocalDate startDate,
 	        LocalDate endDate);
 
+	List<PerformedSession> findPerformedSessionsBySelectedFilterList(final District distric,
+	        HealthFacility healthFacility, ProgrammaticArea programmaticArea, Form form, Tutor tutor, Cabinet cabinet,
+	        LocalDate startDate, LocalDate endDate);
+
 	List<SubmitedSessions> findNumberOfSessionsPerDistrict(UserContext userContext);
 
 	List<PerformedSession> findPerformedSessionsByTutorAndForm(Tutor tutor, Form form, LocalDate startDate,
