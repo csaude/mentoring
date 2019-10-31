@@ -14,6 +14,7 @@ import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.form.model.Form;
+import mz.org.fgh.mentoring.core.location.model.Cabinet;
 import mz.org.fgh.mentoring.core.location.model.District;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
@@ -38,10 +39,10 @@ public class SessionQueryServiceImpl implements SessionQueryService {
 	@Override
 	public List<PerformedSession> findPerformedSessionsBySelectedFilter(final District distric,
 	        final HealthFacility healthFacility, final ProgrammaticArea programmaticArea, final Form form,
-	        final LocalDate startDate, final LocalDate endDate) {
+	        final Tutor tutor, final Cabinet cabinet, final LocalDate startDate, final LocalDate endDate) {
 
-		return this.sessionDAO.findBySelectedFilter(distric, healthFacility, programmaticArea, form, startDate, endDate,
-		        LifeCycleStatus.ACTIVE);
+		return this.sessionDAO.findBySelectedFilter(distric, healthFacility, programmaticArea, form, tutor, cabinet,
+		        startDate, endDate, LifeCycleStatus.ACTIVE);
 	}
 
 	@Override
@@ -64,5 +65,14 @@ public class SessionQueryServiceImpl implements SessionQueryService {
 	@Override
 	public List<Session> fetchSessionsByUuid(final String sessionUuid) throws BusinessException {
 		return this.sessionDAO.fetchSessionsByUuid(sessionUuid, LifeCycleStatus.ACTIVE);
+	}
+
+	@Override
+	public List<PerformedSession> findPerformedSessionsBySelectedFilterList(final District distric,
+	        final HealthFacility healthFacility, final ProgrammaticArea programmaticArea, final Form form,
+	        final Tutor tutor, final Cabinet cabinet, final LocalDate startDate, final LocalDate endDate) {
+
+		return this.sessionDAO.findBySelectedFilterList(distric, healthFacility, programmaticArea, form, tutor, cabinet,
+		        startDate, endDate, LifeCycleStatus.ACTIVE);
 	}
 }

@@ -43,8 +43,10 @@ public interface MentorshipResource {
 	 * @param healthFacility
 	 * @param iterationType
 	 * @param iterationNumber
-	 * @param performedStartDate Optional date string of the form "YYYY-mm-dd" e.g "2018-12-31"
-	 * @param performedEndDate	Optional date string of the form "YYYY-mm-dd" e.g "2018-12-31"
+	 * @param performedStartDate
+	 *            Optional date string of the form "YYYY-mm-dd" e.g "2018-12-31"
+	 * @param performedEndDate
+	 *            Optional date string of the form "YYYY-mm-dd" e.g "2018-12-31"
 	 * @return
 	 * @throws BusinessException
 	 */
@@ -53,10 +55,11 @@ public interface MentorshipResource {
 	public JResponse<List<Mentorship>> findBySelectedFilter(@QueryParam("code") final String code,
 	        @QueryParam("tutor") final String tutor, @QueryParam("tutored") final String tutored,
 	        @QueryParam("form") final String form, @QueryParam("healthFacility") final String healthFacility,
-			@QueryParam("iterationType") final String iterationType, @QueryParam("iterationNumber") final Integer iterationNumber,
-			@QueryParam("lifeCycleStatus") final String lifeCycleStatus, @QueryParam("performedStartDate") final String performedStartDate,
-			@QueryParam("performedEndDate") final String performedEndDate)
-	        throws BusinessException;
+	        @QueryParam("iterationType") final String iterationType,
+	        @QueryParam("iterationNumber") final Integer iterationNumber,
+	        @QueryParam("lifeCycleStatus") final String lifeCycleStatus,
+	        @QueryParam("performedStartDate") final String performedStartDate,
+	        @QueryParam("performedEndDate") final String performedEndDate) throws BusinessException;
 
 	@POST
 	@Path("sync")
@@ -75,7 +78,17 @@ public interface MentorshipResource {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<PerformedSession>> findPerformedSessions(@QueryParam("districtUuid") String districtUuid,
 	        @QueryParam("healthFacilityUuid") String healthFacilityUuid, @QueryParam("formUuid") String formUuid,
-	        @QueryParam("programmaticAreaUuid") String programmaticAreaUuid, @QueryParam("startDate") String startDate,
+	        @QueryParam("programmaticAreaUuid") String programmaticAreaUuid, @QueryParam("tutorUuid") String tutorUuid,
+	        @QueryParam("cabinetUuid") String cabinetUuid, @QueryParam("startDate") String startDate,
+	        @QueryParam("endDate") String endDate) throws BusinessException;
+
+	@GET
+	@Path("performed-sessions-list")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<PerformedSession>> findPerformedSessionsList(@QueryParam("districtUuid") String districtUuid,
+	        @QueryParam("healthFacilityUuid") String healthFacilityUuid, @QueryParam("formUuid") String formUuid,
+	        @QueryParam("programmaticAreaUuid") String programmaticAreaUuid, @QueryParam("tutorUuid") String tutorUuid,
+	        @QueryParam("cabinetUuid") String cabinetUuid, @QueryParam("startDate") String startDate,
 	        @QueryParam("endDate") String endDate) throws BusinessException;
 
 	@GET

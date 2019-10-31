@@ -17,7 +17,7 @@ public interface CabinetDAO extends GenericDAO<Cabinet, Long> {
 
 	class QUERY {
 		public static final String findByName = "SELECT c FROM Cabinet c WHERE c.name = :cabinetName AND c.lifeCycleStatus = :lifeCycleStatus";
-		public static final String findAll = "SELECT c FROM Cabinet c WHERE c.lifeCycleStatus = :lifeCycleStatus";
+		public static final String findAll = "SELECT c FROM Cabinet c WHERE c.lifeCycleStatus = :lifeCycleStatus ORDER BY c.name";
 	}
 
 	class QUERY_NAME {
