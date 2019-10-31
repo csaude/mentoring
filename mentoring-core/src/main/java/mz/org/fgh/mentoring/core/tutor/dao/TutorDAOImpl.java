@@ -60,7 +60,8 @@ public class TutorDAOImpl extends GenericDAOImpl<Tutor, Long> implements TutorDA
 		}
 
 		predicates.add(criteriaBuilder.equal(root.get("lifeCycleStatus"), lifeCycleStatus));
-		createQuery.where(predicates.toArray(new Predicate[predicates.size()]));
+		createQuery.where(predicates.toArray(new Predicate[predicates.size()]))
+		        .orderBy(criteriaBuilder.asc(root.get("name")));
 
 		final TypedQuery<Tutor> query = this.getEntityManager().createQuery(createQuery);
 

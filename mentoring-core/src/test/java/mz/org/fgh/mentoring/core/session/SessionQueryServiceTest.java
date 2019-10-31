@@ -155,7 +155,24 @@ public class SessionQueryServiceTest extends AbstractSpringTest {
 
 		final List<PerformedSession> performedSessions = this.sessionQueryService.findPerformedSessionsBySelectedFilter(
 		        this.mentorship.getHealthFacility().getDistrict(), this.mentorship.getHealthFacility(),
-		        this.mentorship.getForm().getProgrammaticArea(), this.mentorship.getForm(), startDate, endDate);
+		        this.mentorship.getForm().getProgrammaticArea(), this.mentorship.getForm(), this.mentorship.getTutor(),
+		        this.mentorship.getCabinet(), startDate, endDate);
+
+		assertFalse(performedSessions.isEmpty());
+		assertEquals(this.session.getPerformedDate(), startDate);
+	}
+
+	@Test
+	public void shouldFindPerformedSessionsBySelectedFilterList() {
+
+		final LocalDate startDate = LocalDate.now();
+		final LocalDate endDate = LocalDate.now();
+
+		final List<PerformedSession> performedSessions = this.sessionQueryService
+		        .findPerformedSessionsBySelectedFilterList(this.mentorship.getHealthFacility().getDistrict(),
+		                this.mentorship.getHealthFacility(), this.mentorship.getForm().getProgrammaticArea(),
+		                this.mentorship.getForm(), this.mentorship.getTutor(), this.mentorship.getCabinet(), startDate,
+		                endDate);
 
 		assertFalse(performedSessions.isEmpty());
 		assertEquals(this.session.getPerformedDate(), startDate);

@@ -28,7 +28,7 @@ public class ProgrammaticAreaDAOImpl extends GenericDAOImpl<ProgrammaticArea, Lo
 
 	@Override
 	public List<ProgrammaticArea> findBySelectedFilter(final UserContext userContext, final String code,
-			final String name, final LifeCycleStatus lifeCycleStatus) {
+	        final String name, final LifeCycleStatus lifeCycleStatus) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<ProgrammaticArea> createQuery = criteriaBuilder.createQuery(ProgrammaticArea.class);
@@ -47,7 +47,10 @@ public class ProgrammaticAreaDAOImpl extends GenericDAOImpl<ProgrammaticArea, Lo
 		}
 
 		predicates.add(criteriaBuilder.equal(root.get("lifeCycleStatus"), lifeCycleStatus));
+
 		createQuery.where(predicates.toArray(new Predicate[predicates.size()]));
+
+		createQuery.orderBy(criteriaBuilder.asc(root.get("name")));
 
 		final TypedQuery<ProgrammaticArea> query = this.getEntityManager().createQuery(createQuery);
 

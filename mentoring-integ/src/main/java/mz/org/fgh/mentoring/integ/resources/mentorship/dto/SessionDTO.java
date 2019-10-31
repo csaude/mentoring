@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import mz.org.fgh.mentoring.core.form.model.Form;
+import mz.org.fgh.mentoring.core.location.model.Cabinet;
 import mz.org.fgh.mentoring.core.location.model.District;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
@@ -49,16 +50,21 @@ public class SessionDTO {
 
 	private String tutorUuid;
 
+	private String cabinetUuid;
+
 	public SessionDTO() {
 	}
 
 	public SessionDTO(final String districtUuid, final String healthFacilityUuid, final String formUuid,
-	        final String programmaticAreaUuid, final String startDate, final String endDate) {
+	        final String programmaticAreaUuid, final String tutorUuid, final String cabinetUuid, final String startDate,
+	        final String endDate) {
 
 		this.districtUuid = districtUuid;
 		this.healthFacilityUuid = healthFacilityUuid;
 		this.formUuid = formUuid;
 		this.programmaticAreaUuid = programmaticAreaUuid;
+		this.tutorUuid = tutorUuid;
+		this.cabinetUuid = cabinetUuid;
 		this.startDate = startDate;
 		this.endDate = endDate;
 
@@ -167,5 +173,17 @@ public class SessionDTO {
 		tutor.setUuid(this.tutorUuid);
 
 		return tutor;
+	}
+
+	public Cabinet getCabinet() {
+
+		if (this.cabinetUuid == null) {
+			return null;
+		}
+
+		final Cabinet cabinet = new Cabinet();
+		cabinet.setUuid(this.cabinetUuid);
+
+		return cabinet;
 	}
 }
