@@ -112,6 +112,14 @@ public class Mentorship extends GenericEntity {
 
 	@Column(name = "ITERATION_NUMBER")
 	private Integer iterationNumber;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "TIMETABLE")
+	private Timetable timetable;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "DOOR")
+	private Door door;
 
 	public Mentorship() {
 	}
@@ -214,6 +222,22 @@ public class Mentorship extends GenericEntity {
 
 	public void setIterationNumber(final Integer iterationNumber) {
 		this.iterationNumber = iterationNumber;
+	}
+
+	public Timetable getTimetable() {
+		return timetable;
+	}
+
+	public void setTimetable(Timetable timetable) {
+		this.timetable = timetable;
+	}
+
+	public Door getDoor() {
+		return door;
+	}
+
+	public void setDoor(Door door) {
+		this.door = door;
 	}
 
 	public void addAnswer(final Answer answer) {
