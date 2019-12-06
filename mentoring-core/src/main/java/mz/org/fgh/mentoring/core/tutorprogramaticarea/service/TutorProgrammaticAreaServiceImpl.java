@@ -50,7 +50,7 @@ public class TutorProgrammaticAreaServiceImpl extends AbstractService implements
 	@Inject
 	private MailSenderService mailSenderService;
 
-	private static final int PASSWORD_LENTH = 10;
+	private static final int PASSWORD_LENTH = 4;
 
 	@Override
 	public TutorProgrammaticArea mapTutorToProgramaticArea(final UserContext userContext,
