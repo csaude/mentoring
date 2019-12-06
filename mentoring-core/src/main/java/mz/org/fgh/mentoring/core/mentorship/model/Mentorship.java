@@ -114,8 +114,8 @@ public class Mentorship extends GenericEntity {
 	private Integer iterationNumber;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "TIMETABLE")
-	private Timetable timetable;
+	@Column(name = "TIME_OF_DAY")
+	private TimeOfDay timeOfDay;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "DOOR")
@@ -224,12 +224,12 @@ public class Mentorship extends GenericEntity {
 		this.iterationNumber = iterationNumber;
 	}
 
-	public Timetable getTimetable() {
-		return timetable;
+	public TimeOfDay getTimeOfDay() {
+		return timeOfDay;
 	}
 
-	public void setTimetable(Timetable timetable) {
-		this.timetable = timetable;
+	public void setTimeOfDay(TimeOfDay timeOfDay) {
+		this.timeOfDay = timeOfDay;
 	}
 
 	public Door getDoor() {
