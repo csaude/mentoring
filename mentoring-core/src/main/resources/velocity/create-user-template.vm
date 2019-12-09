@@ -3,7 +3,7 @@
 <head>
  	<style>
  		body, ul, li, a, table, label, p, tr, td, span, textarea, input {
-			font: 11px "Lucida Grande", Georgia, "Times New Roman", Times, serif;
+			font: 13px arial, sans-serif, Times, serif;
         }
         
         table {
@@ -65,6 +65,6 @@
 </table>
 <p><b>O utilizador deverá alterar a sua senha assim que aceder ao sistema pela primeira vez!</b></p>
 <p>Obrigado</p>
-<p>Pelo FGH/SIS - his@fgh.org.mz © 2018 ©</p>
+<p>Pelo FGH/SIS - his@fgh.org.mz © 2017 ©</p>
 </body>
 </html>

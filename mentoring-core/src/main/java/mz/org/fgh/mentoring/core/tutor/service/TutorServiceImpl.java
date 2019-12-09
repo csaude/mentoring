@@ -30,7 +30,7 @@ import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 @Service(TutorService.NAME)
 public class TutorServiceImpl extends AbstractService implements TutorService {
 
-	private static final int PASSWORD_LENTH = 10;
+	private static final int PASSWORD_LENTH = 4;
 
 	@Inject
 	private TutorDAO tutorDAO;
