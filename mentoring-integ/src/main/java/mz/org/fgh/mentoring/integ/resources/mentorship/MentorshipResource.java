@@ -81,7 +81,7 @@ public interface MentorshipResource {
 	        @QueryParam("programmaticAreaUuid") String programmaticAreaUuid, @QueryParam("tutorUuid") String tutorUuid,
 	        @QueryParam("cabinetUuid") String cabinetUuid, @QueryParam("startDate") String startDate,
 	        @QueryParam("endDate") String endDate) throws BusinessException;
-
+	
 	@GET
 	@Path("performed-sessions-list")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -97,4 +97,49 @@ public interface MentorshipResource {
 	public JResponse<List<PerformedSession>> findPerformedSessionsByTutorAndForm(
 	        @QueryParam("tutorUuid") String tutorUuid, @QueryParam("formUuid") String formUuid,
 	        @QueryParam("startDate") String startDate, @QueryParam("endDate") String endDate) throws BusinessException;
+	
+	@GET
+	@Path("performed-sessions-by-tutor")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<PerformedSession>> findPerformedSessionsByTutor(
+	        @QueryParam("tutorUuid") String tutorUuid,@QueryParam("startDate") String startDate,
+	        @QueryParam("endDate") String endDate) throws BusinessException;
+	
+	/**
+	 * 
+	 * @param startDate
+	 * @param endDate
+	 * @return Data of HTS Monitoring report
+	 * @throws BusinessException
+	 */
+	@GET
+	@Path("performed-sessions-hts")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<PerformedSession>> findPerformedSessionsHTS(@QueryParam("startDate") String startDate,
+	        @QueryParam("endDate") String endDate) throws BusinessException;
+	
+	/**
+	 * 
+	 * @param startDate
+	 * @param endDate
+	 * @return Data of Narrative report
+	 * @throws BusinessException
+	 */
+	@GET
+	@Path("performed-sessions-narrative")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<PerformedSession>> findPerformedSessionsNarrative(@QueryParam("startDate") String startDate,
+	        @QueryParam("endDate") String endDate) throws BusinessException;
+	
+	/**
+	 * 
+	 * @return Number of Performed Sessions on the Last 12 Months
+	 * @throws BusinessException
+	 */
+	@GET
+	@Path("performed-sessions-months")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<PerformedSession>> findPerformedSessionsLast12Months() throws BusinessException;
+
+	
 }

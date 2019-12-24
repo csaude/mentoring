@@ -79,6 +79,20 @@ public class SessionDTO {
 
 		this.localDateAdapter = new LocalDateAdapter();
 	}
+	
+	public SessionDTO(final String tutorUuid, final String startDate, final String endDate) {
+        this.tutorUuid = tutorUuid;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.localDateAdapter = new LocalDateAdapter();
+    }
+
+	public SessionDTO(final String startDate, final String endDate) {
+		this.startDate = startDate;
+		this.endDate = endDate;
+		
+		this.localDateAdapter = new LocalDateAdapter();
+	}
 
 	public Session getSession() {
 		return this.session;

@@ -96,6 +96,7 @@ public class TutorServiceImpl extends AbstractService implements TutorService {
 
 		final Map<String, Object> params = new HashMap<>();
 		params.put("password", userContext.getPassword());
+		params.put("username", tutor.getName().toLowerCase() + "." + tutor.getSurname().toLowerCase());
 
 		this.mailSenderService.send(params);
 	}
