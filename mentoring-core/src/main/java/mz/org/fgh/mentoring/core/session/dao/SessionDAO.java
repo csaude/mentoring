@@ -53,4 +53,12 @@ public interface SessionDAO extends GenericDAO<Session, Long> {
 	List<Session> findWithDuplicatedUuids(LifeCycleStatus lifeCycleStatus);
 
 	List<Session> fetchSessionsByUuid(String sessionUuid, LifeCycleStatus lifeCycleStatus);
+	
+	List<PerformedSession> findBySelectedFilterHTS(final LocalDate startDate, final LocalDate endDate);
+	
+	List<PerformedSession> findBySelectedFilterNarrative(final LocalDate startDate, final LocalDate endDate);
+	
+	List<PerformedSession> findBySelectedFilterLast12Months();
+	
+	List<PerformedSession> findByTutor(Tutor tutor, LocalDate startDate, LocalDate endDate);
 }

@@ -31,7 +31,7 @@ public interface SessionQueryService {
 	List<PerformedSession> findPerformedSessionsBySelectedFilterList(final District distric,
 	        HealthFacility healthFacility, ProgrammaticArea programmaticArea, Form form, Tutor tutor, Cabinet cabinet,
 	        LocalDate startDate, LocalDate endDate);
-
+	
 	List<SubmitedSessions> findNumberOfSessionsPerDistrict(UserContext userContext);
 
 	List<PerformedSession> findPerformedSessionsByTutorAndForm(Tutor tutor, Form form, LocalDate startDate,
@@ -40,4 +40,14 @@ public interface SessionQueryService {
 	List<Session> findSessionsWithDuplicatedUuids() throws BusinessException;
 
 	List<Session> fetchSessionsByUuid(String sessionUuid) throws BusinessException;
+	
+	List<PerformedSession> findPerformedSessionsBySelectedFilterHTS(LocalDate startDate, LocalDate endDate);
+	
+	List<PerformedSession> findPerformedSessionsBySelectedFilterNarrative(LocalDate startDate, LocalDate endDate);
+	
+	List<PerformedSession> findPerformedSessionsBySelectedFilterLast12Months();
+	
+	List<PerformedSession> findPerformedSessionsByTutor(Tutor tutor, LocalDate startDate,
+	        LocalDate endDate);
+
 }
