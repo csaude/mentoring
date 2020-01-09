@@ -49,5 +49,7 @@ public interface SessionQueryService {
 	
 	List<PerformedSession> findPerformedSessionsByTutor(Tutor tutor, LocalDate startDate,
 	        LocalDate endDate);
+	
+	List<PerformedSession> findPerformedSessionsBySelectedFilterIndicators(LocalDate startDate, LocalDate endDate);
 
 }

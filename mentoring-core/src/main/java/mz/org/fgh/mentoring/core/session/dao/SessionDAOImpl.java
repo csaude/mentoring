@@ -390,4 +390,28 @@ final StringBuilder nativeQuery = new StringBuilder();
 
 		return performedSessions;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PerformedSession> findBySelectedFilterIndicators(LocalDate startDate, LocalDate endDate) {
+		final StringBuilder nativeQuery = new StringBuilder();
+		nativeQuery.append("SELECT f.NAME,COUNT(i.ID) AS 'total' FROM INDICATORS i, FORMS f WHERE i.FORM_ID=f.ID AND i.LIFE_CYCLE_STATUS='ACTIVE' AND i.PERFORMED_DATE >='"+startDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' AND i.PERFORMED_DATE <='"+endDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' AND f.NAME LIKE '%PROCEDIMENTO OPERACIONAL%' GROUP BY i.FORM_ID ORDER BY 1 ASC" );
+
+		final Query query = this.getEntityManager().createNativeQuery(nativeQuery.toString());
+		
+		List<Object[]> performedSessionsHTS = query.getResultList();
+		 
+		List<PerformedSession> performedSessions= new ArrayList<PerformedSession>(0);
+		
+		for (Object[] ps : performedSessionsHTS) {
+			PerformedSession p= new PerformedSession(
+					ps[0].toString(), 
+					Long.valueOf(ps[1].toString()));
+			
+			performedSessions.add(p);
+			
+		}
+
+		return performedSessions;
+	}
 }
