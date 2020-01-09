@@ -43,7 +43,7 @@
 		<th colspan="2">Detalhes do Cadastro</th>
 	</tr>
 	<tr>
-		<td width="120px">Código do Tutor</td>
+		<td width="120px">Codigo do Tutor</td>
 		<td width="400px">${tutor.code}</td>
 	</tr>
 	<tr>
@@ -51,20 +51,19 @@
 		<td>${tutor.name} ${tutor.surname}</td>
 	</tr>
 	<tr>
-		<td>Posição</td>
+		<td>Posicao</td>
 		<td>${tutor.career.position}</td>
 	</tr>
 	<tr>
-		<td>Nome do utilizador</td>
+		<td><strong>Nome do utilizador</strong></td>
 		<td>${tutor.name.toLowerCase()}.${tutor.surname.toLowerCase()}</td>
 	</tr>
 	<tr>
-		<td>Senha Administrativa</td>
+		<td><strong>Senha Administrativa</strong></td>
 		<td>${password}</td>
 	</tr>
 </table>
-<p><b>O utilizador deverá alterar a sua senha assim que aceder ao sistema pela primeira vez!</b></p>
 <p>Obrigado</p>
-<p>Pelo FGH/SIS - his@fgh.org.mz © 2017 ©</p>
+<p>Pelo FGH/SIS - his@fgh.org.mz © 2020 ©</p>
 </body>
 </html>

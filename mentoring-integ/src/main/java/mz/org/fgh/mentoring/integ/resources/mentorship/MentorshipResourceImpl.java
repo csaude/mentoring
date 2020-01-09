@@ -153,4 +153,46 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 
 		return JResponse.ok(performedSessions).build();
 	}
+
+	
+	public JResponse<List<PerformedSession>> findPerformedSessionsHTS(String startDate,
+			String endDate) throws BusinessException {
+
+		final SessionDTO sessionDTO = new SessionDTO(startDate, endDate);
+
+		final List<PerformedSession> performedSessions = this.sessionQueryService
+		        .findPerformedSessionsBySelectedFilterHTS(sessionDTO.getStartDate(), sessionDTO.getEndDate());
+
+		return JResponse.ok(performedSessions).build();
+	}
+
+	@Override
+	public JResponse<List<PerformedSession>> findPerformedSessionsNarrative(String startDate, String endDate)
+			throws BusinessException {
+		
+		final SessionDTO sessionDTO = new SessionDTO(startDate, endDate);
+
+		final List<PerformedSession> performedSessions = this.sessionQueryService
+		        .findPerformedSessionsBySelectedFilterNarrative(sessionDTO.getStartDate(), sessionDTO.getEndDate());
+
+		return JResponse.ok(performedSessions).build();
+	}
+
+	@Override
+	public JResponse<List<PerformedSession>> findPerformedSessionsLast12Months() throws BusinessException {
+		final List<PerformedSession> performedSessions = this.sessionQueryService
+		        .findPerformedSessionsBySelectedFilterLast12Months();
+		return JResponse.ok(performedSessions).build();
+	}
+
+	@Override
+	public JResponse<List<PerformedSession>> findPerformedSessionsByTutor(String tutorUuid, String startDate, String endDate) throws BusinessException {
+		
+		final SessionDTO sessionDTO = new SessionDTO(tutorUuid, startDate, endDate);
+
+		final List<PerformedSession> performedSessions = this.sessionQueryService.findPerformedSessionsByTutor(
+		        sessionDTO.getTutor(), sessionDTO.getStartDate(), sessionDTO.getEndDate());
+
+		return JResponse.ok(performedSessions).build();
+	}
 }

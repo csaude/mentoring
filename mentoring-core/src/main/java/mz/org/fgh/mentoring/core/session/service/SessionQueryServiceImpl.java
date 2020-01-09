@@ -75,4 +75,26 @@ public class SessionQueryServiceImpl implements SessionQueryService {
 		return this.sessionDAO.findBySelectedFilterList(distric, healthFacility, programmaticArea, form, tutor, cabinet,
 		        startDate, endDate, LifeCycleStatus.ACTIVE);
 	}
+
+	@Override
+	public List<PerformedSession> findPerformedSessionsBySelectedFilterHTS(LocalDate startDate, LocalDate endDate) {
+		
+		return this.sessionDAO.findBySelectedFilterHTS(startDate, endDate);
+	}
+
+	@Override
+	public List<PerformedSession> findPerformedSessionsBySelectedFilterNarrative(LocalDate startDate,
+			LocalDate endDate) {
+		return this.sessionDAO.findBySelectedFilterNarrative(startDate, endDate);
+	}
+
+	@Override
+	public List<PerformedSession> findPerformedSessionsBySelectedFilterLast12Months() {
+		return this.sessionDAO.findBySelectedFilterLast12Months();
+	}
+
+	@Override
+	public List<PerformedSession> findPerformedSessionsByTutor(Tutor tutor, LocalDate startDate, LocalDate endDate) {
+		return this.sessionDAO.findByTutor(tutor, startDate, endDate);
+	}
 }
