@@ -61,4 +61,6 @@ public interface SessionDAO extends GenericDAO<Session, Long> {
 	List<PerformedSession> findBySelectedFilterLast12Months();
 	
 	List<PerformedSession> findByTutor(Tutor tutor, LocalDate startDate, LocalDate endDate);
+	
+	List<PerformedSession> findBySelectedFilterIndicators(final LocalDate startDate, final LocalDate endDate);
 }
