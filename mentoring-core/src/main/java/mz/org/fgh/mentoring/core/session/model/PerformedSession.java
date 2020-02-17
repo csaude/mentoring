@@ -50,17 +50,41 @@ public class PerformedSession {
 	/**
 	 * Properties of Narrative report
 	 */
-	private Long saaj;
-	private Long htcLink;
-	private Long smi;
-	private Long stiAdultsPrison;
+	private Long preventionVCT;
+	private Long preventionPICT;
+	private Long preventionIndexCase;
+	private Long preventionSaaj;
+	private Long preventionHtcLink;
+	private Long preventionANC;
+	private Long ctStiAdultsPrison;
 	private Long ctAdultsPrison;
+	private Long ctAdultsVLPrison;
+	private Long ctTbHiv;
+	private Long ctApss;
 	private Long ctAdults;
-	private Long apss;
-	private Long adultVl;
-	private Long tbHiv;
-	private Long tpi;
-	private Long nutrition;
+	private Long ctAdultsVL;
+	private Long ctInh;
+	private Long ctNutrition;
+	private Long ctApssTutoreds;
+	private Long ctApssSessions;
+	private Long ctEAC;
+	private Long ctCervical;
+	private Long tbSessions;
+	private Long tbSessionsCt;
+	private Long tbInh;
+	private Long tbSessionsPediatric;
+	private Long pediatricNutrition;
+	private Long pediatricStarART;
+	private Long pediatricAMA;
+	private Long pediatricTB;
+	private Long pediatricVL;
+	
+	/**
+	 * Properties of POP report
+	 */
+	private String elaborado;
+	private String aprovado;
+	private String revisado;
 
 	public PerformedSession() {
 	}
@@ -130,20 +154,59 @@ public class PerformedSession {
 	
 	
 
-	public PerformedSession(String district,Long saaj, Long htcLink, Long smi, Long stiAdultsPrison, Long ctAdultsPrison, Long ctAdults, Long apss,
-			Long adultVl, Long tbHiv, Long tpi, Long nutrition) {
-		this.district=district;
-		this.saaj = saaj;
-		this.htcLink = htcLink;
-		this.smi = smi;
-		this.stiAdultsPrison = stiAdultsPrison;
+	
+
+	public PerformedSession(String district, Long preventionVCT, Long preventionPICT, Long preventionIndexCase,
+			Long preventionSaaj, Long preventionHtcLink, Long preventionANC, Long ctStiAdultsPrison,
+			Long ctAdultsPrison, Long ctAdultsVLPrison, Long ctTbHiv, Long ctApss, Long ctAdults, Long ctAdultsVL,
+			Long ctInh, Long ctNutrition, Long ctApssTutoreds, Long ctHCW, Long ctEAC, Long ctCervical, Long tbSessions,
+			Long tbSessionsCt, Long tbInh, Long tbSessionsPediatric, Long pediatricNutrition, Long pediatricStarART,
+			Long pediatricAMA, Long pediatricTB, Long pediatricVL) {
+		this.district = district;
+		this.preventionVCT = preventionVCT;
+		this.preventionPICT = preventionPICT;
+		this.preventionIndexCase = preventionIndexCase;
+		this.preventionSaaj = preventionSaaj;
+		this.preventionHtcLink = preventionHtcLink;
+		this.preventionANC = preventionANC;
+		this.ctStiAdultsPrison = ctStiAdultsPrison;
 		this.ctAdultsPrison = ctAdultsPrison;
+		this.ctAdultsVLPrison = ctAdultsVLPrison;
+		this.ctTbHiv = ctTbHiv;
+		this.ctApss = ctApss;
 		this.ctAdults = ctAdults;
-		this.apss = apss;
-		this.adultVl = adultVl;
-		this.tbHiv = tbHiv;
-		this.tpi = tpi;
-		this.nutrition = nutrition;
+		this.ctAdultsVL = ctAdultsVL;
+		this.ctInh = ctInh;
+		this.ctNutrition = ctNutrition;
+		this.ctApssTutoreds = ctApssTutoreds;
+		this.ctApssSessions = ctHCW;
+		this.ctEAC = ctEAC;
+		this.ctCervical = ctCervical;
+		this.tbSessions = tbSessions;
+		this.tbSessionsCt = tbSessionsCt;
+		this.tbInh = tbInh;
+		this.tbSessionsPediatric = tbSessionsPediatric;
+		this.pediatricNutrition = pediatricNutrition;
+		this.pediatricStarART = pediatricStarART;
+		this.pediatricAMA = pediatricAMA;
+		this.pediatricTB = pediatricTB;
+		this.pediatricVL = pediatricVL;
+	}
+	
+	
+
+	public PerformedSession(String district, String healthFacility,String performedDate,String tutorName, String formName,
+			  String elaborado, String aprovado, String revisado, String createdAt) {
+		
+		this.district = district;
+		this.healthFacility = healthFacility;
+		this.performedDate = performedDate;
+		this.tutorName = tutorName;
+		this.formName = formName;
+		this.elaborado = elaborado;
+		this.aprovado = aprovado;
+		this.revisado = revisado;
+		this.createdAt = createdAt;
 	}
 
 	public String getDistrict() {
@@ -258,28 +321,92 @@ public class PerformedSession {
 		this.inscritos = inscritos;
 	}
 
-	public Long getSaaj() {
-		return saaj;
+	public Long getPreventionVCT() {
+		return preventionVCT;
 	}
 
-	public void setSaaj(Long saaj) {
-		this.saaj = saaj;
+	public void setPreventionVCT(Long preventionVCT) {
+		this.preventionVCT = preventionVCT;
 	}
 
-	public Long getHtcLink() {
-		return htcLink;
+	public Long getPreventionPICT() {
+		return preventionPICT;
 	}
 
-	public void setHtcLink(Long htcLink) {
-		this.htcLink = htcLink;
+	public void setPreventionPICT(Long preventionPICT) {
+		this.preventionPICT = preventionPICT;
 	}
 
-	public Long getSmi() {
-		return smi;
+	public Long getPreventionIndexCase() {
+		return preventionIndexCase;
 	}
 
-	public void setSmi(Long smi) {
-		this.smi = smi;
+	public void setPreventionIndexCase(Long preventionIndexCase) {
+		this.preventionIndexCase = preventionIndexCase;
+	}
+
+	public Long getPreventionSaaj() {
+		return preventionSaaj;
+	}
+
+	public void setPreventionSaaj(Long preventionSaaj) {
+		this.preventionSaaj = preventionSaaj;
+	}
+
+	public Long getPreventionHtcLink() {
+		return preventionHtcLink;
+	}
+
+	public void setPreventionHtcLink(Long preventionHtcLink) {
+		this.preventionHtcLink = preventionHtcLink;
+	}
+
+	public Long getPreventionANC() {
+		return preventionANC;
+	}
+
+	public void setPreventionANC(Long preventionANC) {
+		this.preventionANC = preventionANC;
+	}
+
+	public Long getCtStiAdultsPrison() {
+		return ctStiAdultsPrison;
+	}
+
+	public void setCtStiAdultsPrison(Long ctStiAdultsPrison) {
+		this.ctStiAdultsPrison = ctStiAdultsPrison;
+	}
+
+	public Long getCtAdultsPrison() {
+		return ctAdultsPrison;
+	}
+
+	public void setCtAdultsPrison(Long ctAdultsPrison) {
+		this.ctAdultsPrison = ctAdultsPrison;
+	}
+
+	public Long getCtAdultsVLPrison() {
+		return ctAdultsVLPrison;
+	}
+
+	public void setCtAdultsVLPrison(Long ctAdultsVLPrison) {
+		this.ctAdultsVLPrison = ctAdultsVLPrison;
+	}
+
+	public Long getCtTbHiv() {
+		return ctTbHiv;
+	}
+
+	public void setCtTbHiv(Long ctTbHiv) {
+		this.ctTbHiv = ctTbHiv;
+	}
+
+	public Long getCtApss() {
+		return ctApss;
+	}
+
+	public void setCtApss(Long ctApss) {
+		this.ctApss = ctApss;
 	}
 
 	public Long getCtAdults() {
@@ -290,62 +417,162 @@ public class PerformedSession {
 		this.ctAdults = ctAdults;
 	}
 
-	public Long getApss() {
-		return apss;
+	public Long getCtAdultsVL() {
+		return ctAdultsVL;
 	}
 
-	public void setApss(Long apss) {
-		this.apss = apss;
+	public void setCtAdultsVL(Long ctAdultsVL) {
+		this.ctAdultsVL = ctAdultsVL;
 	}
 
-	public Long getAdultVl() {
-		return adultVl;
+	public Long getCtInh() {
+		return ctInh;
 	}
 
-	public void setAdultVl(Long adultVl) {
-		this.adultVl = adultVl;
+	public void setCtInh(Long ctInh) {
+		this.ctInh = ctInh;
 	}
 
-	public Long getTbHiv() {
-		return tbHiv;
+	public Long getCtNutrition() {
+		return ctNutrition;
 	}
 
-	public void setTbHiv(Long tbHiv) {
-		this.tbHiv = tbHiv;
+	public void setCtNutrition(Long ctNutrition) {
+		this.ctNutrition = ctNutrition;
 	}
 
-	public Long getTpi() {
-		return tpi;
+	public Long getCtApssTutoreds() {
+		return ctApssTutoreds;
 	}
 
-	public void setTpi(Long tpi) {
-		this.tpi = tpi;
+	public void setCtApssTutoreds(Long ctApssTutoreds) {
+		this.ctApssTutoreds = ctApssTutoreds;
 	}
 
-	public Long getNutrition() {
-		return nutrition;
+	public Long getCtApssSessions() {
+		return ctApssSessions;
 	}
 
-	public void setNutrition(Long nutrition) {
-		this.nutrition = nutrition;
+	public void setCtApssSessions(Long ctHCW) {
+		this.ctApssSessions = ctHCW;
 	}
 
-	public Long getStiAdultsPrison() {
-		return stiAdultsPrison;
+	public Long getCtEAC() {
+		return ctEAC;
 	}
 
-	public void setStiAdultsPrison(Long stiAdultsPrison) {
-		this.stiAdultsPrison = stiAdultsPrison;
+	public void setCtEAC(Long ctEAC) {
+		this.ctEAC = ctEAC;
 	}
 
-	public Long getCtAdultsPrison() {
-		return ctAdultsPrison;
+	public Long getCtCervical() {
+		return ctCervical;
 	}
 
-	public void setCtAdultsPrison(Long ctAdultsPrison) {
-		this.ctAdultsPrison = ctAdultsPrison;
+	public void setCtCervical(Long ctCervical) {
+		this.ctCervical = ctCervical;
 	}
-	
+
+	public Long getTbSessions() {
+		return tbSessions;
+	}
+
+	public void setTbSessions(Long tbSessions) {
+		this.tbSessions = tbSessions;
+	}
+
+	public Long getTbSessionsCt() {
+		return tbSessionsCt;
+	}
+
+	public void setTbSessionsCt(Long tbSessionsCt) {
+		this.tbSessionsCt = tbSessionsCt;
+	}
+
+	public Long getTbInh() {
+		return tbInh;
+	}
+
+	public void setTbInh(Long tbInh) {
+		this.tbInh = tbInh;
+	}
+
+	public Long getTbSessionsPediatric() {
+		return tbSessionsPediatric;
+	}
+
+	public void setTbSessionsPediatric(Long tbSessionsPediatric) {
+		this.tbSessionsPediatric = tbSessionsPediatric;
+	}
+
+	public Long getPediatricNutrition() {
+		return pediatricNutrition;
+	}
+
+	public void setPediatricNutrition(Long pediatricNutrition) {
+		this.pediatricNutrition = pediatricNutrition;
+	}
+
+	public Long getPediatricStarART() {
+		return pediatricStarART;
+	}
+
+	public void setPediatricStarART(Long pediatricStarART) {
+		this.pediatricStarART = pediatricStarART;
+	}
+
+	public Long getPediatricAMA() {
+		return pediatricAMA;
+	}
+
+	public void setPediatricAMA(Long pediatricAMA) {
+		this.pediatricAMA = pediatricAMA;
+	}
+
+	public Long getPediatricTB() {
+		return pediatricTB;
+	}
+
+	public void setPediatricTB(Long pediatricTB) {
+		this.pediatricTB = pediatricTB;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+
+	public String getElaborado() {
+		return elaborado;
+	}
+
+	public void setElaborado(String elaborado) {
+		this.elaborado = elaborado;
+	}
+
+	public String getAprovado() {
+		return aprovado;
+	}
+
+	public void setAprovado(String aprovado) {
+		this.aprovado = aprovado;
+	}
+
+	public String getRevisado() {
+		return revisado;
+	}
+
+	public void setRevisado(String revisado) {
+		this.revisado = revisado;
+	}
+
+	public Long getPediatricVL() {
+		return pediatricVL;
+	}
+
+	public void setPediatricVL(Long pediatricVL) {
+		this.pediatricVL = pediatricVL;
+	}
+
 	
 	
 }
