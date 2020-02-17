@@ -51,5 +51,7 @@ public interface SessionQueryService {
 	        LocalDate endDate);
 	
 	List<PerformedSession> findPerformedSessionsBySelectedFilterIndicators(LocalDate startDate, LocalDate endDate);
+	
+	List<PerformedSession> findPerformedSessionsBySelectedFilterIndicatorsList(LocalDate startDate, LocalDate endDate);
 
 }

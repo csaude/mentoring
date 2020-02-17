@@ -146,6 +146,12 @@ public interface MentorshipResource {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<PerformedSession>> findPerformedSessionsIndicators(@QueryParam("startDate") String startDate,
 	        @QueryParam("endDate") String endDate) throws BusinessException;
+	
+	@GET
+	@Path("performed-sessions-indicators-list")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<PerformedSession>> findPerformedSessionsIndicatorsList(@QueryParam("startDate") String startDate,
+	        @QueryParam("endDate") String endDate) throws BusinessException;
 
 	
 }
