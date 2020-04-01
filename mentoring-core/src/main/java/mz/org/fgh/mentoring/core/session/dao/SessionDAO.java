@@ -54,15 +54,19 @@ public interface SessionDAO extends GenericDAO<Session, Long> {
 
 	List<Session> fetchSessionsByUuid(String sessionUuid, LifeCycleStatus lifeCycleStatus);
 	
+	List<PerformedSession> findByTutor(Tutor tutor, LocalDate startDate, LocalDate endDate);
+	
+	//Custom Reports
+	
 	List<PerformedSession> findBySelectedFilterHTS(final LocalDate startDate, final LocalDate endDate);
 	
 	List<PerformedSession> findBySelectedFilterNarrative(final LocalDate startDate, final LocalDate endDate);
 	
 	List<PerformedSession> findBySelectedFilterLast12Months();
 	
-	List<PerformedSession> findByTutor(Tutor tutor, LocalDate startDate, LocalDate endDate);
-	
 	List<PerformedSession> findBySelectedFilterIndicators(final LocalDate startDate, final LocalDate endDate);
 	
 	List<PerformedSession> findBySelectedFilterIndicatorsList(final LocalDate startDate, final LocalDate endDate);
+	
+	List<PerformedSession> findBySelectedFilterHTS(final LocalDate startDate, final LocalDate endDate, String tutoredUuid);
 }

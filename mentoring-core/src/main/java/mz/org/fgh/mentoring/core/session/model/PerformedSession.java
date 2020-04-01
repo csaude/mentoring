@@ -46,6 +46,7 @@ public class PerformedSession {
 	private Long testados;
 	private Long positivos;
 	private Long inscritos;
+	private Long cabinetId;
 	
 	/**
 	 * Properties of Narrative report
@@ -56,6 +57,7 @@ public class PerformedSession {
 	private Long preventionSaaj;
 	private Long preventionHtcLink;
 	private Long preventionANC;
+	private Long preventionCPN;
 	private Long ctStiAdultsPrison;
 	private Long ctAdultsPrison;
 	private Long ctAdultsVLPrison;
@@ -64,11 +66,14 @@ public class PerformedSession {
 	private Long ctAdults;
 	private Long ctAdultsVL;
 	private Long ctInh;
+	private Long ctTbHivCt;
 	private Long ctNutrition;
 	private Long ctApssTutoreds;
 	private Long ctApssSessions;
 	private Long ctEAC;
+	private Long ctMDC;
 	private Long ctCervical;
+	private Long ctStiAdults;
 	private Long tbSessions;
 	private Long tbSessionsCt;
 	private Long tbInh;
@@ -152,14 +157,50 @@ public class PerformedSession {
 		this.createdAt=createdAt;
 	}
 	
+	/**
+	 * This constructor will build the HTS Summary Mobile
+	 */
+	public PerformedSession(
+			final String districtName, 
+			final String healthFacility, 
+			final String performedDate,
+			final String tutorName, 
+			final String tutoredName, 
+			final String cabinet,
+			final String door, 
+			final String timeOfDay, 
+			final Long atendidos,
+			final Long previos, 
+			final Long testados, 
+			final Long positivos, 
+			final Long inscritos,
+			final String createdAt,
+			final Long cabinetId) {
+		this.district = districtName;
+		this.healthFacility = healthFacility;
+		this.performedDate =performedDate;
+		this.tutorName = tutorName;
+		this.cabinet = cabinet;
+		this.tutoredName = tutoredName;
+		this.door = door;
+		this.timeOfDay = timeOfDay;
+		this.atendidos = atendidos;
+		this.previos = previos;
+		this.testados = testados;
+		this.positivos = positivos;
+		this.inscritos = inscritos;
+		this.createdAt=createdAt;
+		this.cabinetId=cabinetId;
+	}
+	
 	
 
 	
 
 	public PerformedSession(String district, Long preventionVCT, Long preventionPICT, Long preventionIndexCase,
-			Long preventionSaaj, Long preventionHtcLink, Long preventionANC, Long ctStiAdultsPrison,
+			Long preventionSaaj, Long preventionHtcLink, Long preventionANC,Long preventionCPN, Long ctStiAdultsPrison,
 			Long ctAdultsPrison, Long ctAdultsVLPrison, Long ctTbHiv, Long ctApss, Long ctAdults, Long ctAdultsVL,
-			Long ctInh, Long ctNutrition, Long ctApssTutoreds, Long ctHCW, Long ctEAC, Long ctCervical, Long tbSessions,
+			Long ctInh, Long ctTbHivCt, Long ctNutrition, Long ctApssTutoreds, Long ctHCW, Long ctEAC, Long ctMDC,Long ctCervical, Long ctStiAdults,Long tbSessions,
 			Long tbSessionsCt, Long tbInh, Long tbSessionsPediatric, Long pediatricNutrition, Long pediatricStarART,
 			Long pediatricAMA, Long pediatricTB, Long pediatricVL) {
 		this.district = district;
@@ -169,6 +210,7 @@ public class PerformedSession {
 		this.preventionSaaj = preventionSaaj;
 		this.preventionHtcLink = preventionHtcLink;
 		this.preventionANC = preventionANC;
+		this.preventionCPN = preventionCPN;
 		this.ctStiAdultsPrison = ctStiAdultsPrison;
 		this.ctAdultsPrison = ctAdultsPrison;
 		this.ctAdultsVLPrison = ctAdultsVLPrison;
@@ -177,11 +219,14 @@ public class PerformedSession {
 		this.ctAdults = ctAdults;
 		this.ctAdultsVL = ctAdultsVL;
 		this.ctInh = ctInh;
+		this.ctTbHivCt = ctTbHivCt;
 		this.ctNutrition = ctNutrition;
 		this.ctApssTutoreds = ctApssTutoreds;
 		this.ctApssSessions = ctHCW;
 		this.ctEAC = ctEAC;
+		this.ctMDC = ctMDC;
 		this.ctCervical = ctCervical;
+		this.ctStiAdults = ctStiAdults;
 		this.tbSessions = tbSessions;
 		this.tbSessionsCt = tbSessionsCt;
 		this.tbInh = tbInh;
@@ -571,6 +616,46 @@ public class PerformedSession {
 
 	public void setPediatricVL(Long pediatricVL) {
 		this.pediatricVL = pediatricVL;
+	}
+
+	public Long getCabinetId() {
+		return cabinetId;
+	}
+
+	public void setCabinetId(Long cabinetId) {
+		this.cabinetId = cabinetId;
+	}
+
+	public Long getPreventionCPN() {
+		return preventionCPN;
+	}
+
+	public void setPreventionCPN(Long preventionCPN) {
+		this.preventionCPN = preventionCPN;
+	}
+
+	public Long getCtTbHivCt() {
+		return ctTbHivCt;
+	}
+
+	public void setCtTbHivCt(Long ctTbHivCt) {
+		this.ctTbHivCt = ctTbHivCt;
+	}
+
+	public Long getCtMDC() {
+		return ctMDC;
+	}
+
+	public void setCtMDC(Long ctMDC) {
+		this.ctMDC = ctMDC;
+	}
+
+	public Long getCtStiAdults() {
+		return ctStiAdults;
+	}
+
+	public void setCtStiAdults(Long ctStiAdults) {
+		this.ctStiAdults = ctStiAdults;
 	}
 
 	
