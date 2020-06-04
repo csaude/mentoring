@@ -81,4 +81,10 @@ public class MetadataResourceImpl implements MetadataResource {
 
 		return JResponse.ok(metadata).build();
 	}
+
+	@Override
+	public JResponse<Metadata> loadMetadataCabinets() throws BusinessException {
+		final List<Cabinet> cabinets = this.cabinetQueryService.findAllCabinets();
+		return JResponse.ok(new Metadata(cabinets)).build();
+	}
 }
