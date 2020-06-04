@@ -49,6 +49,11 @@ public class Metadata {
 		this.cabinets = cabinets;
 		this.formTargets = formTargets;
 	}
+	
+	
+	public Metadata(List<Cabinet> cabinets) {
+		this.cabinets = cabinets;
+	}
 
 	public List<HealthFacility> getHealthFacilities() {
 		return this.healthFacilities;

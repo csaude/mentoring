@@ -41,17 +41,21 @@ public interface SessionQueryService {
 
 	List<Session> fetchSessionsByUuid(String sessionUuid) throws BusinessException;
 	
+	List<PerformedSession> findPerformedSessionsByTutor(Tutor tutor, LocalDate startDate,
+	        LocalDate endDate);
+	
+	//Custom Reports
+	
 	List<PerformedSession> findPerformedSessionsBySelectedFilterHTS(LocalDate startDate, LocalDate endDate);
 	
 	List<PerformedSession> findPerformedSessionsBySelectedFilterNarrative(LocalDate startDate, LocalDate endDate);
 	
 	List<PerformedSession> findPerformedSessionsBySelectedFilterLast12Months();
 	
-	List<PerformedSession> findPerformedSessionsByTutor(Tutor tutor, LocalDate startDate,
-	        LocalDate endDate);
-	
 	List<PerformedSession> findPerformedSessionsBySelectedFilterIndicators(LocalDate startDate, LocalDate endDate);
 	
 	List<PerformedSession> findPerformedSessionsBySelectedFilterIndicatorsList(LocalDate startDate, LocalDate endDate);
+	
+	List<PerformedSession> findPerformedSessionsBySelectedFilterHTS(LocalDate startDate, LocalDate endDate,String tutoredUuid);
 
 }

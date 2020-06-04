@@ -14,7 +14,7 @@ import com.sun.jersey.api.JResponse;
 import mz.co.mozview.frameworks.core.exception.BusinessException;
 
 /**
- * @author Stélio Moiane
+ * @author Stélio Moiane and Damasceno Lopes
  *
  */
 public interface MetadataResource {
@@ -25,5 +25,10 @@ public interface MetadataResource {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Path("{uuid}")
 	JResponse<Metadata> loadMetadata(@PathParam("uuid") final String uuid) throws BusinessException;
+	
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Path("/cabinets")
+	JResponse<Metadata> loadMetadataCabinets() throws BusinessException;
 
 }

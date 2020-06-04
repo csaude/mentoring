@@ -105,6 +105,7 @@ public interface MentorshipResource {
 	        @QueryParam("tutorUuid") String tutorUuid,@QueryParam("startDate") String startDate,
 	        @QueryParam("endDate") String endDate) throws BusinessException;
 	
+	//APIs for custom reports
 	/**
 	 * 
 	 * @param startDate
@@ -152,6 +153,12 @@ public interface MentorshipResource {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<PerformedSession>> findPerformedSessionsIndicatorsList(@QueryParam("startDate") String startDate,
 	        @QueryParam("endDate") String endDate) throws BusinessException;
+	
+	@GET
+	@Path("performed-sessions-hts-tutored")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<PerformedSession>> findPerformedSessionsHTS(@QueryParam("startDate") String startDate,
+	        @QueryParam("endDate") String endDate, @QueryParam("tutoredUuid") String tutoredUuid) throws BusinessException;
 
 	
 }
