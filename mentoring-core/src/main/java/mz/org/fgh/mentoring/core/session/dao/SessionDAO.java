@@ -69,4 +69,6 @@ public interface SessionDAO extends GenericDAO<Session, Long> {
 	List<PerformedSession> findBySelectedFilterIndicatorsList(final LocalDate startDate, final LocalDate endDate);
 	
 	List<PerformedSession> findBySelectedFilterHTS(final LocalDate startDate, final LocalDate endDate, String tutoredUuid);
+
+	List<PerformedSession> findBySelectedFilterPMQTR(final LocalDate startDate, final LocalDate endDate);
 }

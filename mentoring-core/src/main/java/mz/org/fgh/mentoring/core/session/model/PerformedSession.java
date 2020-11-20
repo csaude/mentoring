@@ -90,9 +90,49 @@ public class PerformedSession {
 	private String elaborado;
 	private String aprovado;
 	private String revisado;
+	
+	/**
+	 * Props for PMQ-TR_HIV Report
+	 */
+	private int formacao;
+	private int instalacoes;
+	private int seguranca;
+	private int pretestagem;
+	private int testagem;
+	private int postestagem;
+	private int avaliacao;
+	private int total;
+	private Long mentorship_id;
+	
 
 	public PerformedSession() {
 	}
+	
+	
+
+	public PerformedSession(String district, String healthFacility, String performedDate,
+			String tutorName,String tutoredName,  String cabinet, int formacao, int instalacoes, int seguranca,
+			int pretestagem, int testagem, int postestagem, int avaliacao, int total,
+			String createdAt, Long mentorship_id) {
+		this.district = district;
+		this.healthFacility = healthFacility;
+		this.performedDate = performedDate;
+		this.tutorName = tutorName;
+		this.tutoredName = tutoredName;
+		this.cabinet = cabinet;
+		this.formacao = formacao;
+		this.setInstalacoes(instalacoes);
+		this.setSeguranca(seguranca);
+		this.setPretestagem(pretestagem);
+		this.setTestagem(testagem);
+		this.setPostestagem(postestagem);
+		this.setAvaliacao(avaliacao);
+		this.setTotal(total);
+		this.createdAt = createdAt;
+		this.mentorship_id = mentorship_id;
+	}
+
+
 
 	public PerformedSession(final String formName, final Calendar createdAt, final LocalDate performedDate,
 	        final String district, final String healthFacility, final String cabinet, final String tutorName,
@@ -656,6 +696,109 @@ public class PerformedSession {
 
 	public void setCtStiAdults(Long ctStiAdults) {
 		this.ctStiAdults = ctStiAdults;
+	}
+
+
+
+	public double getFormacao() {
+		return formacao;
+	}
+	
+	
+
+
+	public Long getMentorship_id() {
+		return mentorship_id;
+	}
+
+
+
+	public void setMentorship_id(Long mentorship_id) {
+		this.mentorship_id = mentorship_id;
+	}
+
+
+
+	public int getInstalacoes() {
+		return instalacoes;
+	}
+
+
+
+	public void setInstalacoes(int instalacoes) {
+		this.instalacoes = instalacoes;
+	}
+
+
+
+	public int getSeguranca() {
+		return seguranca;
+	}
+
+
+
+	public void setSeguranca(int seguranca) {
+		this.seguranca = seguranca;
+	}
+
+
+
+	public int getPretestagem() {
+		return pretestagem;
+	}
+
+
+
+	public void setPretestagem(int pretestagem) {
+		this.pretestagem = pretestagem;
+	}
+
+
+
+	public int getTestagem() {
+		return testagem;
+	}
+
+
+
+	public void setTestagem(int testagem) {
+		this.testagem = testagem;
+	}
+
+
+
+	public int getPostestagem() {
+		return postestagem;
+	}
+
+
+
+	public void setPostestagem(int postestagem) {
+		this.postestagem = postestagem;
+	}
+
+
+
+	public int getAvaliacao() {
+		return avaliacao;
+	}
+
+
+
+	public void setAvaliacao(int avaliacao) {
+		this.avaliacao = avaliacao;
+	}
+
+
+
+	public int getTotal() {
+		return total;
+	}
+
+
+
+	public void setTotal(int total) {
+		this.total = total;
 	}
 
 	
