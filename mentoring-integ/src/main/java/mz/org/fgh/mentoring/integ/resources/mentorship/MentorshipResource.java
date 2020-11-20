@@ -160,5 +160,11 @@ public interface MentorshipResource {
 	public JResponse<List<PerformedSession>> findPerformedSessionsHTS(@QueryParam("startDate") String startDate,
 	        @QueryParam("endDate") String endDate, @QueryParam("tutoredUuid") String tutoredUuid) throws BusinessException;
 
+	@GET
+	@Path("performed-sessions-pmqtr")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<PerformedSession>> findPerformedSessionsPMQTR(@QueryParam("startDate") String startDate,
+	        @QueryParam("endDate") String endDate) throws BusinessException;
+	
 	
 }

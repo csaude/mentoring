@@ -506,4 +506,42 @@ final StringBuilder nativeQuery = new StringBuilder();
 
 		return performedSessions;
 	}
+
+	@Override
+	public List<PerformedSession> findBySelectedFilterPMQTR(LocalDate startDate, LocalDate endDate) {
+		final StringBuilder nativeQuery = new StringBuilder();
+		nativeQuery.append("SELECT d.DISTRICT AS 'districtName', h.HEALTH_FACILITY AS 'healthFacility', DATE_FORMAT(s.PERFORMED_DATE, '%d-%m-%Y') AS 'performedDate', CONCAT(t.NAME, ' ', t.SURNAME) AS 'tutorName', CONCAT(tr.NAME, ' ', tr.SURNAME) AS 'tutoredName', c.NAME AS 'cabinet', ROUND((formacao.NUMERIC_VALUE/10)*100, 0) AS 'formacao', ROUND((instalacoes.NUMERIC_VALUE/5)*100, 0) AS 'instalacoes', ROUND((seguranca.NUMERIC_VALUE/11)*100, 0) AS 'seguranca',ROUND((pretestagem.NUMERIC_VALUE/12)*100, 0) AS 'pretestagem',ROUND((testagem.NUMERIC_VALUE/9)*100, 0) AS 'testagem',ROUND((postestagem.NUMERIC_VALUE/9)*100, 0) AS 'postestagem',ROUND((avaliacao.NUMERIC_VALUE/8)*100, 0) AS 'avaliacao',ROUND(((formacao.NUMERIC_VALUE+instalacoes.NUMERIC_VALUE+seguranca.NUMERIC_VALUE+pretestagem.NUMERIC_VALUE+testagem.NUMERIC_VALUE+postestagem.NUMERIC_VALUE+avaliacao.NUMERIC_VALUE)/64)*100, 0) AS 'total',s.CREATED_AT AS 'createdAt' , m.ID AS 'mentorship_id'FROM SESSIONS s INNER JOIN MENTORSHIPS m ON s.ID = m.SESSION_ID INNER JOIN HEALTH_FACILITIES h ON m.HEALTH_FACILITY_ID = h.ID INNER JOIN TUTORS t ON m.TUTOR_ID = t.ID INNER JOIN TUTOREDS tr ON m.TUTORED_ID = tr.ID INNER JOIN CABINETS c ON m.CABINET_ID = c.ID INNER JOIN FORMS f ON m.FORM_ID = f.ID INNER JOIN DISTRICTS d ON h.DISTRICT_ID = d.ID LEFT JOIN (SELECT MENTORSHIP_ID, SUM(CASE WHEN a.TEXT_VALUE = 'COMPETENTE' THEN 1 ELSE 0 end) AS numeric_value FROM MENTORSHIPS m, FORMS f, QUESTIONS q, ANSWERS a WHERE m.FORM_ID = f.ID AND a.QUESTION_ID = q.ID AND m.LIFE_CYCLE_STATUS = 'ACTIVE' AND m.ID = a.MENTORSHIP_ID AND q.CODE IN ( 'MTQ00000751', 'MTQ00000752', 'MTQ00000753', 'MTQ00000754', 'MTQ00000755', 'MTQ00000756', 'MTQ00000757', 'MTQ00000758', 'MTQ00000759', 'MTQ00000760' ) AND f.CODE IN ( 'MT00000048' ) AND m.PERFORMED_DATE >= '"+startDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' AND m.PERFORMED_DATE <= '"+endDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' GROUP BY MENTORSHIP_ID) formacao ON formacao.MENTORSHIP_ID = m.ID LEFT JOIN (SELECT MENTORSHIP_ID, SUM(CASE WHEN a.TEXT_VALUE = 'COMPETENTE' THEN 1 ELSE 0 end) AS numeric_value FROM MENTORSHIPS m, FORMS f, QUESTIONS q, ANSWERS a WHERE m.FORM_ID = f.ID AND a.QUESTION_ID = q.ID AND m.LIFE_CYCLE_STATUS = 'ACTIVE' AND m.ID = a.MENTORSHIP_ID AND q.CODE IN ( 'MTQ00000761', 'MTQ00000762', 'MTQ00000763', 'MTQ00000764', 'MTQ00000765' ) AND f.CODE IN ( 'MT00000048' ) AND m.PERFORMED_DATE >= '"+startDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' AND m.PERFORMED_DATE <= '"+endDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' GROUP BY MENTORSHIP_ID) instalacoes ON instalacoes.MENTORSHIP_ID = m.ID LEFT JOIN (SELECT MENTORSHIP_ID, SUM(CASE WHEN a.TEXT_VALUE = 'COMPETENTE' THEN 1 ELSE 0 end) AS numeric_value FROM MENTORSHIPS m, FORMS f, QUESTIONS q, ANSWERS a WHERE m.FORM_ID = f.ID AND a.QUESTION_ID = q.ID AND m.LIFE_CYCLE_STATUS = 'ACTIVE' AND m.ID = a.MENTORSHIP_ID AND q.CODE IN ( 'MTQ00000766', 'MTQ00000767', 'MTQ00000768', 'MTQ00000769', 'MTQ00000770', 'MTQ00000771', 'MTQ00000772', 'MTQ00000773', 'MTQ00000774', 'MTQ00000775', 'MTQ00000776' ) AND f.CODE IN ( 'MT00000048' ) AND m.PERFORMED_DATE >= '"+startDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' AND m.PERFORMED_DATE <= '"+endDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' GROUP BY MENTORSHIP_ID) seguranca ON seguranca.MENTORSHIP_ID = m.ID LEFT JOIN (SELECT MENTORSHIP_ID, SUM(CASE WHEN a.TEXT_VALUE = 'COMPETENTE' THEN 1 ELSE 0 end) AS numeric_value FROM MENTORSHIPS m, FORMS f, QUESTIONS q, ANSWERS a WHERE m.FORM_ID = f.ID AND a.QUESTION_ID = q.ID AND m.LIFE_CYCLE_STATUS = 'ACTIVE' AND m.ID = a.MENTORSHIP_ID AND q.CODE IN ( 'MTQ00000777', 'MTQ00000778', 'MTQ00000779', 'MTQ00000780', 'MTQ00000781', 'MTQ00000782', 'MTQ00000783', 'MTQ00000784', 'MTQ00000785', 'MTQ00000786', 'MTQ00000787', 'MTQ00000788' ) AND m.PERFORMED_DATE >= '"+startDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' AND m.PERFORMED_DATE <= '"+endDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' GROUP BY MENTORSHIP_ID) pretestagem ON pretestagem.MENTORSHIP_ID = m.ID LEFT JOIN (SELECT MENTORSHIP_ID, SUM(CASE WHEN a.TEXT_VALUE = 'COMPETENTE' THEN 1 ELSE 0 end) AS numeric_value FROM MENTORSHIPS m, FORMS f, QUESTIONS q, ANSWERS a WHERE m.FORM_ID = f.ID AND a.QUESTION_ID = q.ID AND m.LIFE_CYCLE_STATUS = 'ACTIVE' AND m.ID = a.MENTORSHIP_ID AND q.CODE IN ( 'MTQ00000789', 'MTQ00000790', 'MTQ00000791', 'MTQ00000792', 'MTQ00000793', 'MTQ00000794', 'MTQ00000795', 'MTQ00000796', 'MTQ00000797' ) AND m.PERFORMED_DATE >= '"+startDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' AND m.PERFORMED_DATE <= '"+endDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' GROUP BY MENTORSHIP_ID) testagem ON testagem.MENTORSHIP_ID = m.ID LEFT JOIN (SELECT MENTORSHIP_ID, SUM(CASE WHEN a.TEXT_VALUE = 'COMPETENTE' THEN 1 ELSE 0 end) AS numeric_value FROM MENTORSHIPS m, FORMS f, QUESTIONS q, ANSWERS a WHERE m.FORM_ID = f.ID AND a.QUESTION_ID = q.ID AND m.LIFE_CYCLE_STATUS = 'ACTIVE' AND m.ID = a.MENTORSHIP_ID AND q.CODE IN ( 'MTQ00000798', 'MTQ00000799', 'MTQ00000800', 'MTQ00000801', 'MTQ00000802', 'MTQ00000803', 'MTQ00000804', 'MTQ00000805', 'MTQ00000806' ) AND m.PERFORMED_DATE >= '"+startDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' AND m.PERFORMED_DATE <= '"+endDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' GROUP BY MENTORSHIP_ID) postestagem ON postestagem.MENTORSHIP_ID = m.ID LEFT JOIN (SELECT MENTORSHIP_ID, SUM(CASE WHEN a.TEXT_VALUE = 'COMPETENTE' THEN 1 ELSE 0 end) AS numeric_value FROM MENTORSHIPS m, FORMS f, QUESTIONS q, ANSWERS a WHERE m.FORM_ID = f.ID AND a.QUESTION_ID = q.ID AND m.LIFE_CYCLE_STATUS = 'ACTIVE' AND m.ID = a.MENTORSHIP_ID AND q.CODE IN ( 'MTQ00000807', 'MTQ00000808', 'MTQ00000809', 'MTQ00000810', 'MTQ00000811', 'MTQ00000812', 'MTQ00000813', 'MTQ00000814' ) AND m.PERFORMED_DATE >= '"+startDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' AND m.PERFORMED_DATE <= '"+endDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' GROUP BY MENTORSHIP_ID) avaliacao ON avaliacao.MENTORSHIP_ID = m.ID WHERE s.LIFE_CYCLE_STATUS = 'ACTIVE' AND m.LIFE_CYCLE_STATUS = 'ACTIVE' AND s.PERFORMED_DATE >= '"+startDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' AND s.PERFORMED_DATE <= '"+endDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))+"' AND f.CODE = 'MT00000048' ORDER BY 1, 2, 3 ASC ");
+
+		final Query query = this.getEntityManager().createNativeQuery(nativeQuery.toString());
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> performedSessionsHTS = query.getResultList();
+		 
+		List<PerformedSession> performedSessions= new ArrayList<PerformedSession>(0);
+		
+		for (Object[] ps : performedSessionsHTS) {
+			PerformedSession p= new PerformedSession(
+					ps[0].toString(), 
+					ps[1].toString(), 
+					ps[2].toString(), 
+					ps[3].toString(), 
+					ps[4].toString(), 
+					ps[5].toString(), 
+					Integer.valueOf(ps[6].toString()), 
+					Integer.valueOf(ps[7].toString()),
+					Integer.valueOf(ps[8].toString()), 
+					Integer.valueOf(ps[9].toString()), 
+					Integer.valueOf(ps[10].toString()), 
+					Integer.valueOf(ps[11].toString()), 
+					Integer.valueOf(ps[12].toString()), 
+					Integer.valueOf(ps[13].toString()), 
+					ps[14].toString(),
+					Long.valueOf(ps[15].toString()));
+			
+			performedSessions.add(p);
+			
+		}
+
+		return performedSessions;
+	}
 }
