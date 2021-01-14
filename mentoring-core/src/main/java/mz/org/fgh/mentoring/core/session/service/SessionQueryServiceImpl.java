@@ -120,4 +120,10 @@ public class SessionQueryServiceImpl implements SessionQueryService {
 	public List<PerformedSession> findPerformedSessionsBySelectedFilterPMQTR(LocalDate startDate, LocalDate endDate) {
 		return this.sessionDAO.findBySelectedFilterPMQTR(startDate, endDate);
 	}
+
+	@Override
+	public List<PerformedSession> findPerformedSessionsBySelectedFilterNarrativeCOP20(LocalDate startDate,
+			LocalDate endDate) {
+		return this.sessionDAO.findBySelectedFilterNarrativeCOP20(startDate, endDate);
+	}
 }
