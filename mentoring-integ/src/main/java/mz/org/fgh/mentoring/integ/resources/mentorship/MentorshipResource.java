@@ -166,5 +166,11 @@ public interface MentorshipResource {
 	public JResponse<List<PerformedSession>> findPerformedSessionsPMQTR(@QueryParam("startDate") String startDate,
 	        @QueryParam("endDate") String endDate) throws BusinessException;
 	
+	@GET
+	@Path("performed-sessions-narrative-cop20")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<PerformedSession>> findPerformedSessionsNarrativeCOP20(@QueryParam("startDate") String startDate,
+	        @QueryParam("endDate") String endDate) throws BusinessException;
+	
 	
 }

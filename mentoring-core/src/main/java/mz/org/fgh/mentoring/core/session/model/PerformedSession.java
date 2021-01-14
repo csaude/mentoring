@@ -104,11 +104,95 @@ public class PerformedSession {
 	private int total;
 	private Long mentorship_id;
 	
+	/**
+	 * COP20 Costed Workplan report
+	 */
+	private Long ind_11061;
+	private Long ind_11011;
+	private Long ind_11031;
+	private Long ind_11041;
+	private Long ind_11043;
+	private Long ind_11073;
+	private Long ind_42   ;
+	private Long ind_10043;
+	private Long ind_10045;
+	private Long ind_04071;
+	private Long ind_04073;
+	private Long ind_04041;
+	private Long ind_04061;
+	private Long ind_15051;
+	private Long ind_06044;
+	private Long ind_02041;
+	private Long ind_01102;
+	private Long ind_01031;
+	private Long ind_01142;
+	private Long ind_02063;
+	private Long ind_01116;
+	private Long ind_02071;
+	private Long ind_02021;
+	private Long ind_02023;
+	private Long ind_03029;
+	private Long ind_03011;
+	private Long ind_03013;
+	private Long ind_05012;
+	private Long ind_05031;
+	private Long ind_05061;
+	private Long ind_05052;
+	private Long ind_05054;
+	private Long ind_05057;
+
+	
 
 	public PerformedSession() {
 	}
 	
 	
+	public PerformedSession(String district, Long ind_11061, Long ind_11011, Long ind_11031, Long ind_11041, Long ind_11043,
+			Long ind_11073, Long ind_42, Long ind_10043, Long ind_10045, Long ind_04071, Long ind_04073, Long ind_04041,
+			Long ind_04061, Long ind_15051, Long ind_06044, Long ind_02041, Long ind_01102, Long ind_01031,
+			Long ind_01142, Long ind_02063, Long ind_01116, Long ind_02071, Long ind_02021, Long ind_02023,
+			Long ind_03029, Long ind_03011, Long ind_03013, Long ind_05012, Long ind_05031, Long ind_05061,
+			Long ind_05052, Long ind_05054, Long ind_05057) {
+		this.district = district;
+		this.ind_11061 = ind_11061;
+		this.ind_11011 = ind_11011;
+		this.ind_11031 = ind_11031;
+		this.ind_11041 = ind_11041;
+		this.ind_11043 = ind_11043;
+		this.ind_11073 = ind_11073;
+		this.ind_42 = ind_42;
+		this.ind_10043 = ind_10043;
+		this.ind_10045 = ind_10045;
+		this.ind_04071 = ind_04071;
+		this.ind_04073 = ind_04073;
+		this.ind_04041 = ind_04041;
+		this.ind_04061 = ind_04061;
+		this.ind_15051 = ind_15051;
+		this.ind_06044 = ind_06044;
+		this.ind_02041 = ind_02041;
+		this.ind_01102 = ind_01102;
+		this.ind_01031 = ind_01031;
+		this.ind_01142 = ind_01142;
+		this.ind_02063 = ind_02063;
+		this.ind_01116 = ind_01116;
+		this.ind_02071 = ind_02071;
+		this.ind_02021 = ind_02021;
+		this.ind_02023 = ind_02023;
+		this.ind_03029 = ind_03029;
+		this.ind_03011 = ind_03011;
+		this.ind_03013 = ind_03013;
+		this.ind_05012 = ind_05012;
+		this.ind_05031 = ind_05031;
+		this.ind_05061 = ind_05061;
+		this.ind_05052 = ind_05052;
+		this.ind_05054 = ind_05054;
+		this.ind_05057 = ind_05057;
+	}
+
+
+
+
+
 
 	public PerformedSession(String district, String healthFacility, String performedDate,
 			String tutorName,String tutoredName,  String cabinet, int formacao, int instalacoes, int seguranca,
@@ -800,6 +884,404 @@ public class PerformedSession {
 	public void setTotal(int total) {
 		this.total = total;
 	}
+
+
+
+	public Long getInd_11061() {
+		return ind_11061;
+	}
+
+
+
+	public void setInd_11061(Long ind_11061) {
+		this.ind_11061 = ind_11061;
+	}
+
+
+
+	public Long getInd_11011() {
+		return ind_11011;
+	}
+
+
+
+	public void setInd_11011(Long ind_11011) {
+		this.ind_11011 = ind_11011;
+	}
+
+
+
+	public Long getInd_11031() {
+		return ind_11031;
+	}
+
+
+
+	public void setInd_11031(Long ind_11031) {
+		this.ind_11031 = ind_11031;
+	}
+
+
+
+	public Long getInd_11041() {
+		return ind_11041;
+	}
+
+
+
+	public void setInd_11041(Long ind_11041) {
+		this.ind_11041 = ind_11041;
+	}
+
+
+
+	public Long getInd_11043() {
+		return ind_11043;
+	}
+
+
+
+	public void setInd_11043(Long ind_11043) {
+		this.ind_11043 = ind_11043;
+	}
+
+
+
+	public Long getInd_11073() {
+		return ind_11073;
+	}
+
+
+
+	public void setInd_11073(Long ind_11073) {
+		this.ind_11073 = ind_11073;
+	}
+
+
+
+	public Long getInd_42() {
+		return ind_42;
+	}
+
+
+
+	public void setInd_42(Long ind_42) {
+		this.ind_42 = ind_42;
+	}
+
+
+
+	public Long getInd_10043() {
+		return ind_10043;
+	}
+
+
+
+	public void setInd_10043(Long ind_10043) {
+		this.ind_10043 = ind_10043;
+	}
+
+
+
+	public Long getInd_10045() {
+		return ind_10045;
+	}
+
+
+
+	public void setInd_10045(Long ind_10045) {
+		this.ind_10045 = ind_10045;
+	}
+
+
+
+	public Long getInd_04071() {
+		return ind_04071;
+	}
+
+
+
+	public void setInd_04071(Long ind_04071) {
+		this.ind_04071 = ind_04071;
+	}
+
+
+
+	public Long getInd_04073() {
+		return ind_04073;
+	}
+
+
+
+	public void setInd_04073(Long ind_04073) {
+		this.ind_04073 = ind_04073;
+	}
+
+
+
+	public Long getInd_04041() {
+		return ind_04041;
+	}
+
+
+
+	public void setInd_04041(Long ind_04041) {
+		this.ind_04041 = ind_04041;
+	}
+
+
+
+	public Long getInd_04061() {
+		return ind_04061;
+	}
+
+
+
+	public void setInd_04061(Long ind_04061) {
+		this.ind_04061 = ind_04061;
+	}
+
+
+
+	public Long getInd_15051() {
+		return ind_15051;
+	}
+
+
+
+	public void setInd_15051(Long ind_15051) {
+		this.ind_15051 = ind_15051;
+	}
+
+
+
+	public Long getInd_06044() {
+		return ind_06044;
+	}
+
+
+
+	public void setInd_06044(Long ind_06044) {
+		this.ind_06044 = ind_06044;
+	}
+
+
+
+	public Long getInd_02041() {
+		return ind_02041;
+	}
+
+
+
+	public void setInd_02041(Long ind_02041) {
+		this.ind_02041 = ind_02041;
+	}
+
+
+
+	public Long getInd_01102() {
+		return ind_01102;
+	}
+
+
+
+	public void setInd_01102(Long ind_01102) {
+		this.ind_01102 = ind_01102;
+	}
+
+
+
+	public Long getInd_01031() {
+		return ind_01031;
+	}
+
+
+
+	public void setInd_01031(Long ind_01031) {
+		this.ind_01031 = ind_01031;
+	}
+
+
+
+	public Long getInd_01142() {
+		return ind_01142;
+	}
+
+
+
+	public void setInd_01142(Long ind_01142) {
+		this.ind_01142 = ind_01142;
+	}
+
+
+
+	public Long getInd_02063() {
+		return ind_02063;
+	}
+
+
+
+	public void setInd_02063(Long ind_02063) {
+		this.ind_02063 = ind_02063;
+	}
+
+
+
+	public Long getInd_01116() {
+		return ind_01116;
+	}
+
+
+
+	public void setInd_01116(Long ind_01116) {
+		this.ind_01116 = ind_01116;
+	}
+
+
+
+	public Long getInd_02071() {
+		return ind_02071;
+	}
+
+
+
+	public void setInd_02071(Long ind_02071) {
+		this.ind_02071 = ind_02071;
+	}
+
+
+
+	public Long getInd_02021() {
+		return ind_02021;
+	}
+
+
+
+	public void setInd_02021(Long ind_02021) {
+		this.ind_02021 = ind_02021;
+	}
+
+
+
+	public Long getInd_02023() {
+		return ind_02023;
+	}
+
+
+
+	public void setInd_02023(Long ind_02023) {
+		this.ind_02023 = ind_02023;
+	}
+
+
+
+	public Long getInd_03029() {
+		return ind_03029;
+	}
+
+
+
+	public void setInd_03029(Long ind_03029) {
+		this.ind_03029 = ind_03029;
+	}
+
+
+
+	public Long getInd_03011() {
+		return ind_03011;
+	}
+
+
+
+	public void setInd_03011(Long ind_03011) {
+		this.ind_03011 = ind_03011;
+	}
+
+
+
+	public Long getInd_03013() {
+		return ind_03013;
+	}
+
+
+
+	public void setInd_03013(Long ind_03013) {
+		this.ind_03013 = ind_03013;
+	}
+
+
+
+	public Long getInd_05012() {
+		return ind_05012;
+	}
+
+
+
+	public void setInd_05012(Long ind_05012) {
+		this.ind_05012 = ind_05012;
+	}
+
+
+
+	public Long getInd_05031() {
+		return ind_05031;
+	}
+
+
+
+	public void setInd_05031(Long ind_05031) {
+		this.ind_05031 = ind_05031;
+	}
+
+
+
+	public Long getInd_05061() {
+		return ind_05061;
+	}
+
+
+
+	public void setInd_05061(Long ind_05061) {
+		this.ind_05061 = ind_05061;
+	}
+
+
+
+	public Long getInd_05052() {
+		return ind_05052;
+	}
+
+
+
+	public void setInd_05052(Long ind_05052) {
+		this.ind_05052 = ind_05052;
+	}
+
+
+
+	public Long getInd_05054() {
+		return ind_05054;
+	}
+
+
+
+	public void setInd_05054(Long ind_05054) {
+		this.ind_05054 = ind_05054;
+	}
+
+
+
+	public Long getInd_05057() {
+		return ind_05057;
+	}
+
+
+
+	public void setInd_05057(Long ind_05057) {
+		this.ind_05057 = ind_05057;
+	}
+	
+	
 
 	
 	

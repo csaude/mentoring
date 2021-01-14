@@ -59,6 +59,8 @@ public interface SessionQueryService {
 	List<PerformedSession> findPerformedSessionsBySelectedFilterHTS(LocalDate startDate, LocalDate endDate,String tutoredUuid);
 
 	List<PerformedSession> findPerformedSessionsBySelectedFilterPMQTR(LocalDate startDate, LocalDate endDate);
+	
+	List<PerformedSession> findPerformedSessionsBySelectedFilterNarrativeCOP20(LocalDate startDate, LocalDate endDate);
 
 	
 }
