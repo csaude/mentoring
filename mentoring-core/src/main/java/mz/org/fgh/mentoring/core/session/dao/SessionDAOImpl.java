@@ -545,6 +545,7 @@ final StringBuilder nativeQuery = new StringBuilder();
 		return performedSessions;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<PerformedSession> findBySelectedFilterNarrativeCOP20(LocalDate startDate, LocalDate endDate) {
 		
