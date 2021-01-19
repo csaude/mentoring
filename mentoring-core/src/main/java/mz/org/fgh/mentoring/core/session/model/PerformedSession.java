@@ -119,6 +119,7 @@ public class PerformedSession {
 	private Long ind_04071;
 	private Long ind_04073;
 	private Long ind_04041;
+	private Long ind_04077;
 	private Long ind_04061;
 	private Long ind_15051;
 	private Long ind_06044;
@@ -131,7 +132,10 @@ public class PerformedSession {
 	private Long ind_02071;
 	private Long ind_02021;
 	private Long ind_02023;
+	private Long ind_08051;
 	private Long ind_03029;
+	private Long ind_030211;
+	private Long ind_030213;
 	private Long ind_03011;
 	private Long ind_03013;
 	private Long ind_05012;
@@ -140,19 +144,28 @@ public class PerformedSession {
 	private Long ind_05052;
 	private Long ind_05054;
 	private Long ind_05057;
-
+	private Long ind_19051;
+	private Long ind_19015;
 	
 
 	public PerformedSession() {
 	}
 	
 	
-	public PerformedSession(String district, Long ind_11061, Long ind_11011, Long ind_11031, Long ind_11041, Long ind_11043,
-			Long ind_11073, Long ind_42, Long ind_10043, Long ind_10045, Long ind_04071, Long ind_04073, Long ind_04041,
-			Long ind_04061, Long ind_15051, Long ind_06044, Long ind_02041, Long ind_01102, Long ind_01031,
-			Long ind_01142, Long ind_02063, Long ind_01116, Long ind_02071, Long ind_02021, Long ind_02023,
-			Long ind_03029, Long ind_03011, Long ind_03013, Long ind_05012, Long ind_05031, Long ind_05061,
-			Long ind_05052, Long ind_05054, Long ind_05057) {
+	
+
+
+
+
+
+
+	public PerformedSession(String district, Long ind_11061, Long ind_11011, Long ind_11031, Long ind_11041,
+			Long ind_11043, Long ind_11073, Long ind_42, Long ind_10043, Long ind_10045, Long ind_04071, Long ind_04073,
+			Long ind_04041, Long ind_04077, Long ind_04061, Long ind_15051, Long ind_06044, Long ind_02041,
+			Long ind_01102, Long ind_01031, Long ind_01142, Long ind_02063, Long ind_01116, Long ind_02071,
+			Long ind_02021, Long ind_02023, Long ind_08051, Long ind_03029, Long ind_030211, Long ind_030213,
+			Long ind_03011, Long ind_03013, Long ind_05012, Long ind_05031, Long ind_05061, Long ind_05052,
+			Long ind_05054, Long ind_05057, Long ind_19051, Long ind_19015) {
 		this.district = district;
 		this.ind_11061 = ind_11061;
 		this.ind_11011 = ind_11011;
@@ -166,6 +179,7 @@ public class PerformedSession {
 		this.ind_04071 = ind_04071;
 		this.ind_04073 = ind_04073;
 		this.ind_04041 = ind_04041;
+		this.ind_04077 = ind_04077;
 		this.ind_04061 = ind_04061;
 		this.ind_15051 = ind_15051;
 		this.ind_06044 = ind_06044;
@@ -178,7 +192,10 @@ public class PerformedSession {
 		this.ind_02071 = ind_02071;
 		this.ind_02021 = ind_02021;
 		this.ind_02023 = ind_02023;
+		this.ind_08051 = ind_08051;
 		this.ind_03029 = ind_03029;
+		this.ind_030211 = ind_030211;
+		this.ind_030213 = ind_030213;
 		this.ind_03011 = ind_03011;
 		this.ind_03013 = ind_03013;
 		this.ind_05012 = ind_05012;
@@ -187,7 +204,12 @@ public class PerformedSession {
 		this.ind_05052 = ind_05052;
 		this.ind_05054 = ind_05054;
 		this.ind_05057 = ind_05057;
+		this.ind_19051 = ind_19051;
+		this.ind_19015 = ind_19015;
 	}
+
+
+
 
 
 
@@ -1279,6 +1301,66 @@ public class PerformedSession {
 
 	public void setInd_05057(Long ind_05057) {
 		this.ind_05057 = ind_05057;
+	}
+
+
+	public Long getInd_04077() {
+		return ind_04077;
+	}
+
+
+	public void setInd_04077(Long ind_04077) {
+		this.ind_04077 = ind_04077;
+	}
+
+
+	public Long getInd_08051() {
+		return ind_08051;
+	}
+
+
+	public void setInd_08051(Long ind_08051) {
+		this.ind_08051 = ind_08051;
+	}
+
+
+	public Long getInd_030211() {
+		return ind_030211;
+	}
+
+
+	public void setInd_030211(Long ind_030211) {
+		this.ind_030211 = ind_030211;
+	}
+
+
+	public Long getInd_030213() {
+		return ind_030213;
+	}
+
+
+	public void setInd_030213(Long ind_030213) {
+		this.ind_030213 = ind_030213;
+	}
+
+
+	public Long getInd_19051() {
+		return ind_19051;
+	}
+
+
+	public void setInd_19051(Long ind_19051) {
+		this.ind_19051 = ind_19051;
+	}
+
+
+	public Long getInd_19015() {
+		return ind_19015;
+	}
+
+
+	public void setInd_19015(Long ind_19015) {
+		this.ind_19015 = ind_19015;
 	}
 	
 	
