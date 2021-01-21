@@ -73,4 +73,6 @@ public interface SessionDAO extends GenericDAO<Session, Long> {
 	List<PerformedSession> findBySelectedFilterPMQTR(final LocalDate startDate, final LocalDate endDate);
 	
 	List<PerformedSession> findBySelectedFilterNarrativeCOP20(final LocalDate startDate, final LocalDate endDate);
+	
+	List<PerformedSession> findBySelectedFilterPMQTRList(final LocalDate startDate, final LocalDate endDate);
 }

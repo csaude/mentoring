@@ -62,5 +62,5 @@ public interface SessionQueryService {
 	
 	List<PerformedSession> findPerformedSessionsBySelectedFilterNarrativeCOP20(LocalDate startDate, LocalDate endDate);
 
-	
+	List<PerformedSession> findPerformedSessionsBySelectedFilterPMQTRList(LocalDate startDate, LocalDate endDate);
 }

@@ -34,6 +34,7 @@ public class PerformedSession {
 	private String endDate;
 	private SessionStatus status;
 	private String cabinet;
+	private String MENTORING_ID;
 	
 	/**
 	 * Properties of HTS report
@@ -120,6 +121,7 @@ public class PerformedSession {
 	private Long ind_04073;
 	private Long ind_04041;
 	private Long ind_04077;
+	private Long ind_04078;
 	private Long ind_04061;
 	private Long ind_15051;
 	private Long ind_06044;
@@ -147,6 +149,76 @@ public class PerformedSession {
 	private Long ind_19051;
 	private Long ind_19015;
 	
+	/**
+	 * PMQ-TR List
+	 */
+	
+	private String MTQ00000751;
+	private String MTQ00000752;
+	private String MTQ00000753;
+	private String MTQ00000754;
+	private String MTQ00000755;
+	private String MTQ00000756;
+	private String MTQ00000757;
+	private String MTQ00000758;
+	private String MTQ00000759;
+	private String MTQ00000760;
+	private String MTQ00000761;
+	private String MTQ00000762;
+	private String MTQ00000763;
+	private String MTQ00000764;
+	private String MTQ00000765;
+	private String MTQ00000766;
+	private String MTQ00000767;
+	private String MTQ00000768;
+	private String MTQ00000769;
+	private String MTQ00000770;
+	private String MTQ00000771;
+	private String MTQ00000772;
+	private String MTQ00000773;
+	private String MTQ00000774;
+	private String MTQ00000775;
+	private String MTQ00000776;
+	private String MTQ00000777;
+	private String MTQ00000778;
+	private String MTQ00000779;
+	private String MTQ00000780;
+	private String MTQ00000781;
+	private String MTQ00000782;
+	private String MTQ00000783;
+	private String MTQ00000784;
+	private String MTQ00000785;
+	private String MTQ00000786;
+	private String MTQ00000787;
+	private String MTQ00000788;
+	private String MTQ00000789;
+	private String MTQ00000790;
+	private String MTQ00000791;
+	private String MTQ00000792;
+	private String MTQ00000793;
+	private String MTQ00000794;
+	private String MTQ00000795;
+	private String MTQ00000796;
+	private String MTQ00000797;
+	private String MTQ00000798;
+	private String MTQ00000799;
+	private String MTQ00000800;
+	private String MTQ00000801;
+	private String MTQ00000802;
+	private String MTQ00000803;
+	private String MTQ00000804;
+	private String MTQ00000805;
+	private String MTQ00000806;
+	private String MTQ00000807;
+	private String MTQ00000808;
+	private String MTQ00000809;
+	private String MTQ00000810;
+	private String MTQ00000811;
+	private String MTQ00000812;
+	private String MTQ00000813;
+	private String MTQ00000814;
+
+	
 
 	public PerformedSession() {
 	}
@@ -161,7 +233,7 @@ public class PerformedSession {
 
 	public PerformedSession(String district, Long ind_11061, Long ind_11011, Long ind_11031, Long ind_11041,
 			Long ind_11043, Long ind_11073, Long ind_42, Long ind_10043, Long ind_10045, Long ind_04071, Long ind_04073,
-			Long ind_04041, Long ind_04077, Long ind_04061, Long ind_15051, Long ind_06044, Long ind_02041,
+			Long ind_04041, Long ind_04077, Long ind_04078, Long ind_04061, Long ind_15051, Long ind_06044, Long ind_02041,
 			Long ind_01102, Long ind_01031, Long ind_01142, Long ind_02063, Long ind_01116, Long ind_02071,
 			Long ind_02021, Long ind_02023, Long ind_08051, Long ind_03029, Long ind_030211, Long ind_030213,
 			Long ind_03011, Long ind_03013, Long ind_05012, Long ind_05031, Long ind_05061, Long ind_05052,
@@ -180,6 +252,7 @@ public class PerformedSession {
 		this.ind_04073 = ind_04073;
 		this.ind_04041 = ind_04041;
 		this.ind_04077 = ind_04077;
+		this.ind_04078 = ind_04078;
 		this.ind_04061 = ind_04061;
 		this.ind_15051 = ind_15051;
 		this.ind_06044 = ind_06044;
@@ -286,7 +359,8 @@ public class PerformedSession {
 			final Long testados, 
 			final Long positivos, 
 			final Long inscritos,
-			final String createdAt) {
+			final String createdAt,
+			final String MENTORING_ID) {
 		this.district = districtName;
 		this.healthFacility = healthFacility;
 		this.performedDate =performedDate;
@@ -301,6 +375,7 @@ public class PerformedSession {
 		this.positivos = positivos;
 		this.inscritos = inscritos;
 		this.createdAt=createdAt;
+		this.MENTORING_ID=MENTORING_ID;
 	}
 	
 	/**
@@ -399,6 +474,98 @@ public class PerformedSession {
 		this.revisado = revisado;
 		this.createdAt = createdAt;
 	}
+	
+	
+	
+
+	public PerformedSession(String district, String healthFacility, String performedDate,
+			String tutorName, String tutoredName, String mTQ00000751, String mTQ00000752, String mTQ00000753,
+			String mTQ00000754, String mTQ00000755, String mTQ00000756, String mTQ00000757, String mTQ00000758,
+			String mTQ00000759, String mTQ00000760, String mTQ00000761, String mTQ00000762, String mTQ00000763,
+			String mTQ00000764, String mTQ00000765, String mTQ00000766, String mTQ00000767, String mTQ00000768,
+			String mTQ00000769, String mTQ00000770, String mTQ00000771, String mTQ00000772, String mTQ00000773,
+			String mTQ00000774, String mTQ00000775, String mTQ00000776, String mTQ00000777, String mTQ00000778,
+			String mTQ00000779, String mTQ00000780, String mTQ00000781, String mTQ00000782, String mTQ00000783,
+			String mTQ00000784, String mTQ00000785, String mTQ00000786, String mTQ00000787, String mTQ00000788,
+			String mTQ00000789, String mTQ00000790, String mTQ00000791, String mTQ00000792, String mTQ00000793,
+			String mTQ00000794, String mTQ00000795, String mTQ00000796, String mTQ00000797, String mTQ00000798,
+			String mTQ00000799, String mTQ00000800, String mTQ00000801, String mTQ00000802, String mTQ00000803,
+			String mTQ00000804, String mTQ00000805, String mTQ00000806, String mTQ00000807, String mTQ00000808,
+			String mTQ00000809, String mTQ00000810, String mTQ00000811, String mTQ00000812, String mTQ00000813,
+			String mTQ00000814, String createdAt, String MENTORING_ID) {
+		this.district = district;
+		this.healthFacility = healthFacility;
+		this.performedDate = performedDate;
+		this.tutorName = tutorName;
+		this.tutoredName = tutoredName;
+		this.MTQ00000751 = mTQ00000751;
+		this.MTQ00000752 = mTQ00000752;
+		this.MTQ00000753 = mTQ00000753;
+		this.MTQ00000754 = mTQ00000754;
+		this.MTQ00000755 = mTQ00000755;
+		this.MTQ00000756 = mTQ00000756;
+		this.MTQ00000757 = mTQ00000757;
+		this.MTQ00000758 = mTQ00000758;
+		this.MTQ00000759 = mTQ00000759;
+		this.MTQ00000760 = mTQ00000760;
+		this.MTQ00000761 = mTQ00000761;
+		this.MTQ00000762 = mTQ00000762;
+		this.MTQ00000763 = mTQ00000763;
+		this.MTQ00000764 = mTQ00000764;
+		this.MTQ00000765 = mTQ00000765;
+		this.MTQ00000766 = mTQ00000766;
+		this.MTQ00000767 = mTQ00000767;
+		this.MTQ00000768 = mTQ00000768;
+		this.MTQ00000769 = mTQ00000769;
+		this.MTQ00000770 = mTQ00000770;
+		this.MTQ00000771 = mTQ00000771;
+		this.MTQ00000772 = mTQ00000772;
+		this.MTQ00000773 = mTQ00000773;
+		this.MTQ00000774 = mTQ00000774;
+		this.MTQ00000775 = mTQ00000775;
+		this.MTQ00000776 = mTQ00000776;
+		this.MTQ00000777 = mTQ00000777;
+		this.MTQ00000778 = mTQ00000778;
+		this.MTQ00000779 = mTQ00000779;
+		this.MTQ00000780 = mTQ00000780;
+		this.MTQ00000781 = mTQ00000781;
+		this.MTQ00000782 = mTQ00000782;
+		this.MTQ00000783 = mTQ00000783;
+		this.MTQ00000784 = mTQ00000784;
+		this.MTQ00000785 = mTQ00000785;
+		this.MTQ00000786 = mTQ00000786;
+		this.MTQ00000787 = mTQ00000787;
+		this.MTQ00000788 = mTQ00000788;
+		this.MTQ00000789 = mTQ00000789;
+		this.MTQ00000790 = mTQ00000790;
+		this.MTQ00000791 = mTQ00000791;
+		this.MTQ00000792 = mTQ00000792;
+		this.MTQ00000793 = mTQ00000793;
+		this.MTQ00000794 = mTQ00000794;
+		this.MTQ00000795 = mTQ00000795;
+		this.MTQ00000796 = mTQ00000796;
+		this.MTQ00000797 = mTQ00000797;
+		this.MTQ00000798 = mTQ00000798;
+		this.MTQ00000799 = mTQ00000799;
+		this.MTQ00000800 = mTQ00000800;
+		this.MTQ00000801 = mTQ00000801;
+		this.MTQ00000802 = mTQ00000802;
+		this.MTQ00000803 = mTQ00000803;
+		this.MTQ00000804 = mTQ00000804;
+		this.MTQ00000805 = mTQ00000805;
+		this.MTQ00000806 = mTQ00000806;
+		this.MTQ00000807 = mTQ00000807;
+		this.MTQ00000808 = mTQ00000808;
+		this.MTQ00000809 = mTQ00000809;
+		this.MTQ00000810 = mTQ00000810;
+		this.MTQ00000811 = mTQ00000811;
+		this.MTQ00000812 = mTQ00000812;
+		this.MTQ00000813 = mTQ00000813;
+		this.MTQ00000814 = mTQ00000814;
+			this.createdAt = createdAt;
+			this.MENTORING_ID = MENTORING_ID;
+	}
+
 
 	public String getDistrict() {
 		return this.district;
@@ -1362,9 +1529,1592 @@ public class PerformedSession {
 	public void setInd_19015(Long ind_19015) {
 		this.ind_19015 = ind_19015;
 	}
+
+
+
+
+
+
+
+
+
+	public String getMENTORING_ID() {
+		return MENTORING_ID;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMENTORING_ID(String mENTORING_ID) {
+		MENTORING_ID = mENTORING_ID;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000751() {
+		return MTQ00000751;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000751(String mTQ00000751) {
+		MTQ00000751 = mTQ00000751;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000752() {
+		return MTQ00000752;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000752(String mTQ00000752) {
+		MTQ00000752 = mTQ00000752;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000753() {
+		return MTQ00000753;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000753(String mTQ00000753) {
+		MTQ00000753 = mTQ00000753;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000754() {
+		return MTQ00000754;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000754(String mTQ00000754) {
+		MTQ00000754 = mTQ00000754;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000755() {
+		return MTQ00000755;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000755(String mTQ00000755) {
+		MTQ00000755 = mTQ00000755;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000756() {
+		return MTQ00000756;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000756(String mTQ00000756) {
+		MTQ00000756 = mTQ00000756;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000757() {
+		return MTQ00000757;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000757(String mTQ00000757) {
+		MTQ00000757 = mTQ00000757;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000758() {
+		return MTQ00000758;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000758(String mTQ00000758) {
+		MTQ00000758 = mTQ00000758;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000759() {
+		return MTQ00000759;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000759(String mTQ00000759) {
+		MTQ00000759 = mTQ00000759;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000760() {
+		return MTQ00000760;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000760(String mTQ00000760) {
+		MTQ00000760 = mTQ00000760;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000761() {
+		return MTQ00000761;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000761(String mTQ00000761) {
+		MTQ00000761 = mTQ00000761;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000762() {
+		return MTQ00000762;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000762(String mTQ00000762) {
+		MTQ00000762 = mTQ00000762;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000763() {
+		return MTQ00000763;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000763(String mTQ00000763) {
+		MTQ00000763 = mTQ00000763;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000764() {
+		return MTQ00000764;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000764(String mTQ00000764) {
+		MTQ00000764 = mTQ00000764;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000765() {
+		return MTQ00000765;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000765(String mTQ00000765) {
+		MTQ00000765 = mTQ00000765;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000766() {
+		return MTQ00000766;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000766(String mTQ00000766) {
+		MTQ00000766 = mTQ00000766;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000767() {
+		return MTQ00000767;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000767(String mTQ00000767) {
+		MTQ00000767 = mTQ00000767;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000768() {
+		return MTQ00000768;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000768(String mTQ00000768) {
+		MTQ00000768 = mTQ00000768;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000769() {
+		return MTQ00000769;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000769(String mTQ00000769) {
+		MTQ00000769 = mTQ00000769;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000770() {
+		return MTQ00000770;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000770(String mTQ00000770) {
+		MTQ00000770 = mTQ00000770;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000771() {
+		return MTQ00000771;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000771(String mTQ00000771) {
+		MTQ00000771 = mTQ00000771;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000772() {
+		return MTQ00000772;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000772(String mTQ00000772) {
+		MTQ00000772 = mTQ00000772;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000773() {
+		return MTQ00000773;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000773(String mTQ00000773) {
+		MTQ00000773 = mTQ00000773;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000774() {
+		return MTQ00000774;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000774(String mTQ00000774) {
+		MTQ00000774 = mTQ00000774;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000775() {
+		return MTQ00000775;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000775(String mTQ00000775) {
+		MTQ00000775 = mTQ00000775;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000776() {
+		return MTQ00000776;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000776(String mTQ00000776) {
+		MTQ00000776 = mTQ00000776;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000777() {
+		return MTQ00000777;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000777(String mTQ00000777) {
+		MTQ00000777 = mTQ00000777;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000778() {
+		return MTQ00000778;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000778(String mTQ00000778) {
+		MTQ00000778 = mTQ00000778;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000779() {
+		return MTQ00000779;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000779(String mTQ00000779) {
+		MTQ00000779 = mTQ00000779;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000780() {
+		return MTQ00000780;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000780(String mTQ00000780) {
+		MTQ00000780 = mTQ00000780;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000781() {
+		return MTQ00000781;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000781(String mTQ00000781) {
+		MTQ00000781 = mTQ00000781;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000782() {
+		return MTQ00000782;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000782(String mTQ00000782) {
+		MTQ00000782 = mTQ00000782;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000783() {
+		return MTQ00000783;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000783(String mTQ00000783) {
+		MTQ00000783 = mTQ00000783;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000784() {
+		return MTQ00000784;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000784(String mTQ00000784) {
+		MTQ00000784 = mTQ00000784;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000785() {
+		return MTQ00000785;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000785(String mTQ00000785) {
+		MTQ00000785 = mTQ00000785;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000786() {
+		return MTQ00000786;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000786(String mTQ00000786) {
+		MTQ00000786 = mTQ00000786;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000787() {
+		return MTQ00000787;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000787(String mTQ00000787) {
+		MTQ00000787 = mTQ00000787;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000788() {
+		return MTQ00000788;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000788(String mTQ00000788) {
+		MTQ00000788 = mTQ00000788;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000789() {
+		return MTQ00000789;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000789(String mTQ00000789) {
+		MTQ00000789 = mTQ00000789;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000790() {
+		return MTQ00000790;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000790(String mTQ00000790) {
+		MTQ00000790 = mTQ00000790;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000791() {
+		return MTQ00000791;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000791(String mTQ00000791) {
+		MTQ00000791 = mTQ00000791;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000792() {
+		return MTQ00000792;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000792(String mTQ00000792) {
+		MTQ00000792 = mTQ00000792;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000793() {
+		return MTQ00000793;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000793(String mTQ00000793) {
+		MTQ00000793 = mTQ00000793;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000794() {
+		return MTQ00000794;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000794(String mTQ00000794) {
+		MTQ00000794 = mTQ00000794;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000795() {
+		return MTQ00000795;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000795(String mTQ00000795) {
+		MTQ00000795 = mTQ00000795;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000796() {
+		return MTQ00000796;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000796(String mTQ00000796) {
+		MTQ00000796 = mTQ00000796;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000797() {
+		return MTQ00000797;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000797(String mTQ00000797) {
+		MTQ00000797 = mTQ00000797;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000798() {
+		return MTQ00000798;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000798(String mTQ00000798) {
+		MTQ00000798 = mTQ00000798;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000799() {
+		return MTQ00000799;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000799(String mTQ00000799) {
+		MTQ00000799 = mTQ00000799;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000800() {
+		return MTQ00000800;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000800(String mTQ00000800) {
+		MTQ00000800 = mTQ00000800;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000801() {
+		return MTQ00000801;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000801(String mTQ00000801) {
+		MTQ00000801 = mTQ00000801;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000802() {
+		return MTQ00000802;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000802(String mTQ00000802) {
+		MTQ00000802 = mTQ00000802;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000803() {
+		return MTQ00000803;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000803(String mTQ00000803) {
+		MTQ00000803 = mTQ00000803;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000804() {
+		return MTQ00000804;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000804(String mTQ00000804) {
+		MTQ00000804 = mTQ00000804;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000805() {
+		return MTQ00000805;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000805(String mTQ00000805) {
+		MTQ00000805 = mTQ00000805;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000806() {
+		return MTQ00000806;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000806(String mTQ00000806) {
+		MTQ00000806 = mTQ00000806;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000807() {
+		return MTQ00000807;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000807(String mTQ00000807) {
+		MTQ00000807 = mTQ00000807;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000808() {
+		return MTQ00000808;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000808(String mTQ00000808) {
+		MTQ00000808 = mTQ00000808;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000809() {
+		return MTQ00000809;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000809(String mTQ00000809) {
+		MTQ00000809 = mTQ00000809;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000810() {
+		return MTQ00000810;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000810(String mTQ00000810) {
+		MTQ00000810 = mTQ00000810;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000811() {
+		return MTQ00000811;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000811(String mTQ00000811) {
+		MTQ00000811 = mTQ00000811;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000812() {
+		return MTQ00000812;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000812(String mTQ00000812) {
+		MTQ00000812 = mTQ00000812;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000813() {
+		return MTQ00000813;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000813(String mTQ00000813) {
+		MTQ00000813 = mTQ00000813;
+	}
+
+
+
+
+
+
+
+
+
+	public String getMTQ00000814() {
+		return MTQ00000814;
+	}
+
+
+
+
+
+
+
+
+
+	public void setMTQ00000814(String mTQ00000814) {
+		MTQ00000814 = mTQ00000814;
+	}
+
+
+
+
+
+
+
+
+
+	public Long getInd_04078() {
+		return ind_04078;
+	}
+
+
+
+
+
+
+
+
+
+	public void setInd_04078(Long ind_04078) {
+		this.ind_04078 = ind_04078;
+	}
 	
 	
 
-	
-	
+
 }
