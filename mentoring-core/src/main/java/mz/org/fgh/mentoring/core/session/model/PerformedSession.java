@@ -479,7 +479,7 @@ public class PerformedSession {
 	
 
 	public PerformedSession(String district, String healthFacility, String performedDate,
-			String tutorName, String tutoredName, String mTQ00000751, String mTQ00000752, String mTQ00000753,
+			String tutorName, String tutoredName, String cabinet, String mTQ00000751, String mTQ00000752, String mTQ00000753,
 			String mTQ00000754, String mTQ00000755, String mTQ00000756, String mTQ00000757, String mTQ00000758,
 			String mTQ00000759, String mTQ00000760, String mTQ00000761, String mTQ00000762, String mTQ00000763,
 			String mTQ00000764, String mTQ00000765, String mTQ00000766, String mTQ00000767, String mTQ00000768,
@@ -498,6 +498,7 @@ public class PerformedSession {
 		this.performedDate = performedDate;
 		this.tutorName = tutorName;
 		this.tutoredName = tutoredName;
+		this.cabinet=cabinet;
 		this.MTQ00000751 = mTQ00000751;
 		this.MTQ00000752 = mTQ00000752;
 		this.MTQ00000753 = mTQ00000753;
