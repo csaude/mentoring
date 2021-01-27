@@ -115,4 +115,21 @@ public class SessionQueryServiceImpl implements SessionQueryService {
 			String tutoredUuid) {
 		return this.sessionDAO.findBySelectedFilterHTS(startDate, endDate, tutoredUuid);
 	}
+
+	@Override
+	public List<PerformedSession> findPerformedSessionsBySelectedFilterPMQTR(LocalDate startDate, LocalDate endDate) {
+		return this.sessionDAO.findBySelectedFilterPMQTR(startDate, endDate);
+	}
+
+	@Override
+	public List<PerformedSession> findPerformedSessionsBySelectedFilterNarrativeCOP20(LocalDate startDate,
+			LocalDate endDate) {
+		return this.sessionDAO.findBySelectedFilterNarrativeCOP20(startDate, endDate);
+	}
+
+	@Override
+	public List<PerformedSession> findPerformedSessionsBySelectedFilterPMQTRList(LocalDate startDate,
+			LocalDate endDate) {
+		return this.sessionDAO.findBySelectedFilterPMQTRList(startDate, endDate);
+	}
 }
