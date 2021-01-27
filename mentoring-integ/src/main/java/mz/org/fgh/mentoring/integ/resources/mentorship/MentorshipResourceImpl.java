@@ -229,4 +229,37 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 
 		return JResponse.ok(performedSessions).build();
 	}
+
+	@Override
+	public JResponse<List<PerformedSession>> findPerformedSessionsPMQTR(String startDate, String endDate)
+			throws BusinessException {
+		final SessionDTO sessionDTO = new SessionDTO(startDate, endDate);
+
+		final List<PerformedSession> performedSessions = this.sessionQueryService
+		        .findPerformedSessionsBySelectedFilterPMQTR(sessionDTO.getStartDate(), sessionDTO.getEndDate());
+
+		return JResponse.ok(performedSessions).build();
+	}
+
+	@Override
+	public JResponse<List<PerformedSession>> findPerformedSessionsNarrativeCOP20(String startDate, String endDate)
+			throws BusinessException {
+		final SessionDTO sessionDTO = new SessionDTO(startDate, endDate);
+
+		final List<PerformedSession> performedSessions = this.sessionQueryService
+		        .findPerformedSessionsBySelectedFilterNarrativeCOP20(sessionDTO.getStartDate(), sessionDTO.getEndDate());
+
+		return JResponse.ok(performedSessions).build();
+	}
+
+	@Override
+	public JResponse<List<PerformedSession>> findPerformedSessionsPMQTRList(String startDate, String endDate)
+			throws BusinessException {
+		final SessionDTO sessionDTO = new SessionDTO(startDate, endDate);
+
+		final List<PerformedSession> performedSessions = this.sessionQueryService
+		        .findPerformedSessionsBySelectedFilterPMQTRList(sessionDTO.getStartDate(), sessionDTO.getEndDate());
+
+		return JResponse.ok(performedSessions).build();
+	}
 }
