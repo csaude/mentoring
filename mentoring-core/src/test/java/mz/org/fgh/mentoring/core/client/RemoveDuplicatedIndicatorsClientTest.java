@@ -7,7 +7,6 @@ import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_RECEIVED_SAMPLES;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_REJECTED_SAMPLES;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_TRANSPORTED_SAMPLES;
-import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,6 +16,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
@@ -29,7 +29,7 @@ import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.IndicatorTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionProcessor;
-import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.form.FormBuilder;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.indicator.model.DuplicatedIndicator;
 import mz.org.fgh.mentoring.core.indicator.model.Indicator;
@@ -61,9 +61,6 @@ public class RemoveDuplicatedIndicatorsClientTest extends AbstractSpringTest {
 	private ProgrammaticAreaService programmaticAreaService;
 
 	@Inject
-	private FormService formService;
-
-	@Inject
 	private DistrictService districtService;
 
 	@Inject
@@ -81,6 +78,9 @@ public class RemoveDuplicatedIndicatorsClientTest extends AbstractSpringTest {
 	@Inject
 	private QuestionCategoryService questionCategoryService;
 
+	@Inject
+	private FormBuilder formBuilder;
+
 	private RemoveDulicatedIndicatorsClient client;
 
 	@Override
@@ -92,12 +92,10 @@ public class RemoveDuplicatedIndicatorsClientTest extends AbstractSpringTest {
 		this.tutorService.createTutor(this.getUserContext(), indicator.getTutor());
 
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
-		        indicator.getForm().getProgrammaticArea());
+				indicator.getForm().getProgrammaticArea());
 
 		this.districtService.createDistrict(this.getUserContext(), indicator.getHealthFacility().getDistrict());
 		this.healthFacilityService.createHealthFacility(this.getUserContext(), indicator.getHealthFacility());
-
-		this.formService.createForm(this.getUserContext(), indicator.getForm(), this.getFormQuestions());
 
 		for (int i = 0; i < 10; i++) {
 			this.createIndicator(indicator);
@@ -113,8 +111,8 @@ public class RemoveDuplicatedIndicatorsClientTest extends AbstractSpringTest {
 		newIndicator.setHealthFacility(indicator.getHealthFacility());
 		newIndicator.setReferredMonth(indicator.getReferredMonth());
 
-		this.indicatorService.createIndicator(this.getUserContext(), newIndicator, indicator.getForm(),
-		        this.getAnswers());
+		this.indicatorService.createIndicator(this.getUserContext(), newIndicator, this.formBuilder.build(),
+				this.getAnswers());
 	}
 
 	private List<Answer> getAnswers() throws BusinessException {
@@ -135,44 +133,44 @@ public class RemoveDuplicatedIndicatorsClientTest extends AbstractSpringTest {
 		final int min = 0;
 
 		final Random random = new Random();
-		return random.nextInt((max - min) + 1) + min;
+		return random.nextInt(max - min + 1) + min;
 	}
 
 	private Set<FormQuestion> getFormQuestions() throws BusinessException {
 
 		final FormQuestion formQuestion1 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM,
-		        new QuestionProcessor());
+				new QuestionProcessor());
 		formQuestion1.setUuid(NUMBER_OF_COLLECTED_SAMPLES.getValue());
 
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
-		        formQuestion1.getQuestion().getQuestionsCategory());
+				formQuestion1.getQuestion().getQuestionsCategory());
 
 		this.questionService.createQuestion(this.getUserContext(), formQuestion1.getQuestion());
 
 		final FormQuestion formQuestion2 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM,
-		        new QuestionProcessor());
+				new QuestionProcessor());
 		formQuestion2.setUuid(NUMBER_OF_TRANSPORTED_SAMPLES.getValue());
 
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
-		        formQuestion2.getQuestion().getQuestionsCategory());
+				formQuestion2.getQuestion().getQuestionsCategory());
 
 		this.questionService.createQuestion(this.getUserContext(), formQuestion2.getQuestion());
 
 		final FormQuestion formQuestion3 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM,
-		        new QuestionProcessor());
+				new QuestionProcessor());
 		formQuestion3.setUuid(NUMBER_OF_REJECTED_SAMPLES.getValue());
 
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
-		        formQuestion3.getQuestion().getQuestionsCategory());
+				formQuestion3.getQuestion().getQuestionsCategory());
 
 		this.questionService.createQuestion(this.getUserContext(), formQuestion3.getQuestion());
 
 		final FormQuestion formQuestion4 = EntityFactory.gimme(FormQuestion.class, FormQuestionTemplate.WITH_NO_FORM,
-		        new QuestionProcessor());
+				new QuestionProcessor());
 		formQuestion4.setUuid(NUMBER_OF_RECEIVED_SAMPLES.getValue());
 
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(),
-		        formQuestion4.getQuestion().getQuestionsCategory());
+				formQuestion4.getQuestion().getQuestionsCategory());
 
 		this.questionService.createQuestion(this.getUserContext(), formQuestion4.getQuestion());
 
@@ -195,6 +193,6 @@ public class RemoveDuplicatedIndicatorsClientTest extends AbstractSpringTest {
 
 		final int records = this.client.process(this.client);
 
-		assertEquals(duplicatedIndicators.size(), records);
+		Assert.assertEquals(duplicatedIndicators.size(), records);
 	}
 }

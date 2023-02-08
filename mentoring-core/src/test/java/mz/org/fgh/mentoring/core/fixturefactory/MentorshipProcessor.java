@@ -12,6 +12,7 @@ import mz.org.fgh.mentoring.core.location.service.CabinetService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
+import mz.org.fgh.mentoring.core.partner.service.PartnerService;
 import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
@@ -47,11 +48,13 @@ public class MentorshipProcessor implements Processor {
 
 	private final QuestionCategoryService questionCategoryService;
 
+	private final PartnerService partnerService;
+
 	public MentorshipProcessor(final UserContext userContext, final FormService formService,
-	        final CareerService careerService, final ProgrammaticAreaService programmaticAreaService,
-	        final DistrictService districtService, final HealthFacilityService heathFacilityService,
-	        final QuestionService questionService, final TutorService tutorService, final TutoredService tutoredService,
-	        final CabinetService cabinetService, final QuestionCategoryService questionCategoryService) {
+			final CareerService careerService, final ProgrammaticAreaService programmaticAreaService,
+			final DistrictService districtService, final HealthFacilityService heathFacilityService,
+			final QuestionService questionService, final TutorService tutorService, final TutoredService tutoredService,
+			final CabinetService cabinetService, final QuestionCategoryService questionCategoryService, final PartnerService partnerService) {
 		this.userContext = userContext;
 		this.formService = formService;
 		this.careerService = careerService;
@@ -63,6 +66,7 @@ public class MentorshipProcessor implements Processor {
 		this.tutoredService = tutoredService;
 		this.cabinetService = cabinetService;
 		this.questionCategoryService = questionCategoryService;
+		this.partnerService = partnerService;
 	}
 
 	@Override
@@ -75,10 +79,10 @@ public class MentorshipProcessor implements Processor {
 				try {
 
 					this.questionCategoryService.createQuestionCategory(this.userContext,
-					        formQuestion.getQuestion().getQuestionsCategory());
+							formQuestion.getQuestion().getQuestionsCategory());
 
 					final Question question = this.questionService.createQuestion(this.userContext,
-					        formQuestion.getQuestion());
+							formQuestion.getQuestion());
 
 					mentorship.getAnswers().forEach(answer -> {
 						final Question newQuestion = new Question();
@@ -86,8 +90,7 @@ public class MentorshipProcessor implements Processor {
 						answer.setQuestion(newQuestion);
 					});
 
-				}
-				catch (final BusinessException e) {
+				} catch (final BusinessException e) {
 					e.printStackTrace();
 				}
 			});
@@ -100,14 +103,14 @@ public class MentorshipProcessor implements Processor {
 				this.tutoredService.createTutored(this.userContext, mentorship.getTutored());
 				this.tutorService.createTutor(this.userContext, mentorship.getTutor());
 				this.programmaticAreaService.createProgrammaticArea(this.userContext,
-				        mentorship.getForm().getProgrammaticArea());
+						mentorship.getForm().getProgrammaticArea());
 				this.cabinetService.createCabinet(this.userContext, mentorship.getCabinet());
+				this.partnerService.createPartner(this.userContext, mentorship.getForm().getPartner());
 
 				this.formService.createForm(this.userContext, mentorship.getForm(),
-				        mentorship.getForm().getFormQuestions());
+						mentorship.getForm().getFormQuestions());
 
-			}
-			catch (final BusinessException e) {
+			} catch (final BusinessException e) {
 				e.printStackTrace();
 			}
 		}

@@ -34,7 +34,7 @@ public class MentorshipTemplate implements TemplateLoader {
 
 	@Override
 	public void load() {
-		Fixture.of(Mentorship.class).addTemplate(VALID, new Rule() {
+		Fixture.of(Mentorship.class).addTemplate(MentorshipTemplate.VALID, new Rule() {
 			{
 				this.add("startDate", LocalDateTime.now());
 				this.add("endDate", LocalDateTime.now());
@@ -47,21 +47,22 @@ public class MentorshipTemplate implements TemplateLoader {
 			}
 		});
 
-		Fixture.of(Mentorship.class).addTemplate(WITH_ANSWERS).inherits(VALID, new Rule() {
+		Fixture.of(Mentorship.class).addTemplate(MentorshipTemplate.WITH_ANSWERS).inherits(MentorshipTemplate.VALID, new Rule() {
 			{
 				this.add("answers", this.has(5).of(TextAnswer.class, TextAnswerTemplate.VALID));
+				this.add("form", this.one(Form.class, FormTemplate.WITH_FORM_QUESTIONS));
 			}
 		});
 
-		Fixture.of(Mentorship.class).addTemplate(DATE_PERFORMED_MAY_12_2018).inherits(VALID, new Rule() {
+		Fixture.of(Mentorship.class).addTemplate(MentorshipTemplate.DATE_PERFORMED_MAY_12_2018).inherits(MentorshipTemplate.VALID, new Rule() {
 			{
-				this.add("performedDate", DATE_MAY_12_2018);
+				this.add("performedDate", MentorshipTemplate.DATE_MAY_12_2018);
 			}
 		});
 
-		Fixture.of(Mentorship.class).addTemplate(DATE_PERFORMED_MAY_20_2018).inherits(VALID, new Rule() {
+		Fixture.of(Mentorship.class).addTemplate(MentorshipTemplate.DATE_PERFORMED_MAY_20_2018).inherits(MentorshipTemplate.VALID, new Rule() {
 			{
-				this.add("performedDate", DATE_MAY_20_2018);
+				this.add("performedDate", MentorshipTemplate.DATE_MAY_20_2018);
 			}
 		});
 	}
