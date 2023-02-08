@@ -1,18 +1,15 @@
-/*
- * Friends in Global Health - FGH © 2016
+/**
+ *
  */
 package mz.org.fgh.mentoring.integ.resources.tutor;
-
-import java.util.Collections;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
+import mz.org.fgh.mentoring.core.tutor.model.TutorLocation;
 
 /**
  * @author Stélio Moiane
@@ -20,26 +17,25 @@ import mz.org.fgh.mentoring.core.tutor.model.Tutor;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TutorBeanResource {
-
-	private UserContext userContext;
+public class TutorLocationDTO {
 
 	private Tutor tutor;
 
-	private List<HealthFacility> locations;
+	private HealthFacility location;
 
-	public TutorBeanResource() {
+	public TutorLocationDTO() {
 	}
 
-	public UserContext getUserContext() {
-		return this.userContext;
+	public TutorLocationDTO(final TutorLocation tutorLocation) {
+		this.tutor = tutorLocation.getTutor();
+		this.location = tutorLocation.getLocation();
 	}
 
 	public Tutor getTutor() {
 		return this.tutor;
 	}
 
-	public List<HealthFacility> getLocations() {
-		return Collections.unmodifiableList(this.locations);
+	public HealthFacility getLocation() {
+		return this.location;
 	}
 }

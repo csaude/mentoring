@@ -15,15 +15,16 @@ import mz.org.fgh.mentoring.core.tutorprogramaticarea.model.TutorProgrammaticAre
  */
 @Repository(TutorProgrammaticAreaDAO.NAME)
 public class TutorProgrammaticAreaDAOImpl extends GenericDAOImpl<TutorProgrammaticArea, Long>
-        implements TutorProgrammaticAreaDAO {
+implements TutorProgrammaticAreaDAO {
 
 	@Override
 	public TutorProgrammaticArea findByTutorAndProgrammaticArea(final Tutor tutor,
-	        final ProgrammaticArea programmaticArea, final LifeCycleStatus lifeCycleStatus) {
+			final ProgrammaticArea programmaticArea, final LifeCycleStatus lifeCycleStatus) {
+
 
 		return this.findSingleByNamedQuery(TutorProgrammaticAreaDAO.QUERY_NAME.findByTutorAndProgrammaticArea,
-		        new ParamBuilder().add("tutorUuid", tutor.getUuid())
-		                .add("programmaticAreaUuid", programmaticArea.getUuid()).add("lifeCycleStatus", lifeCycleStatus)
-		                .process());
+				new ParamBuilder().add("tutorUuid", tutor.getUuid())
+				.add("programmaticAreaUuid", programmaticArea.getUuid()).add("lifeCycleStatus", lifeCycleStatus)
+				.process());
 	}
 }
