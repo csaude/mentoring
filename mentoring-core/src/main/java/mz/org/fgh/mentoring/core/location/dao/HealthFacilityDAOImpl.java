@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.NoResultException;
 
+import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import org.springframework.stereotype.Repository;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
@@ -35,12 +36,15 @@ public class HealthFacilityDAOImpl extends GenericDAOImpl<HealthFacility, Long> 
 	}
 
 	@Override
+	public List<HealthFacility> fetchByTutor(Tutor tutor, LifeCycleStatus lifeCycleStatus) {
+		return this.findByNamedQuery(QUERY_NAME.fetchByTutor, new ParamBuilder().add("lifeCycleStatus", lifeCycleStatus).add("partnerUUID", tutor.getPartner().getUuid()).process());
+	}
+
+	@Override
 	public HealthFacility findByDistrictAndName(final District district, final String healthFacility,
 	        final LifeCycleStatus lifeCycleStatus) {
 		try {
-			return this.findSingleByNamedQuery(HealthFacilityDAO.QUERY_NAME.findByDistrictAndName,
-			        new ParamBuilder().add("districtId", district.getId()).add("healthFacility", healthFacility)
-			                .add("lifeCycleStatus", lifeCycleStatus).process());
+			return this.findSingleByNamedQuery(HealthFacilityDAO.QUERY_NAME.findByDistrictAndName, new ParamBuilder().add("districtId", district.getId()).add("healthFacility", healthFacility) .add("lifeCycleStatus", lifeCycleStatus).process());
 		}
 		catch (final NoResultException e) {
 			return null;

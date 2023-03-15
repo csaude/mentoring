@@ -33,9 +33,8 @@ public class FormQueryServiceImpl implements FormQueryService {
 	}
 
 	@Override
-	public List<Form> findBySelectedFilter(final UserContext userContext, final String code, final String name,
-	        final String programmaticAreaCode) {
-		return this.formDAO.findBySelectedFilter(code, name, programmaticAreaCode, LifeCycleStatus.ACTIVE);
+	public List<Form> findBySelectedFilter(final UserContext userContext, final String code, final String name, final String programmaticAreaCode, final String partnerUUID) {
+		return this.formDAO.findBySelectedFilter(code, name, programmaticAreaCode, LifeCycleStatus.ACTIVE, partnerUUID);
 	}
 
 	@Override
