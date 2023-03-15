@@ -69,9 +69,10 @@ public class Tutor extends GenericEntity {
 	@Column(name = "IS_USER", nullable = false)
 	private Boolean isUser = Boolean.FALSE;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PARTNER_ID")
 	private Partner partner;
+
 
 	public Tutor() {
 	}

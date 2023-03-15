@@ -123,7 +123,7 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 				.findById(this.createdform.getProgrammaticArea().getId());
 
 		final List<Form> forms = this.formQueryService.findBySelectedFilter(this.getUserContext(), code, name,
-				programmaticArea.getCode());
+				programmaticArea.getCode(), null);
 
 		Assert.assertTrue(!forms.isEmpty());
 		for (final Form form : forms) {

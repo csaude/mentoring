@@ -3,12 +3,14 @@
  */
 package mz.org.fgh.mentoring.integ.resources.tutor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.ws.rs.Path;
 
+import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import org.springframework.stereotype.Service;
 
 import com.sun.jersey.api.JResponse;
@@ -55,11 +57,9 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 	}
 
 	@Override
-	public JResponse<List<Tutor>> findTutors(final String code, final String name, final String surname,
-			final CareerType careerType, final String phoneNumber) throws BusinessException {
+	public JResponse<List<Tutor>> findTutors(final String code, final String name, final String surname, final CareerType careerType, final String phoneNumber) throws BusinessException {
 
-		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(this.getUserContetx(), code, name,
-				surname, careerType, phoneNumber);
+		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(this.getUserContetx(), code, name, surname, careerType, phoneNumber);
 
 		return JResponse.ok(tutors).build();
 	}

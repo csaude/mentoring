@@ -20,8 +20,11 @@ public interface TutorDAO extends GenericDAO<Tutor, Long> {
 	String NAME = "mz.org.fgh.mentoring.core.tutor.dao.TutorDAO";
 
 	class QUERY {
-		public static final String fetchByUuid = "SELECT t FROM Tutor t INNER JOIN FETCH t.career c WHERE t.uuid = :uuid";
-		public static final String fetchByEmail = "SELECT t FROM Tutor t INNER JOIN FETCH t.career WHERE t.email = :email AND t.lifeCycleStatus = :lifeCycleStatus";
+		public static final String fetchByUuid = 	"SELECT t " +
+													"FROM Tutor t 	INNER JOIN FETCH t.career c " +
+													"				INNER JOIN FETCH t.partner p " +
+													"WHERE t.uuid = :uuid";
+		public static final String fetchByEmail = "SELECT t FROM Tutor t INNER JOIN FETCH t.career INNER JOIN FETCH t.partner p WHERE t.email = :email AND t.lifeCycleStatus = :lifeCycleStatus";
 	}
 
 	class QUERY_NAME {
