@@ -5,6 +5,7 @@ package mz.org.fgh.mentoring.core.formquestion.dao;
 
 import java.util.List;
 
+import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import org.springframework.stereotype.Repository;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
@@ -34,9 +35,12 @@ public class FormQuestionDAOImpl extends GenericDAOImpl<FormQuestion, Long> impl
 	}
 
 	@Override
-	public List<FormQuestion> fetchByTutor(final LifeCycleStatus lifeCycleStatus, final String tutorUuid) {
+	public List<FormQuestion> fetchByTutor(final LifeCycleStatus lifeCycleStatus, final Tutor tutor) {
 		return this.findByNamedQuery(FormQuestionDAO.QUERY_NAME.fetchByTutor,
-		        new ParamBuilder().add("lifeCycleStatus", lifeCycleStatus).add("tutorUuid", tutorUuid).process());
+		        new ParamBuilder().add("lifeCycleStatus", lifeCycleStatus)
+								  .add("tutorUuid", tutor.getUuid())
+								  .add("partnerUUID", tutor.getPartner().getUuid())
+								  .add("MISAUUUUID", "398f0ffeb8fe11edafa10242ac120002").process());
 	}
 
 	@Override

@@ -83,8 +83,8 @@ public class Form extends GenericEntity {
 	@Column(name = "TARGET_FILE", nullable = false)
 	private Integer targetFile;
 
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PARTNER_ID")
 	private Partner partner;
 

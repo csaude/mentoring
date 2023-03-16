@@ -33,8 +33,7 @@ public interface FormDAO extends GenericDAO<Form, Long> {
 
 	Form fetchByFormId(final Long formId);
 
-	public List<Form> findBySelectedFilter(final String code, final String name, final String programmaticAreaCode,
-	        final LifeCycleStatus lifeCycleStatus);
+	public List<Form> findBySelectedFilter(final String code, final String name, final String programmaticAreaCode, final LifeCycleStatus lifeCycleStatus, final String partnerUUID);
 
 	List<Form> findSampleIndicators(List<String> questionUuids, LifeCycleStatus lifeCycleStatus);
 }

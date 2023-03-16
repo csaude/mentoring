@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 import org.springframework.stereotype.Service;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
@@ -27,6 +28,9 @@ public class HealthFacilityQueryServiceImpl extends AbstractService implements H
 	@Inject
 	private HealthFacilityDAO healthFacilityDAO;
 
+	@Inject
+	private TutorDAO tutorDAO;
+
 	@Override
 	public List<HealthFacility> findHealthFacilityByDistrict(final UserContext userContext, final District district)
 	        throws BusinessException {
@@ -39,8 +43,16 @@ public class HealthFacilityQueryServiceImpl extends AbstractService implements H
 	}
 
 	@Override
-	public HealthFacility findHealthFacilityByUuid(final UserContext userContext, final String uuid)
-	        throws BusinessException {
+	public List<HealthFacility> fetchAllHealthFacilitiesOfTutor(UserContext userContext) {
+		try {
+			return this.healthFacilityDAO.fetchByTutor(tutorDAO.findByUuid(userContext.getUuid()), LifeCycleStatus.ACTIVE);
+		} catch (BusinessException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public HealthFacility findHealthFacilityByUuid(final UserContext userContext, final String uuid) throws BusinessException {
 		return this.healthFacilityDAO.findByUuid(uuid);
 	}
 

@@ -52,10 +52,10 @@ public class FormServiceResourceImpl extends AbstractResource implements FormSer
 
 	@Override
 	public JResponse<List<Form>> findBySelectedFilter(final String code, final String name,
-	        final String programmaticAreaCode) throws BusinessException {
+	        final String programmaticAreaCode, final  String partnerUUID) throws BusinessException {
 
 		final List<Form> forms = this.formQueryService.findBySelectedFilter(this.getUserContetx(), code, name,
-		        programmaticAreaCode);
+		        programmaticAreaCode, partnerUUID);
 
 		return JResponse.ok(forms).build();
 	}

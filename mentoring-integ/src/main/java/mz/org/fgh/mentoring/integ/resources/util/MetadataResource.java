@@ -22,7 +22,7 @@ public interface MetadataResource {
 	String NAME = "mz.org.fgh.mentoring.integ.resources.util.MetadataResource";
 
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("{uuid}")
 	JResponse<Metadata> loadMetadata(@PathParam("uuid") final String uuid) throws BusinessException;
 	

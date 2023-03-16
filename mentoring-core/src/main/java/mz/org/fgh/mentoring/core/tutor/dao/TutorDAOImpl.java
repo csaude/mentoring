@@ -35,6 +35,7 @@ public class TutorDAOImpl extends GenericDAOImpl<Tutor, Long> implements TutorDA
 		final CriteriaQuery<Tutor> createQuery = criteriaBuilder.createQuery(Tutor.class);
 		final Root<Tutor> root = createQuery.from(Tutor.class);
 		root.fetch("career");
+		root.fetch("partner");
 
 		createQuery.select(root);
 

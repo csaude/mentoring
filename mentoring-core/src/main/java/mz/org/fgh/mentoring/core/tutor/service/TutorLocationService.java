@@ -19,4 +19,6 @@ public interface TutorLocationService {
 
 	List<TutorLocation> allocateTutorLocations(UserContext userContext, Tutor tutor, List<HealthFacility> locations) throws BusinessException;
 
+	List<TutorLocation> findByTutorId(Long id)  throws BusinessException;
+
 }
