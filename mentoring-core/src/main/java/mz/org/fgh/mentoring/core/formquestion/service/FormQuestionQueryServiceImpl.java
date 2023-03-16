@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
+import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import org.springframework.stereotype.Service;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
@@ -27,9 +29,12 @@ public class FormQuestionQueryServiceImpl implements FormQuestionQueryService {
 	@Inject
 	private FormQuestionDAO formQuestionDAO;
 
+	@Inject
+	private TutorDAO tutorDAO;
+
 	@Override
 	public List<FormQuestion> fetchFormQuestionsByTutor(final UserContext userContext) {
-		return this.formQuestionDAO.fetchByTutor(LifeCycleStatus.ACTIVE, userContext.getUuid());
+		return this.formQuestionDAO.fetchByTutor(LifeCycleStatus.ACTIVE, tutorDAO.fetchByUuid(userContext.getUuid()));
 	}
 
 	@Override

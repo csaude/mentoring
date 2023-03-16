@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
 import org.springframework.stereotype.Service;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
@@ -47,5 +48,10 @@ public class TutorLocationServiceImpl extends AbstractService implements TutorLo
 		});
 
 		return tutorLocations;
+	}
+
+	@Override
+	public List<TutorLocation> findByTutorId(Long id) throws BusinessException {
+		return tutorLocationDAO.findByTutorId(id, LifeCycleStatus.ACTIVE);
 	}
 }

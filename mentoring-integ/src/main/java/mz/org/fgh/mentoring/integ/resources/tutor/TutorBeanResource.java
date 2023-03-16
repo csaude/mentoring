@@ -31,6 +31,11 @@ public class TutorBeanResource {
 	public TutorBeanResource() {
 	}
 
+	public TutorBeanResource(Tutor tutor, List<HealthFacility> locations) {
+		this.tutor = tutor;
+		this.locations = locations;
+	}
+
 	public UserContext getUserContext() {
 		return this.userContext;
 	}

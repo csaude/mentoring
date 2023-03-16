@@ -39,9 +39,10 @@ public interface FormServiceResource {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public JResponse<List<Form>> findBySelectedFilter(@QueryParam("code") final String code,
-	        @QueryParam("name") final String name,
-	        @QueryParam("programmaticAreaCode") final String programmaticAreaCode) throws BusinessException;
+	public JResponse<List<Form>> findBySelectedFilter(	@QueryParam("code") final String code,
+	        											@QueryParam("name") final String name,
+	        											@QueryParam("programmaticAreaCode") final String programmaticAreaCode,
+													  	@QueryParam("partnerUUID") final  String partnerUUID) throws BusinessException;
 
 	@GET
 	@Path("sample-forms")

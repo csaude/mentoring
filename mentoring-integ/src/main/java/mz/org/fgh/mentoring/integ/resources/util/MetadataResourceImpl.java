@@ -60,8 +60,7 @@ public class MetadataResourceImpl implements MetadataResource {
 		final UserContext userContext = new UserContext();
 		userContext.setUuid(uuid);
 
-		final List<HealthFacility> healthFacilities = this.healthFacilityQueryService
-		        .fetchAllHealthFacilities(userContext);
+		final List<HealthFacility> healthFacilities = this.healthFacilityQueryService.fetchAllHealthFacilitiesOfTutor(userContext);
 
 		final List<Career> careers = this.careerQueryService.findAllCareers(userContext);
 

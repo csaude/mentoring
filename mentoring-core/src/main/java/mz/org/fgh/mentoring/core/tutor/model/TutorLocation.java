@@ -3,20 +3,20 @@
  */
 package mz.org.fgh.mentoring.core.tutor.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
+import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
+import mz.org.fgh.mentoring.core.tutor.dao.TutorLocationDAO;
 
 /**
  * @author Stélio Moiane
  *
  */
+
+@NamedQueries({ @NamedQuery(name = TutorLocationDAO.QUERY_NAME.findByTutorId, query = TutorLocationDAO.QUERY.findByTutorId) })
 @Entity
 @Table(name = "TUTOR_LOCATIONS")
 public class TutorLocation extends GenericEntity {
