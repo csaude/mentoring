@@ -34,6 +34,9 @@ public interface TutorDAO extends GenericDAO<Tutor, Long> {
 
 	List<Tutor> findBySelectedFilter(final String code, final String name, final String surname,
 	        final String phoneNumber, CareerType careerType, LifeCycleStatus lifeCycleStatus);
+	
+	List<Tutor> findBySelectedFilter(final String code, final String name, final String surname,
+	        final String phoneNumber, final String partnerName, CareerType careerType, LifeCycleStatus lifeCycleStatus);
 
 	Tutor fetchByUuid(final String uuid);
 
