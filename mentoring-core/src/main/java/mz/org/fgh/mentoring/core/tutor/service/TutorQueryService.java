@@ -22,7 +22,7 @@ public interface TutorQueryService {
 	        final String surname, CareerType careerType, final String phoneNumber) throws BusinessException;
 	
 	List<Tutor> findTutorsBySelectedFilter(final UserContext userContext, final String code, final String name,
-	        final String surname, CareerType careerType, final String phoneNumber, final String partnerName) throws BusinessException;
+	        final String surname, CareerType careerType, final String phoneNumber, final String partnerUuid) throws BusinessException;
 
 	Tutor fetchTutorByUuid(final UserContext userContext, final String uuid) throws BusinessException;
 
