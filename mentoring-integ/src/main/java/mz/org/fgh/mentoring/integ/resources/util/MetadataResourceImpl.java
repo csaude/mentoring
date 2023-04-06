@@ -24,6 +24,8 @@ import mz.org.fgh.mentoring.core.location.model.Cabinet;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import mz.org.fgh.mentoring.core.location.service.CabinetQueryService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityQueryService;
+import mz.org.fgh.mentoring.core.setting.model.Setting;
+import mz.org.fgh.mentoring.core.setting.service.SettingService;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 import mz.org.fgh.mentoring.core.tutored.service.TutoredQueryService;
@@ -54,13 +56,17 @@ public class MetadataResourceImpl implements MetadataResource {
 	@Inject
 	private FormTargetQueryService formTargetQueryService;
 
+	@Inject
+	private SettingService settingService;
+
 	@Override
 	public JResponse<Metadata> loadMetadata(final String uuid) throws BusinessException {
 
 		final UserContext userContext = new UserContext();
 		userContext.setUuid(uuid);
 
-		final List<HealthFacility> healthFacilities = this.healthFacilityQueryService.fetchAllHealthFacilitiesOfTutor(userContext);
+		final List<HealthFacility> healthFacilities = this.healthFacilityQueryService
+				.fetchAllHealthFacilitiesOfTutor(userContext);
 
 		final List<Career> careers = this.careerQueryService.findAllCareers(userContext);
 
@@ -70,13 +76,15 @@ public class MetadataResourceImpl implements MetadataResource {
 
 		final List<Cabinet> cabinets = this.cabinetQueryService.findAllCabinets();
 
+		final List<Setting> settings = this.settingService.findSettingByTutor(userContext);
+
 		final Tutor tutor = new Tutor();
 		tutor.setUuid(uuid);
 
 		final List<FormTarget> formTargets = this.formTargetQueryService.findFormTargetByTutor(tutor);
 
-		final Metadata metadata = new Metadata(healthFacilities, careers, formQuestions, tutoreds, cabinets,
-		        formTargets);
+		final Metadata metadata = new Metadata(healthFacilities, careers, formQuestions, tutoreds, cabinets, settings,
+				formTargets);
 
 		return JResponse.ok(metadata).build();
 	}
