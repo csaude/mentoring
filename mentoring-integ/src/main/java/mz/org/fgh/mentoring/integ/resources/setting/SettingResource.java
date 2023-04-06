@@ -26,6 +26,7 @@ public interface SettingResource {
 	@GET
 	@Path("{designation}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<Setting> findSettingByDesignation(final String designation)
 			throws BusinessException;
 
