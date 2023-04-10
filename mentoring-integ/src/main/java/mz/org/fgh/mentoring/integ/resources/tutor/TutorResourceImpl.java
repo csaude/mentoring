@@ -102,4 +102,17 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 
 		return JResponse.ok(tutorLocationsDTO).build();
 	}
+
+
+
+	@Override
+	public JResponse<List<Tutor>> findTutors(String code, String name, String surname, CareerType careerType,
+			String phoneNumber, String partnerUuid) throws BusinessException {
+		
+		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(this.getUserContetx(), code, name, surname, careerType, phoneNumber, partnerUuid);
+
+		return JResponse.ok(tutors).build();
+		
+	}
+	
 }

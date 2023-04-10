@@ -66,4 +66,11 @@ public class TutorQueryServiceImpl implements TutorQueryService {
 
 		return tutor;
 	}
+
+	@Override
+	public List<Tutor> findTutorsBySelectedFilter(UserContext userContext, String code, String name, String surname,
+			CareerType careerType, String phoneNumber, String partnerUuid) throws BusinessException {
+		
+		return this.tutorDAO.findBySelectedFilter(code, name, surname, phoneNumber,partnerUuid , careerType, LifeCycleStatus.ACTIVE);
+	}
 }
