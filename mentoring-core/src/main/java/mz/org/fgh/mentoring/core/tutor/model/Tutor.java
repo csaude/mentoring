@@ -25,6 +25,7 @@ import com.sun.istack.NotNull;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.career.model.Career;
+import mz.org.fgh.mentoring.core.partner.model.Partner;
 import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 
 /**
@@ -34,7 +35,7 @@ import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @NamedQueries({ @NamedQuery(name = TutorDAO.QUERY_NAME.fetchByUuid, query = TutorDAO.QUERY.fetchByUuid),
-        @NamedQuery(name = TutorDAO.QUERY_NAME.fetchByEmail, query = TutorDAO.QUERY.fetchByEmail) })
+	@NamedQuery(name = TutorDAO.QUERY_NAME.fetchByEmail, query = TutorDAO.QUERY.fetchByEmail) })
 @Entity
 @Table(name = "TUTORS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 public class Tutor extends GenericEntity {
@@ -67,6 +68,11 @@ public class Tutor extends GenericEntity {
 
 	@Column(name = "IS_USER", nullable = false)
 	private Boolean isUser = Boolean.FALSE;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "PARTNER_ID")
+	private Partner partner;
+
 
 	public Tutor() {
 	}
@@ -135,5 +141,13 @@ public class Tutor extends GenericEntity {
 
 	public Boolean isUser() {
 		return this.isUser;
+	}
+
+	public Partner getPartner() {
+		return this.partner;
+	}
+
+	public void setPartner(final Partner partner) {
+		this.partner = partner;
 	}
 }

@@ -3,9 +3,6 @@
  */
 package mz.org.fgh.mentoring.core.form;
 
-import java.util.HashSet;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -15,18 +12,9 @@ import mz.co.mozview.frameworks.core.fixtureFactory.EntityFactory;
 import mz.co.mozview.frameworks.core.fixtureFactory.util.TestUtil;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
-import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.FormTargetTemplate;
-import mz.org.fgh.mentoring.core.fixturefactory.ProgrammaticAreaTemplate;
-import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.model.FormTarget;
-import mz.org.fgh.mentoring.core.form.service.FormService;
 import mz.org.fgh.mentoring.core.form.service.FormTargetService;
-import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
-import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
-import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
-import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
-import mz.org.fgh.mentoring.core.question.service.QuestionService;
 
 /**
  * @author Stélio Moiane
@@ -38,19 +26,10 @@ public class FormTargetServiceTest extends AbstractSpringTest {
 	private FormTargetService formTargetService;
 
 	@Inject
-	private FormService formService;
-
-	@Inject
-	private ProgrammaticAreaService programmaticAreaService;
-
-	@Inject
-	private QuestionService questionService;
-
-	@Inject
 	private CareerService careerService;
 
 	@Inject
-	private QuestionCategoryService questionCategoryService;
+	private FormBuilder formBuilder;
 
 	private FormTarget formTarget;
 
@@ -61,29 +40,7 @@ public class FormTargetServiceTest extends AbstractSpringTest {
 
 		this.careerService.createCareer(this.getUserContext(), this.formTarget.getCareer());
 
-		final ProgrammaticArea programmaticArea = EntityFactory.gimme(ProgrammaticArea.class,
-		        ProgrammaticAreaTemplate.VALID);
-
-		final Form form = this.formTarget.getForm();
-
-		form.setProgrammaticArea(
-		        this.programmaticAreaService.createProgrammaticArea(this.getUserContext(), programmaticArea));
-
-		final List<FormQuestion> formQuestions = (EntityFactory.gimme(FormQuestion.class, 10,
-		        FormQuestionTemplate.WITH_NO_FORM));
-
-		formQuestions.forEach(formQuestion -> {
-			try {
-				this.questionCategoryService.createQuestionCategory(this.getUserContext(),
-				        formQuestion.getQuestion().getQuestionsCategory());
-				this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
-			}
-			catch (final BusinessException e) {
-				e.printStackTrace();
-			}
-		});
-
-		this.formService.createForm(this.getUserContext(), form, new HashSet<>(formQuestions));
+		this.formTarget.setForm(this.formBuilder.build());
 	}
 
 	@Test

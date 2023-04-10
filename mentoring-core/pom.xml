@@ -16,10 +16,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<db.host>localhost</db.host>
+		<db.host>mentdev.fgh.org.mz</db.host>
 		<db.port>3307</db.port>
 		<db.user>mentor</db.user>
-		<db.password>mentor</db.password>
+		<db.password>mEnt0rI@2021</db.password>
 	</properties>
 
 	<dependencies>

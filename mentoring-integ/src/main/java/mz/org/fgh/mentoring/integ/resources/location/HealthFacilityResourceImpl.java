@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Path;
 
+import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import org.springframework.stereotype.Service;
 
 import com.sun.jersey.api.JResponse;
@@ -48,5 +49,14 @@ public class HealthFacilityResourceImpl extends AbstractResource implements Heal
 		final List<HealthFacility> healthFacilities = this.healthFacilityQueryService.fetchAllHealthFacilities(this.getUserContetx());
 		
 		return JResponse.ok(healthFacilities).build(); 
+	}
+
+	@Override
+	public JResponse<List<HealthFacility>> fetchAllHealthFacilitiesOfTutor(final String uuid) {
+		final UserContext userContext = new UserContext();
+		userContext.setUuid(uuid);
+		List<HealthFacility> healthFacilities = this.healthFacilityQueryService.fetchAllHealthFacilitiesOfTutor(userContext);
+
+		return JResponse.ok(healthFacilities).build();
 	}
 }

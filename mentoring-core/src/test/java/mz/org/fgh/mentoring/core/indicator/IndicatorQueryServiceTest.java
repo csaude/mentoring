@@ -7,10 +7,6 @@ import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_RECEIVED_SAMPLES;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_REJECTED_SAMPLES;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_TRANSPORTED_SAMPLES;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,6 +16,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
@@ -32,7 +29,8 @@ import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.IndicatorTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionProcessor;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
-import mz.org.fgh.mentoring.core.form.service.FormService;
+import mz.org.fgh.mentoring.core.form.FormBuilder;
+import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.indicator.model.AnalysisTable;
 import mz.org.fgh.mentoring.core.indicator.model.DuplicatedIndicator;
@@ -42,7 +40,6 @@ import mz.org.fgh.mentoring.core.indicator.service.IndicatorQueryService;
 import mz.org.fgh.mentoring.core.indicator.service.IndicatorService;
 import mz.org.fgh.mentoring.core.location.service.DistrictService;
 import mz.org.fgh.mentoring.core.location.service.HealthFacilityService;
-import mz.org.fgh.mentoring.core.programmaticarea.service.ProgrammaticAreaService;
 import mz.org.fgh.mentoring.core.question.model.Question;
 import mz.org.fgh.mentoring.core.question.service.QuestionCategoryService;
 import mz.org.fgh.mentoring.core.question.service.QuestionService;
@@ -64,12 +61,6 @@ public class IndicatorQueryServiceTest extends AbstractSpringTest {
 	private QuestionService questionService;
 
 	@Inject
-	private ProgrammaticAreaService programmaticAreaService;
-
-	@Inject
-	private FormService formService;
-
-	@Inject
 	private DistrictService districtService;
 
 	@Inject
@@ -84,6 +75,9 @@ public class IndicatorQueryServiceTest extends AbstractSpringTest {
 	@Inject
 	private QuestionCategoryService questionCategoryService;
 
+	@Inject
+	private FormBuilder formBuilder;
+
 	private Indicator indicator;
 
 	@Override
@@ -92,23 +86,19 @@ public class IndicatorQueryServiceTest extends AbstractSpringTest {
 		this.indicator = EntityFactory.gimme(Indicator.class, IndicatorTemplate.VALID);
 		this.careerService.createCareer(this.getUserContext(), this.indicator.getTutor().getCareer());
 		this.tutorService.createTutor(this.getUserContext(), this.indicator.getTutor());
-
-		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
-		        this.indicator.getForm().getProgrammaticArea());
-
 		this.districtService.createDistrict(this.getUserContext(), this.indicator.getHealthFacility().getDistrict());
 		this.heathFacilityService.createHealthFacility(this.getUserContext(), this.indicator.getHealthFacility());
 
-		this.formService.createForm(this.getUserContext(), this.indicator.getForm(), this.getFormQuestions());
+		final Form form = this.formBuilder.build();
 
-		this.indicatorService.createIndicator(this.getUserContext(), this.indicator, this.indicator.getForm(),
-		        this.getAnswers());
+		this.indicatorService.createIndicator(this.getUserContext(), this.indicator, form,
+				this.getAnswers());
 	}
 
 	private Set<FormQuestion> getFormQuestions() throws BusinessException {
 
 		final Question question1 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
-		        new QuestionProcessor());
+				new QuestionProcessor());
 		question1.setUuid(NUMBER_OF_COLLECTED_SAMPLES.getValue());
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question1.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), question1);
@@ -116,7 +106,7 @@ public class IndicatorQueryServiceTest extends AbstractSpringTest {
 		formQuestion1.setQuestion(question1);
 
 		final Question question2 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
-		        new QuestionProcessor());
+				new QuestionProcessor());
 		question2.setUuid(NUMBER_OF_TRANSPORTED_SAMPLES.getValue());
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question2.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), question2);
@@ -124,7 +114,7 @@ public class IndicatorQueryServiceTest extends AbstractSpringTest {
 		formQuestion2.setQuestion(question2);
 
 		final Question question3 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
-		        new QuestionProcessor());
+				new QuestionProcessor());
 		question3.setUuid(NUMBER_OF_REJECTED_SAMPLES.getValue());
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question3.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), question3);
@@ -132,7 +122,7 @@ public class IndicatorQueryServiceTest extends AbstractSpringTest {
 		formQuestion3.setQuestion(question3);
 
 		final Question question4 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
-		        new QuestionProcessor());
+				new QuestionProcessor());
 		question4.setUuid(NUMBER_OF_RECEIVED_SAMPLES.getValue());
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question4.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), question4);
@@ -155,7 +145,7 @@ public class IndicatorQueryServiceTest extends AbstractSpringTest {
 		final int min = 0;
 
 		final Random random = new Random();
-		return random.nextInt((max - min) + 1) + min;
+		return random.nextInt(max - min + 1) + min;
 	}
 
 	private List<Answer> getAnswers() throws BusinessException {
@@ -174,22 +164,22 @@ public class IndicatorQueryServiceTest extends AbstractSpringTest {
 	public void shouldFindSampleIndicatorsBySelectedFilter() throws BusinessException {
 
 		final List<SampleIndicator> sampleIndicators = this.indicatorQueryService.findSampleIndicatorsBySelectedFilter(
-		        this.indicator.getHealthFacility().getDistrict(), this.indicator.getHealthFacility(),
-		        this.indicator.getForm(), this.indicator.getReferredMonth(), this.indicator.getReferredMonth());
+				this.indicator.getHealthFacility().getDistrict(), this.indicator.getHealthFacility(),
+				this.indicator.getForm(), this.indicator.getReferredMonth(), this.indicator.getReferredMonth());
 
-		assertFalse(sampleIndicators.isEmpty());
-		assertEquals(1, sampleIndicators.size());
+		Assert.assertFalse(sampleIndicators.isEmpty());
+		Assert.assertEquals(1, sampleIndicators.size());
 	}
 
 	@Test
 	public void shouldFindIndicatorByHealthFacilityFormAndReferredMonth() throws BusinessException {
 
 		final List<Indicator> indicators = this.indicatorQueryService
-		        .findIndicatorsByHealthFacilityFormAndReferredMonth(this.indicator.getHealthFacility(),
-		                this.indicator.getForm(), this.indicator.getReferredMonth());
+				.findIndicatorsByHealthFacilityFormAndReferredMonth(this.indicator.getHealthFacility(),
+						this.indicator.getForm(), this.indicator.getReferredMonth());
 
-		assertFalse(indicators.isEmpty());
-		assertNotNull(indicators.get(0));
+		Assert.assertFalse(indicators.isEmpty());
+		Assert.assertNotNull(indicators.get(0));
 	}
 
 	@Test
@@ -204,22 +194,22 @@ public class IndicatorQueryServiceTest extends AbstractSpringTest {
 			indicator.setReferredMonth(this.indicator.getReferredMonth());
 
 			this.indicatorService.createIndicator(this.getUserContext(), indicator, indicator.getForm(),
-			        this.getAnswers());
+					this.getAnswers());
 		}
 
 		final List<DuplicatedIndicator> duplicatedIndicators = this.indicatorQueryService.findDuplicatedIndicators();
 
-		assertFalse(duplicatedIndicators.isEmpty());
-		assertTrue(duplicatedIndicators.size() == 1);
+		Assert.assertFalse(duplicatedIndicators.isEmpty());
+		Assert.assertTrue(duplicatedIndicators.size() == 1);
 	}
 
 	@Test
 	public void shouldFindAnalysisTableBySelectedFilter() {
 
 		final List<AnalysisTable> analysisTables = this.indicatorQueryService.findAnalysisTableBySelectedFilter(
-		        this.indicator.getHealthFacility().getDistrict(), this.indicator.getReferredMonth(),
-		        this.indicator.getReferredMonth());
+				this.indicator.getHealthFacility().getDistrict(), this.indicator.getReferredMonth(),
+				this.indicator.getReferredMonth());
 
-		assertFalse(analysisTables.isEmpty());
+		Assert.assertFalse(analysisTables.isEmpty());
 	}
 }

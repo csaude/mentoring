@@ -15,11 +15,11 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import mz.org.fgh.mentoring.core.mentorship.model.IterationType;
 import org.springframework.stereotype.Repository;
 
 import mz.co.mozview.frameworks.core.dao.GenericDAOImpl;
 import mz.co.mozview.frameworks.core.util.LifeCycleStatus;
+import mz.org.fgh.mentoring.core.mentorship.model.IterationType;
 import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 
 /**
@@ -31,9 +31,9 @@ public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implemen
 
 	@Override
 	public List<Mentorship> fetchBySelectedFilter(final String code, final String tutorName, final String tutoredName,
-												  final String formName, final String healthFacility, final IterationType iterationType,
-												  final Integer iterationNumber, final LifeCycleStatus lifeCycleStatus,
-												  final LocalDate performedStartDate, final LocalDate performedEndDate) {
+			final String formName, final String healthFacility, final IterationType iterationType,
+			final Integer iterationNumber, final LifeCycleStatus lifeCycleStatus,
+			final LocalDate performedStartDate, final LocalDate performedEndDate) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Mentorship> createQuery = criteriaBuilder.createQuery(Mentorship.class);
@@ -67,7 +67,7 @@ public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implemen
 
 		if (healthFacility != null) {
 			predicates.add(
-			        criteriaBuilder.like(root.get("healthFacility").get("healthFacility"), "%" + healthFacility + "%"));
+					criteriaBuilder.like(root.get("healthFacility").get("healthFacility"), "%" + healthFacility + "%"));
 		}
 
 		if(iterationType != null) {
@@ -107,6 +107,7 @@ public class MentorshipDAOImpl extends GenericDAOImpl<Mentorship, Long> implemen
 		if(performedEndDate != null) {
 			query.setParameter(PERFORMED_END_DATE_PARAM, performedEndDate);
 		}
+
 
 		return query.getResultList();
 	}

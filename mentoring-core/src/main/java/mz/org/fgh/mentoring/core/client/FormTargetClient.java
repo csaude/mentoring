@@ -78,7 +78,7 @@ public class FormTargetClient extends ClientConfig<FormTargetClient> {
 	private Form getForm(final String formName) {
 		try {
 			final List<Form> forms = this.formQueryService.findBySelectedFilter(this.getUserContext(), null, formName,
-			        null);
+			        null, null);
 			return forms.get(0);
 		}
 		catch (final BusinessException e) {
