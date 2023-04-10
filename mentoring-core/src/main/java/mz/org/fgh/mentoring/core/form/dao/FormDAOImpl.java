@@ -33,8 +33,7 @@ public class FormDAOImpl extends GenericDAOImpl<Form, Long> implements FormDAO {
 	}
 
 	@Override
-	public List<Form> findBySelectedFilter(final String code, final String name, final String programmaticAreaCode,
-	        final LifeCycleStatus lifeCycleStatus) {
+	public List<Form> findBySelectedFilter(final String code, final String name, final String programmaticAreaCode, final LifeCycleStatus lifeCycleStatus, final String partnerUUID) {
 
 		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
 		final CriteriaQuery<Form> createQuery = criteriaBuilder.createQuery(Form.class);
@@ -55,6 +54,10 @@ public class FormDAOImpl extends GenericDAOImpl<Form, Long> implements FormDAO {
 
 		if (programmaticAreaCode != null) {
 			predicates.add(criteriaBuilder.equal(root.get("programmaticArea").get("code"), programmaticAreaCode));
+		}
+
+		if (partnerUUID != null) {
+			predicates.add(criteriaBuilder.equal(root.get("partner").get("uuid"), partnerUUID));
 		}
 
 		predicates.add(criteriaBuilder.equal(root.get("lifeCycleStatus"), lifeCycleStatus));

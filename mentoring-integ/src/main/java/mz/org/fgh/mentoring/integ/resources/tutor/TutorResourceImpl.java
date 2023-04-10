@@ -3,11 +3,14 @@
  */
 package mz.org.fgh.mentoring.integ.resources.tutor;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.ws.rs.Path;
 
+import mz.org.fgh.mentoring.core.location.model.HealthFacility;
 import org.springframework.stereotype.Service;
 
 import com.sun.jersey.api.JResponse;
@@ -16,6 +19,8 @@ import mz.co.mozview.frameworks.core.exception.BusinessException;
 import mz.co.mozview.frameworks.core.webservices.model.UserContext;
 import mz.org.fgh.mentoring.core.career.model.CareerType;
 import mz.org.fgh.mentoring.core.tutor.model.Tutor;
+import mz.org.fgh.mentoring.core.tutor.model.TutorLocation;
+import mz.org.fgh.mentoring.core.tutor.service.TutorLocationService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorQueryService;
 import mz.org.fgh.mentoring.core.tutor.service.TutorService;
 import mz.org.fgh.mentoring.integ.resources.AbstractResource;
@@ -34,6 +39,9 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 	@Inject
 	private TutorQueryService tutorQueryService;
 
+	@Inject
+	private TutorLocationService tutorLocationService;
+
 	@Override
 	public JResponse<Tutor> createTutor(final TutorBeanResource tutorBeanResource) throws BusinessException {
 
@@ -41,8 +49,7 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 
 		try {
 			this.tutorQueryService.fetchTutorByUuid(tutorBeanResource.getUserContext(), tutor.getUuid());
-		}
-		catch (final BusinessException ex) {
+		} catch (final BusinessException ex) {
 			this.tutorService.createTutor(tutorBeanResource.getUserContext(), tutor);
 		}
 
@@ -50,11 +57,9 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 	}
 
 	@Override
-	public JResponse<List<Tutor>> findTutors(final String code, final String name, final String surname,
-	        final CareerType careerType, final String phoneNumber) throws BusinessException {
+	public JResponse<List<Tutor>> findTutors(final String code, final String name, final String surname, final CareerType careerType, final String phoneNumber) throws BusinessException {
 
-		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(this.getUserContetx(), code, name,
-		        surname, careerType, phoneNumber);
+		final List<Tutor> tutors = this.tutorQueryService.findTutorsBySelectedFilter(this.getUserContetx(), code, name, surname, careerType, phoneNumber);
 
 		return JResponse.ok(tutors).build();
 	}
@@ -63,7 +68,7 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 	public JResponse<Tutor> updateTutor(final TutorBeanResource tutorBeanResource) throws BusinessException {
 
 		final Tutor tutor = this.tutorService.updateTutor(tutorBeanResource.getUserContext(),
-		        tutorBeanResource.getTutor());
+				tutorBeanResource.getTutor());
 
 		return JResponse.ok(tutor).build();
 	}
@@ -83,5 +88,18 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 		this.tutorService.resetPassword(userContext, tutor);
 
 		return JResponse.ok(tutor).build();
+	}
+
+	@Override
+	public JResponse<List<TutorLocationDTO>> allocateTutorLocations(final TutorBeanResource tutorBeanResource) throws BusinessException {
+
+		final List<TutorLocation> allocateTutorLocations = this.tutorLocationService.allocateTutorLocations(tutorBeanResource.getUserContext(),
+				tutorBeanResource.getTutor(),
+				tutorBeanResource.getLocations());
+
+		final List<TutorLocationDTO> tutorLocationsDTO = allocateTutorLocations.stream().map(tutorLocation -> new TutorLocationDTO(tutorLocation))
+				.collect(Collectors.toList());
+
+		return JResponse.ok(tutorLocationsDTO).build();
 	}
 }

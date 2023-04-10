@@ -46,8 +46,7 @@ public class FormQuestionServiceResourceImpl extends AbstractResource implements
 			return JResponse.ok(this.formQuestionQueryService.findFormQuestionByForm(form)).build();
 		}
 
-		final List<FormQuestion> formQuestions = this.formQuestionQueryService
-		        .fetchFormQuestionsByTutor(this.getUserContetx());
+		final List<FormQuestion> formQuestions = this.formQuestionQueryService.fetchFormQuestionsByTutor(this.getUserContetx());
 
 		return JResponse.ok(formQuestions).build();
 	}

@@ -14,6 +14,7 @@ import mz.org.fgh.mentoring.core.form.model.FormTarget;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.location.model.Cabinet;
 import mz.org.fgh.mentoring.core.location.model.HealthFacility;
+import mz.org.fgh.mentoring.core.setting.model.Setting;
 import mz.org.fgh.mentoring.core.tutored.model.Tutored;
 
 /**
@@ -34,23 +35,25 @@ public class Metadata {
 
 	private List<Cabinet> cabinets;
 
+	private List<Setting> settings;
+
 	private List<FormTarget> formTargets;
 
 	public Metadata() {
 	}
 
 	public Metadata(final List<HealthFacility> healthFacilities, final List<Career> careers,
-	        final List<FormQuestion> formQuestions, final List<Tutored> tutoreds, final List<Cabinet> cabinets,
-	        final List<FormTarget> formTargets) {
+			final List<FormQuestion> formQuestions, final List<Tutored> tutoreds, final List<Cabinet> cabinets,
+			final List<Setting> settings, final List<FormTarget> formTargets) {
 		this.healthFacilities = healthFacilities;
 		this.careers = careers;
 		this.formQuestions = formQuestions;
 		this.tutoreds = tutoreds;
 		this.cabinets = cabinets;
+		this.settings = settings;
 		this.formTargets = formTargets;
 	}
-	
-	
+
 	public Metadata(List<Cabinet> cabinets) {
 		this.cabinets = cabinets;
 	}
@@ -73,6 +76,14 @@ public class Metadata {
 
 	public List<Cabinet> getCabinets() {
 		return this.cabinets;
+	}
+
+	public List<Setting> getSettings() {
+		return settings;
+	}
+
+	public void setSettings(List<Setting> settings) {
+		this.settings = settings;
 	}
 
 	public List<FormTarget> getFormTargets() {

@@ -7,10 +7,6 @@ import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_RECEIVED_SAMPLES;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_REJECTED_SAMPLES;
 import static mz.org.fgh.mentoring.core.indicator.model.SampleQuestion.NUMBER_OF_TRANSPORTED_SAMPLES;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -19,6 +15,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import mz.co.mozview.frameworks.core.exception.BusinessException;
@@ -29,14 +26,12 @@ import mz.org.fgh.mentoring.core.answer.model.NumericAnswer;
 import mz.org.fgh.mentoring.core.career.service.CareerService;
 import mz.org.fgh.mentoring.core.config.AbstractSpringTest;
 import mz.org.fgh.mentoring.core.fixturefactory.FormQuestionTemplate;
-import mz.org.fgh.mentoring.core.fixturefactory.FormTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.IndicatorTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionProcessor;
 import mz.org.fgh.mentoring.core.fixturefactory.QuestionTemplate;
 import mz.org.fgh.mentoring.core.fixturefactory.TutorProgramaticAreaTamplate;
 import mz.org.fgh.mentoring.core.form.model.Form;
 import mz.org.fgh.mentoring.core.form.service.FormQueryService;
-import mz.org.fgh.mentoring.core.form.service.FormService;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
 import mz.org.fgh.mentoring.core.formquestion.service.FormQuestionQueryService;
 import mz.org.fgh.mentoring.core.indicator.model.Indicator;
@@ -65,9 +60,6 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 
 	@Inject
 	private QuestionService questionService;
-
-	@Inject
-	private FormService formService;
 
 	@Inject
 	private FormQueryService formQueryService;
@@ -99,28 +91,14 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 	@Inject
 	private QuestionCategoryService questionCategoryService;
 
-	private Form createdform;
+	@Inject
+	private FormBuilder formBuilder;
 
-	private ProgrammaticArea programmaticArea;
+	private Form createdform;
 
 	@Override
 	public void setUp() throws BusinessException {
-		final Form form = EntityFactory.gimme(Form.class, FormTemplate.VALID);
-		this.programmaticArea = this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
-		        form.getProgrammaticArea());
-
-		final List<FormQuestion> formQuestions = EntityFactory.gimme(FormQuestion.class, 5,
-		        FormQuestionTemplate.WITH_NO_FORM);
-
-		for (final FormQuestion formQuestion : formQuestions) {
-
-			this.questionCategoryService.createQuestionCategory(this.getUserContext(),
-			        formQuestion.getQuestion().getQuestionsCategory());
-
-			this.questionService.createQuestion(this.getUserContext(), formQuestion.getQuestion());
-		}
-
-		this.createdform = this.formService.createForm(this.getUserContext(), form, new HashSet<>(formQuestions));
+		this.createdform = this.formBuilder.build();
 	}
 
 	@Test
@@ -128,12 +106,12 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 
 		final Form fetchedFrom = this.formQueryService.fetchByForm(this.getUserContext(), this.createdform);
 
-		assertEquals(this.createdform.getCode(), fetchedFrom.getCode());
-		assertFalse(fetchedFrom.getFormQuestions().isEmpty());
+		Assert.assertEquals(this.createdform.getCode(), fetchedFrom.getCode());
+		Assert.assertFalse(fetchedFrom.getFormQuestions().isEmpty());
 
 		fetchedFrom.getFormQuestions().stream().forEach(formQuestion -> {
-			assertEquals(formQuestion.getForm().getCode(), fetchedFrom.getCode());
-			assertNotNull(formQuestion.getQuestion());
+			Assert.assertEquals(formQuestion.getForm().getCode(), fetchedFrom.getCode());
+			Assert.assertNotNull(formQuestion.getQuestion());
 		});
 	}
 
@@ -142,14 +120,14 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		final String code = null;
 		final String name = null;
 		final ProgrammaticArea programmaticArea = this.programmaticAreaDAO
-		        .findById(this.createdform.getProgrammaticArea().getId());
+				.findById(this.createdform.getProgrammaticArea().getId());
 
 		final List<Form> forms = this.formQueryService.findBySelectedFilter(this.getUserContext(), code, name,
-		        programmaticArea.getCode());
+				programmaticArea.getCode(), null);
 
-		assertTrue(!forms.isEmpty());
+		Assert.assertTrue(!forms.isEmpty());
 		for (final Form form : forms) {
-			assertEquals(form.getProgrammaticArea().getCode(), programmaticArea.getCode());
+			Assert.assertEquals(form.getProgrammaticArea().getCode(), programmaticArea.getCode());
 		}
 	}
 
@@ -157,8 +135,8 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 	public void shouldFetchFormQuestionsByTutor() throws BusinessException {
 
 		final TutorProgrammaticArea tutorProgrammaticArea = EntityFactory.gimme(TutorProgrammaticArea.class,
-		        TutorProgramaticAreaTamplate.VALID);
-		tutorProgrammaticArea.setProgrammaticArea(this.programmaticArea);
+				TutorProgramaticAreaTamplate.VALID);
+		tutorProgrammaticArea.setProgrammaticArea(this.createdform.getProgrammaticArea());
 		final Tutor tutor = tutorProgrammaticArea.getTutor();
 		this.careerService.createCareer(this.getUserContext(), tutor.getCareer());
 		this.tutorService.createTutor(this.getUserContext(), tutor);
@@ -168,12 +146,12 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 
 		final List<FormQuestion> formQuestions = this.formQuestionQueryService.fetchFormQuestionsByTutor(context);
 
-		assertFalse(formQuestions.isEmpty());
+		Assert.assertFalse(formQuestions.isEmpty());
 
 		for (final FormQuestion formQuestion : formQuestions) {
-			assertNotNull(formQuestion.getForm());
-			assertNotNull(formQuestion.getForm().getProgrammaticArea());
-			assertNotNull(formQuestion.getQuestion());
+			Assert.assertNotNull(formQuestion.getForm());
+			Assert.assertNotNull(formQuestion.getForm().getProgrammaticArea());
+			Assert.assertNotNull(formQuestion.getQuestion());
 		}
 	}
 
@@ -185,7 +163,7 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		this.tutorService.createTutor(this.getUserContext(), indicator.getTutor());
 
 		final Question question1 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
-		        new QuestionProcessor());
+				new QuestionProcessor());
 		question1.setUuid(NUMBER_OF_COLLECTED_SAMPLES.getValue());
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question1.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), question1);
@@ -193,7 +171,7 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		formQuestion1.setQuestion(question1);
 
 		final Question question2 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
-		        new QuestionProcessor());
+				new QuestionProcessor());
 		question2.setUuid(NUMBER_OF_TRANSPORTED_SAMPLES.getValue());
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question2.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), question2);
@@ -201,7 +179,7 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		formQuestion2.setQuestion(question2);
 
 		final Question question3 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
-		        new QuestionProcessor());
+				new QuestionProcessor());
 		question3.setUuid(NUMBER_OF_REJECTED_SAMPLES.getValue());
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question3.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), question3);
@@ -209,7 +187,7 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		formQuestion3.setQuestion(question3);
 
 		final Question question4 = EntityFactory.gimme(Question.class, QuestionTemplate.NUMERIC_QUESTION,
-		        new QuestionProcessor());
+				new QuestionProcessor());
 		question4.setUuid(NUMBER_OF_RECEIVED_SAMPLES.getValue());
 		this.questionCategoryService.createQuestionCategory(this.getUserContext(), question4.getQuestionsCategory());
 		this.questionService.createQuestion(this.getUserContext(), question4);
@@ -224,10 +202,9 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		formQuestions.add(formQuestion4);
 
 		this.programmaticAreaService.createProgrammaticArea(this.getUserContext(),
-		        indicator.getForm().getProgrammaticArea());
+				indicator.getForm().getProgrammaticArea());
 
-		final Form form = indicator.getForm();
-		this.formService.createForm(this.getUserContext(), form, formQuestions);
+		final Form form = this.formBuilder.build();
 
 		this.districtService.createDistrict(this.getUserContext(), indicator.getHealthFacility().getDistrict());
 		this.healthFacilityService.createHealthFacility(this.getUserContext(), indicator.getHealthFacility());
@@ -249,10 +226,10 @@ public class FormQueryServiceTest extends AbstractSpringTest {
 		answer4.setValue(String.valueOf(30));
 
 		this.indicatorService.createIndicator(this.getUserContext(), indicator, form,
-		        Arrays.asList(answer1, answer2, answer3, answer4));
+				Arrays.asList(answer1, answer2, answer3, answer4));
 
 		final List<Form> forms = this.formQueryService.findSampleIndicatorForms();
 
-		assertFalse(forms.isEmpty());
+		Assert.assertFalse(forms.isEmpty());
 	}
 }

@@ -4,6 +4,7 @@
 package mz.org.fgh.mentoring.core.form.model;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -31,6 +32,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import mz.co.mozview.frameworks.core.model.GenericEntity;
 import mz.org.fgh.mentoring.core.form.dao.FormDAO;
 import mz.org.fgh.mentoring.core.formquestion.model.FormQuestion;
+import mz.org.fgh.mentoring.core.partner.model.Partner;
 import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 
 /**
@@ -42,7 +44,7 @@ import mz.org.fgh.mentoring.core.programmaticarea.model.ProgrammaticArea;
 @Entity
 @Table(name = "FORMS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 @NamedQueries({ @NamedQuery(name = FormDAO.QUERY_NAME.fetchByFormId, query = FormDAO.QUERY.fetchByFormId),
-        @NamedQuery(name = FormDAO.QUERY_NAME.findSampleIndicators, query = FormDAO.QUERY.findSampleIndicators) })
+	@NamedQuery(name = FormDAO.QUERY_NAME.findSampleIndicators, query = FormDAO.QUERY.findSampleIndicators) })
 public class Form extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -82,6 +84,9 @@ public class Form extends GenericEntity {
 	private Integer targetFile;
 
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "PARTNER_ID")
+	private Partner partner;
 
 	public String getCode() {
 		return this.code;
@@ -127,6 +132,14 @@ public class Form extends GenericEntity {
 		return Collections.unmodifiableSet(this.formQuestions);
 	}
 
+	public void addFormQuestion(final FormQuestion formQuestion) {
+		if (this.formQuestions == null) {
+			this.formQuestions = new HashSet<>();
+		}
+
+		this.formQuestions.add(formQuestion);
+	}
+
 	public Integer getTargetPatient() {
 		return this.targetPatient;
 	}
@@ -136,11 +149,19 @@ public class Form extends GenericEntity {
 	}
 
 	public Integer getTargetFile() {
-		return targetFile;
+		return this.targetFile;
 	}
 
-	public void setTargetFile(Integer targetFile) {
+	public void setTargetFile(final Integer targetFile) {
 		this.targetFile = targetFile;
+	}
+
+	public Partner getPartner() {
+		return this.partner;
+	}
+
+	public void setPartner(final Partner partner) {
+		this.partner = partner;
 	}
 
 	@Override
