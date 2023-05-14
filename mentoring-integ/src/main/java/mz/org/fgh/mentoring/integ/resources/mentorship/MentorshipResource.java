@@ -5,12 +5,7 @@ package mz.org.fgh.mentoring.integ.resources.mentorship;
 
 import java.util.List;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import com.sun.jersey.api.JResponse;
@@ -72,6 +67,11 @@ public interface MentorshipResource {
 	@Path("sessions")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<SubmitedSessions>> findSubmitedSessions() throws BusinessException;
+
+	@GET
+	@Path("sessions/{tutoruuid}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<SubmitedSessions>> findSubmitedSessionsOfTutor(@PathParam("tutoruuid") String tutoruuid) throws BusinessException;
 
 	@GET
 	@Path("performed-sessions")
@@ -141,7 +141,12 @@ public interface MentorshipResource {
 	@Path("performed-sessions-months")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<PerformedSession>> findPerformedSessionsLast12Months() throws BusinessException;
-	
+
+	@GET
+	@Path("performed-sessions-months/{tutoruuid}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<PerformedSession>> findPerformedSessionsLast12Months(@PathParam("tutoruuid") String tutoruuid) throws BusinessException;
+
 	@GET
 	@Path("performed-sessions-indicators")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

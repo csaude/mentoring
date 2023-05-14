@@ -40,6 +40,7 @@ import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
  */
 @NamedQueries({
         @NamedQuery(name = SessionDAO.QUERY_NAME.findNumberOfSessionsPerDistrict, query = SessionDAO.QUERY.findNumberOfSessionsPerDistrict),
+		@NamedQuery(name = SessionDAO.QUERY_NAME.findNumberOfSessionsOfTutorPerDistrict, query = SessionDAO.QUERY.findNumberOfSessionsOfTutorPerDistrict),
         @NamedQuery(name = SessionDAO.QUERY_NAME.findWithDuplicatedUuids, query = SessionDAO.QUERY.findWithDuplicatedUuids),
         @NamedQuery(name = SessionDAO.QUERY_NAME.fetchSessionsByUuid, query = SessionDAO.QUERY.fetchSessionsByUuid) })
 @XmlRootElement

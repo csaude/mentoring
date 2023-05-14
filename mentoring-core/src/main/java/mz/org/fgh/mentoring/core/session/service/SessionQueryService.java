@@ -63,4 +63,8 @@ public interface SessionQueryService {
 	List<PerformedSession> findPerformedSessionsBySelectedFilterNarrativeCOP20(LocalDate startDate, LocalDate endDate);
 
 	List<PerformedSession> findPerformedSessionsBySelectedFilterPMQTRList(LocalDate startDate, LocalDate endDate);
+
+	List<PerformedSession> findPerformedSessionsBySelectedFilterLast12Months(String tutoruuid);
+
+	List<SubmitedSessions> findNumberOfSessionsPerDistrict(String tutoruuid, UserContext userContetx);
 }
