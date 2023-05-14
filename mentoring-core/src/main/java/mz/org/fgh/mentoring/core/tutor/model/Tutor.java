@@ -73,6 +73,8 @@ public class Tutor extends GenericEntity {
 	@JoinColumn(name = "PARTNER_ID")
 	private Partner partner;
 
+	@Column(name = "is_admin")
+	private Boolean isAdmin;
 
 	public Tutor() {
 	}
@@ -149,5 +151,13 @@ public class Tutor extends GenericEntity {
 
 	public void setPartner(final Partner partner) {
 		this.partner = partner;
+	}
+
+	public Boolean getAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(Boolean admin) {
+		isAdmin = admin;
 	}
 }
