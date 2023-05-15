@@ -102,8 +102,14 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 	@Override
 	public JResponse<List<SubmitedSessions>> findSubmitedSessions() throws BusinessException {
 
-		final List<SubmitedSessions> sessions = this.sessionQueryService
-		        .findNumberOfSessionsPerDistrict(this.getUserContetx());
+		final List<SubmitedSessions> sessions = this.sessionQueryService.findNumberOfSessionsPerDistrict(this.getUserContetx());
+
+		return JResponse.ok(sessions).build();
+	}
+
+	@Override
+	public JResponse<List<SubmitedSessions>> findSubmitedSessionsOfTutor(String tutoruuid) throws BusinessException {
+		final List<SubmitedSessions> sessions = this.sessionQueryService.findNumberOfSessionsPerDistrict(tutoruuid, this.getUserContetx());
 
 		return JResponse.ok(sessions).build();
 	}
@@ -182,6 +188,12 @@ public class MentorshipResourceImpl extends AbstractResource implements Mentorsh
 	public JResponse<List<PerformedSession>> findPerformedSessionsLast12Months() throws BusinessException {
 		final List<PerformedSession> performedSessions = this.sessionQueryService
 		        .findPerformedSessionsBySelectedFilterLast12Months();
+		return JResponse.ok(performedSessions).build();
+	}
+
+	@Override
+	public JResponse<List<PerformedSession>> findPerformedSessionsLast12Months(String tutoruuid) throws BusinessException {
+		final List<PerformedSession> performedSessions = this.sessionQueryService.findPerformedSessionsBySelectedFilterLast12Months(tutoruuid);
 		return JResponse.ok(performedSessions).build();
 	}
 

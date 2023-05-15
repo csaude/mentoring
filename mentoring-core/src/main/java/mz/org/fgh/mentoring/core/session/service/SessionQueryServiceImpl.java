@@ -132,4 +132,14 @@ public class SessionQueryServiceImpl implements SessionQueryService {
 			LocalDate endDate) {
 		return this.sessionDAO.findBySelectedFilterPMQTRList(startDate, endDate);
 	}
+
+	@Override
+	public List<PerformedSession> findPerformedSessionsBySelectedFilterLast12Months(String tutoruuid) {
+		return this.sessionDAO.findBySelectedFilterLast12Months(tutoruuid);
+	}
+
+	@Override
+	public List<SubmitedSessions> findNumberOfSessionsPerDistrict(String tutoruuid, UserContext userContetx) {
+		return this.sessionDAO.findNumberOfSessionsPerDistrict(tutoruuid, LifeCycleStatus.ACTIVE);
+	}
 }

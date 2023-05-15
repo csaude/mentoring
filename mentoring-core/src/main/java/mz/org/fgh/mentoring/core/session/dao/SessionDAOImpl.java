@@ -43,6 +43,45 @@ public class SessionDAOImpl extends GenericDAOImpl<Session, Long> implements Ses
 	private static final String DATE_PATTERN = "yyyy-MM-dd";
 
 	@Override
+	public List<PerformedSession> findBySelectedFilterLast12Months(String tutoruuid) {
+
+		final StringBuilder nativeQuery = new StringBuilder();
+
+		nativeQuery.append("SELECT 	CONCAT( MONTHNAME(m.PERFORMED_DATE) ,' ',YEAR(m.PERFORMED_DATE)) AS 'monthName', " +
+							"		CONCAT(YEAR(m.PERFORMED_DATE),'',DATE_FORMAT(m.PERFORMED_DATE,'%m')) AS 'month', " +
+							"		COUNT(DISTINCT(SESSION_ID)) AS sessions " +
+							"FROM MENTORSHIPS m INNER JOIN TUTORS t ON m.TUTOR_ID = t.ID " +
+							"WHERE m.LIFE_CYCLE_STATUS='ACTIVE'  AND t.UUID = :tutoruuid " +
+							"GROUP BY CONCAT( MONTH(m.PERFORMED_DATE) ,' ',YEAR(m.PERFORMED_DATE)) ORDER BY CONCAT(YEAR(m.PERFORMED_DATE),'', DATE_FORMAT(m.PERFORMED_DATE,'%m')) DESC " +
+							"LIMIT 12");
+
+		final Query query = this.getEntityManager().createNativeQuery(nativeQuery.toString());
+
+		query.setParameter("tutoruuid", tutoruuid);
+
+		List<Object[]> performedSessionsHTS = query.getResultList();
+
+		List<PerformedSession> performedSessions= new ArrayList<PerformedSession>(0);
+
+		for (Object[] ps : performedSessionsHTS) {
+			PerformedSession p= new PerformedSession(
+					ps[0].toString(),
+					ps[1].toString(),
+					Long.valueOf(ps[2].toString()));
+
+			performedSessions.add(p);
+
+		}
+
+		return performedSessions;
+	}
+
+	@Override
+	public List<SubmitedSessions> findNumberOfSessionsPerDistrict(String tutoruuid, LifeCycleStatus active) {
+		return this.findByNamedQuery(SessionDAO.QUERY_NAME.findNumberOfSessionsOfTutorPerDistrict, new ParamBuilder().add("lifeCycleStatus", active).add("tutoruuid", tutoruuid).process(), SubmitedSessions.class);
+	}
+
+	@Override
 	public List<PerformedSession> findBySelectedFilter(final District district, final HealthFacility healthFacility,
 	        final ProgrammaticArea programmaticArea, final Form form, final Tutor tutor, final Cabinet cabinet,
 	        final LocalDate startDate, final LocalDate endDate, final LifeCycleStatus lifeCycleStatus) {
