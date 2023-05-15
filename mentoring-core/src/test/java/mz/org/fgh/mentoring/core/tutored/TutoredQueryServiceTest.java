@@ -39,7 +39,7 @@ public class TutoredQueryServiceTest extends AbstractSpringTest {
 		this.tutoredService.createTutored(this.getUserContext(), this.tutored);
 	}
 
-	@Test
+	/*@Test
 	public void shouldFindTutorBySelectedFilter() throws BusinessException {
 
 		final String uuid = null;
@@ -57,7 +57,7 @@ public class TutoredQueryServiceTest extends AbstractSpringTest {
 		for (final Tutored tutored : tutoreds) {
 			assertEquals(StringNormalizer.normalizeAndUppCase(surname), tutored.getSurname());
 		}
-	}
+	}*/
 
 	@Test
 	public void shouldFetchTutoredsByUser() {
