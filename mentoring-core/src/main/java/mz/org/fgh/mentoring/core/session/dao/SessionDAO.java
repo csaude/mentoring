@@ -46,11 +46,9 @@ public interface SessionDAO extends GenericDAO<Session, Long> {
 																			"				INNER JOIN m.form f " +
 																			"				INNER JOIN f.programmaticArea pa " +
 																			"				INNER JOIN m.healthFacility hf " +
-																			"				INNER JOIN hf.tutorLocations tl " +
-																			"				INNER JOIN tl.tutor t" +
+																			"				INNER JOIN m.tutor t " +
 																			"				INNER JOIN hf.district d " +
-																			"WHERE 	s.lifeCycleStatus = :lifeCycleStatus " +
-																			"		AND t.uuid = :tutoruuid" +
+																			"WHERE s.lifeCycleStatus = :lifeCycleStatus and t.uuid = :tutoruuid " +
 																			"GROUP BY d.district, pa.name " +
 																			"ORDER BY d.district";
 		public static final String findWithDuplicatedUuids = "SELECT s FROM Session s WHERE s.lifeCycleStatus = :lifeCycleStatus GROUP BY s.uuid HAVING COUNT(s.uuid) > 1";

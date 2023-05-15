@@ -50,8 +50,8 @@ public class SessionDAOImpl extends GenericDAOImpl<Session, Long> implements Ses
 		nativeQuery.append("SELECT 	CONCAT( MONTHNAME(m.PERFORMED_DATE) ,' ',YEAR(m.PERFORMED_DATE)) AS 'monthName', " +
 							"		CONCAT(YEAR(m.PERFORMED_DATE),'',DATE_FORMAT(m.PERFORMED_DATE,'%m')) AS 'month', " +
 							"		COUNT(DISTINCT(SESSION_ID)) AS sessions " +
-							"FROM MENTORSHIPS m INNER JOIN TUTORS t ON MENTORSHIPS.TUTOR_ID = TUTORS.ID" +
-							"WHERE m.LIFE_CYCLE_STATUS='ACTIVE'  AND t.UUID = :tutoruuid" +
+							"FROM MENTORSHIPS m INNER JOIN TUTORS t ON m.TUTOR_ID = t.ID " +
+							"WHERE m.LIFE_CYCLE_STATUS='ACTIVE'  AND t.UUID = :tutoruuid " +
 							"GROUP BY CONCAT( MONTH(m.PERFORMED_DATE) ,' ',YEAR(m.PERFORMED_DATE)) ORDER BY CONCAT(YEAR(m.PERFORMED_DATE),'', DATE_FORMAT(m.PERFORMED_DATE,'%m')) DESC " +
 							"LIMIT 12");
 
