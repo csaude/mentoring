@@ -55,7 +55,7 @@ public class Tutor extends GenericEntity {
 	private String surname;
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CARRER_ID", nullable = false)
 	private Career career;
 

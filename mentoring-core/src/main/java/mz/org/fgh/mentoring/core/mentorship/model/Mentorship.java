@@ -46,6 +46,7 @@ import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
  * @author Eusebio Jose Maposse
  *
  */
+@XmlTransient
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
@@ -74,12 +75,12 @@ public class Mentorship extends GenericEntity {
 	private LocalDate performedDate;
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "TUTOR_ID", nullable = false)
 	private Tutor tutor;
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "TUTORED_ID", nullable = false)
 	private Tutored tutored;
 
