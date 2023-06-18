@@ -72,6 +72,15 @@ public class TutoredDAOImpl extends GenericDAOImpl<Tutored, Long> implements Tut
 	}
 
 	@Override
+	public List<Tutored> findBySelectedFilterByTutor(Long tutorId,String code, String name, String surname, String phoneNumber, LifeCycleStatus lifeCycleStatus) {
+
+		return this.findByNamedQuery(TutoredDAO.QUERY_NAME.findBySelectedFilterByTutor,
+				new ParamBuilder().add("tutorId", tutorId).add("code", code).add("name", name)
+						.add("surname", surname).add("phoneNumber", phoneNumber)
+						.add("lifeCycleStatus", lifeCycleStatus).process());
+	}
+
+	@Override
 	public List<Tutored> fetchByUser(final String userUuid, final LifeCycleStatus lifeCycleStatus) {
 		return this.findByNamedQuery(TutoredDAO.QUERY_NAME.fetchByUser,
 				new ParamBuilder().add("userUuid", userUuid).add("lifeCycleStatus", lifeCycleStatus).process());

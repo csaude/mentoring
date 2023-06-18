@@ -51,6 +51,15 @@ public class TutoredResourceImpl extends AbstractResource implements TutoredReso
 	}
 
 	@Override
+	public JResponse<List<Tutored>> findBySelectedFilterByTutor(Long tutorId,String code, String name,
+																String surname, String phoneNumber) throws BusinessException {
+		final List<Tutored> tutoreds = this.tutoredQueryService.findBySelectedFilterByTutor(this.getUserContetx(),
+				tutorId, code, name, surname, phoneNumber);
+
+		return JResponse.ok(tutoreds).build();
+	}
+
+	@Override
 	public JResponse<Tutored> updateTutored(final TutoredBeanResource tutoredBeanResource) throws BusinessException {
 		final Tutored tutored = this.tutoredService.updateTutored(tutoredBeanResource.getUserContext(),
 		        tutoredBeanResource.getTutored());
