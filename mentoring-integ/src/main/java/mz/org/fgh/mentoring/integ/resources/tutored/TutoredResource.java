@@ -47,6 +47,13 @@ public interface TutoredResource {
 			@QueryParam("surname") final String surname, @QueryParam("phoneNumber") final String phoneNumber,
 			@QueryParam("tutored") final String tutored) throws BusinessException;
 
+	@GET
+	@Path("tutor")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<Tutored>> findBySelectedFilterByTutor(@QueryParam("tutorId") final Long tutorId,
+												 @QueryParam("code") final String code, @QueryParam("name") final String name,
+												 @QueryParam("surname") final String surname, @QueryParam("phoneNumber") final String phoneNumber) throws BusinessException;
+
 	@PUT
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

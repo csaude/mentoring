@@ -34,6 +34,12 @@ public class TutoredQueryServiceImpl implements TutoredQueryService {
 	}
 
 	@Override
+	public List<Tutored> findBySelectedFilterByTutor(final UserContext userContext,final Long tutorId, final String code,
+													 final String name,final String surname,final String phoneNumber) throws BusinessException {
+		return tutoredDAO.findBySelectedFilterByTutor(tutorId ,code, name, surname, phoneNumber, LifeCycleStatus.ACTIVE);
+	}
+
+	@Override
 	public Tutored findTutoredByUuid(final UserContext userContext, final String uuid) throws BusinessException {
 		return this.tutoredDAO.findByUuid(uuid);
 	}
