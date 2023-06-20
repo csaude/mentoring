@@ -1,5 +1,6 @@
 package mz.org.fgh.mentoring.core.setting.model;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -10,8 +11,10 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import mz.co.mozview.frameworks.core.model.GenericEntity;
+import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
 
 /***
  * 
@@ -31,8 +34,9 @@ public class Setting extends GenericEntity {
 	private String designation;
 
 	@NotNull
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	@Column(name = "SETTING_VALUE", nullable = false)
-	private Integer value;
+	private LocalDateTime value;
 
 	@NotNull
 	@Column(name = "DESCRIPTION")
@@ -46,11 +50,11 @@ public class Setting extends GenericEntity {
 		this.designation = designation;
 	}
 
-	public Integer getValue() {
+	public LocalDateTime getValue() {
 		return value;
 	}
 
-	public void setValue(Integer value) {
+	public void setValue(LocalDateTime value) {
 		this.value = value;
 	}
 
