@@ -24,7 +24,7 @@ public class SettingResourceImpl extends AbstractResource implements SettingReso
 	private SettingService settingService;
 
 	@Override
-	public JResponse<Setting> findSettingByDesignation(@PathParam("designation") String designation) throws BusinessException {
+	public JResponse<Setting> findSettingByDesignation(String designation) throws BusinessException {
 
 		final Setting setting = this.settingService.findSettingByDesignation(this.getUserContetx(), designation);
 
