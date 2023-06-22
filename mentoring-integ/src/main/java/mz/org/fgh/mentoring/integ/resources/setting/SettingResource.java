@@ -27,7 +27,7 @@ public interface SettingResource {
 	@Path("{designation}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public JResponse<Setting> findSettingByDesignation(final String designation)
+	public JResponse<Setting> findSettingByDesignation(@PathParam("designation") final String designation)
 			throws BusinessException;
 
 	@Path("tutor/{uuid}")
