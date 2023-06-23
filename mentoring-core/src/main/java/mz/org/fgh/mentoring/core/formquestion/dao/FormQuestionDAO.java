@@ -33,9 +33,10 @@ public interface FormQuestionDAO extends GenericDAO<FormQuestion, Long> {
 													"						INNER JOIN FETCH q.questionsCategory " +
 													"WHERE fq.lifeCycleStatus = :lifeCycleStatus " +
 													"		AND tpa.lifeCycleStatus = :lifeCycleStatus " +
+													"		AND f.lifeCycleStatus = :lifeCycleStatus " +
 													"		AND t.uuid = :tutorUuid " +
 													"		AND (fp.uuid = :partnerUUID OR fp.uuid = :MISAUUUUID)";
-		public static final String fetchByForm = "SELECT fq FROM FormQuestion fq INNER JOIN FETCH fq.form f INNER JOIN FETCH f.programmaticArea INNER JOIN FETCH fq.question q INNER JOIN FETCH q.questionsCategory WHERE f.id = :formId AND fq.lifeCycleStatus = :lifeCycleStatus";
+		public static final String fetchByForm = "SELECT fq FROM FormQuestion fq INNER JOIN FETCH fq.form f INNER JOIN FETCH f.programmaticArea INNER JOIN FETCH fq.question q INNER JOIN FETCH q.questionsCategory WHERE f.id = :formId AND fq.lifeCycleStatus = :lifeCycleStatus AND f.lifeCycleStatus = :lifeCycleStatus";
 	}
 
 	class QUERY_NAME {
