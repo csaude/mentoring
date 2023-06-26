@@ -30,5 +30,7 @@ public enum Province {
 
 	NIASSA,
 
-	CABO_DELEGADO;
+	CABO_DELEGADO,
+
+	CIDADE_DE_MAPUTO;
 }
