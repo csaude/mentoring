@@ -23,7 +23,7 @@ public class DistrictTemplate implements TemplateLoader {
 		Fixture.of(District.class).addTemplate(VALID, new Rule() {
 			{
 				this.add("province", this.random(Province.MAPUTO, Province.GAZA, Province.INHAMBANE, Province.SOFALA,
-				        Province.TETE, Province.ZAMBEZIA, Province.NAMPULA, Province.MANICA, Province.CABO_DELEGADO));
+				        Province.TETE, Province.ZAMBEZIA, Province.NAMPULA, Province.MANICA, Province.CABO_DELEGADO, Province.CIDADE_DE_MAPUTO));
 				this.add("district", UuidFactory.generate());
 			}
 		});
