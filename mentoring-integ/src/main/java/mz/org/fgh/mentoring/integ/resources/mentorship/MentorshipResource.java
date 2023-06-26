@@ -70,7 +70,7 @@ public interface MentorshipResource {
 
 	@GET
 	@Path("sessions/{tutoruuid}")
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces({ MediaType.APPLICATION_JSON })
 	public JResponse<List<SubmitedSessions>> findSubmitedSessionsOfTutor(@PathParam("tutoruuid") String tutoruuid) throws BusinessException;
 
 	@GET
