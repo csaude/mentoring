@@ -25,10 +25,11 @@ import java.util.Set;
  *
  */
 @NamedQueries({
-        @NamedQuery(name = HealthFacilityDAO.QUERY_NAME.findByDistrict, query = HealthFacilityDAO.QUERY.findByDistrict),
-        @NamedQuery(name = HealthFacilityDAO.QUERY_NAME.fetchAll, query = HealthFacilityDAO.QUERY.fetchAll),
+		@NamedQuery(name = HealthFacilityDAO.QUERY_NAME.findByDistrict, query = HealthFacilityDAO.QUERY.findByDistrict),
+		@NamedQuery(name = HealthFacilityDAO.QUERY_NAME.findByProvince, query = HealthFacilityDAO.QUERY.findByProvince),
+		@NamedQuery(name = HealthFacilityDAO.QUERY_NAME.fetchAll, query = HealthFacilityDAO.QUERY.fetchAll),
 		@NamedQuery(name = HealthFacilityDAO.QUERY_NAME.fetchByTutor, query = HealthFacilityDAO.QUERY.fetchByTutor),
-        @NamedQuery(name = HealthFacilityDAO.QUERY_NAME.findByDistrictAndName, query = HealthFacilityDAO.QUERY.findByDistrictAndName) })
+		@NamedQuery(name = HealthFacilityDAO.QUERY_NAME.findByDistrictAndName, query = HealthFacilityDAO.QUERY.findByDistrictAndName) })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity

@@ -27,4 +27,8 @@ public interface HealthFacilityQueryService {
 	HealthFacility findHealthFacilityByUuid(final UserContext userContext, final String uuid) throws BusinessException;
 
 	HealthFacility findHealthFacilityByDistrictAndName(final District district, final String healthFacility);
+
+	List<HealthFacility> findHealthFacilityByProvince(final UserContext userContext, final String province) throws BusinessException;
+
+
 }

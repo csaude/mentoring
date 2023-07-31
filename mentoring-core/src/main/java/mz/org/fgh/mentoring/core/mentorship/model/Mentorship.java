@@ -46,7 +46,6 @@ import mz.org.fgh.mentoring.core.util.LocalDateTimeAdapter;
  * @author Eusebio Jose Maposse
  *
  */
-@XmlTransient
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
@@ -75,12 +74,12 @@ public class Mentorship extends GenericEntity {
 	private LocalDate performedDate;
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TUTOR_ID", nullable = false)
 	private Tutor tutor;
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TUTORED_ID", nullable = false)
 	private Tutored tutored;
 
@@ -113,11 +112,11 @@ public class Mentorship extends GenericEntity {
 
 	@Column(name = "ITERATION_NUMBER")
 	private Integer iterationNumber;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "TIME_OF_DAY")
 	private TimeOfDay timeOfDay;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "DOOR")
 	private Door door;
@@ -253,12 +252,12 @@ public class Mentorship extends GenericEntity {
 	@Override
 	public boolean equals(final Object that) {
 		return EqualsBuilder.reflectionEquals(this, that, "tutor", "tutored", "form", "healthFacility", "session",
-		        "answers", "answerHelpers", "cabinet");
+				"answers", "answerHelpers", "cabinet");
 	}
 
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this, "tutor", "tutored", "form", "healthFacility", "session",
-		        "answers", "answerHelpers", "cabinet");
+				"answers", "answerHelpers", "cabinet");
 	}
 }

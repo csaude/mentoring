@@ -16,10 +16,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<db.host>mentdev.fgh.org.mz</db.host>
+		<db.host>localhost</db.host>
 		<db.port>3307</db.port>
-		<db.user>mentor</db.user>
-		<db.password>mEnt0rI@2021</db.password>
+		<db.user>root</db.user>
+		<db.password>root</db.password>
 	</properties>
 
 	<dependencies>
@@ -84,7 +84,7 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>3.2.1</version>
 				<configuration>
-					<url>jdbc:mysql://${db.host}:${db.port}/mentoring?autoReconnect=true</url>
+					<url>jdbc:mysql://${db.host}:${db.port}/mentoring_v1?autoReconnect=true</url>
 					<user>${db.user}</user>
 					<password>${db.password}</password>
 				</configuration>
