@@ -32,7 +32,14 @@ public interface HealthFacilityResource {
 	JResponse<List<HealthFacility>> findHealthFacilitiesByDistrictId(@PathParam("districtId") final Long districtId)
 			throws BusinessException;
 
-	
+	@Path("/province/{province}")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON })
+	JResponse<List<HealthFacility>> findHealthFacilitiesByProvince(@PathParam("province") final String province)
+			throws BusinessException;
+
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

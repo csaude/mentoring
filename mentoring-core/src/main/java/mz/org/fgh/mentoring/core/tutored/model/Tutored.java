@@ -3,13 +3,20 @@
  */
 package mz.org.fgh.mentoring.core.tutored.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
-import mz.org.fgh.mentoring.core.mentorship.model.Mentorship;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.Email;
@@ -22,17 +29,13 @@ import mz.co.mozview.frameworks.core.model.Versionable;
 import mz.org.fgh.mentoring.core.career.model.Career;
 import mz.org.fgh.mentoring.core.tutored.dao.TutoredDAO;
 
-import java.util.List;
-
 /**
  * @author Eusebio Jose Maposse
  *
  */
-
+@NamedQueries(@NamedQuery(name = TutoredDAO.QUERY_NAME.fetchByUser, query = TutoredDAO.QUERY.fetchByUser))
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@NamedQueries({@NamedQuery(name = TutoredDAO.QUERY_NAME.fetchByUser, query = TutoredDAO.QUERY.fetchByUser),
-		       @NamedQuery(name = TutoredDAO.QUERY_NAME.findBySelectedFilterByTutor, query = TutoredDAO.QUERY.findBySelectedFilterByTutor)})
 @Entity
 @Table(name = "TUTOREDS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 public class Tutored extends GenericEntity implements Versionable {
@@ -60,24 +63,13 @@ public class Tutored extends GenericEntity implements Versionable {
 	private String email;
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CARRER_ID", nullable = false)
 	private Career career;
 
 	@Version
 	@Column(name = "VERSION")
 	private int version;
-
-	@OneToMany(mappedBy = "tutored", fetch = FetchType.EAGER )
-	private List<Mentorship> mentorships;
-
-	public List<Mentorship> getMentorships() {
-		return mentorships;
-	}
-
-	public void setMentorships(List<Mentorship> mentorships) {
-		this.mentorships = mentorships;
-	}
 
 	public String getCode() {
 		return this.code;

@@ -15,9 +15,9 @@
 
 	<url>http://maven.apache.org</url>
 
-	<properties>
+	<!--<properties>
 		<war.deployment.dir>/opt/data/webapp/mentoring/</war.deployment.dir>
-	</properties>
+	</properties>-->
 	<dependencies>
 
 		<dependency>

@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import mz.org.fgh.mentoring.core.location.model.Province;
 import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class HealthFacilityQueryServiceImpl extends AbstractService implements H
 
 	@Override
 	public List<HealthFacility> findHealthFacilityByDistrict(final UserContext userContext, final District district)
-	        throws BusinessException {
+			throws BusinessException {
 		return this.healthFacilityDAO.findByDistrict(district.getId(), LifeCycleStatus.ACTIVE);
 	}
 
@@ -59,5 +60,10 @@ public class HealthFacilityQueryServiceImpl extends AbstractService implements H
 	@Override
 	public HealthFacility findHealthFacilityByDistrictAndName(final District district, final String healthFacility) {
 		return this.healthFacilityDAO.findByDistrictAndName(district, healthFacility, LifeCycleStatus.ACTIVE);
+	}
+
+	@Override
+	public List<HealthFacility> findHealthFacilityByProvince(UserContext userContext, String province) throws BusinessException {
+		return this.healthFacilityDAO.findByProvince(Province.valueOf(province), LifeCycleStatus.ACTIVE);
 	}
 }

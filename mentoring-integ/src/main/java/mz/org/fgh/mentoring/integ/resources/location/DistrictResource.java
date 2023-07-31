@@ -25,8 +25,8 @@ public interface DistrictResource {
 	String NAME = "mz.org.fgh.mentoring.integ.resources.location.DistrictResource";
 
 	@GET
-	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<District>> getDistrictsByProvince(@QueryParam("province") final Province province)
 			throws BusinessException;
 }
