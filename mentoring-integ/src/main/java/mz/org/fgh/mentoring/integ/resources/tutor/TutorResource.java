@@ -70,4 +70,10 @@ public interface TutorResource {
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_JSON })
 	public JResponse<List<TutorLocationDTO>> allocateTutorLocations(final TutorBeanResource tutorBeanResource) throws BusinessException;
+	
+	@GET
+	@Path("v2/{partnerUuid}/tutors")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public JResponse<List<Tutor>> fetchTutorsByPartnerUuid(@PathParam("partnerUuid") final String partnerUuid)
+					throws BusinessException;
 }

@@ -114,5 +114,11 @@ public class TutorResourceImpl extends AbstractResource implements TutorResource
 		return JResponse.ok(tutors).build();
 		
 	}
+
+	@Override
+	public JResponse<List<Tutor>> fetchTutorsByPartnerUuid(String partnerUuid) throws BusinessException {
+		final List<Tutor> tutors = this.tutorQueryService.fetchTutorsByPartnerUuid(getUserContetx(), partnerUuid);
+		return JResponse.ok(tutors).build();
+	}
 	
 }

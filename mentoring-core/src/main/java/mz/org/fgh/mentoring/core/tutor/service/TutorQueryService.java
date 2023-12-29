@@ -27,4 +27,6 @@ public interface TutorQueryService {
 	Tutor fetchTutorByUuid(final UserContext userContext, final String uuid) throws BusinessException;
 
 	Tutor fetchTutorByEmail(final UserContext userContext, final String email) throws BusinessException;
+	
+	List<Tutor> fetchTutorsByPartnerUuid(final UserContext userContext, final String partnerUuid) throws BusinessException;
 }

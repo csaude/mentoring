@@ -73,4 +73,9 @@ public class TutorQueryServiceImpl implements TutorQueryService {
 		
 		return this.tutorDAO.findBySelectedFilter(code, name, surname, phoneNumber,partnerUuid , careerType, LifeCycleStatus.ACTIVE);
 	}
+
+	@Override
+	public List<Tutor> fetchTutorsByPartnerUuid(UserContext userContext, String partnerUuid) throws BusinessException {
+		return this.tutorDAO.fetchByPartnerUuid(partnerUuid, LifeCycleStatus.ACTIVE);
+	}
 }

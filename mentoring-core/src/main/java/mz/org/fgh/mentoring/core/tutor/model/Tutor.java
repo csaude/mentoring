@@ -35,7 +35,8 @@ import mz.org.fgh.mentoring.core.tutor.dao.TutorDAO;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @NamedQueries({ @NamedQuery(name = TutorDAO.QUERY_NAME.fetchByUuid, query = TutorDAO.QUERY.fetchByUuid),
-	@NamedQuery(name = TutorDAO.QUERY_NAME.fetchByEmail, query = TutorDAO.QUERY.fetchByEmail) })
+	@NamedQuery(name = TutorDAO.QUERY_NAME.fetchByEmail, query = TutorDAO.QUERY.fetchByEmail),
+	@NamedQuery(name = TutorDAO.QUERY_NAME.fetchByPartnerUuid, query = TutorDAO.QUERY.fetchByPartnerUuid)})
 @Entity
 @Table(name = "TUTORS", uniqueConstraints = @UniqueConstraint(columnNames = { "CODE" }))
 public class Tutor extends GenericEntity {
