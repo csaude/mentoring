@@ -25,6 +25,7 @@ public interface TutorDAO extends GenericDAO<Tutor, Long> {
 													"				INNER JOIN FETCH t.partner p " +
 													"WHERE t.uuid = :uuid";
 		public static final String fetchByEmail = "SELECT t FROM Tutor t INNER JOIN FETCH t.career INNER JOIN FETCH t.partner p WHERE t.email = :email AND t.lifeCycleStatus = :lifeCycleStatus";
+	
 	}
 
 	class QUERY_NAME {
@@ -41,4 +42,5 @@ public interface TutorDAO extends GenericDAO<Tutor, Long> {
 	Tutor fetchByUuid(final String uuid);
 
 	Tutor fecthByEmail(final String email, final LifeCycleStatus lifeCycleStatus);
+	
 }

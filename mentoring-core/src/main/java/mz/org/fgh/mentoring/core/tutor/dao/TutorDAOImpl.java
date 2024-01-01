@@ -126,4 +126,5 @@ public class TutorDAOImpl extends GenericDAOImpl<Tutor, Long> implements TutorDA
 
 		return query.getResultList();
 	}
+
 }
