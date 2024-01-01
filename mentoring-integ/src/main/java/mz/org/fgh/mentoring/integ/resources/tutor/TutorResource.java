@@ -40,14 +40,15 @@ public interface TutorResource {
 	public JResponse<List<Tutor>> findTutors(@QueryParam("code") final String code,
 			@QueryParam("name") final String name, @QueryParam("surname") final String surname,
 			@QueryParam("careerType") final CareerType careerType, @QueryParam("phoneNumber") final String phoneNumber)
-					throws BusinessException;
+			throws BusinessException;
+
 	@GET
 	@Path("tutor-partner")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public JResponse<List<Tutor>> findTutors(@QueryParam("code") final String code,
 			@QueryParam("name") final String name, @QueryParam("surname") final String surname,
-			@QueryParam("careerType") final CareerType careerType, @QueryParam("phoneNumber") final String phoneNumber, @QueryParam("partnerUuid") final String partnerUuid)
-					throws BusinessException;
+			@QueryParam("careerType") final CareerType careerType, @QueryParam("phoneNumber") final String phoneNumber,
+			@QueryParam("partnerUuid") final String partnerUuid) throws BusinessException;
 
 	@PUT
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -69,11 +70,14 @@ public interface TutorResource {
 	@Path("v2/tutor-locations")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_JSON })
-	public JResponse<List<TutorLocationDTO>> allocateTutorLocations(final TutorBeanResource tutorBeanResource) throws BusinessException;
-	
+	public JResponse<List<TutorLocationDTO>> allocateTutorLocations(final TutorBeanResource tutorBeanResource)
+			throws BusinessException;
+
 	@GET
-	@Path("v2/{partnerUuid}/tutors")
+	@Path("v2/tutor-partner")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public JResponse<List<Tutor>> fetchTutorsByPartnerUuid(@PathParam("partnerUuid") final String partnerUuid)
-					throws BusinessException;
+	public JResponse<List<Tutor>> fetchTutorsForUserPartner(@QueryParam("code") final String code,
+			@QueryParam("name") final String name, @QueryParam("surname") final String surname,
+			@QueryParam("careerType") final CareerType careerType, @QueryParam("phoneNumber") final String phoneNumber,
+			@QueryParam("userUuid") final String userUuid) throws BusinessException;
 }

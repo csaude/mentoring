@@ -127,9 +127,4 @@ public class TutorDAOImpl extends GenericDAOImpl<Tutor, Long> implements TutorDA
 		return query.getResultList();
 	}
 
-	@Override
-	public List<Tutor> fetchByPartnerUuid(String partnerUuid, LifeCycleStatus lifeCycleStatus) {
-		return this.findByNamedQuery(TutorDAO.QUERY_NAME.fetchByPartnerUuid,
-		        new ParamBuilder().add("partnerUuid", partnerUuid).add("lifeCycleStatus", lifeCycleStatus).process());
-	}
 }

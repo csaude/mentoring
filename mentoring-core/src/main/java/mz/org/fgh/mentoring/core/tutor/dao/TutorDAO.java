@@ -25,17 +25,12 @@ public interface TutorDAO extends GenericDAO<Tutor, Long> {
 													"				INNER JOIN FETCH t.partner p " +
 													"WHERE t.uuid = :uuid";
 		public static final String fetchByEmail = "SELECT t FROM Tutor t INNER JOIN FETCH t.career INNER JOIN FETCH t.partner p WHERE t.email = :email AND t.lifeCycleStatus = :lifeCycleStatus";
-		
-		public static final String fetchByPartnerUuid = 	"SELECT t " +
-				"FROM Tutor t 	INNER JOIN FETCH t.career c " +
-				"				INNER JOIN FETCH t.partner p " +
-				"WHERE p.uuid = :partnerUuid AND t.lifeCycleStatus = :lifeCycleStatus";
+	
 	}
 
 	class QUERY_NAME {
 		public static final String fetchByUuid = "Tutor.fetchByUuid";
 		public static final String fetchByEmail = "Tutor.findByEmail";
-		public static final String fetchByPartnerUuid = "Tutor.fetchByPartnerUuid";
 	}
 
 	List<Tutor> findBySelectedFilter(final String code, final String name, final String surname,
@@ -48,5 +43,4 @@ public interface TutorDAO extends GenericDAO<Tutor, Long> {
 
 	Tutor fecthByEmail(final String email, final LifeCycleStatus lifeCycleStatus);
 	
-	List<Tutor> fetchByPartnerUuid(final String partnerUuid, final LifeCycleStatus lifeCycleStatus);
 }
